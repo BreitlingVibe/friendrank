@@ -949,30 +949,26 @@ export default function Home() {
 
       {/* Header */}
       <header className="relative z-10 border-b border-white/5">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+        <div className="mx-auto flex max-w-6xl items-center px-6 py-5">
           <div className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 text-sm font-bold">
               FR
             </span>
             <span className="font-semibold tracking-tight">FriendRank</span>
           </div>
-          <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-200">
-            Prototype demo
-          </span>
         </div>
       </header>
-
-      <p className="relative z-10 border-b border-amber-500/10 bg-amber-500/5 px-6 py-2.5 text-center text-sm text-amber-100/80">
-        This is an early demo. Invite links and votes are simulated for now.
-      </p>
 
       <main className="relative z-10">
         {/* Hero */}
         <section className="mx-auto max-w-6xl px-6 pb-24 pt-20 text-center sm:pt-28">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-sm text-violet-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-violet-400 animate-pulse" />
-            Walk through the demo flow below
+          <div className="mb-4 inline-flex items-center rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-200">
+            Prototype demo
           </div>
+
+          <p className="mx-auto mb-8 max-w-xl text-sm text-amber-100/80 sm:text-base">
+            This is an early demo. Invite links and votes are simulated for now.
+          </p>
 
           <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Find out who your friends{" "}
