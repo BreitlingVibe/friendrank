@@ -835,6 +835,7 @@ export default function Home() {
   const [feedbackResponse, setFeedbackResponse] = useState<
     "yes" | "not-yet" | null
   >(null);
+  const [shareabilityNote, setShareabilityNote] = useState("");
 
   const multiplayerResultsUnlocked = simulatedVoteCount >= VOTES_REQUIRED;
   const showResultsView = multiplayerResultsUnlocked || demoResultsUnlocked;
@@ -1305,6 +1306,57 @@ export default function Home() {
           </section>
         )}
 
+        {/* Feedback */}
+        <section className="scroll-mt-8 border-t border-white/5 py-20">
+          <div className="mx-auto max-w-2xl px-6 text-center">
+            <div className="rounded-2xl border border-white/10 bg-slate-900/50 px-6 py-8 backdrop-blur-sm sm:px-8 sm:py-10">
+              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+                Would you share this with your group chat?
+              </h2>
+
+              {feedbackResponse ? (
+                <div className="mt-6 space-y-5 text-left">
+                  <p className="text-center text-sm text-emerald-400">
+                    Thanks — this helps us improve the demo.
+                  </p>
+
+                  {feedbackResponse === "not-yet" && (
+                    <div>
+                      <p className="mb-3 text-sm font-medium text-slate-300">
+                        What would make it more shareable?
+                      </p>
+                      <textarea
+                        value={shareabilityNote}
+                        onChange={(e) => setShareabilityNote(e.target.value)}
+                        placeholder="Example: funnier results, real invite links, better categories..."
+                        rows={3}
+                        className={`${inputClassName} resize-y min-h-[96px] text-left text-sm`}
+                      />
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setFeedbackResponse("yes")}
+                    className="w-full rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 sm:w-auto sm:min-w-[220px]"
+                  >
+                    👍 Yes, I&apos;d share it
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFeedbackResponse("not-yet")}
+                    className="w-full rounded-2xl border border-white/15 bg-white/10 px-8 py-4 text-base font-semibold transition hover:bg-white/15 sm:w-auto sm:min-w-[220px]"
+                  >
+                    👎 Not yet
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
         {/* FriendRank Categories */}
         <section
           ref={categoriesRef}
@@ -1365,38 +1417,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Feedback */}
-        <section className="mx-auto max-w-2xl px-6 pb-8 text-center">
-          <div className="rounded-2xl border border-white/10 bg-slate-900/50 px-6 py-8 backdrop-blur-sm">
-            <p className="text-lg font-medium">
-              Would you share this with your group chat?
-            </p>
-            {feedbackResponse ? (
-              <p className="mt-4 text-sm text-emerald-400">
-                Thanks for the feedback — it helps us build something your group
-                will actually want to share.
-              </p>
-            ) : (
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                <button
-                  type="button"
-                  onClick={() => setFeedbackResponse("yes")}
-                  className="rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-3 text-sm font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500"
-                >
-                  Yes
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setFeedbackResponse("not-yet")}
-                  className="rounded-full border border-white/15 bg-white/10 px-8 py-3 text-sm font-semibold transition hover:bg-white/15"
-                >
-                  Not yet
-                </button>
-              </div>
-            )}
           </div>
         </section>
 
