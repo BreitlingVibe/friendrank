@@ -625,13 +625,24 @@ function WaitingForVotesCard({
   );
 }
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({
+  children,
+  description,
+}: {
+  children: React.ReactNode;
+  description?: string;
+}) {
   return (
-    <div className="mb-6 flex items-center gap-3">
-      <span className="text-xs font-bold uppercase tracking-widest text-violet-400">
-        {children}
-      </span>
-      <span className="h-px flex-1 bg-gradient-to-r from-violet-500/40 to-transparent" />
+    <div className="mb-6">
+      <div className="flex items-center gap-3">
+        <span className="text-xs font-bold uppercase tracking-widest text-violet-400">
+          {children}
+        </span>
+        <span className="h-px flex-1 bg-gradient-to-r from-violet-500/40 to-transparent" />
+      </div>
+      {description && (
+        <p className="mt-2 text-sm text-slate-500">{description}</p>
+      )}
     </div>
   );
 }
@@ -821,6 +832,9 @@ export default function Home() {
   const [demoResultsUnlocked, setDemoResultsUnlocked] = useState(false);
   const [previewVotes, setPreviewVotes] = useState<string[] | null>(null);
   const [pendingResultsScroll, setPendingResultsScroll] = useState(false);
+  const [feedbackResponse, setFeedbackResponse] = useState<
+    "yes" | "not-yet" | null
+  >(null);
 
   const multiplayerResultsUnlocked = simulatedVoteCount >= VOTES_REQUIRED;
   const showResultsView = multiplayerResultsUnlocked || demoResultsUnlocked;
@@ -935,22 +949,29 @@ export default function Home() {
 
       {/* Header */}
       <header className="relative z-10 border-b border-white/5">
-        <div className="mx-auto flex max-w-6xl items-center px-6 py-5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
           <div className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 text-sm font-bold">
               FR
             </span>
             <span className="font-semibold tracking-tight">FriendRank</span>
           </div>
+          <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-200">
+            Prototype demo
+          </span>
         </div>
       </header>
+
+      <p className="relative z-10 border-b border-amber-500/10 bg-amber-500/5 px-6 py-2.5 text-center text-sm text-amber-100/80">
+        This is an early demo. Invite links and votes are simulated for now.
+      </p>
 
       <main className="relative z-10">
         {/* Hero */}
         <section className="mx-auto max-w-6xl px-6 pb-24 pt-20 text-center sm:pt-28">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-sm text-violet-300">
             <span className="h-1.5 w-1.5 rounded-full bg-violet-400 animate-pulse" />
-            AI-powered FriendRank games
+            Walk through the demo flow below
           </div>
 
           <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
@@ -971,7 +992,7 @@ export default function Home() {
               onClick={scrollToCreateGame}
               className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/40 sm:w-auto"
             >
-              Create Your FriendRank
+              Try FriendRank Demo
             </button>
             <button
               type="button"
@@ -996,14 +1017,17 @@ export default function Home() {
           className="scroll-mt-8 border-t border-white/5 bg-white/[0.02] py-20"
         >
           <div className="mx-auto max-w-2xl px-6">
-            <SectionLabel>Creator View</SectionLabel>
+            <SectionLabel description="Create a demo game">
+              Creator View
+            </SectionLabel>
 
             <div className="mb-10 text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Create your FriendRank
+                Create a demo FriendRank
               </h2>
               <p className="mt-3 text-slate-400">
-                Add your friends, describe the vibe, and generate your game
+                Fill in your group details — everything below runs locally in
+                your browser
               </p>
             </div>
 
@@ -1091,7 +1115,7 @@ export default function Home() {
                   type="submit"
                   className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/40"
                 >
-                  Generate FriendRank
+                  Generate Demo FriendRank
                 </button>
               </div>
             </form>
@@ -1204,7 +1228,9 @@ export default function Home() {
             className="scroll-mt-8 border-t border-white/5 py-20"
           >
             <div className="mx-auto max-w-2xl px-6">
-              <SectionLabel>Friend Voting View</SectionLabel>
+              <SectionLabel description="Preview what friends would see">
+                Friend Voting View
+              </SectionLabel>
 
               <div className="mb-8 text-center">
                 <h2 className="text-2xl font-bold sm:text-3xl">
@@ -1256,7 +1282,9 @@ export default function Home() {
             className="scroll-mt-8 border-t border-white/5 bg-white/[0.02] py-20"
           >
             <div className="mx-auto max-w-2xl px-6">
-              <SectionLabel>Results View</SectionLabel>
+              <SectionLabel description="Preview shareable results">
+                Results View
+              </SectionLabel>
 
               <div className="mb-6 text-center">
                 <h2 className="text-2xl font-bold sm:text-3xl">
@@ -1344,6 +1372,38 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Feedback */}
+        <section className="mx-auto max-w-2xl px-6 pb-8 text-center">
+          <div className="rounded-2xl border border-white/10 bg-slate-900/50 px-6 py-8 backdrop-blur-sm">
+            <p className="text-lg font-medium">
+              Would you share this with your group chat?
+            </p>
+            {feedbackResponse ? (
+              <p className="mt-4 text-sm text-emerald-400">
+                Thanks for the feedback — it helps us build something your group
+                will actually want to share.
+              </p>
+            ) : (
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                <button
+                  type="button"
+                  onClick={() => setFeedbackResponse("yes")}
+                  className="rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-3 text-sm font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500"
+                >
+                  Yes
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFeedbackResponse("not-yet")}
+                  className="rounded-full border border-white/15 bg-white/10 px-8 py-3 text-sm font-semibold transition hover:bg-white/15"
+                >
+                  Not yet
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+
         {/* Bottom CTA */}
         <section className="mx-auto max-w-6xl px-6 py-24 text-center">
           <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-violet-500/10 via-slate-900 to-cyan-500/10 px-8 py-16">
@@ -1359,7 +1419,7 @@ export default function Home() {
               onClick={scrollToCreateGame}
               className="mt-8 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500"
             >
-              Create Your FriendRank
+              Try FriendRank Demo
             </button>
           </div>
         </section>
