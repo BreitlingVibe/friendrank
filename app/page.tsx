@@ -971,15 +971,15 @@ export default function Home() {
           </p>
 
           <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            Find out who your friends{" "}
+            Rank your{" "}
             <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">
-              really are
+              friend group.
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400 sm:text-xl">
-            Create hilarious AI-powered FriendRank games, vote on your group,
-            and share the results.
+            Find out who&apos;s the main character, secret villain, and future
+            influencer.
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
