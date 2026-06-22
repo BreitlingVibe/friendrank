@@ -19,6 +19,25 @@ const FRIEND_RANK_CATEGORIES = [
   { label: "Most Likely To Get Cancelled", emoji: "😬", nickname: "Cancel-Worthy Legend" },
 ] as const;
 
+const VIBE_TAGS = [
+  "Chaotic",
+  "Meme-heavy",
+  "College",
+  "School",
+  "Gaming",
+  "Discord",
+  "Sports",
+  "Party",
+  "Office",
+  "Family",
+  "Soft drama",
+  "Brutal honesty",
+] as const;
+
+const MAX_VIBE_TAGS = 3;
+
+type VibeTag = (typeof VIBE_TAGS)[number];
+
 const EXTRA_NICKNAMES = [
   "The Main Character",
   "Walking Plot Twist",
@@ -96,7 +115,8 @@ const inputClassName =
 
 type GeneratedGame = {
   tone: Tone;
-  groupDescription: string;
+  vibeTags: VibeTag[];
+  extraContext: string;
   questions: string[];
   friends: string[];
   categories: FriendRankCategory[];
@@ -196,8 +216,16 @@ function buildFriendRankShareText(
   ].join("\n");
 }
 
-function detectGroupTheme(description: string): GroupTheme {
-  const normalized = description.toLowerCase();
+function buildGroupProfile(vibeTags: VibeTag[], extraContext: string): string {
+  return [...vibeTags, extraContext.trim()].filter(Boolean).join(". ");
+}
+
+function detectGroupTheme(vibeTags: VibeTag[], extraContext: string): GroupTheme {
+  if (vibeTags.includes("Party")) return "party";
+  if (vibeTags.includes("College") || vibeTags.includes("School")) return "college";
+  if (vibeTags.includes("Gaming") || vibeTags.includes("Discord")) return "online";
+
+  const normalized = buildGroupProfile(vibeTags, extraContext).toLowerCase();
 
   if (/\b(beer|party|pub|drinks|bar|night out|club|wine|cocktail)\b/.test(normalized)) {
     return "party";
@@ -212,14 +240,25 @@ function detectGroupTheme(description: string): GroupTheme {
   return "generic";
 }
 
-function extractGroupVibePhrase(description: string): string {
-  const trimmed = description.trim();
-  if (!trimmed) return "your unique friend group";
+function extractGroupVibePhrase(vibeTags: VibeTag[], extraContext: string): string {
+  const trimmed = extraContext.trim();
+  let contextSnippet = "";
 
-  const firstClause = trimmed.split(/[,;!?]/)[0]?.trim() ?? trimmed;
-  if (firstClause.length <= 55) return firstClause;
+  if (trimmed) {
+    const firstClause = trimmed.split(/[,;!?]/)[0]?.trim() ?? trimmed;
+    contextSnippet =
+      firstClause.length <= 55
+        ? firstClause
+        : `${firstClause.slice(0, 52).trim()}...`;
+  }
 
-  return `${firstClause.slice(0, 52).trim()}...`;
+  if (vibeTags.length > 0 && contextSnippet) {
+    return `${vibeTags.join(" · ")} — ${contextSnippet}`;
+  }
+  if (vibeTags.length > 0) return vibeTags.join(" · ");
+  if (contextSnippet) return contextSnippet;
+
+  return "your unique friend group";
 }
 
 function applyTonePrefix(text: string, tone: Tone): string {
@@ -254,10 +293,11 @@ function applyToneToComboTagline(tagline: string, tone: Tone): string {
 
 function generateGroupVibe(
   topThree: { category: FriendRankCategory; winner: string }[],
-  groupDescription: string,
+  vibeTags: VibeTag[],
+  extraContext: string,
   tone: Tone,
 ): string {
-  const theme = detectGroupTheme(groupDescription);
+  const theme = detectGroupTheme(vibeTags, extraContext);
 
   const themeVibes: Record<Exclude<GroupTheme, "generic">, string[]> = {
     party: ["pub table chaos", "beer-fueled debates", "group chat after midnight"],
@@ -291,17 +331,55 @@ function generateGroupVibe(
     return `${percentages[index]}% ${vibe}`;
   });
 
-  const base = `This group is ${parts.join(", ")}.`;
+  const vibeLabel =
+    vibeTags.length > 0
+      ? vibeTags.map((tag) => tag.toLowerCase()).join(" + ")
+      : null;
+
+  const base = vibeLabel
+    ? `This ${vibeLabel} group is ${parts.join(", ")}.`
+    : `This group is ${parts.join(", ")}.`;
+
   return applyTonePrefix(base, tone);
 }
 
-function generateDangerousCombo(
-  friends: string[],
-  groupDescription: string,
-  tone: Tone,
-): string {
-  const theme = detectGroupTheme(groupDescription);
+const vibeTagComboTaglines: Partial<Record<VibeTag, string[]>> = {
+  Chaotic: ["pure chaos unlocked", "no plan survives this duo", "unhinged teamwork"],
+  "Meme-heavy": [
+    "one meme away from disaster",
+    "group chat comedy hour",
+    "screenshot-worthy chaos",
+  ],
+  College: ["all-nighter energy", "deadline panic mode", "campus drama unfolding"],
+  School: ["homeroom drama amplified", "locker hallway chaos", "after-school group chat"],
+  Gaming: ["ranked queue rage", "one more game forever", "tilt squad activated"],
+  Discord: ["Discord drama at 2am", "voice chat chaos", "ping storm incoming"],
+  Sports: ["locker room energy", "competitive for no reason", "post-game group chat"],
+  Party: ["bad ideas after drinks", "one more round", "pub table chaos unlocked"],
+  Office: [
+    "Slack thread gone wrong",
+    "meeting that should've been an email",
+    "after-work drinks energy",
+  ],
+  Family: ["holiday table tension", "family group text chaos", "cousin drama unlocked"],
+  "Soft drama": [
+    "polite chaos brewing",
+    "passive-aggressive energy",
+    "subtle tension rising",
+  ],
+  "Brutal honesty": [
+    "no filter activated",
+    "truth bomb incoming",
+    "honesty with zero padding",
+  ],
+};
 
+function pickDangerousComboTagline(
+  vibeTags: VibeTag[],
+  extraContext: string,
+  theme: GroupTheme,
+  friends: string[],
+): string {
   const themeTaglines: Record<GroupTheme, string[]> = {
     party: [
       "one more round",
@@ -328,6 +406,50 @@ function generateDangerousCombo(
     ],
   };
 
+  for (const tag of vibeTags) {
+    const taglines = vibeTagComboTaglines[tag];
+    if (taglines?.length) {
+      const index =
+        (friends[0]?.length ?? 0) + (friends[1]?.length ?? 0) + tag.length;
+      let tagline = taglines[index % taglines.length];
+
+      const contextHint = extraContext.trim().split(/[,;!?]/)[0]?.trim();
+      if (contextHint && contextHint.length >= 12) {
+        const snippet =
+          contextHint.length <= 36
+            ? contextHint
+            : `${contextHint.slice(0, 33).trim()}...`;
+        tagline = `${tagline} — "${snippet}" energy`;
+      }
+
+      return tagline;
+    }
+  }
+
+  const options = themeTaglines[theme];
+  const index = (friends[0]?.length ?? 0) + (friends[1]?.length ?? 0);
+  let tagline = options[index % options.length];
+
+  const contextHint = extraContext.trim().split(/[,;!?]/)[0]?.trim();
+  if (contextHint && contextHint.length >= 12) {
+    const snippet =
+      contextHint.length <= 36
+        ? contextHint
+        : `${contextHint.slice(0, 33).trim()}...`;
+    tagline = `${tagline} — "${snippet}" energy`;
+  }
+
+  return tagline;
+}
+
+function generateDangerousCombo(
+  friends: string[],
+  vibeTags: VibeTag[],
+  extraContext: string,
+  tone: Tone,
+): string {
+  const theme = detectGroupTheme(vibeTags, extraContext);
+
   if (friends.length === 0) {
     return applyToneToComboTagline(
       "This group + group chat = chaos unlocked",
@@ -336,20 +458,31 @@ function generateDangerousCombo(
   }
 
   if (friends.length === 1) {
-    const tagline = themeTaglines[theme][0] ?? themeTaglines.generic[0];
+    const rawTagline = pickDangerousComboTagline(
+      vibeTags,
+      extraContext,
+      theme,
+      friends,
+    );
     return applyToneToComboTagline(
-      `${friends[0]} + the group chat = ${tagline}`,
+      `${friends[0]} + the group chat = ${rawTagline}`,
       tone,
     );
   }
 
   const name1 = friends[0];
   const name2 = friends[1];
-  const options = themeTaglines[theme];
-  const tagline = applyToneToComboTagline(
-    options[(name1.length + name2.length) % options.length],
-    tone,
+  const rawTagline = pickDangerousComboTagline(
+    vibeTags,
+    extraContext,
+    theme,
+    friends,
   );
+  const tagline = applyToneToComboTagline(rawTagline, tone);
+
+  if (vibeTags.length >= 2) {
+    return `${name1} + ${name2} = ${tagline} (${vibeTags[0].toLowerCase()} × ${vibeTags[1].toLowerCase()} combo)`;
+  }
 
   return `${name1} + ${name2} = ${tagline}`;
 }
@@ -377,15 +510,20 @@ function FriendRankResultsView({
   }));
   const friendNicknames = assignFriendNicknames(friends, categoryResults);
   const topThree = categoryResults.slice(0, 3);
-  const groupVibePhrase = extractGroupVibePhrase(game.groupDescription);
+  const groupVibePhrase = extractGroupVibePhrase(
+    game.vibeTags,
+    game.extraContext,
+  );
   const groupVibe = generateGroupVibe(
     topThree,
-    game.groupDescription,
+    game.vibeTags,
+    game.extraContext,
     game.tone,
   );
   const dangerousCombo = generateDangerousCombo(
     friends,
-    game.groupDescription,
+    game.vibeTags,
+    game.extraContext,
     game.tone,
   );
   const shareText = buildFriendRankShareText(topThree, groupVibe);
@@ -818,7 +956,8 @@ export default function Home() {
   const unlockedResultsRef = useRef<HTMLElement>(null);
 
   const [groupNames, setGroupNames] = useState("");
-  const [groupDescription, setGroupDescription] = useState("");
+  const [selectedVibeTags, setSelectedVibeTags] = useState<VibeTag[]>([]);
+  const [extraContext, setExtraContext] = useState("");
   const [tone, setTone] = useState<Tone>("Funny");
   const [generatedGame, setGeneratedGame] = useState<GeneratedGame | null>(
     null,
@@ -917,6 +1056,18 @@ export default function Home() {
     scrollToCreateGame();
   }
 
+  function toggleVibeTag(tag: VibeTag) {
+    setSelectedVibeTags((prev) => {
+      if (prev.includes(tag)) {
+        return prev.filter((item) => item !== tag);
+      }
+      if (prev.length >= MAX_VIBE_TAGS) {
+        return prev;
+      }
+      return [...prev, tag];
+    });
+  }
+
   function handleGenerateGame(e: React.FormEvent) {
     e.preventDefault();
     const friends = parseGroupNames(groupNames);
@@ -924,7 +1075,8 @@ export default function Home() {
 
     setGeneratedGame({
       tone,
-      groupDescription,
+      vibeTags: selectedVibeTags,
+      extraContext,
       friends,
       categories,
       questions: generateFriendRankQuestions(categories),
@@ -1055,19 +1207,55 @@ export default function Home() {
                 </div>
 
                 <div>
+                  <p className="mb-2 block text-sm font-medium text-slate-300">
+                    Pick your group vibe
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {VIBE_TAGS.map((tag) => {
+                      const isSelected = selectedVibeTags.includes(tag);
+                      const isDisabled =
+                        !isSelected &&
+                        selectedVibeTags.length >= MAX_VIBE_TAGS;
+
+                      return (
+                        <button
+                          key={tag}
+                          type="button"
+                          onClick={() => toggleVibeTag(tag)}
+                          disabled={isDisabled}
+                          className={`rounded-full border px-3 py-1.5 text-sm font-medium transition ${
+                            isSelected
+                              ? "border-violet-400/60 bg-violet-500/25 text-white shadow-sm shadow-violet-500/20"
+                              : isDisabled
+                                ? "cursor-not-allowed border-white/5 bg-white/[0.02] text-slate-600"
+                                : "border-white/10 bg-white/5 text-slate-300 hover:border-violet-500/30 hover:bg-violet-500/10"
+                          }`}
+                        >
+                          {tag}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <p className="mt-2 text-xs text-slate-500">
+                    Pick up to {MAX_VIBE_TAGS} tags — skip if you want to jump
+                    in fast
+                  </p>
+                </div>
+
+                <div>
                   <label
-                    htmlFor="group-description"
+                    htmlFor="extra-context"
                     className="mb-2 block text-sm font-medium text-slate-300"
                   >
-                    Group description
+                    Add inside joke or extra context (optional)
                   </label>
                   <textarea
-                    id="group-description"
-                    rows={4}
-                    value={groupDescription}
-                    onChange={(e) => setGroupDescription(e.target.value)}
-                    placeholder="Example: college friends in their 20s who are chronically online and roast each other constantly"
-                    className={`${inputClassName} resize-y min-h-[100px]`}
+                    id="extra-context"
+                    rows={2}
+                    value={extraContext}
+                    onChange={(e) => setExtraContext(e.target.value)}
+                    placeholder="Example: Alex is always late, Taylor starts drama, Jordan disappears from group chats…"
+                    className={`${inputClassName} resize-y min-h-[72px] text-sm`}
                   />
                 </div>
 
@@ -1367,7 +1555,7 @@ export default function Home() {
               FriendRank Categories
             </h2>
             <p className="mt-3 text-slate-400">
-              Gen Z ranking categories your group will obsess over
+              Friend group categories built for chaos
             </p>
           </div>
 
