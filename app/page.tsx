@@ -47,9 +47,9 @@ const steps = [
   },
   {
     number: "02",
-    title: "AI creates the game",
+    title: "The game is created",
     description:
-      "Get personalized FriendRank categories, questions, and roasts tailored to your crew.",
+      "Get playful FriendRank categories, questions, and results tailored to your group vibe.",
   },
   {
     number: "03",
