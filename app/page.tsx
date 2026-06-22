@@ -66,7 +66,30 @@ const steps = [
 ];
 
 type Tone = "Funny" | "Savage but friendly" | "Wholesome" | "Chaotic";
-type FriendRankCategory = (typeof FRIEND_RANK_CATEGORIES)[number];
+type FriendRankCategory = {
+  label: string;
+  emoji: string;
+  nickname: string;
+  isCustom?: boolean;
+};
+
+const GAME_CATEGORY_COUNT = 5;
+
+const CUSTOM_CATEGORY_PLACEHOLDERS = [
+  "Most likely to disappear from the group chat",
+  "Most likely to start drama and deny it",
+  "Most likely to be late but somehow forgiven",
+] as const;
+
+const CUSTOM_CATEGORY_EMOJIS = ["✨", "🎯", "💬"] as const;
+
+const CUSTOM_AGREE_QUOTE_TEMPLATES = [
+  "{name} is the undisputed winner of \"{label}\".",
+  "The group didn't even hesitate — {name} for {label}.",
+  "If {label} had a face, it would look exactly like {name}.",
+  "{name} and \"{label}\" are basically the same sentence.",
+  "This category might as well be named after {name}.",
+];
 
 const tones: Tone[] = [
   "Funny",
@@ -83,14 +106,69 @@ function parseGroupNames(input: string): string[] {
   return names.length > 0 ? names.slice(0, 8) : [...DEFAULT_FRIENDS];
 }
 
-function getFriendRankCategories(count = 5): FriendRankCategory[] {
-  return [...FRIEND_RANK_CATEGORIES.slice(0, count)];
+function parseCustomCategoryLabels(inputs: string[]): string[] {
+  return inputs.map((value) => value.trim()).filter(Boolean).slice(0, 3);
+}
+
+function createCustomCategoryNickname(label: string): string {
+  const normalized = label.toLowerCase();
+
+  if (normalized.includes("group chat")) return "Group Chat Ghost";
+  if (normalized.includes("drama")) return "Drama Starter Denier";
+  if (normalized.includes("late")) return "Forgiven Latecomer";
+  if (normalized.includes("meme")) return "Certified Meme Lord";
+
+  return "Inside Joke Legend";
+}
+
+function createCustomCategory(label: string, index: number): FriendRankCategory {
+  return {
+    label,
+    emoji: CUSTOM_CATEGORY_EMOJIS[index % CUSTOM_CATEGORY_EMOJIS.length],
+    nickname: createCustomCategoryNickname(label),
+    isCustom: true,
+  };
+}
+
+function buildGameCategories(customInputs: string[]): FriendRankCategory[] {
+  const customCategories = parseCustomCategoryLabels(customInputs).map(
+    createCustomCategory,
+  );
+
+  let defaultCount = GAME_CATEGORY_COUNT - customCategories.length;
+  if (customCategories.length < 3) {
+    defaultCount = Math.max(defaultCount, 3);
+  }
+
+  const defaults: FriendRankCategory[] = [];
+  for (const category of FRIEND_RANK_CATEGORIES) {
+    if (defaults.length >= defaultCount) break;
+
+    const isDuplicate = customCategories.some(
+      (custom) => custom.label.toLowerCase() === category.label.toLowerCase(),
+    );
+
+    if (!isDuplicate) {
+      defaults.push({ ...category });
+    }
+  }
+
+  return [...customCategories, ...defaults].slice(0, GAME_CATEGORY_COUNT);
 }
 
 function generateFriendRankQuestions(
   categories: FriendRankCategory[],
 ): string[] {
-  return categories.map((category) => `Who is the ${category.label}?`);
+  return categories.map((category) => {
+    const label = category.label.trim();
+
+    if (/^most likely\b/i.test(label)) {
+      const normalized = label.endsWith("?") ? label.slice(0, -1) : label;
+      return `Who is ${normalized}?`;
+    }
+
+    return `Who is the ${label}?`;
+  });
 }
 
 const DEMO_GAME_URL = "https://friendrank.ai/game/demo";
@@ -377,12 +455,22 @@ function generateVotePercent(seed: number, rank: number): number {
 }
 
 function generateCategoryAgreeQuote(
-  categoryLabel: string,
+  category: FriendRankCategory,
   winner: string,
   seed: number,
 ): string {
-  const templates = CATEGORY_AGREE_QUOTES[categoryLabel] ?? DEFAULT_AGREE_QUOTES;
-  const template = templates[pickIndex(seed, categoryLabel.length, templates.length)];
+  if (category.isCustom) {
+    const template =
+      CUSTOM_AGREE_QUOTE_TEMPLATES[
+        pickIndex(seed, category.label.length, CUSTOM_AGREE_QUOTE_TEMPLATES.length)
+      ];
+    return template
+      .replace(/\{name\}/g, winner)
+      .replace(/\{label\}/g, category.label);
+  }
+
+  const templates = CATEGORY_AGREE_QUOTES[category.label] ?? DEFAULT_AGREE_QUOTES;
+  const template = templates[pickIndex(seed, category.label.length, templates.length)];
   return template.replace(/\{name\}/g, winner);
 }
 
@@ -457,7 +545,7 @@ function buildResultsPresentation(
       ...result,
       votePercent,
       agreeQuote: generateCategoryAgreeQuote(
-        result.category.label,
+        result.category,
         result.winner,
         seed + rank,
       ),
@@ -664,6 +752,14 @@ function FriendRankResultsView({
           </p>
         )}
 
+        {detail.category.isCustom && (
+          <p className="mb-2 text-center">
+            <span className="inline-block rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-200">
+              Custom category
+            </span>
+          </p>
+        )}
+
         <p
           className={`font-bold uppercase tracking-wide text-white ${
             featured ? "text-lg" : "text-base"
@@ -678,6 +774,10 @@ function FriendRankResultsView({
           }`}
         >
           {detail.winner}
+        </p>
+
+        <p className="mt-1 text-sm font-medium text-cyan-300/90">
+          {detail.category.nickname}
         </p>
 
         <p className="mt-2 text-sm text-violet-200">
@@ -1134,6 +1234,7 @@ export default function Home() {
   const [groupNames, setGroupNames] = useState("");
   const [selectedVibeTags, setSelectedVibeTags] = useState<VibeTag[]>([]);
   const [extraContext, setExtraContext] = useState("");
+  const [customCategories, setCustomCategories] = useState(["", "", ""]);
   const [tone, setTone] = useState<Tone>("Funny");
   const [generatedGame, setGeneratedGame] = useState<GeneratedGame | null>(
     null,
@@ -1154,6 +1255,19 @@ export default function Home() {
 
   const multiplayerResultsUnlocked = simulatedVoteCount >= VOTES_REQUIRED;
   const showResultsView = multiplayerResultsUnlocked || demoResultsUnlocked;
+
+  const previewCategories = useMemo(
+    () => buildGameCategories(customCategories),
+    [customCategories],
+  );
+
+  function updateCustomCategory(index: number, value: string) {
+    setCustomCategories((prev) => {
+      const next = [...prev];
+      next[index] = value;
+      return next;
+    });
+  }
 
   useEffect(() => {
     if (pendingFriendVotingScroll && friendVotingRef.current) {
@@ -1247,7 +1361,7 @@ export default function Home() {
   function handleGenerateGame(e: React.FormEvent) {
     e.preventDefault();
     const friends = parseGroupNames(groupNames);
-    const categories = getFriendRankCategories(5);
+    const categories = buildGameCategories(customCategories);
 
     setGeneratedGame({
       tone,
@@ -1436,6 +1550,29 @@ export default function Home() {
                   />
                 </div>
 
+                <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4">
+                  <p className="text-sm font-medium text-slate-200">
+                    Add your own categories
+                  </p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    Optional — make it personal with inside jokes.
+                  </p>
+                  <div className="mt-4 space-y-3">
+                    {CUSTOM_CATEGORY_PLACEHOLDERS.map((placeholder, index) => (
+                      <input
+                        key={placeholder}
+                        type="text"
+                        value={customCategories[index]}
+                        onChange={(e) =>
+                          updateCustomCategory(index, e.target.value)
+                        }
+                        placeholder={placeholder}
+                        className={`${inputClassName} text-sm`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
                 <div>
                   <label
                     htmlFor="tone"
@@ -1459,15 +1596,20 @@ export default function Home() {
 
                 <div className="rounded-xl border border-pink-500/20 bg-pink-500/5 p-4">
                   <p className="text-xs font-medium uppercase tracking-wider text-pink-300">
-                    FriendRank categories
+                    FriendRank categories in this game
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {getFriendRankCategories(5).map((category) => (
+                    {previewCategories.map((category) => (
                       <span
                         key={category.label}
-                        className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-300"
+                        className={`rounded-full border px-2.5 py-1 text-xs ${
+                          category.isCustom
+                            ? "border-amber-500/30 bg-amber-500/10 text-amber-100"
+                            : "border-white/10 bg-white/5 text-slate-300"
+                        }`}
                       >
                         {category.emoji} {category.label}
+                        {category.isCustom ? " · custom" : ""}
                       </span>
                     ))}
                   </div>
