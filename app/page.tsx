@@ -71,6 +71,7 @@ type FriendRankCategory = {
   emoji: string;
   nickname: string;
   isCustom?: boolean;
+  question?: string;
 };
 
 const GAME_CATEGORY_COUNT = 5;
@@ -106,6 +107,152 @@ function parseGroupNames(input: string): string[] {
   return names.length > 0 ? names.slice(0, 8) : [...DEFAULT_FRIENDS];
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function titleCaseWords(text: string): string {
+  return text
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
+function stripNameIsTraitPrefix(
+  text: string,
+  friendNames: string[],
+): string | null {
+  for (const name of friendNames) {
+    const pattern = new RegExp(`^${escapeRegExp(name)}\\s+is\\s+(.+)$`, "i");
+    const match = pattern.exec(text);
+    if (match) return match[1].trim();
+  }
+
+  const genericMatch = /^([A-Za-z][A-Za-z'-]{0,24})\s+is\s+(.+)$/i.exec(text);
+  if (
+    genericMatch &&
+    !/^(most|who|the|always|never)$/i.test(genericMatch[1]) &&
+    genericMatch[1].split(/\s+/).length <= 2
+  ) {
+    return genericMatch[2].trim();
+  }
+
+  return null;
+}
+
+function mostLikelyRestToCategoryLabel(rest: string): string {
+  const lower = rest.toLowerCase();
+
+  if (/disappear.*group chat/.test(lower)) return "Group Chat Ghost";
+  if (/start.*drama.*deny/.test(lower)) return "Drama Denier";
+  if (/start.*drama/.test(lower)) return "Drama Starter";
+  if (/late/.test(lower)) return "Always Late";
+
+  return titleCaseWords(rest).slice(0, 40);
+}
+
+function traitToCategoryAndQuestion(trait: string): {
+  label: string;
+  question: string;
+} {
+  const lower = trait.toLowerCase().trim();
+  const words = lower.split(/\s+/).filter(Boolean);
+
+  if (/always late|late but|somehow forgiven/.test(lower)) {
+    return { label: "Always Late", question: "Who is always late?" };
+  }
+  if (lower === "chaotic") {
+    return { label: "Chaotic One", question: "Who is the chaotic one?" };
+  }
+  if (words.length === 1 && /^[a-z'-]+$/i.test(words[0])) {
+    return {
+      label: `${titleCaseWords(trait)} One`,
+      question: `Who is the ${lower} one?`,
+    };
+  }
+
+  return {
+    label: titleCaseWords(trait),
+    question: `Who is ${lower}?`,
+  };
+}
+
+function verbPhraseToCategoryAndQuestion(text: string): {
+  label: string;
+  question: string;
+} {
+  const trimmed = text.trim();
+  const lower = trimmed.toLowerCase();
+  const question = `Who ${lower}?`;
+
+  if (/disappear(s)? from (the )?group chat/.test(lower)) {
+    return { label: "Group Chat Ghost", question };
+  }
+  if (/start(s)? drama and deny it/.test(lower)) {
+    return { label: "Drama Denier", question: "Who starts drama and denies it?" };
+  }
+  if (/start(s)? drama/.test(lower)) {
+    return { label: "Drama Starter", question: "Who starts drama?" };
+  }
+
+  const startsMatch = /^starts?\s+(.+)$/i.exec(trimmed);
+  if (startsMatch) {
+    const object = startsMatch[1].trim();
+    return {
+      label: `${titleCaseWords(object)} Starter`,
+      question: `Who starts ${object.toLowerCase()}?`,
+    };
+  }
+
+  return {
+    label: titleCaseWords(trimmed).slice(0, 40),
+    question,
+  };
+}
+
+function normalizeCustomCategoryInput(
+  input: string,
+  friendNames: string[],
+): { label: string; question: string } {
+  const text = input.trim().replace(/\?+$/, "").trim();
+  if (!text) return { label: "", question: "" };
+
+  const mostLikelyMatch = /^most likely to (.+)$/i.exec(text);
+  if (mostLikelyMatch) {
+    const rest = mostLikelyMatch[1].trim();
+    return {
+      label: mostLikelyRestToCategoryLabel(rest),
+      question: `Who is most likely to ${rest.toLowerCase()}?`,
+    };
+  }
+
+  const trait = stripNameIsTraitPrefix(text, friendNames);
+  if (trait) {
+    return traitToCategoryAndQuestion(trait);
+  }
+
+  if (/^who is (the )?/i.test(text)) {
+    const rest = text.replace(/^who is (the )?/i, "").trim().toLowerCase();
+    const traitForLabel = rest.endsWith(" one") ? rest.slice(0, -4).trim() : rest;
+    const parsed = traitToCategoryAndQuestion(traitForLabel || rest);
+    return {
+      label: parsed.label,
+      question: `Who is ${rest}?`,
+    };
+  }
+
+  if (
+    /^(starts?|disappears?|finishes?|creates?|causes?|never|always)\b/i.test(
+      text,
+    )
+  ) {
+    return verbPhraseToCategoryAndQuestion(text);
+  }
+
+  return traitToCategoryAndQuestion(text);
+}
+
 function parseCustomCategoryLabels(inputs: string[]): string[] {
   return inputs.map((value) => value.trim()).filter(Boolean).slice(0, 3);
 }
@@ -113,26 +260,40 @@ function parseCustomCategoryLabels(inputs: string[]): string[] {
 function createCustomCategoryNickname(label: string): string {
   const normalized = label.toLowerCase();
 
-  if (normalized.includes("group chat")) return "Group Chat Ghost";
-  if (normalized.includes("drama")) return "Drama Starter Denier";
-  if (normalized.includes("late")) return "Forgiven Latecomer";
-  if (normalized.includes("meme")) return "Certified Meme Lord";
+  if (normalized.includes("group chat ghost")) return "Group Chat Ghost";
+  if (normalized.includes("drama starter")) return "Certified Drama Starter";
+  if (normalized.includes("drama denier")) return "Denial Expert";
+  if (normalized.includes("always late")) return "Forgiven Latecomer";
+  if (normalized.includes("chaotic")) return "Chaos Specialist";
 
-  return "Inside Joke Legend";
+  return `${label} Legend`;
 }
 
-function createCustomCategory(label: string, index: number): FriendRankCategory {
+function createCustomCategory(
+  rawInput: string,
+  index: number,
+  friendNames: string[],
+): FriendRankCategory {
+  const { label, question } = normalizeCustomCategoryInput(
+    rawInput,
+    friendNames,
+  );
+
   return {
     label,
+    question,
     emoji: CUSTOM_CATEGORY_EMOJIS[index % CUSTOM_CATEGORY_EMOJIS.length],
     nickname: createCustomCategoryNickname(label),
     isCustom: true,
   };
 }
 
-function buildGameCategories(customInputs: string[]): FriendRankCategory[] {
+function buildGameCategories(
+  customInputs: string[],
+  friendNames: string[],
+): FriendRankCategory[] {
   const customCategories = parseCustomCategoryLabels(customInputs).map(
-    createCustomCategory,
+    (input, index) => createCustomCategory(input, index, friendNames),
   );
 
   let defaultCount = GAME_CATEGORY_COUNT - customCategories.length;
@@ -160,11 +321,13 @@ function generateFriendRankQuestions(
   categories: FriendRankCategory[],
 ): string[] {
   return categories.map((category) => {
+    if (category.question) return category.question;
+
     const label = category.label.trim();
 
     if (/^most likely\b/i.test(label)) {
       const normalized = label.endsWith("?") ? label.slice(0, -1) : label;
-      return `Who is ${normalized}?`;
+      return `Who is ${normalized.toLowerCase()}?`;
     }
 
     return `Who is the ${label}?`;
@@ -1257,8 +1420,8 @@ export default function Home() {
   const showResultsView = multiplayerResultsUnlocked || demoResultsUnlocked;
 
   const previewCategories = useMemo(
-    () => buildGameCategories(customCategories),
-    [customCategories],
+    () => buildGameCategories(customCategories, parseGroupNames(groupNames)),
+    [customCategories, groupNames],
   );
 
   function updateCustomCategory(index: number, value: string) {
@@ -1361,7 +1524,7 @@ export default function Home() {
   function handleGenerateGame(e: React.FormEvent) {
     e.preventDefault();
     const friends = parseGroupNames(groupNames);
-    const categories = buildGameCategories(customCategories);
+    const categories = buildGameCategories(customCategories, friends);
 
     setGeneratedGame({
       tone,
