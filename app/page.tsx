@@ -56,7 +56,7 @@ const steps = [
     number: "01",
     title: "Add your friends",
     description:
-      "Enter your group's names and describe the vibe — inside jokes, chaos levels, all of it.",
+      "Enter your group's names, pick up to 3 vibe tags, and add optional inside jokes.",
   },
   {
     number: "02",
@@ -1206,10 +1206,10 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div>
-                  <p className="mb-2 block text-sm font-medium text-slate-300">
+                <fieldset>
+                  <legend className="mb-2 block text-sm font-medium text-slate-300">
                     Pick your group vibe
-                  </p>
+                  </legend>
                   <div className="flex flex-wrap gap-2">
                     {VIBE_TAGS.map((tag) => {
                       const isSelected = selectedVibeTags.includes(tag);
@@ -1221,6 +1221,7 @@ export default function Home() {
                         <button
                           key={tag}
                           type="button"
+                          aria-pressed={isSelected}
                           onClick={() => toggleVibeTag(tag)}
                           disabled={isDisabled}
                           className={`rounded-full border px-3 py-1.5 text-sm font-medium transition ${
@@ -1240,7 +1241,7 @@ export default function Home() {
                     Pick up to {MAX_VIBE_TAGS} tags — skip if you want to jump
                     in fast
                   </p>
-                </div>
+                </fieldset>
 
                 <div>
                   <label
