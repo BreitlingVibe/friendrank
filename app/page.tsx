@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const DEFAULT_FRIENDS = ["Alex", "Taylor", "Jordan", "Casey"];
 
@@ -37,19 +37,6 @@ const VIBE_TAGS = [
 const MAX_VIBE_TAGS = 3;
 
 type VibeTag = (typeof VIBE_TAGS)[number];
-
-const EXTRA_NICKNAMES = [
-  "The Main Character",
-  "Walking Plot Twist",
-  "Certified Chaos",
-  "Secret Mastermind",
-  "Emotional Support Human",
-  "Chronically Online Legend",
-  "Green Flag Energy",
-  "Red Flag With Confidence",
-  "Group Chat Menace",
-  "Unhinged But Lovable",
-];
 
 const steps = [
   {
@@ -124,30 +111,6 @@ type GeneratedGame = {
 
 type GroupTheme = "party" | "college" | "online" | "generic";
 
-function assignFriendNicknames(
-  friends: string[],
-  categoryResults: { category: FriendRankCategory; winner: string }[],
-): Record<string, string> {
-  const nicknames: Record<string, string> = {};
-  let extraIndex = 0;
-
-  categoryResults.forEach(({ category, winner }) => {
-    if (!nicknames[winner]) {
-      nicknames[winner] = category.nickname;
-    }
-  });
-
-  friends.forEach((friend) => {
-    if (!nicknames[friend]) {
-      nicknames[friend] =
-        EXTRA_NICKNAMES[extraIndex % EXTRA_NICKNAMES.length];
-      extraIndex += 1;
-    }
-  });
-
-  return nicknames;
-}
-
 function generateMockCategoryVotes(game: GeneratedGame): string[] {
   return game.categories.map(
     (_, index) => game.friends[index % game.friends.length],
@@ -198,22 +161,327 @@ const inviteStatusConfig: Record<
 };
 
 function buildFriendRankShareText(
-  topThree: { category: FriendRankCategory; winner: string }[],
+  topThree: { category: FriendRankCategory; winner: string; votePercent: number }[],
+  groupVerdict: string,
   groupVibe: string,
+  groupReputation: string,
+  endingHighlight: string,
 ): string {
   const lines = topThree.map(
-    ({ category, winner }) => `${category.emoji} ${category.label}: ${winner}`,
+    ({ category, winner, votePercent }) =>
+      `${category.emoji} ${category.label}: ${winner} (${votePercent}% of votes)`,
   );
 
   return [
     "Your FriendRank Results",
     "",
+    groupVerdict,
+    "",
     ...lines,
     "",
     groupVibe,
     "",
+    `Group reputation: ${groupReputation}`,
+    "",
+    endingHighlight,
+    "",
     "Made with FriendRank AI",
   ].join("\n");
+}
+
+function hashSeed(values: string[]): number {
+  let hash = 0;
+  for (const value of values) {
+    for (let index = 0; index < value.length; index += 1) {
+      hash = (hash * 31 + value.charCodeAt(index)) | 0;
+    }
+  }
+  return Math.abs(hash);
+}
+
+function pickIndex(seed: number, offset: number, length: number): number {
+  if (length === 0) return 0;
+  return Math.abs(seed + offset * 17) % length;
+}
+
+const GROUP_VERDICTS = [
+  "Your group chose chaos.",
+  "Nobody trusts each other and that's beautiful.",
+  "This friend group should never be left unsupervised.",
+  "The group chat is one bad decision away from disaster.",
+  "Democracy happened. Regret is optional.",
+  "The votes are in and accountability is not.",
+  "Your group has officially lost the plot.",
+  "Friendship survived. Barely.",
+] as const;
+
+const GROUP_REPUTATIONS = [
+  "Certified Chaos Crew",
+  "Emotionally Unstable Legends",
+  "Professional Bad Influences",
+  "Group Chat Menaces",
+  "Elite Meme Department",
+  "Unsupervised Adults Club",
+  "Plot Twist Enthusiasts",
+  "Chaos With WiFi",
+] as const;
+
+const COMBO_POTENTIAL_OUTCOMES = [
+  "Starts drama",
+  "Finishes nobody's plans",
+  "Somehow becomes group leader",
+  "Turns one meme into a group policy",
+  "Plans a trip nobody asked for",
+  "Accidentally creates a new inside joke",
+  "Escalates a harmless comment",
+  "Wins an argument nobody was having",
+] as const;
+
+const RISK_LEVELS = ["Moderate", "High", "Extreme"] as const;
+
+const ENDING_CARD_VARIANTS = [
+  {
+    lines: [
+      { text: "Congratulations.", large: false },
+      { text: "Your friend group is officially:", large: false },
+      { text: "CERTIFIED CHAOS.", large: true },
+    ],
+  },
+  {
+    lines: [
+      { text: "GROUP CHAT THREAT LEVEL:", large: false },
+      { text: "MAXIMUM.", large: true },
+    ],
+  },
+  {
+    lines: [
+      { text: "Official diagnosis:", large: false },
+      { text: "TOO ONLINE TO FUNCTION.", large: true },
+    ],
+  },
+  {
+    lines: [
+      { text: "The jury has ruled.", large: false },
+      { text: "GUILTY OF BEING UNHINGED.", large: true },
+    ],
+  },
+] as const;
+
+const CATEGORY_AGREE_QUOTES: Record<string, string[]> = {
+  "Main Character": [
+    "{name} definitely thinks this is their origin story.",
+    "{name} has main character energy and the group knows it.",
+    "The camera always finds {name} first.",
+  ],
+  "Chaos Agent": [
+    "{name} treats peace like a personal challenge.",
+    "If chaos needs a volunteer, {name} already raised their hand.",
+    "{name} shows up and the plan immediately changes.",
+  ],
+  "Secret Villain": [
+    "{name} always knows more than they admit.",
+    "{name} has been suspiciously quiet this whole time.",
+    "Trust {name} at your own risk — lovingly.",
+  ],
+  "Most Delusional": [
+    "{name} believes their own hype and that's iconic.",
+    "{name}'s confidence is unmatched and unverified.",
+    "Reality is optional when {name} is involved.",
+  ],
+  "Chronically Online": [
+    "{name} has seen every meme before you send it.",
+    "{name} lives in the group chat like it's rent-free.",
+    "Touch grass? {name} would rather refresh.",
+  ],
+  "Future Influencer": [
+    "{name} is one good lighting day away from fame.",
+    "Brand deals are already orbiting {name}.",
+    "{name} treats every moment like content.",
+  ],
+  "Most Likely To Go Viral": [
+    "{name} could go viral by accident before lunch.",
+    "The algorithm would love {name}. The group is nervous.",
+    "{name} is one screenshot away from trending.",
+  ],
+  "Group Therapist": [
+    "{name} emotionally supports everyone for free.",
+    "Someone had to be the therapist. It was {name}.",
+    "{name} listens first, judges second, helps always.",
+  ],
+  "Walking Red Flag": [
+    "{name} is a red flag with excellent presentation.",
+    "Everyone saw the signs. Everyone still loves {name}.",
+    "{name} is chaos in a cute outfit.",
+  ],
+  "Green Flag Award": [
+    "{name} is the group chat's emotional support human.",
+    "If {name} says it's fine, it's probably fine.",
+    "{name} is the reason this group still functions.",
+  ],
+  "Plot Twist Generator": [
+    "{name} will surprise you at the worst possible moment.",
+    "Just when you think you know {name} — plot twist.",
+    "{name} keeps the storyline interesting.",
+  ],
+  "Most Likely To Get Cancelled": [
+    "{name} says what everyone else was thinking out loud.",
+    "{name} has fearless posting energy.",
+    "Cancel culture could never keep up with {name}.",
+  ],
+};
+
+const DEFAULT_AGREE_QUOTES = [
+  "The group has spoken about {name}.",
+  "{name} earned this one fair and square.",
+  "No notes. Just {name}.",
+];
+
+type CategoryResultDetail = {
+  category: FriendRankCategory;
+  winner: string;
+  votePercent: number;
+  agreeQuote: string;
+  stats: string[];
+  rank: number;
+};
+
+type DangerousComboCard = {
+  name1: string;
+  name2: string;
+  riskLevel: (typeof RISK_LEVELS)[number];
+  outcomes: string[];
+};
+
+type ResultsPresentation = {
+  seed: number;
+  groupVerdict: string;
+  groupReputation: string;
+  categoryDetails: CategoryResultDetail[];
+  dangerousCombo: DangerousComboCard;
+  endingCard: (typeof ENDING_CARD_VARIANTS)[number];
+  endingHighlight: string;
+};
+
+function pickComboFriends(friends: string[], seed: number): [string, string] {
+  if (friends.length === 0) return ["Friend A", "Friend B"];
+  if (friends.length === 1) return [friends[0], "the group chat"];
+  const firstIndex = seed % friends.length;
+  const secondIndex = (firstIndex + 1 + (seed % (friends.length - 1))) % friends.length;
+  return [friends[firstIndex], friends[secondIndex]];
+}
+
+function generateVotePercent(seed: number, rank: number): number {
+  const bases = [78, 68, 61, 57, 53];
+  const base = bases[rank] ?? 50;
+  return Math.min(91, base + (seed % 14));
+}
+
+function generateCategoryAgreeQuote(
+  categoryLabel: string,
+  winner: string,
+  seed: number,
+): string {
+  const templates = CATEGORY_AGREE_QUOTES[categoryLabel] ?? DEFAULT_AGREE_QUOTES;
+  const template = templates[pickIndex(seed, categoryLabel.length, templates.length)];
+  return template.replace(/\{name\}/g, winner);
+}
+
+function generateDramaticStats(
+  votePercent: number,
+  seed: number,
+  rank: number,
+): string[] {
+  const pool = [
+    `${votePercent}% of the group supports this result.`,
+    `${1 + (seed % 2)} person strongly disagreed.`,
+    `${1 + ((seed + rank) % 3)} people tried to defend them.`,
+    "Nobody came to their rescue.",
+    "One person abstained out of pure fear.",
+    "The vote happened suspiciously fast.",
+    "Two people laughed, then voted anyway.",
+  ];
+
+  const count = 2 + (seed % 2);
+  const stats: string[] = [];
+  for (let index = 0; index < count; index += 1) {
+    const line = pool[pickIndex(seed, rank * 3 + index, pool.length)];
+    if (!stats.includes(line)) {
+      stats.push(line);
+    }
+  }
+
+  return stats.slice(0, count);
+}
+
+function buildDangerousComboCard(
+  friends: string[],
+  seed: number,
+): DangerousComboCard {
+  const [name1, name2] = pickComboFriends(friends, seed);
+  const riskLevel = RISK_LEVELS[pickIndex(seed, 4, RISK_LEVELS.length)];
+  const outcomes: string[] = [];
+
+  for (let index = 0; outcomes.length < 3; index += 1) {
+    const outcome = COMBO_POTENTIAL_OUTCOMES[
+      pickIndex(seed, index + 7, COMBO_POTENTIAL_OUTCOMES.length)
+    ];
+    if (!outcomes.includes(outcome)) {
+      outcomes.push(outcome);
+    }
+  }
+
+  return { name1, name2, riskLevel, outcomes };
+}
+
+function buildResultsPresentation(
+  game: GeneratedGame,
+  votes: string[],
+): ResultsPresentation {
+  const friends = game.friends;
+  const categoryResults = game.categories.map((category, index) => ({
+    category,
+    winner: votes[index] ?? friends[index % friends.length],
+  }));
+
+  const seed = hashSeed([
+    ...friends,
+    ...game.vibeTags,
+    game.extraContext,
+    game.tone,
+    ...categoryResults.map((result) => `${result.category.label}:${result.winner}`),
+  ]);
+
+  const categoryDetails = categoryResults.map((result, rank) => {
+    const votePercent = generateVotePercent(seed + rank * 11, rank);
+    return {
+      ...result,
+      votePercent,
+      agreeQuote: generateCategoryAgreeQuote(
+        result.category.label,
+        result.winner,
+        seed + rank,
+      ),
+      stats: generateDramaticStats(votePercent, seed + rank * 5, rank),
+      rank,
+    };
+  });
+
+  const endingCard =
+    ENDING_CARD_VARIANTS[pickIndex(seed, 9, ENDING_CARD_VARIANTS.length)];
+  const endingHighlight =
+    endingCard.lines.find((line) => line.large)?.text ??
+    endingCard.lines[endingCard.lines.length - 1].text;
+
+  return {
+    seed,
+    groupVerdict: GROUP_VERDICTS[pickIndex(seed, 0, GROUP_VERDICTS.length)],
+    groupReputation:
+      GROUP_REPUTATIONS[pickIndex(seed, 2, GROUP_REPUTATIONS.length)],
+    categoryDetails,
+    dangerousCombo: buildDangerousComboCard(friends, seed),
+    endingCard,
+    endingHighlight,
+  };
 }
 
 function buildGroupProfile(vibeTags: VibeTag[], extraContext: string): string {
@@ -276,21 +544,6 @@ function applyTonePrefix(text: string, tone: Tone): string {
   }
 }
 
-function applyToneToComboTagline(tagline: string, tone: Tone): string {
-  switch (tone) {
-    case "Funny":
-      return tagline;
-    case "Savage but friendly":
-      return `${tagline} — and they're not sorry`;
-    case "Wholesome":
-      return `${tagline}, but somehow it works`;
-    case "Chaotic":
-      return `${tagline} — UNHINGED EDITION`;
-    default:
-      return tagline;
-  }
-}
-
 function generateGroupVibe(
   topThree: { category: FriendRankCategory; winner: string }[],
   vibeTags: VibeTag[],
@@ -343,150 +596,6 @@ function generateGroupVibe(
   return applyTonePrefix(base, tone);
 }
 
-const vibeTagComboTaglines: Partial<Record<VibeTag, string[]>> = {
-  Chaotic: ["pure chaos unlocked", "no plan survives this duo", "unhinged teamwork"],
-  "Meme-heavy": [
-    "one meme away from disaster",
-    "group chat comedy hour",
-    "screenshot-worthy chaos",
-  ],
-  College: ["all-nighter energy", "deadline panic mode", "campus drama unfolding"],
-  School: ["homeroom drama amplified", "locker hallway chaos", "after-school group chat"],
-  Gaming: ["ranked queue rage", "one more game forever", "tilt squad activated"],
-  Discord: ["Discord drama at 2am", "voice chat chaos", "ping storm incoming"],
-  Sports: ["locker room energy", "competitive for no reason", "post-game group chat"],
-  Party: ["bad ideas after drinks", "one more round", "pub table chaos unlocked"],
-  Office: [
-    "Slack thread gone wrong",
-    "meeting that should've been an email",
-    "after-work drinks energy",
-  ],
-  Family: ["holiday table tension", "family group text chaos", "cousin drama unlocked"],
-  "Soft drama": [
-    "polite chaos brewing",
-    "passive-aggressive energy",
-    "subtle tension rising",
-  ],
-  "Brutal honesty": [
-    "no filter activated",
-    "truth bomb incoming",
-    "honesty with zero padding",
-  ],
-};
-
-function pickDangerousComboTagline(
-  vibeTags: VibeTag[],
-  extraContext: string,
-  theme: GroupTheme,
-  friends: string[],
-): string {
-  const themeTaglines: Record<GroupTheme, string[]> = {
-    party: [
-      "one more round",
-      "bad ideas after drinks",
-      "pub table chaos unlocked",
-    ],
-    college: [
-      "all-nighter energy",
-      "exam panic mode",
-      "campus drama unfolding",
-    ],
-    online: [
-      "Discord drama at 2am",
-      "WiFi-powered chaos",
-      "ranked queue rage",
-    ],
-    generic: [
-      "chaos with a WiFi connection",
-      "a group chat that never sleeps",
-      "main character energy squared",
-      "delusion on delusion crime",
-      "two tabs open, zero boundaries",
-      "unhinged but somehow functional",
-    ],
-  };
-
-  for (const tag of vibeTags) {
-    const taglines = vibeTagComboTaglines[tag];
-    if (taglines?.length) {
-      const index =
-        (friends[0]?.length ?? 0) + (friends[1]?.length ?? 0) + tag.length;
-      let tagline = taglines[index % taglines.length];
-
-      const contextHint = extraContext.trim().split(/[,;!?]/)[0]?.trim();
-      if (contextHint && contextHint.length >= 12) {
-        const snippet =
-          contextHint.length <= 36
-            ? contextHint
-            : `${contextHint.slice(0, 33).trim()}...`;
-        tagline = `${tagline} — "${snippet}" energy`;
-      }
-
-      return tagline;
-    }
-  }
-
-  const options = themeTaglines[theme];
-  const index = (friends[0]?.length ?? 0) + (friends[1]?.length ?? 0);
-  let tagline = options[index % options.length];
-
-  const contextHint = extraContext.trim().split(/[,;!?]/)[0]?.trim();
-  if (contextHint && contextHint.length >= 12) {
-    const snippet =
-      contextHint.length <= 36
-        ? contextHint
-        : `${contextHint.slice(0, 33).trim()}...`;
-    tagline = `${tagline} — "${snippet}" energy`;
-  }
-
-  return tagline;
-}
-
-function generateDangerousCombo(
-  friends: string[],
-  vibeTags: VibeTag[],
-  extraContext: string,
-  tone: Tone,
-): string {
-  const theme = detectGroupTheme(vibeTags, extraContext);
-
-  if (friends.length === 0) {
-    return applyToneToComboTagline(
-      "This group + group chat = chaos unlocked",
-      tone,
-    );
-  }
-
-  if (friends.length === 1) {
-    const rawTagline = pickDangerousComboTagline(
-      vibeTags,
-      extraContext,
-      theme,
-      friends,
-    );
-    return applyToneToComboTagline(
-      `${friends[0]} + the group chat = ${rawTagline}`,
-      tone,
-    );
-  }
-
-  const name1 = friends[0];
-  const name2 = friends[1];
-  const rawTagline = pickDangerousComboTagline(
-    vibeTags,
-    extraContext,
-    theme,
-    friends,
-  );
-  const tagline = applyToneToComboTagline(rawTagline, tone);
-
-  if (vibeTags.length >= 2) {
-    return `${name1} + ${name2} = ${tagline} (${vibeTags[0].toLowerCase()} × ${vibeTags[1].toLowerCase()} combo)`;
-  }
-
-  return `${name1} + ${name2} = ${tagline}`;
-}
-
 function FriendRankResultsView({
   game,
   votes,
@@ -500,16 +609,17 @@ function FriendRankResultsView({
   showPlayAgain?: boolean;
   onPlayAgain?: () => void;
 }) {
-  const friends = game.friends;
-  const categories = game.categories;
   const [resultsCopied, setResultsCopied] = useState(false);
 
-  const categoryResults = categories.map((category, index) => ({
-    category,
-    winner: votes[index] ?? friends[index % friends.length],
-  }));
-  const friendNicknames = assignFriendNicknames(friends, categoryResults);
-  const topThree = categoryResults.slice(0, 3);
+  const presentation = useMemo(
+    () => buildResultsPresentation(game, votes),
+    [game, votes],
+  );
+
+  const { categoryDetails, dangerousCombo } = presentation;
+  const topThree = categoryDetails.slice(0, 3);
+  const [first, second, third] = topThree;
+
   const groupVibePhrase = extractGroupVibePhrase(
     game.vibeTags,
     game.extraContext,
@@ -520,13 +630,13 @@ function FriendRankResultsView({
     game.extraContext,
     game.tone,
   );
-  const dangerousCombo = generateDangerousCombo(
-    friends,
-    game.vibeTags,
-    game.extraContext,
-    game.tone,
+  const shareText = buildFriendRankShareText(
+    topThree,
+    presentation.groupVerdict,
+    groupVibe,
+    presentation.groupReputation,
+    presentation.endingHighlight,
   );
-  const shareText = buildFriendRankShareText(topThree, groupVibe);
 
   async function handleCopyResults() {
     try {
@@ -538,10 +648,68 @@ function FriendRankResultsView({
     }
   }
 
-  const [first, second, third] = topThree;
+  function renderCategoryCard(detail: CategoryResultDetail, featured: boolean) {
+    return (
+      <div
+        key={detail.category.label}
+        className={
+          featured
+            ? "rounded-2xl border-2 border-violet-400/50 bg-gradient-to-br from-violet-600/30 via-fuchsia-600/20 to-cyan-600/20 p-6 shadow-lg shadow-violet-500/20"
+            : "rounded-2xl border border-white/15 bg-white/[0.04] p-5"
+        }
+      >
+        {featured && (
+          <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-violet-200">
+            #1 · Top Rank
+          </p>
+        )}
+
+        <p
+          className={`font-bold uppercase tracking-wide text-white ${
+            featured ? "text-lg" : "text-base"
+          }`}
+        >
+          {detail.category.emoji} {detail.category.label}
+        </p>
+
+        <p
+          className={`mt-2 font-extrabold text-white ${
+            featured ? "text-3xl" : "text-2xl"
+          }`}
+        >
+          {detail.winner}
+        </p>
+
+        <p className="mt-2 text-sm text-violet-200">
+          {detail.winner} received {detail.votePercent}% of the votes.
+        </p>
+
+        <div className="mt-4 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-left">
+          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            The group agrees:
+          </p>
+          <p className="mt-2 text-sm italic leading-relaxed text-slate-200">
+            &ldquo;{detail.agreeQuote}&rdquo;
+          </p>
+        </div>
+
+        <ul className="mt-4 space-y-1.5 text-left">
+          {detail.stats.map((stat) => (
+            <li
+              key={stat}
+              className="flex items-start gap-2 text-xs text-slate-400"
+            >
+              <span className="mt-0.5 text-violet-400">•</span>
+              <span>{stat}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 
   return (
-    <div className="mx-auto max-w-sm overflow-hidden rounded-[2rem] border-2 border-violet-500/40 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 shadow-2xl shadow-violet-500/30">
+    <div className="mx-auto max-w-md overflow-hidden rounded-[2rem] border-2 border-violet-500/40 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 shadow-2xl shadow-violet-500/30">
       {unlockLabel && (
         <div className="border-b border-emerald-500/20 bg-emerald-500/10 px-5 py-2 text-center">
           <p className="text-xs font-semibold uppercase tracking-wider text-emerald-300">
@@ -563,56 +731,25 @@ function FriendRankResultsView({
       </div>
 
       <div className="space-y-4 px-5 py-6 sm:px-6">
-        {first && (
-          <div className="rounded-2xl border-2 border-violet-400/50 bg-gradient-to-br from-violet-600/30 via-fuchsia-600/20 to-cyan-600/20 p-6 text-center shadow-lg shadow-violet-500/20">
-            <p className="text-xs font-bold uppercase tracking-widest text-violet-200">
-              #1 · Top Rank
-            </p>
-            <p className="mt-3 text-5xl">{first.category.emoji}</p>
-            <p className="mt-3 text-sm font-semibold uppercase tracking-wider text-slate-300">
-              {first.category.label}
-            </p>
-            <p className="mt-2 text-3xl font-extrabold text-white">
-              {first.winner}
-            </p>
-            <p className="mt-2 text-sm font-medium text-cyan-300">
-              {friendNicknames[first.winner]}
-            </p>
+        <div className="rounded-2xl border border-fuchsia-500/30 bg-fuchsia-500/10 px-5 py-4 text-center">
+          <p className="text-xs font-bold uppercase tracking-widest text-fuchsia-300">
+            Group Verdict
+          </p>
+          <p className="mt-2 text-lg font-bold leading-snug text-white">
+            {presentation.groupVerdict}
+          </p>
+        </div>
+
+        {first && renderCategoryCard(first, true)}
+
+        {(second || third) && (
+          <div className="grid gap-3 sm:grid-cols-2">
+            {second && renderCategoryCard(second, false)}
+            {third && renderCategoryCard(third, false)}
           </div>
         )}
 
-        {(second || third) && (
-          <div className="grid grid-cols-2 gap-3">
-            {second && (
-              <div className="rounded-xl border border-white/15 bg-white/5 p-4 text-center">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  #2
-                </p>
-                <p className="mt-2 text-2xl">{second.category.emoji}</p>
-                <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-                  {second.category.label}
-                </p>
-                <p className="mt-1 text-lg font-bold text-white">
-                  {second.winner}
-                </p>
-              </div>
-            )}
-            {third && (
-              <div className="rounded-xl border border-white/15 bg-white/5 p-4 text-center">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  #3
-                </p>
-                <p className="mt-2 text-2xl">{third.category.emoji}</p>
-                <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-                  {third.category.label}
-                </p>
-                <p className="mt-1 text-lg font-bold text-white">
-                  {third.winner}
-                </p>
-              </div>
-            )}
-          </div>
-        )}
+        {categoryDetails.slice(3).map((detail) => renderCategoryCard(detail, false))}
 
         <div className="rounded-2xl border border-cyan-500/25 bg-cyan-500/10 p-5">
           <p className="text-xs font-bold uppercase tracking-wider text-cyan-300">
@@ -627,16 +764,53 @@ function FriendRankResultsView({
           <p className="text-xs font-bold uppercase tracking-wider text-orange-300">
             Most Dangerous Combo
           </p>
-          <p className="mt-3 text-base font-semibold leading-relaxed text-white">
-            {dangerousCombo}
+          <p className="mt-3 text-xl font-extrabold text-white">
+            {dangerousCombo.name1} + {dangerousCombo.name2}
+          </p>
+          <p className="mt-2 text-sm font-semibold text-orange-200">
+            Risk level: {dangerousCombo.riskLevel}
+          </p>
+          <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-orange-300/80">
+            Potential outcomes:
+          </p>
+          <ul className="mt-2 space-y-1.5">
+            {dangerousCombo.outcomes.map((outcome) => (
+              <li
+                key={outcome}
+                className="flex items-start gap-2 text-sm text-orange-100/90"
+              >
+                <span className="text-orange-400">⚡</span>
+                <span>{outcome}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-2xl border border-violet-500/25 bg-violet-500/10 p-5 text-center">
+          <p className="text-xs font-bold uppercase tracking-wider text-violet-300">
+            Group Reputation
+          </p>
+          <p className="mt-3 text-xl font-extrabold tracking-tight text-white">
+            {presentation.groupReputation}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-dashed border-white/20 bg-white/[0.03] px-4 py-5 text-center">
-          <p className="text-sm font-medium text-slate-300">
-            Screenshot this and send it to the group chat.
+        <div className="rounded-3xl border-2 border-violet-400/40 bg-gradient-to-br from-violet-600/35 via-fuchsia-600/20 to-cyan-600/25 px-6 py-10 text-center shadow-xl shadow-violet-500/25">
+          {presentation.endingCard.lines.map((line, index) => (
+            <p
+              key={`${line.text}-${index}`}
+              className={
+                line.large
+                  ? `${index > 0 ? "mt-3" : ""} text-3xl font-black uppercase leading-tight tracking-tight text-white sm:text-4xl`
+                  : `${index > 0 ? "mt-2" : ""} text-base font-semibold text-violet-100`
+              }
+            >
+              {line.text}
+            </p>
+          ))}
+          <p className="mt-6 text-xs italic text-violet-200/80">
+            Screenshot this before your friends deny everything.
           </p>
-          <p className="mt-2 text-xs text-slate-500">Made with FriendRank AI</p>
         </div>
 
         <button
@@ -660,6 +834,8 @@ function FriendRankResultsView({
             Play again
           </button>
         )}
+
+        <p className="text-center text-xs text-slate-500">Made with FriendRank AI</p>
       </div>
     </div>
   );
