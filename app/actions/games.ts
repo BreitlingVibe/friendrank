@@ -1,5 +1,6 @@
 "use server";
 
+import { logCreateGameActionError } from "@/lib/games/errors";
 import { createGame } from "@/lib/games/repository";
 import type { CreateGameInput } from "@/lib/games/types";
 
@@ -22,8 +23,18 @@ export async function createGameAction(
     const record = await createGame(input);
     return { ok: true, shareCode: record.share_code };
   } catch (error) {
+    logCreateGameActionError(error, {
+      friendCount: input.friends.length,
+      vibeTagCount: input.vibeTags.length,
+      customCategoryCount: input.customCategories.filter((value) =>
+        value.trim(),
+      ).length,
+      tone: input.tone,
+    });
+
     const message =
       error instanceof Error ? error.message : "Failed to save game.";
+
     return { ok: false, error: message };
   }
 }
