@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { GameVotingSection } from "@/components/game-voting-section";
 import { GameSummary } from "@/components/game-summary";
 import { buildGeneratedGameFromRecord } from "@/lib/game-build";
-import { getGameShareUrl } from "@/lib/game-url";
+import { getGameShareUrlForRequest } from "@/lib/game-url-server";
 import { getGameByShareCode } from "@/lib/games/repository";
 import { getVoteProgress } from "@/lib/votes/repository";
 
@@ -23,10 +23,7 @@ export default async function GamePage({ params }: GamePageProps) {
 
   const game = buildGeneratedGameFromRecord(record);
   const initialProgress = await getVoteProgress(shareCode);
-  const appOrigin =
-    process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ??
-    "http://localhost:3000";
-  const shareUrl = getGameShareUrl(record.share_code, appOrigin);
+  const shareUrl = await getGameShareUrlForRequest(record.share_code);
 
   return (
     <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
