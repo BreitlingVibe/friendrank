@@ -1,5 +1,33 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Supabase setup
+
+FriendRank is wired for Supabase via the official JS client in `lib/supabase.ts`. Tables and auth are not configured yet — this step only connects the app to your project.
+
+1. Open your [Supabase dashboard](https://supabase.com/dashboard) and select your project.
+2. Go to **Project Settings → API**.
+3. Create a `.env.local` file in the project root with:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_PUBLIC_KEY
+```
+
+| Variable | Where to find it |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | **Project URL** on the API settings page |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | **Project API keys → anon public** (safe for browser use with Row Level Security) |
+
+4. Restart the dev server after changing env vars.
+
+Use the client in server actions, route handlers, or client components when you add database calls:
+
+```ts
+import { getSupabase } from "@/lib/supabase";
+
+const supabase = getSupabase();
+```
+
 ## Getting Started
 
 First, run the development server:
