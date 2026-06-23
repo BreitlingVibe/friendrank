@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { GameVotingSection } from "@/components/game-voting-section";
 import { GameSummary } from "@/components/game-summary";
 import { buildGeneratedGameFromRecord } from "@/lib/game-build";
 import { getGameShareUrl } from "@/lib/game-url";
 import { getGameByShareCode } from "@/lib/games/repository";
+import { getVoteProgress } from "@/lib/votes/repository";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +22,7 @@ export default async function GamePage({ params }: GamePageProps) {
   }
 
   const game = buildGeneratedGameFromRecord(record);
+  const initialProgress = await getVoteProgress(shareCode);
   const appOrigin =
     process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ??
     "http://localhost:3000";
@@ -60,6 +63,13 @@ export default async function GamePage({ params }: GamePageProps) {
             game={game}
             shareUrl={shareUrl}
             createdAt={record.created_at}
+          />
+
+          <GameVotingSection
+            game={game}
+            gameId={record.id}
+            shareCode={record.share_code}
+            initialProgress={initialProgress}
           />
 
           <div className="mt-8 text-center">
