@@ -123,9 +123,9 @@ function WaitingForVotesCard({
         <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20 text-3xl ring-4 ring-emerald-500/30">
           🔓
         </div>
-        <p className="text-2xl font-bold text-emerald-300">Results Unlocked</p>
+        <p className="text-2xl font-bold text-emerald-300">🏆 The Group Has Spoken</p>
         <p className="mt-2 text-sm text-slate-400">
-          {VOTES_REQUIRED} friend votes collected — your group results are below
+          Based on {voteCount} friend votes.
         </p>
       </div>
     );
@@ -832,11 +832,6 @@ export default function Home() {
               <FriendRankResultsView
                 game={generatedGame}
                 legacyVotes={previewVotes ?? generateMockCategoryVotes(generatedGame)}
-                unlockLabel={
-                  demoResultsUnlocked && !multiplayerResultsUnlocked
-                    ? "FriendRank demo results unlocked"
-                    : "FriendRank results unlocked"
-                }
                 showPlayAgain={false}
               />
             </div>

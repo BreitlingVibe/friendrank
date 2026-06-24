@@ -270,7 +270,7 @@ export function FriendRankResultsView({
           </button>
         )}
 
-        <p className="text-center text-xs text-slate-500">Made with FriendRank AI</p>
+        <p className="text-center text-xs text-slate-500">Made with FriendRank</p>
       </div>
     </div>
   );

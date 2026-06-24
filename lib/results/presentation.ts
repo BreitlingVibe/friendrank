@@ -225,7 +225,7 @@ export function buildFriendRankShareText(
     "",
     endingHighlight,
     "",
-    "Made with FriendRank AI",
+    "Made with FriendRank",
   ].join("\n");
 }
 

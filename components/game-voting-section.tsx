@@ -178,7 +178,6 @@ export function GameVotingSection({
             <FriendRankResultsView
               game={game}
               aggregatedResults={aggregatedResults}
-              unlockLabel="FriendRank results unlocked"
               showPlayAgain={false}
             />
           )}
