@@ -5,6 +5,7 @@ import { GameSummary } from "@/components/game-summary";
 import { buildGeneratedGameFromRecord } from "@/lib/game-build";
 import { getGameShareUrlForRequest } from "@/lib/game-url-server";
 import { getGameByShareCode } from "@/lib/games/repository";
+import { getAggregatedResultsForShareCode } from "@/lib/votes/results";
 import { getVoteProgress } from "@/lib/votes/repository";
 
 export const dynamic = "force-dynamic";
@@ -23,6 +24,9 @@ export default async function GamePage({ params }: GamePageProps) {
 
   const game = buildGeneratedGameFromRecord(record);
   const initialProgress = await getVoteProgress(shareCode);
+  const initialAggregatedResults = initialProgress.isUnlocked
+    ? await getAggregatedResultsForShareCode(shareCode)
+    : null;
   const shareUrl = await getGameShareUrlForRequest(record.share_code);
 
   return (
@@ -67,6 +71,7 @@ export default async function GamePage({ params }: GamePageProps) {
             gameId={record.id}
             shareCode={record.share_code}
             initialProgress={initialProgress}
+            initialAggregatedResults={initialAggregatedResults}
           />
 
           <div className="mt-8 text-center">

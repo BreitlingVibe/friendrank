@@ -24,7 +24,7 @@ export function VoteProgressCard({
         </div>
         <p className="text-2xl font-bold text-emerald-300">Results Unlocked</p>
         <p className="mt-2 text-sm text-slate-400">
-          {votesRequired} friend votes collected — full results view coming soon
+          {votesRequired} friend votes collected — your group results are below
         </p>
       </div>
     );

@@ -85,6 +85,44 @@ export async function submitVoteSession(
   }
 }
 
+export async function getVoteSessionsByGameId(
+  gameId: string,
+): Promise<VoteSessionRecord[]> {
+  let supabase;
+
+  try {
+    supabase = getSupabase();
+  } catch (error) {
+    throw createVoteFailureError("getVoteSessionsByGameId:init", error, null, {
+      gameId,
+    });
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from("vote_sessions")
+      .select("*")
+      .eq("game_id", gameId)
+      .order("created_at", { ascending: true });
+
+    if (error) {
+      throw createVoteFailureError("getVoteSessionsByGameId:select", null, error, {
+        gameId,
+      });
+    }
+
+    return (data as VoteSessionRecord[]) ?? [];
+  } catch (error) {
+    if (error instanceof VoteError) {
+      throw error;
+    }
+
+    throw createVoteFailureError("getVoteSessionsByGameId:select", error, null, {
+      gameId,
+    });
+  }
+}
+
 export async function getVoteProgress(
   shareCode: string,
   voterToken?: string,
