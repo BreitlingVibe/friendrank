@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
+import { useMemo, useRef, useState } from "react";
 import { createGameAction } from "@/app/actions/games";
-import { VoteGame } from "@/components/vote-game";
-import { FriendRankResultsView } from "@/components/friend-rank-results";
-import { generateMockCategoryVotes } from "@/lib/results/presentation";
 import {
   buildGameCategories,
   buildGeneratedGame,
@@ -14,7 +12,6 @@ import {
   parseGroupNames,
   tones,
   VIBE_TAGS,
-  type FriendRankCategory,
   type GeneratedGame,
   type Tone,
   type VibeTag,
@@ -52,149 +49,6 @@ const steps = [
 const inputClassName =
   "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20";
 
-type GroupTheme = "party" | "college" | "online" | "generic";
-
-const DEFAULT_INVITE_NAMES = ["Emma", "Liam", "Olivia"];
-
-type InviteStatus = "voted" | "invited" | "waiting";
-
-function getInviteFriends(friends: string[]): string[] {
-  const result = [...friends];
-  for (const name of DEFAULT_INVITE_NAMES) {
-    if (result.length >= VOTES_REQUIRED) break;
-    if (!result.some((n) => n.toLowerCase() === name.toLowerCase())) {
-      result.push(name);
-    }
-  }
-  return result.slice(0, VOTES_REQUIRED);
-}
-
-function getInviteStatus(friendIndex: number, voteCount: number): InviteStatus {
-  if (friendIndex < voteCount) return "voted";
-  if (friendIndex === voteCount && voteCount < VOTES_REQUIRED) return "invited";
-  return "waiting";
-}
-
-const inviteStatusConfig: Record<
-  InviteStatus,
-  { dot: string; label: string; className: string }
-> = {
-  voted: {
-    dot: "🟢",
-    label: "Voted",
-    className: "text-emerald-400",
-  },
-  invited: {
-    dot: "🟡",
-    label: "Invited",
-    className: "text-amber-400",
-  },
-  waiting: {
-    dot: "⚪",
-    label: "Waiting",
-    className: "text-slate-400",
-  },
-};
-
-
-function WaitingForVotesCard({
-  friends,
-  voteCount,
-  isUnlocked,
-  showCelebration,
-  onSimulateVote,
-}: {
-  friends: string[];
-  voteCount: number;
-  isUnlocked: boolean;
-  showCelebration: boolean;
-  onSimulateVote: () => void;
-}) {
-  const inviteFriends = getInviteFriends(friends);
-  const progressPercent = (voteCount / VOTES_REQUIRED) * 100;
-
-  if (isUnlocked) {
-    return (
-      <div
-        className={`rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-500/20 via-slate-900 to-violet-600/10 p-6 text-center sm:p-8 ${
-          showCelebration ? "animate-pulse" : ""
-        }`}
-      >
-        <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20 text-3xl ring-4 ring-emerald-500/30">
-          🔓
-        </div>
-        <p className="text-2xl font-bold text-emerald-300">🏆 The Group Has Spoken</p>
-        <p className="mt-2 text-sm text-slate-400">
-          Based on {voteCount} friend votes.
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
-      <div className="mb-6 text-center">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-300">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
-          Live
-        </div>
-        <h3 className="text-xl font-bold sm:text-2xl">
-          Waiting for your friends...
-        </h3>
-        <p className="mt-2 text-sm text-slate-400">
-          Results unlock after {VOTES_REQUIRED} friend votes.
-        </p>
-      </div>
-
-      <div className="mb-2 flex items-center justify-between text-xs text-slate-500">
-        <span>Votes collected</span>
-        <span className="font-semibold text-violet-300">
-          {voteCount} / {VOTES_REQUIRED} friend votes
-        </span>
-      </div>
-      <div className="mb-6 h-2.5 overflow-hidden rounded-full bg-white/10">
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-500 transition-all duration-500 ease-out"
-          style={{ width: `${progressPercent}%` }}
-        />
-      </div>
-
-      <div className="mb-6 space-y-2">
-        {inviteFriends.map((name, index) => {
-          const status = getInviteStatus(index, voteCount);
-          const config = inviteStatusConfig[status];
-
-          return (
-            <div
-              key={`${name}-${index}`}
-              className="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.03] px-4 py-3"
-            >
-              <span className="font-medium">
-                {config.dot} {name}
-              </span>
-              <span className={`text-sm ${config.className}`}>
-                {config.label}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-
-      <p className="mb-3 text-center text-xs leading-relaxed text-slate-500">
-        Demo only: this simulates friends opening your invite link and voting.
-      </p>
-      <button
-        type="button"
-        onClick={onSimulateVote}
-        disabled={voteCount >= VOTES_REQUIRED}
-        className="w-full rounded-full border border-white/15 bg-white/10 py-3.5 text-sm font-semibold transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
-      >
-        Simulate Friend Vote
-      </button>
-    </div>
-  );
-}
-
 function SectionLabel({
   children,
   description,
@@ -220,8 +74,6 @@ function SectionLabel({
 export default function Home() {
   const createGameRef = useRef<HTMLElement>(null);
   const categoriesRef = useRef<HTMLElement>(null);
-  const friendVotingRef = useRef<HTMLElement>(null);
-  const unlockedResultsRef = useRef<HTMLElement>(null);
 
   const [groupNames, setGroupNames] = useState("");
   const [selectedVibeTags, setSelectedVibeTags] = useState<VibeTag[]>([]);
@@ -235,21 +87,10 @@ export default function Home() {
   const [isSavingGame, setIsSavingGame] = useState(false);
   const [saveGameError, setSaveGameError] = useState<string | null>(null);
   const [inviteCopied, setInviteCopied] = useState(false);
-  const [friendVotingStarted, setFriendVotingStarted] = useState(false);
-  const [pendingFriendVotingScroll, setPendingFriendVotingScroll] =
-    useState(false);
-  const [simulatedVoteCount, setSimulatedVoteCount] = useState(0);
-  const [showUnlockCelebration, setShowUnlockCelebration] = useState(false);
-  const [demoResultsUnlocked, setDemoResultsUnlocked] = useState(false);
-  const [previewVotes, setPreviewVotes] = useState<string[] | null>(null);
-  const [pendingResultsScroll, setPendingResultsScroll] = useState(false);
   const [feedbackResponse, setFeedbackResponse] = useState<
     "yes" | "not-yet" | null
   >(null);
   const [shareabilityNote, setShareabilityNote] = useState("");
-
-  const multiplayerResultsUnlocked = simulatedVoteCount >= VOTES_REQUIRED;
-  const showResultsView = multiplayerResultsUnlocked || demoResultsUnlocked;
 
   const previewCategories = useMemo(
     () => buildGameCategories(customCategories, parseGroupNames(groupNames)),
@@ -264,44 +105,6 @@ export default function Home() {
     });
   }
 
-  useEffect(() => {
-    if (pendingFriendVotingScroll && friendVotingRef.current) {
-      friendVotingRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-      setPendingFriendVotingScroll(false);
-    }
-  }, [pendingFriendVotingScroll]);
-
-  useEffect(() => {
-    if (pendingResultsScroll && showResultsView && unlockedResultsRef.current) {
-      unlockedResultsRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-      setPendingResultsScroll(false);
-    }
-  }, [pendingResultsScroll, showResultsView]);
-
-  useEffect(() => {
-    if (multiplayerResultsUnlocked) {
-      setShowUnlockCelebration(true);
-      setPendingResultsScroll(true);
-      const celebrationTimer = setTimeout(
-        () => setShowUnlockCelebration(false),
-        2000,
-      );
-      return () => clearTimeout(celebrationTimer);
-    }
-  }, [multiplayerResultsUnlocked]);
-
-  function handleSimulateVote() {
-    setSimulatedVoteCount((prev) =>
-      prev < VOTES_REQUIRED ? prev + 1 : prev,
-    );
-  }
-
   function scrollToCreateGame() {
     createGameRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -311,19 +114,6 @@ export default function Home() {
       behavior: "smooth",
       block: "start",
     });
-  }
-
-  function scrollToFriendVotingView() {
-    setPendingFriendVotingScroll(true);
-  }
-
-  function handleViewDemoResults() {
-    setDemoResultsUnlocked(true);
-    setPendingResultsScroll(true);
-  }
-
-  function handleFriendVoteComplete(votes: string[]) {
-    setPreviewVotes(votes);
   }
 
   async function handleCopyInviteLink() {
@@ -338,11 +128,6 @@ export default function Home() {
     } catch {
       setInviteCopied(false);
     }
-  }
-
-  function handleInviteMoreFriends() {
-    handleCopyInviteLink();
-    scrollToCreateGame();
   }
 
   function toggleVibeTag(tag: VibeTag) {
@@ -373,13 +158,6 @@ export default function Home() {
     setGeneratedGame(null);
     setShareCode(null);
     setInviteCopied(false);
-    setFriendVotingStarted(false);
-    setPendingFriendVotingScroll(false);
-    setSimulatedVoteCount(0);
-    setShowUnlockCelebration(false);
-    setDemoResultsUnlocked(false);
-    setPreviewVotes(null);
-    setPendingResultsScroll(false);
 
     const result = await createGameAction({
       friends,
@@ -401,14 +179,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
-      {/* Background effects */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-violet-600/20 blur-[120px]" />
         <div className="absolute top-1/3 -right-32 h-[400px] w-[400px] rounded-full bg-cyan-600/10 blur-[100px]" />
         <div className="absolute bottom-0 -left-32 h-[400px] w-[400px] rounded-full bg-orange-600/10 blur-[100px]" />
       </div>
 
-      {/* Header */}
       <header className="relative z-10 border-b border-white/5">
         <div className="mx-auto flex max-w-6xl items-center px-6 py-5">
           <div className="flex items-center gap-2">
@@ -421,16 +197,7 @@ export default function Home() {
       </header>
 
       <main className="relative z-10">
-        {/* Hero */}
         <section className="mx-auto max-w-6xl px-6 pb-24 pt-20 text-center sm:pt-28">
-          <div className="mb-4 inline-flex items-center rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-200">
-            Prototype demo
-          </div>
-
-          <p className="mx-auto mb-8 max-w-xl text-sm text-amber-100/80 sm:text-base">
-            This is an early demo. Invite links and votes are simulated for now.
-          </p>
-
           <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Rank your{" "}
             <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">
@@ -449,7 +216,7 @@ export default function Home() {
               onClick={scrollToCreateGame}
               className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/40 sm:w-auto"
             >
-              Try FriendRank Demo
+              Create FriendRank
             </button>
             <button
               type="button"
@@ -467,24 +234,22 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Creator View */}
         <section
           ref={createGameRef}
           id="create-game"
           className="scroll-mt-8 border-t border-white/5 bg-white/[0.02] py-20"
         >
           <div className="mx-auto max-w-2xl px-6">
-            <SectionLabel description="Create a demo game">
+            <SectionLabel description="Create a real game for your group">
               Creator View
             </SectionLabel>
 
             <div className="mb-10 text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Create a demo FriendRank
+                Create your FriendRank
               </h2>
               <p className="mt-3 text-slate-400">
-                Fill in your group details — everything below runs locally in
-                your browser
+                Fill in your group details and share the link with friends
               </p>
             </div>
 
@@ -638,7 +403,7 @@ export default function Home() {
                   disabled={isSavingGame}
                   className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/40 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {isSavingGame ? "Saving game..." : "Generate Demo FriendRank"}
+                  {isSavingGame ? "Saving game..." : "Create FriendRank"}
                 </button>
 
                 {saveGameError && (
@@ -708,25 +473,14 @@ export default function Home() {
                           <>📨 Copy Invite Link</>
                         )}
                       </button>
-                      <button
-                        type="button"
-                        onClick={scrollToFriendVotingView}
+                      <Link
+                        href={`/game/${shareCode}`}
                         className="flex flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-5 py-3 text-sm font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500"
                       >
-                        Open Friend Voting View
-                      </button>
+                        Open Share Link
+                      </Link>
                     </div>
                   </div>
-                </div>
-
-                <div className="mt-6">
-                  <WaitingForVotesCard
-                    friends={generatedGame.friends}
-                    voteCount={simulatedVoteCount}
-                    isUnlocked={multiplayerResultsUnlocked}
-                    showCelebration={showUnlockCelebration}
-                    onSimulateVote={handleSimulateVote}
-                  />
                 </div>
 
                 <div className="mt-6 rounded-2xl border border-white/10 bg-slate-900/50 p-4 backdrop-blur-sm sm:p-5">
@@ -754,91 +508,6 @@ export default function Home() {
           </div>
         </section>
 
-        {generatedGame && (
-          <section
-            ref={friendVotingRef}
-            id="friend-voting"
-            className="scroll-mt-8 border-t border-white/5 py-20"
-          >
-            <div className="mx-auto max-w-2xl px-6">
-              <SectionLabel description="Preview what friends would see">
-                Friend Voting View
-              </SectionLabel>
-
-              <div className="mb-8 text-center">
-                <h2 className="text-2xl font-bold sm:text-3xl">
-                  You&apos;ve been invited to a FriendRank
-                </h2>
-                <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-400 sm:text-base">
-                  Vote honestly. FriendRank results unlock when enough friends
-                  vote.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-6 sm:p-8">
-                {!friendVotingStarted ? (
-                  <div className="text-center">
-                    <p className="text-sm text-slate-400">
-                      Preview what a friend sees when they open your invite link.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => setFriendVotingStarted(true)}
-                      className="mt-5 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-3.5 text-sm font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500"
-                    >
-                      ▶ Friend Voting Preview
-                    </button>
-                  </div>
-                ) : (
-                  <div className="mx-auto max-w-sm">
-                    <p className="mb-4 text-center text-xs font-medium uppercase tracking-wider text-cyan-300">
-                      Friend Voting Preview
-                    </p>
-                    <VoteGame
-                      key={`${generatedGame.questions.join("|")}-${generatedGame.friends.join(",")}`}
-                      game={generatedGame}
-                      mode="preview"
-                      onVoteComplete={handleFriendVoteComplete}
-                      onInviteMoreFriends={handleInviteMoreFriends}
-                      onViewDemoResults={handleViewDemoResults}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {showResultsView && generatedGame && (
-          <section
-            ref={unlockedResultsRef}
-            id="results-view"
-            className="scroll-mt-8 border-t border-white/5 bg-white/[0.02] py-20"
-          >
-            <div className="mx-auto max-w-2xl px-6">
-              <SectionLabel description="Preview shareable results">
-                Results View
-              </SectionLabel>
-
-              <div className="mb-6 text-center">
-                <h2 className="text-2xl font-bold sm:text-3xl">
-                  FriendRank results are in
-                </h2>
-                <p className="mt-2 text-sm text-slate-400">
-                  Share your FriendRank screenshot with the group chat
-                </p>
-              </div>
-
-              <FriendRankResultsView
-                game={generatedGame}
-                legacyVotes={previewVotes ?? generateMockCategoryVotes(generatedGame)}
-                showPlayAgain={false}
-              />
-            </div>
-          </section>
-        )}
-
-        {/* Feedback */}
         <section className="scroll-mt-8 border-t border-white/5 py-20">
           <div className="mx-auto max-w-2xl px-6 text-center">
             <div className="rounded-2xl border border-white/10 bg-slate-900/50 px-6 py-8 backdrop-blur-sm sm:px-8 sm:py-10">
@@ -849,7 +518,7 @@ export default function Home() {
               {feedbackResponse ? (
                 <div className="mt-6 space-y-5 text-left">
                   <p className="text-center text-sm text-emerald-400">
-                    Thanks — this helps us improve the demo.
+                    Thanks — this helps us improve FriendRank.
                   </p>
 
                   {feedbackResponse === "not-yet" && (
@@ -860,7 +529,7 @@ export default function Home() {
                       <textarea
                         value={shareabilityNote}
                         onChange={(e) => setShareabilityNote(e.target.value)}
-                        placeholder="Example: funnier results, real invite links, better categories..."
+                        placeholder="Example: funnier results, better categories, easier sharing..."
                         rows={3}
                         className={`${inputClassName} resize-y min-h-[96px] text-left text-sm`}
                       />
@@ -889,7 +558,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FriendRank Categories */}
         <section
           ref={categoriesRef}
           className="mx-auto max-w-6xl scroll-mt-8 px-6 py-20"
@@ -919,7 +587,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* How It Works */}
         <section className="border-t border-white/5 bg-white/[0.02] py-20">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-12 text-center">
@@ -952,7 +619,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Bottom CTA */}
         <section className="mx-auto max-w-6xl px-6 py-24 text-center">
           <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-violet-500/10 via-slate-900 to-cyan-500/10 px-8 py-16">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -967,7 +633,7 @@ export default function Home() {
               onClick={scrollToCreateGame}
               className="mt-8 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500"
             >
-              Try FriendRank Demo
+              Create FriendRank
             </button>
           </div>
         </section>
