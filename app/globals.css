@@ -80,15 +80,16 @@ body {
   opacity: 1;
 }
 
-.friendrank-rest-cards {
+.friendrank-cascade-section {
   transition:
     opacity 240ms ease-out,
     transform 240ms ease-out;
+  transition-delay: var(--cascade-delay, 0ms);
   transform: translateY(6px);
   opacity: 0;
 }
 
-.friendrank-rest-cards--active {
+.friendrank-cascade-section--active {
   transform: translateY(0);
   opacity: 1;
 }
@@ -99,7 +100,7 @@ body {
   }
 
   .friendrank-hero-card,
-  .friendrank-rest-cards {
+  .friendrank-cascade-section {
     transform: none;
     opacity: 1;
     transition: none;

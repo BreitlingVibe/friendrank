@@ -1,7 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useHeroMoment } from "@/components/friend-rank-hero-moment";
+import {
+  ResultsCascadeSection,
+  useResultsCascade,
+} from "@/components/friend-rank-results-cascade";
 import type { GeneratedGame } from "@/lib/game-build";
 import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
 import {
@@ -31,11 +35,13 @@ export function FriendRankResultsView({
 }) {
   const [resultsCopied, setResultsCopied] = useState(false);
   const { enabled: heroMomentEnabled, stage: heroStage } = useHeroMoment();
+  const { enabled: cascadeEnabled, setSectionCount } = useResultsCascade();
   const heroActive = heroMomentEnabled && heroStage !== "waiting";
   const heroCardActive =
-    !heroMomentEnabled || heroStage === "hero" || heroStage === "rest" || heroStage === "done";
-  const restCardsActive =
-    !heroMomentEnabled || heroStage === "rest" || heroStage === "done";
+    !heroMomentEnabled ||
+    heroStage === "hero" ||
+    heroStage === "rest" ||
+    heroStage === "done";
 
   const presentation = useMemo(() => {
     if (aggregatedResults) {
@@ -49,6 +55,24 @@ export function FriendRankResultsView({
   const { categoryDetails, dangerousCombo, labels } = presentation;
   const topThree = categoryDetails.slice(0, 3);
   const [first, second, third] = topThree;
+  const extraCategories = categoryDetails.slice(3);
+  const hasSecondaryGrid = Boolean(second || third);
+
+  const cascadeSectionCount = useMemo(() => {
+    let count = 0;
+    if (hasSecondaryGrid) count += 1;
+    count += extraCategories.length;
+    count += 5;
+    return count;
+  }, [extraCategories.length, hasSecondaryGrid]);
+
+  useEffect(() => {
+    if (cascadeEnabled) {
+      setSectionCount(cascadeSectionCount);
+    }
+  }, [cascadeEnabled, cascadeSectionCount, setSectionCount]);
+
+  let cascadeIndex = 0;
 
   const groupVibePhrase = extractGroupVibePhrase(
     game.vibeTags,
@@ -204,23 +228,23 @@ export function FriendRankResultsView({
           </div>
         )}
 
-        <div
-          className={
-            heroMomentEnabled
-              ? `friendrank-rest-cards space-y-4 ${restCardsActive ? "friendrank-rest-cards--active" : ""}`
-              : "space-y-4"
-          }
-        >
         {(second || third) && (
-          <div className="grid gap-3 sm:grid-cols-2">
+          <ResultsCascadeSection
+            index={cascadeIndex++}
+            className="grid gap-3 sm:grid-cols-2"
+          >
             {second && renderCategoryCard(second, false)}
             {third && renderCategoryCard(third, false)}
-          </div>
+          </ResultsCascadeSection>
         )}
 
-        {categoryDetails.slice(3).map((detail) => renderCategoryCard(detail, false))}
-        </div>
+        {extraCategories.map((detail) => (
+          <ResultsCascadeSection key={detail.category.label} index={cascadeIndex++}>
+            {renderCategoryCard(detail, false)}
+          </ResultsCascadeSection>
+        ))}
 
+        <ResultsCascadeSection index={cascadeIndex++}>
         <div className="rounded-2xl border border-cyan-500/25 bg-cyan-500/10 p-5">
           <p className="text-xs font-bold uppercase tracking-wider text-cyan-300">
             {labels.groupVibe}
@@ -229,7 +253,9 @@ export function FriendRankResultsView({
             {groupVibe}
           </p>
         </div>
+        </ResultsCascadeSection>
 
+        <ResultsCascadeSection index={cascadeIndex++}>
         <div className="rounded-2xl border border-orange-500/25 bg-orange-500/10 p-5">
           <p className="text-xs font-bold uppercase tracking-wider text-orange-300">
             {labels.dangerousCombo}
@@ -255,7 +281,9 @@ export function FriendRankResultsView({
             ))}
           </ul>
         </div>
+        </ResultsCascadeSection>
 
+        <ResultsCascadeSection index={cascadeIndex++}>
         <div className="rounded-2xl border border-violet-500/25 bg-violet-500/10 p-5 text-center">
           <p className="text-xs font-bold uppercase tracking-wider text-violet-300">
             {labels.groupReputation}
@@ -264,7 +292,9 @@ export function FriendRankResultsView({
             {presentation.groupReputation}
           </p>
         </div>
+        </ResultsCascadeSection>
 
+        <ResultsCascadeSection index={cascadeIndex++}>
         <div className="rounded-3xl border-2 border-violet-400/40 bg-gradient-to-br from-violet-600/35 via-fuchsia-600/20 to-cyan-600/25 px-6 py-10 text-center shadow-xl shadow-violet-500/25">
           <p className="mb-4 text-xs font-bold uppercase tracking-widest text-violet-200">
             {presentation.endingCard.heading}
@@ -285,7 +315,9 @@ export function FriendRankResultsView({
             Screenshot this before your friends deny everything.
           </p>
         </div>
+        </ResultsCascadeSection>
 
+        <ResultsCascadeSection index={cascadeIndex++}>
         <button
           type="button"
           onClick={handleCopyResults}
@@ -297,6 +329,7 @@ export function FriendRankResultsView({
             "📋 Copy Share Text"
           )}
         </button>
+        </ResultsCascadeSection>
 
         {showPlayAgain && onPlayAgain && (
           <button
