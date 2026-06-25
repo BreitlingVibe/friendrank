@@ -171,6 +171,8 @@ type DangerousComboCard = {
   outcomes: string[];
 };
 
+export type { DangerousComboCard };
+
 export type CategoryResultDetail = {
   category: FriendRankCategory;
   winner: string;
@@ -385,7 +387,10 @@ function finalizeResultsPresentation(
   game: GeneratedGame,
   seed: number,
   categoryDetails: CategoryResultDetail[],
-  groupVerdict?: string,
+  overrides?: {
+    groupVerdict?: string;
+    dangerousCombo?: DangerousComboCard;
+  },
 ): ResultsPresentation {
   const endingCard =
     ENDING_CARD_VARIANTS[pickIndex(seed, 9, ENDING_CARD_VARIANTS.length)];
@@ -395,11 +400,12 @@ function finalizeResultsPresentation(
 
   return {
     seed,
-    groupVerdict: groupVerdict ?? pickLegacyGroupVerdict(seed),
+    groupVerdict: overrides?.groupVerdict ?? pickLegacyGroupVerdict(seed),
     groupReputation:
       GROUP_REPUTATIONS[pickIndex(seed, 2, GROUP_REPUTATIONS.length)],
     categoryDetails,
-    dangerousCombo: buildDangerousComboCard(game.friends, seed),
+    dangerousCombo:
+      overrides?.dangerousCombo ?? buildDangerousComboCard(game.friends, seed),
     endingCard,
     endingHighlight,
   };
@@ -431,6 +437,7 @@ export function buildDemoResultsPresentation(
 
 export type RealResultsPresentationOptions = {
   groupVerdict?: string;
+  dangerousCombo?: DangerousComboCard;
 };
 
 export function buildRealResultsPresentationImpl(
@@ -463,12 +470,10 @@ export function buildRealResultsPresentationImpl(
     },
   );
 
-  return finalizeResultsPresentation(
-    game,
-    seed,
-    categoryDetails,
-    options?.groupVerdict,
-  );
+  return finalizeResultsPresentation(game, seed, categoryDetails, {
+    groupVerdict: options?.groupVerdict,
+    dangerousCombo: options?.dangerousCombo,
+  });
 }
 
 export function buildRealResultsPresentation(
