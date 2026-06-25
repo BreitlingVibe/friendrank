@@ -5,6 +5,7 @@ import type {
   VibeTag,
 } from "@/lib/game-build";
 import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
+import { buildNarrative } from "@/lib/narrative/engine";
 
 const CUSTOM_AGREE_QUOTE_TEMPLATES = [
   "{name} is the undisputed winner of \"{label}\".",
@@ -423,7 +424,7 @@ export function buildDemoResultsPresentation(
   return finalizeResultsPresentation(game, seed, categoryDetails);
 }
 
-export function buildRealResultsPresentation(
+export function buildRealResultsPresentationImpl(
   game: GeneratedGame,
   aggregatedResults: AggregatedCategoryResult[],
 ): ResultsPresentation {
@@ -453,6 +454,13 @@ export function buildRealResultsPresentation(
   );
 
   return finalizeResultsPresentation(game, seed, categoryDetails);
+}
+
+export function buildRealResultsPresentation(
+  game: GeneratedGame,
+  aggregatedResults: AggregatedCategoryResult[],
+): ResultsPresentation {
+  return buildNarrative(game, aggregatedResults);
 }
 
 function buildGroupProfile(vibeTags: VibeTag[], extraContext: string): string {
