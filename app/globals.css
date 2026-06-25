@@ -24,3 +24,35 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes friendrank-reveal-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.06);
+  }
+}
+
+.friendrank-reveal-glow {
+  animation: friendrank-reveal-glow 5s ease-in-out infinite;
+}
+
+.friendrank-reveal-glow-delay {
+  animation-delay: 1.6s;
+}
+
+.friendrank-reveal-glow-delay-2 {
+  animation-delay: 3.1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .friendrank-reveal-glow {
+    animation: none;
+    opacity: 0.45;
+  }
+}

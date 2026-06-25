@@ -1,8 +1,14 @@
+export type RevealStepTone = "title" | "status" | "finale";
+
+export type RevealStepConfig = {
+  text: string;
+  durationMs: number;
+  animateDots?: boolean;
+  tone?: RevealStepTone;
+};
+
 export type RevealSequenceConfig = {
-  title: string;
-  titleDurationMs: number;
-  messages: readonly string[];
-  messageDurationMs: number;
+  steps: readonly RevealStepConfig[];
   fadeDurationMs: number;
   resultsFadeDurationMs: number;
 };
@@ -10,4 +16,6 @@ export type RevealSequenceConfig = {
 export type RevealSequenceStep = {
   text: string;
   durationMs: number;
+  animateDots?: boolean;
+  tone?: RevealStepTone;
 };
