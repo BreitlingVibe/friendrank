@@ -10,6 +10,8 @@ import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
 import { buildNarrative } from "@/lib/narrative/engine";
 import { buildNarrativeContext } from "@/lib/narrative/context";
 import { generateSectionLabels } from "@/lib/narrative/generators/section-labels";
+import { generateEnding } from "@/lib/narrative/generators/ending";
+import type { EndingPresentation } from "@/lib/narrative/templates/ending-profiles";
 
 export type { ResultsSectionLabels };
 
@@ -188,16 +190,42 @@ export type CategoryResultDetail = {
   rank: number;
 };
 
+export type EndingCardPresentation = {
+  heading: string;
+  lines: readonly { text: string; large: boolean }[];
+};
+
 export type ResultsPresentation = {
   seed: number;
   groupVerdict: string;
   groupReputation: string;
   categoryDetails: CategoryResultDetail[];
   dangerousCombo: DangerousComboCard;
-  endingCard: (typeof ENDING_CARD_VARIANTS)[number];
+  endingCard: EndingCardPresentation;
   endingHighlight: string;
   labels: ResultsSectionLabels;
 };
+
+export function buildEndingCardFromNarrative(
+  ending: EndingPresentation,
+): EndingCardPresentation {
+  return {
+    heading: ending.heading,
+    lines: [
+      { text: ending.subtitle, large: false },
+      { text: ending.title, large: true },
+    ],
+  };
+}
+
+function buildLegacyEndingCard(seed: number): EndingCardPresentation {
+  const variant = ENDING_CARD_VARIANTS[pickIndex(seed, 9, ENDING_CARD_VARIANTS.length)];
+
+  return {
+    heading: "OFFICIAL DIAGNOSIS",
+    lines: variant.lines,
+  };
+}
 
 type RealCategoryStats = Pick<
   AggregatedCategoryResult,
@@ -399,12 +427,13 @@ function finalizeResultsPresentation(
     groupReputation?: string;
     dangerousCombo?: DangerousComboCard;
     labels?: ResultsSectionLabels;
+    ending?: EndingPresentation;
   },
 ): ResultsPresentation {
-  const endingCard =
-    ENDING_CARD_VARIANTS[pickIndex(seed, 9, ENDING_CARD_VARIANTS.length)];
-  const endingHighlight =
-    endingCard.lines.find((line) => line.large)?.text ??
+  const endingCard = overrides?.ending
+    ? buildEndingCardFromNarrative(overrides.ending)
+    : buildLegacyEndingCard(seed);
+  const endingHighlight = endingCard.lines.find((line) => line.large)?.text ??
     endingCard.lines[endingCard.lines.length - 1].text;
 
   return {
@@ -459,8 +488,14 @@ export function buildDemoResultsPresentation(
   const labels = generateSectionLabels(
     buildNarrativeContext(game, stubAggregatedResults),
   );
+  const ending = generateEnding(
+    buildNarrativeContext(game, stubAggregatedResults),
+  );
 
-  return finalizeResultsPresentation(game, seed, categoryDetails, { labels });
+  return finalizeResultsPresentation(game, seed, categoryDetails, {
+    labels,
+    ending,
+  });
 }
 
 export type RealResultsPresentationOptions = {
@@ -468,6 +503,7 @@ export type RealResultsPresentationOptions = {
   groupReputation?: string;
   dangerousCombo?: DangerousComboCard;
   labels?: ResultsSectionLabels;
+  ending?: EndingPresentation;
 };
 
 export function buildRealResultsPresentationImpl(
@@ -505,6 +541,7 @@ export function buildRealResultsPresentationImpl(
     groupReputation: options?.groupReputation,
     dangerousCombo: options?.dangerousCombo,
     labels: options?.labels,
+    ending: options?.ending,
   });
 }
 

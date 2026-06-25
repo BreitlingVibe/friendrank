@@ -232,7 +232,7 @@ export function FriendRankResultsView({
 
         <div className="rounded-3xl border-2 border-violet-400/40 bg-gradient-to-br from-violet-600/35 via-fuchsia-600/20 to-cyan-600/25 px-6 py-10 text-center shadow-xl shadow-violet-500/25">
           <p className="mb-4 text-xs font-bold uppercase tracking-widest text-violet-200">
-            {labels.endingSection}
+            {presentation.endingCard.heading}
           </p>
           {presentation.endingCard.lines.map((line, index) => (
             <p
