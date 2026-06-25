@@ -11,8 +11,8 @@ export type CreateGameResult =
 export async function createGameAction(
   input: CreateGameInput,
 ): Promise<CreateGameResult> {
-  if (input.friends.length === 0) {
-    return { ok: false, error: "Add at least one friend to create a game." };
+  if (input.friends.length < 2) {
+    return { ok: false, error: "Add at least 2 friends to create a game." };
   }
 
   if (!input.tone) {

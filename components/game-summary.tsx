@@ -1,4 +1,5 @@
 import type { GeneratedGame } from "@/lib/game-build";
+import { getVotesRequired } from "@/lib/votes/constants";
 
 type GameSummaryProps = {
   game: GeneratedGame;
@@ -37,7 +38,8 @@ export function GameSummary({
                 Your FriendRank game is ready
               </h3>
               <p className="mt-1 text-sm text-slate-400">
-                Share it with your group. Results unlock after 3 votes.
+                Share it with your group. Results unlock after{" "}
+                {getVotesRequired(game.friends.length)} votes.
               </p>
             </div>
           </div>

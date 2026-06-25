@@ -1,14 +1,12 @@
-import { VOTES_REQUIRED } from "@/lib/votes/constants";
-
 type VoteProgressCardProps = {
   voteCount: number;
-  votesRequired?: number;
+  votesRequired: number;
   isUnlocked: boolean;
 };
 
 export function VoteProgressCard({
   voteCount,
-  votesRequired = VOTES_REQUIRED,
+  votesRequired,
   isUnlocked,
 }: VoteProgressCardProps) {
   const progressPercent = Math.min(

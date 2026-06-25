@@ -70,12 +70,19 @@ export const tones: Tone[] = [
   "Chaotic",
 ];
 
-export function parseGroupNames(input: string): string[] {
-  const names = input
+export const MIN_GROUP_FRIENDS = 2;
+
+export function parseEnteredGroupNames(input: string): string[] {
+  return input
     .split(",")
     .map((name) => name.trim())
-    .filter(Boolean);
-  return names.length > 0 ? names.slice(0, 8) : [...DEFAULT_FRIENDS];
+    .filter(Boolean)
+    .slice(0, 8);
+}
+
+export function parseGroupNames(input: string): string[] {
+  const names = parseEnteredGroupNames(input);
+  return names.length > 0 ? names : [...DEFAULT_FRIENDS];
 }
 
 function escapeRegExp(value: string): string {

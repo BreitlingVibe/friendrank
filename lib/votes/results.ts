@@ -3,7 +3,6 @@ import {
   aggregateCategoryResults,
   type AggregatedCategoryResult,
 } from "@/lib/votes/aggregate";
-import { VOTES_REQUIRED } from "@/lib/votes/constants";
 import {
   getVoteProgress,
   getVoteSessionsByGameId,
@@ -20,7 +19,7 @@ export async function getAggregatedResultsForShareCode(
   }
 
   const progress = await getVoteProgress(shareCode);
-  if (progress.voteCount < VOTES_REQUIRED) {
+  if (!progress.isUnlocked) {
     return null;
   }
 

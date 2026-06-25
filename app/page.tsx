@@ -10,6 +10,8 @@ import {
   FRIEND_RANK_CATEGORIES,
   MAX_VIBE_TAGS,
   parseGroupNames,
+  parseEnteredGroupNames,
+  MIN_GROUP_FRIENDS,
   tones,
   VIBE_TAGS,
   type GeneratedGame,
@@ -17,7 +19,7 @@ import {
   type VibeTag,
 } from "@/lib/game-build";
 import { getGameShareUrl, getInviteLinkText } from "@/lib/game-url";
-import { VOTES_REQUIRED } from "@/lib/votes/constants";
+import { getVotesRequired } from "@/lib/votes/constants";
 
 const steps = [
   {
@@ -75,6 +77,12 @@ export default function Home() {
     [customCategories, groupNames],
   );
 
+  const enteredFriends = useMemo(
+    () => parseEnteredGroupNames(groupNames),
+    [groupNames],
+  );
+  const hasEnoughFriends = enteredFriends.length >= MIN_GROUP_FRIENDS;
+
   function updateCustomCategory(index: number, value: string) {
     setCustomCategories((prev) => {
       const next = [...prev];
@@ -122,7 +130,10 @@ export default function Home() {
 
   async function handleGenerateGame(e: React.FormEvent) {
     e.preventDefault();
-    const friends = parseGroupNames(groupNames);
+    const friends = parseEnteredGroupNames(groupNames);
+    if (friends.length < MIN_GROUP_FRIENDS) {
+      return;
+    }
     const game = buildGeneratedGame({
       friends,
       vibeTags: selectedVibeTags,
@@ -377,11 +388,17 @@ export default function Home() {
 
                 <button
                   type="submit"
-                  disabled={isSavingGame}
+                  disabled={isSavingGame || !hasEnoughFriends}
                   className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/40 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isSavingGame ? "Saving game..." : "Start the Chaos"}
                 </button>
+
+                {!hasEnoughFriends && (
+                  <p className="text-center text-xs text-slate-400">
+                    Add at least 2 friends to start a game.
+                  </p>
+                )}
 
                 {saveGameError && (
                   <p className="text-center text-sm text-red-400">
@@ -411,7 +428,7 @@ export default function Home() {
                         </h3>
                         <p className="mt-1 text-sm text-slate-400">
                           Share it with your group. Results unlock after{" "}
-                          {VOTES_REQUIRED} votes.
+                          {getVotesRequired(generatedGame.friends.length)} votes.
                         </p>
                       </div>
                     </div>

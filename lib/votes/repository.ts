@@ -3,7 +3,10 @@ import {
   VoteError,
   createVoteFailureError,
 } from "@/lib/votes/errors";
-import { VOTES_REQUIRED } from "@/lib/votes/constants";
+import {
+  getVotesRequired,
+  isResultsUnlocked,
+} from "@/lib/votes/constants";
 import type {
   SubmitVoteInput,
   VoteProgress,
@@ -176,11 +179,16 @@ export async function getVoteProgress(
     }
 
     const voteCount = count ?? 0;
+    const votesRequired = getVotesRequired(game.friends.length);
 
     return {
       voteCount,
-      votesRequired: VOTES_REQUIRED,
-      isUnlocked: voteCount >= VOTES_REQUIRED,
+      votesRequired,
+      isUnlocked: isResultsUnlocked(
+        voteCount,
+        game.friends.length,
+        game.created_at,
+      ),
       hasVoted,
     };
   } catch (error) {
