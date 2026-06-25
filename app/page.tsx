@@ -49,28 +49,6 @@ const steps = [
 const inputClassName =
   "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20";
 
-function SectionLabel({
-  children,
-  description,
-}: {
-  children: React.ReactNode;
-  description?: string;
-}) {
-  return (
-    <div className="mb-6">
-      <div className="flex items-center gap-3">
-        <span className="text-xs font-bold uppercase tracking-widest text-violet-400">
-          {children}
-        </span>
-        <span className="h-px flex-1 bg-gradient-to-r from-violet-500/40 to-transparent" />
-      </div>
-      {description && (
-        <p className="mt-2 text-sm text-slate-500">{description}</p>
-      )}
-    </div>
-  );
-}
-
 export default function Home() {
   const createGameRef = useRef<HTMLElement>(null);
   const categoriesRef = useRef<HTMLElement>(null);
@@ -239,9 +217,9 @@ export default function Home() {
           className="scroll-mt-8 border-t border-white/5 bg-white/[0.02] py-20"
         >
           <div className="mx-auto max-w-2xl px-6">
-            <SectionLabel description="Create a real game for your group">
-              Creator View
-            </SectionLabel>
+            <p className="mb-6 text-center text-base font-semibold text-violet-200">
+              Create a real game for your group
+            </p>
 
             <div className="mb-10 text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
