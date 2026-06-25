@@ -3,13 +3,15 @@ import type { RevealSequenceConfig, RevealSequenceStep } from "@/lib/reveal/type
 export const REVEAL_FADE_MS = 300;
 export const REVEAL_RESULTS_FADE_MS = 300;
 
+export const REVEAL_OPENING_TITLE = "🔍 Reviewing the evidence";
+
 /** ~3.0s reveal steps + ~0.3s results crossfade (~3.2s total). */
 export const DEFAULT_REVEAL_SEQUENCE: RevealSequenceConfig = {
   fadeDurationMs: REVEAL_FADE_MS,
   resultsFadeDurationMs: REVEAL_RESULTS_FADE_MS,
   steps: [
     {
-      text: "🏆 The Group Has Spoken",
+      text: REVEAL_OPENING_TITLE,
       durationMs: 800,
       tone: "title",
     },

@@ -9,11 +9,10 @@ import type { NarrativeContext } from "@/lib/narrative/types";
 import {
   DEFAULT_REVEAL_SEQUENCE,
   REVEAL_FADE_MS,
+  REVEAL_OPENING_TITLE,
   REVEAL_RESULTS_FADE_MS,
 } from "@/lib/reveal/sequence";
 import type { RevealSequenceConfig } from "@/lib/reveal/types";
-
-const REVEAL_TITLE = "🏆 The Group Has Spoken";
 
 function pickRevealProfile(context: NarrativeContext): RevealMessageProfile {
   for (const tag of VIBE_REVEAL_PRIORITY) {
@@ -50,7 +49,7 @@ export function generateRevealSequence(
     resultsFadeDurationMs: REVEAL_RESULTS_FADE_MS,
     steps: [
       {
-        text: REVEAL_TITLE,
+        text: REVEAL_OPENING_TITLE,
         durationMs: titleStep?.durationMs ?? 800,
         tone: "title",
       },
