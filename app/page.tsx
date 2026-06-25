@@ -199,15 +199,14 @@ export default function Home() {
       <main className="relative z-10">
         <section className="mx-auto max-w-6xl px-6 pb-24 pt-20 text-center sm:pt-28">
           <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            Rank your{" "}
+            Discover your{" "}
             <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">
-              friend group.
+              group&apos;s lore.
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400 sm:text-xl">
-            Find out who&apos;s the main character, secret villain, and future
-            influencer.
+            Vote. Reveal the chaos. Share the results.
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
@@ -216,7 +215,7 @@ export default function Home() {
               onClick={scrollToCreateGame}
               className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/40 sm:w-auto"
             >
-              Create FriendRank
+              Start the Chaos
             </button>
             <button
               type="button"
@@ -246,7 +245,7 @@ export default function Home() {
 
             <div className="mb-10 text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Create your FriendRank
+                Create your group game
               </h2>
               <p className="mt-3 text-slate-400">
                 Fill in your group details and share the link with friends
@@ -403,7 +402,7 @@ export default function Home() {
                   disabled={isSavingGame}
                   className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/40 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {isSavingGame ? "Saving game..." : "Create FriendRank"}
+                  {isSavingGame ? "Saving game..." : "Start the Chaos"}
                 </button>
 
                 {saveGameError && (
@@ -625,7 +624,7 @@ export default function Home() {
               Ready to rank your friends?
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-slate-400">
-              Create your first FriendRank game in under a minute. The group
+              Create your group game in under a minute. The group
               chat will never be the same.
             </p>
             <button
@@ -633,7 +632,7 @@ export default function Home() {
               onClick={scrollToCreateGame}
               className="mt-8 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500"
             >
-              Create FriendRank
+              Start the Chaos
             </button>
           </div>
         </section>
