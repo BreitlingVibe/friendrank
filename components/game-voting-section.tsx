@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   getGameResultsAction,
   getVoteProgressAction,
@@ -8,6 +8,7 @@ import {
 } from "@/app/actions/votes";
 import { FriendRankResultsView } from "@/components/friend-rank-results";
 import { FriendRankResultsWithReveal } from "@/components/friend-rank-results-with-reveal";
+import { buildNarrativeContext } from "@/lib/narrative/context";
 import { VoteGame } from "@/components/vote-game";
 import { VoteProgressCard } from "@/components/vote-progress-card";
 import type { GeneratedGame } from "@/lib/game-build";
@@ -127,6 +128,14 @@ export function GameVotingSection({
 
   const hasVoted = progress.hasVoted;
 
+  const narrativeContext = useMemo(() => {
+    if (!aggregatedResults) {
+      return null;
+    }
+
+    return buildNarrativeContext(game, aggregatedResults);
+  }, [aggregatedResults, game]);
+
   return (
     <div className="mt-8 space-y-6">
       <VoteProgressCard
@@ -175,8 +184,8 @@ export function GameVotingSection({
             <p className="text-center text-sm text-red-400">{resultsError}</p>
           )}
 
-          {aggregatedResults && (
-            <FriendRankResultsWithReveal>
+          {aggregatedResults && narrativeContext && (
+            <FriendRankResultsWithReveal narrativeContext={narrativeContext}>
               <FriendRankResultsView
                 game={game}
                 aggregatedResults={aggregatedResults}

@@ -1,24 +1,32 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { FriendRankReveal } from "@/components/friend-rank-reveal";
+import { generateRevealSequence } from "@/lib/narrative/generators/reveal-sequence";
+import type { NarrativeContext } from "@/lib/narrative/types";
 import { DEFAULT_REVEAL_SEQUENCE } from "@/lib/reveal/sequence";
 import type { RevealSequenceConfig } from "@/lib/reveal/types";
 import { usePrefersReducedMotion } from "@/lib/reveal/use-prefers-reduced-motion";
 
 type FriendRankResultsWithRevealProps = {
   children: ReactNode;
+  narrativeContext: NarrativeContext;
   sequence?: RevealSequenceConfig;
 };
 
 /**
  * Delays results presentation with a one-time reveal sequence per page load.
- * Independent from the Narrative Engine — only controls when children appear.
  */
 export function FriendRankResultsWithReveal({
   children,
-  sequence = DEFAULT_REVEAL_SEQUENCE,
+  narrativeContext,
+  sequence,
 }: FriendRankResultsWithRevealProps) {
+  const revealSequence = useMemo(
+    () => sequence ?? generateRevealSequence(narrativeContext),
+    [narrativeContext, sequence],
+  );
+
   const prefersReducedMotion = usePrefersReducedMotion();
   const [hydrated, setHydrated] = useState(false);
   const [revealFinished, setRevealFinished] = useState(false);
@@ -49,7 +57,7 @@ export function FriendRankResultsWithReveal({
     return <>{children}</>;
   }
 
-  const fadeMs = sequence.resultsFadeDurationMs;
+  const fadeMs = revealSequence.resultsFadeDurationMs ?? DEFAULT_REVEAL_SEQUENCE.resultsFadeDurationMs;
 
   return (
     <div className="relative mx-auto max-w-md">
@@ -75,7 +83,7 @@ export function FriendRankResultsWithReveal({
           }}
         >
           <FriendRankReveal
-            sequence={sequence}
+            sequence={revealSequence}
             onComplete={() => setRevealFinished(true)}
           />
         </div>
