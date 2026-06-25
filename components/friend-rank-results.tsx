@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useHeroMoment } from "@/components/friend-rank-hero-moment";
 import type { GeneratedGame } from "@/lib/game-build";
 import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
 import {
@@ -29,6 +30,12 @@ export function FriendRankResultsView({
   onPlayAgain?: () => void;
 }) {
   const [resultsCopied, setResultsCopied] = useState(false);
+  const { enabled: heroMomentEnabled, stage: heroStage } = useHeroMoment();
+  const heroActive = heroMomentEnabled && heroStage !== "waiting";
+  const heroCardActive =
+    !heroMomentEnabled || heroStage === "hero" || heroStage === "rest" || heroStage === "done";
+  const restCardsActive =
+    !heroMomentEnabled || heroStage === "rest" || heroStage === "done";
 
   const presentation = useMemo(() => {
     if (aggregatedResults) {
@@ -175,8 +182,35 @@ export function FriendRankResultsView({
           </p>
         </div>
 
-        {first && renderCategoryCard(first, true)}
+        {first && (
+          <div className="relative">
+            {heroMomentEnabled && (
+              <div
+                aria-hidden
+                className={`friendrank-hero-glow absolute -inset-3 rounded-3xl bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.45),transparent_72%)] ${
+                  heroActive ? "friendrank-hero-glow--visible" : ""
+                }`}
+              />
+            )}
+            <div
+              className={
+                heroMomentEnabled
+                  ? `friendrank-hero-card ${heroCardActive ? "friendrank-hero-card--active" : ""}`
+                  : undefined
+              }
+            >
+              {renderCategoryCard(first, true)}
+            </div>
+          </div>
+        )}
 
+        <div
+          className={
+            heroMomentEnabled
+              ? `friendrank-rest-cards space-y-4 ${restCardsActive ? "friendrank-rest-cards--active" : ""}`
+              : "space-y-4"
+          }
+        >
         {(second || third) && (
           <div className="grid gap-3 sm:grid-cols-2">
             {second && renderCategoryCard(second, false)}
@@ -185,6 +219,7 @@ export function FriendRankResultsView({
         )}
 
         {categoryDetails.slice(3).map((detail) => renderCategoryCard(detail, false))}
+        </div>
 
         <div className="rounded-2xl border border-cyan-500/25 bg-cyan-500/10 p-5">
           <p className="text-xs font-bold uppercase tracking-wider text-cyan-300">
