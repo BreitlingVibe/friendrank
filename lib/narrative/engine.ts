@@ -1,20 +1,21 @@
 import type { GeneratedGame } from "@/lib/game-build";
 import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
 import { buildNarrativeContext } from "@/lib/narrative/context";
+import { generateGroupVerdict } from "@/lib/narrative/generators/group-verdict";
 import type { NarrativeBundle } from "@/lib/narrative/types";
 import { buildRealResultsPresentationImpl } from "@/lib/results/presentation";
 
 /**
- * Narrative Engine entry point (Phase A: facade over existing presentation logic).
+ * Narrative Engine entry point.
  */
 export function buildNarrative(
   game: GeneratedGame,
   aggregatedResults: AggregatedCategoryResult[],
 ): NarrativeBundle {
   const context = buildNarrativeContext(game, aggregatedResults);
+  const groupVerdict = generateGroupVerdict(context);
 
-  // Phase A: context is assembled for future generators; output stays identical.
-  void context;
-
-  return buildRealResultsPresentationImpl(game, aggregatedResults);
+  return buildRealResultsPresentationImpl(game, aggregatedResults, {
+    groupVerdict,
+  });
 }

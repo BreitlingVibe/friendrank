@@ -385,6 +385,7 @@ function finalizeResultsPresentation(
   game: GeneratedGame,
   seed: number,
   categoryDetails: CategoryResultDetail[],
+  groupVerdict?: string,
 ): ResultsPresentation {
   const endingCard =
     ENDING_CARD_VARIANTS[pickIndex(seed, 9, ENDING_CARD_VARIANTS.length)];
@@ -394,7 +395,7 @@ function finalizeResultsPresentation(
 
   return {
     seed,
-    groupVerdict: GROUP_VERDICTS[pickIndex(seed, 0, GROUP_VERDICTS.length)],
+    groupVerdict: groupVerdict ?? pickLegacyGroupVerdict(seed),
     groupReputation:
       GROUP_REPUTATIONS[pickIndex(seed, 2, GROUP_REPUTATIONS.length)],
     categoryDetails,
@@ -402,6 +403,10 @@ function finalizeResultsPresentation(
     endingCard,
     endingHighlight,
   };
+}
+
+export function pickLegacyGroupVerdict(seed: number): string {
+  return GROUP_VERDICTS[pickIndex(seed, 0, GROUP_VERDICTS.length)];
 }
 
 export function buildDemoResultsPresentation(
@@ -424,9 +429,14 @@ export function buildDemoResultsPresentation(
   return finalizeResultsPresentation(game, seed, categoryDetails);
 }
 
+export type RealResultsPresentationOptions = {
+  groupVerdict?: string;
+};
+
 export function buildRealResultsPresentationImpl(
   game: GeneratedGame,
   aggregatedResults: AggregatedCategoryResult[],
+  options?: RealResultsPresentationOptions,
 ): ResultsPresentation {
   const friends = game.friends;
   const categoryResults = game.categories.map((category, index) => ({
@@ -453,7 +463,12 @@ export function buildRealResultsPresentationImpl(
     },
   );
 
-  return finalizeResultsPresentation(game, seed, categoryDetails);
+  return finalizeResultsPresentation(
+    game,
+    seed,
+    categoryDetails,
+    options?.groupVerdict,
+  );
 }
 
 export function buildRealResultsPresentation(
