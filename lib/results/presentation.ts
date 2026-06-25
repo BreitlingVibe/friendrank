@@ -389,6 +389,7 @@ function finalizeResultsPresentation(
   categoryDetails: CategoryResultDetail[],
   overrides?: {
     groupVerdict?: string;
+    groupReputation?: string;
     dangerousCombo?: DangerousComboCard;
   },
 ): ResultsPresentation {
@@ -402,6 +403,7 @@ function finalizeResultsPresentation(
     seed,
     groupVerdict: overrides?.groupVerdict ?? pickLegacyGroupVerdict(seed),
     groupReputation:
+      overrides?.groupReputation ??
       GROUP_REPUTATIONS[pickIndex(seed, 2, GROUP_REPUTATIONS.length)],
     categoryDetails,
     dangerousCombo:
@@ -413,6 +415,10 @@ function finalizeResultsPresentation(
 
 export function pickLegacyGroupVerdict(seed: number): string {
   return GROUP_VERDICTS[pickIndex(seed, 0, GROUP_VERDICTS.length)];
+}
+
+export function pickLegacyGroupReputation(seed: number): string {
+  return GROUP_REPUTATIONS[pickIndex(seed, 2, GROUP_REPUTATIONS.length)];
 }
 
 export function buildDemoResultsPresentation(
@@ -437,6 +443,7 @@ export function buildDemoResultsPresentation(
 
 export type RealResultsPresentationOptions = {
   groupVerdict?: string;
+  groupReputation?: string;
   dangerousCombo?: DangerousComboCard;
 };
 
@@ -472,6 +479,7 @@ export function buildRealResultsPresentationImpl(
 
   return finalizeResultsPresentation(game, seed, categoryDetails, {
     groupVerdict: options?.groupVerdict,
+    groupReputation: options?.groupReputation,
     dangerousCombo: options?.dangerousCombo,
   });
 }
