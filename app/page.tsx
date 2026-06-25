@@ -206,7 +206,7 @@ export default function Home() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400 sm:text-xl">
-            Vote. Reveal the chaos. Share the results.
+            Create your game. Vote. Reveal the chaos.
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
@@ -245,7 +245,7 @@ export default function Home() {
 
             <div className="mb-10 text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Create your group game
+                Who&apos;s in your group?
               </h2>
               <p className="mt-3 text-slate-400">
                 Fill in your group details and share the link with friends
