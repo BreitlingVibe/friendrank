@@ -1,3 +1,5 @@
+import type { ResultsSectionLabels } from "@/lib/narrative/templates/section-label-profiles";
+import { GENERIC_SECTION_LABELS } from "@/lib/narrative/templates/section-label-profiles";
 import type {
   FriendRankCategory,
   GeneratedGame,
@@ -6,6 +8,10 @@ import type {
 } from "@/lib/game-build";
 import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
 import { buildNarrative } from "@/lib/narrative/engine";
+import { buildNarrativeContext } from "@/lib/narrative/context";
+import { generateSectionLabels } from "@/lib/narrative/generators/section-labels";
+
+export type { ResultsSectionLabels };
 
 const CUSTOM_AGREE_QUOTE_TEMPLATES = [
   "{name} is the undisputed winner of \"{label}\".",
@@ -190,6 +196,7 @@ export type ResultsPresentation = {
   dangerousCombo: DangerousComboCard;
   endingCard: (typeof ENDING_CARD_VARIANTS)[number];
   endingHighlight: string;
+  labels: ResultsSectionLabels;
 };
 
 type RealCategoryStats = Pick<
@@ -391,6 +398,7 @@ function finalizeResultsPresentation(
     groupVerdict?: string;
     groupReputation?: string;
     dangerousCombo?: DangerousComboCard;
+    labels?: ResultsSectionLabels;
   },
 ): ResultsPresentation {
   const endingCard =
@@ -410,6 +418,7 @@ function finalizeResultsPresentation(
       overrides?.dangerousCombo ?? buildDangerousComboCard(game.friends, seed),
     endingCard,
     endingHighlight,
+    labels: overrides?.labels ?? GENERIC_SECTION_LABELS,
   };
 }
 
@@ -438,13 +447,27 @@ export function buildDemoResultsPresentation(
     (rank) => generateVotePercent(seed + rank * 11, rank),
   );
 
-  return finalizeResultsPresentation(game, seed, categoryDetails);
+  const stubAggregatedResults: AggregatedCategoryResult[] = game.categories.map(
+    (_, index) => ({
+      winner: votes[index] ?? friends[index % friends.length],
+      voteCount: 1,
+      votePercent: 50,
+      totalSessions: 2,
+      isTie: false,
+    }),
+  );
+  const labels = generateSectionLabels(
+    buildNarrativeContext(game, stubAggregatedResults),
+  );
+
+  return finalizeResultsPresentation(game, seed, categoryDetails, { labels });
 }
 
 export type RealResultsPresentationOptions = {
   groupVerdict?: string;
   groupReputation?: string;
   dangerousCombo?: DangerousComboCard;
+  labels?: ResultsSectionLabels;
 };
 
 export function buildRealResultsPresentationImpl(
@@ -481,6 +504,7 @@ export function buildRealResultsPresentationImpl(
     groupVerdict: options?.groupVerdict,
     groupReputation: options?.groupReputation,
     dangerousCombo: options?.dangerousCombo,
+    labels: options?.labels,
   });
 }
 

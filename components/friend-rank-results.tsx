@@ -39,7 +39,7 @@ export function FriendRankResultsView({
     return buildDemoResultsPresentation(game, votes);
   }, [aggregatedResults, game, legacyVotes]);
 
-  const { categoryDetails, dangerousCombo } = presentation;
+  const { categoryDetails, dangerousCombo, labels } = presentation;
   const topThree = categoryDetails.slice(0, 3);
   const [first, second, third] = topThree;
 
@@ -168,7 +168,7 @@ export function FriendRankResultsView({
       <div className="space-y-4 px-5 py-6 sm:px-6">
         <div className="rounded-2xl border border-fuchsia-500/30 bg-fuchsia-500/10 px-5 py-4 text-center">
           <p className="text-xs font-bold uppercase tracking-widest text-fuchsia-300">
-            Group Verdict
+            {labels.groupVerdict}
           </p>
           <p className="mt-2 text-lg font-bold leading-snug text-white">
             {presentation.groupVerdict}
@@ -188,7 +188,7 @@ export function FriendRankResultsView({
 
         <div className="rounded-2xl border border-cyan-500/25 bg-cyan-500/10 p-5">
           <p className="text-xs font-bold uppercase tracking-wider text-cyan-300">
-            Group Vibe
+            {labels.groupVibe}
           </p>
           <p className="mt-3 text-base font-medium leading-relaxed text-white">
             {groupVibe}
@@ -197,7 +197,7 @@ export function FriendRankResultsView({
 
         <div className="rounded-2xl border border-orange-500/25 bg-orange-500/10 p-5">
           <p className="text-xs font-bold uppercase tracking-wider text-orange-300">
-            Most Dangerous Combo
+            {labels.dangerousCombo}
           </p>
           <p className="mt-3 text-xl font-extrabold text-white">
             {dangerousCombo.name1} + {dangerousCombo.name2}
@@ -206,7 +206,7 @@ export function FriendRankResultsView({
             Risk level: {dangerousCombo.riskLevel}
           </p>
           <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-orange-300/80">
-            Potential outcomes:
+            {labels.dangerousComboOutcomes}
           </p>
           <ul className="mt-2 space-y-1.5">
             {dangerousCombo.outcomes.map((outcome) => (
@@ -223,7 +223,7 @@ export function FriendRankResultsView({
 
         <div className="rounded-2xl border border-violet-500/25 bg-violet-500/10 p-5 text-center">
           <p className="text-xs font-bold uppercase tracking-wider text-violet-300">
-            Group Reputation
+            {labels.groupReputation}
           </p>
           <p className="mt-3 text-xl font-extrabold tracking-tight text-white">
             {presentation.groupReputation}
@@ -231,6 +231,9 @@ export function FriendRankResultsView({
         </div>
 
         <div className="rounded-3xl border-2 border-violet-400/40 bg-gradient-to-br from-violet-600/35 via-fuchsia-600/20 to-cyan-600/25 px-6 py-10 text-center shadow-xl shadow-violet-500/25">
+          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-violet-200">
+            {labels.endingSection}
+          </p>
           {presentation.endingCard.lines.map((line, index) => (
             <p
               key={`${line.text}-${index}`}
