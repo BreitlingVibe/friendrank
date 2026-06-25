@@ -175,7 +175,7 @@ export default function Home() {
       </header>
 
       <main className="relative z-10">
-        <section className="mx-auto max-w-6xl px-6 pb-24 pt-20 text-center sm:pt-28">
+        <section className="mx-auto max-w-6xl px-6 pb-10 pt-20 text-center sm:pb-12 sm:pt-28">
           <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Discover your{" "}
             <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">
@@ -214,7 +214,7 @@ export default function Home() {
         <section
           ref={createGameRef}
           id="create-game"
-          className="scroll-mt-8 border-t border-white/5 bg-white/[0.02] py-20"
+          className="scroll-mt-8 border-t border-white/5 bg-white/[0.02] pb-20 pt-10 sm:pt-12"
         >
           <div className="mx-auto max-w-2xl px-6">
             <p className="mb-6 text-center text-base font-semibold text-violet-200">
