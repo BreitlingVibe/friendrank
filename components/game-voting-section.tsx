@@ -7,6 +7,7 @@ import {
   submitVoteAction,
 } from "@/app/actions/votes";
 import { FriendRankResultsView } from "@/components/friend-rank-results";
+import { FriendRankResultsWithReveal } from "@/components/friend-rank-results-with-reveal";
 import { VoteGame } from "@/components/vote-game";
 import { VoteProgressCard } from "@/components/vote-progress-card";
 import type { GeneratedGame } from "@/lib/game-build";
@@ -175,11 +176,13 @@ export function GameVotingSection({
           )}
 
           {aggregatedResults && (
-            <FriendRankResultsView
-              game={game}
-              aggregatedResults={aggregatedResults}
-              showPlayAgain={false}
-            />
+            <FriendRankResultsWithReveal>
+              <FriendRankResultsView
+                game={game}
+                aggregatedResults={aggregatedResults}
+                showPlayAgain={false}
+              />
+            </FriendRankResultsWithReveal>
           )}
         </>
       )}
