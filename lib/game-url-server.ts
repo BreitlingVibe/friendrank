@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import { PRODUCTION_APP_URL } from "@/lib/app-url";
 import { getGameShareUrl } from "@/lib/game-url";
 
 async function getRequestOrigin(): Promise<string> {
@@ -21,12 +22,11 @@ async function getRequestOrigin(): Promise<string> {
     return `${protocol}://${host}`;
   }
 
-  const vercelUrl = process.env.VERCEL_URL?.replace(/\/$/, "");
-  if (vercelUrl) {
-    return `https://${vercelUrl}`;
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3000";
   }
 
-  return "http://localhost:3000";
+  return PRODUCTION_APP_URL;
 }
 
 export async function getGameShareUrlForRequest(

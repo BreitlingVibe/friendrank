@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { PRODUCTION_APP_URL } from "@/lib/app-url";
 import type {
   ShareCardFormat,
   ShareCardPresentation,
@@ -100,7 +101,7 @@ function ShareCardCta({ compact }: { compact: boolean }) {
       <p className="friendrank-share-card__cta-action">
         Create your own FriendRank.
       </p>
-      <p className="friendrank-share-card__cta-url">friendrank.app</p>
+      <p className="friendrank-share-card__cta-url">{PRODUCTION_APP_URL}</p>
       <p className="friendrank-share-card__cta-rule" aria-hidden>
         ━━━━━━━━━━━━━━━━━━
       </p>

@@ -18,7 +18,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_PUBLIC_KEY
 Optional for production share links:
 
 ```bash
-NEXT_PUBLIC_APP_URL=https://your-domain.com
+NEXT_PUBLIC_APP_URL=https://friendrank.app
 ```
 
 | Variable | Where to find it |
