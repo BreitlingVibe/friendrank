@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
+import { FriendRankCopyShareButton } from "@/components/friend-rank-copy-share-button";
 import { FriendRankSectionAnnotation } from "@/components/friend-rank-section-annotation";
 import { useHeroMoment } from "@/components/friend-rank-hero-moment";
 import {
@@ -34,7 +35,6 @@ export function FriendRankResultsView({
   showPlayAgain?: boolean;
   onPlayAgain?: () => void;
 }) {
-  const [resultsCopied, setResultsCopied] = useState(false);
   const { enabled: heroMomentEnabled, stage: heroStage } = useHeroMoment();
   const { enabled: cascadeEnabled, setSectionCount } = useResultsCascade();
   const heroActive = heroMomentEnabled && heroStage !== "waiting";
@@ -92,16 +92,6 @@ export function FriendRankResultsView({
     presentation.groupReputation,
     presentation.endingHighlight,
   );
-
-  async function handleCopyResults() {
-    try {
-      await navigator.clipboard.writeText(shareText);
-      setResultsCopied(true);
-      setTimeout(() => setResultsCopied(false), 2000);
-    } catch {
-      setResultsCopied(false);
-    }
-  }
 
   function renderCategoryCard(detail: CategoryResultDetail, featured: boolean) {
     return (
@@ -341,17 +331,10 @@ export function FriendRankResultsView({
         </ResultsCascadeSection>
 
         <ResultsCascadeSection index={cascadeIndex++}>
-        <button
-          type="button"
-          onClick={handleCopyResults}
-          className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500"
-        >
-          {resultsCopied ? (
-            <span className="text-white">✓ Copied!</span>
-          ) : (
-            "📋 Copy Share Text"
-          )}
-        </button>
+        <FriendRankCopyShareButton
+          shareText={shareText}
+          celebrationSeed={presentation.seed}
+        />
         </ResultsCascadeSection>
 
         {showPlayAgain && onPlayAgain && (

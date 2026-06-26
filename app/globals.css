@@ -94,6 +94,21 @@ body {
   opacity: 1;
 }
 
+@keyframes friendrank-copy-celebrate {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.friendrank-copy-celebrate {
+  animation: friendrank-copy-celebrate 180ms ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .friendrank-hero-glow {
     display: none;
@@ -104,5 +119,9 @@ body {
     transform: none;
     opacity: 1;
     transition: none;
+  }
+
+  .friendrank-copy-celebrate {
+    animation: none;
   }
 }
