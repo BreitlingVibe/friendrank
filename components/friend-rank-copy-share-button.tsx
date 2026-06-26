@@ -95,7 +95,7 @@ export function FriendRankCopyShareButton({
     <button
       type="button"
       onClick={handleClick}
-      className={`w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 py-4 text-base font-semibold text-white shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500${
+      className={`w-full rounded-full border border-white/15 bg-white/5 py-3.5 text-sm font-semibold text-slate-200 transition hover:bg-white/10${
         isAnimating ? " friendrank-copy-celebrate" : ""
       }`}
     >

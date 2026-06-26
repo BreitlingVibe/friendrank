@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { FriendRankCopyShareButton } from "@/components/friend-rank-copy-share-button";
-import { FriendRankShareCardPreview } from "@/components/friend-rank-share-card-preview";
+import { FriendRankResultsShareSection } from "@/components/friend-rank-results-share-section";
 import { FriendRankSectionAnnotation } from "@/components/friend-rank-section-annotation";
 import { useHeroMoment } from "@/components/friend-rank-hero-moment";
 import {
@@ -331,14 +330,10 @@ export function FriendRankResultsView({
         </div>
         </ResultsCascadeSection>
 
-        <ResultsCascadeSection index={cascadeIndex++}>
-        <FriendRankCopyShareButton
+        <FriendRankResultsShareSection
+          presentation={presentation}
           shareText={shareText}
-          celebrationSeed={presentation.seed}
         />
-        </ResultsCascadeSection>
-
-        <FriendRankShareCardPreview presentation={presentation} />
 
         {showPlayAgain && onPlayAgain && (
           <button
