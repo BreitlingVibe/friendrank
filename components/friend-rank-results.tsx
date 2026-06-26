@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo } from "react";
 import { FriendRankCopyShareButton } from "@/components/friend-rank-copy-share-button";
+import { FriendRankShareCardPreview } from "@/components/friend-rank-share-card-preview";
 import { FriendRankSectionAnnotation } from "@/components/friend-rank-section-annotation";
 import { useHeroMoment } from "@/components/friend-rank-hero-moment";
 import {
@@ -336,6 +337,8 @@ export function FriendRankResultsView({
           celebrationSeed={presentation.seed}
         />
         </ResultsCascadeSection>
+
+        <FriendRankShareCardPreview presentation={presentation} />
 
         {showPlayAgain && onPlayAgain && (
           <button
