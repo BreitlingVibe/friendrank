@@ -19,7 +19,7 @@ function ShareCardBrand() {
       <div className="friendrank-share-card__logo-mark" aria-hidden>
         FR
       </div>
-      <p className="friendrank-share-card__wordmark">FriendRank</p>
+      <p className="friendrank-share-card__wordmark">FriendRank Report</p>
     </header>
   );
 }
@@ -166,7 +166,13 @@ export function FriendRankShareCard({
 
         <ShareCardSection label={data.diagnosis.sectionLabel} align="center">
           <p
-            className={`friendrank-share-card__diagnosis${compact ? " friendrank-share-card__diagnosis--compact" : ""}`}
+            className={`friendrank-share-card__diagnosis${
+              compact ? " friendrank-share-card__diagnosis--compact" : ""
+            }${
+              data.diagnosis.value.trim().length <= 10
+                ? " friendrank-share-card__diagnosis--short"
+                : ""
+            }`}
           >
             {data.diagnosis.value}
           </p>
