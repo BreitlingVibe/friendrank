@@ -1,5 +1,10 @@
+import { generateNarrativeAnnotations } from "@/lib/narrative/generators/narrative-annotations";
 import type { ResultsSectionLabels } from "@/lib/narrative/templates/section-label-profiles";
 import { GENERIC_SECTION_LABELS } from "@/lib/narrative/templates/section-label-profiles";
+import {
+  GENERIC_NARRATIVE_ANNOTATIONS,
+  type ResultsNarrativeAnnotations,
+} from "@/lib/narrative/templates/narrative-annotation-profiles";
 import type {
   FriendRankCategory,
   GeneratedGame,
@@ -13,7 +18,7 @@ import { generateSectionLabels } from "@/lib/narrative/generators/section-labels
 import { generateEnding } from "@/lib/narrative/generators/ending";
 import type { EndingPresentation } from "@/lib/narrative/templates/ending-profiles";
 
-export type { ResultsSectionLabels };
+export type { ResultsSectionLabels, ResultsNarrativeAnnotations };
 
 const CUSTOM_AGREE_QUOTE_TEMPLATES = [
   "{name} is the undisputed winner of \"{label}\".",
@@ -204,6 +209,7 @@ export type ResultsPresentation = {
   endingCard: EndingCardPresentation;
   endingHighlight: string;
   labels: ResultsSectionLabels;
+  annotations: ResultsNarrativeAnnotations;
 };
 
 export function buildEndingCardFromNarrative(
@@ -428,6 +434,7 @@ function finalizeResultsPresentation(
     dangerousCombo?: DangerousComboCard;
     labels?: ResultsSectionLabels;
     ending?: EndingPresentation;
+    annotations?: ResultsNarrativeAnnotations;
   },
 ): ResultsPresentation {
   const endingCard = overrides?.ending
@@ -448,6 +455,7 @@ function finalizeResultsPresentation(
     endingCard,
     endingHighlight,
     labels: overrides?.labels ?? GENERIC_SECTION_LABELS,
+    annotations: overrides?.annotations ?? GENERIC_NARRATIVE_ANNOTATIONS,
   };
 }
 
@@ -485,16 +493,15 @@ export function buildDemoResultsPresentation(
       isTie: false,
     }),
   );
-  const labels = generateSectionLabels(
-    buildNarrativeContext(game, stubAggregatedResults),
-  );
-  const ending = generateEnding(
-    buildNarrativeContext(game, stubAggregatedResults),
-  );
+  const demoContext = buildNarrativeContext(game, stubAggregatedResults);
+  const labels = generateSectionLabels(demoContext);
+  const ending = generateEnding(demoContext);
+  const annotations = generateNarrativeAnnotations(demoContext);
 
   return finalizeResultsPresentation(game, seed, categoryDetails, {
     labels,
     ending,
+    annotations,
   });
 }
 
@@ -504,6 +511,7 @@ export type RealResultsPresentationOptions = {
   dangerousCombo?: DangerousComboCard;
   labels?: ResultsSectionLabels;
   ending?: EndingPresentation;
+  annotations?: ResultsNarrativeAnnotations;
 };
 
 export function buildRealResultsPresentationImpl(
@@ -542,6 +550,7 @@ export function buildRealResultsPresentationImpl(
     dangerousCombo: options?.dangerousCombo,
     labels: options?.labels,
     ending: options?.ending,
+    annotations: options?.annotations,
   });
 }
 

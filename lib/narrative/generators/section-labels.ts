@@ -24,7 +24,7 @@ const TONE_LABEL_THEME: Partial<Record<Tone, SectionLabelTheme>> = {
   Wholesome: "family",
 };
 
-function pickSectionLabelTheme(context: NarrativeContext): SectionLabelTheme {
+export function pickSectionLabelTheme(context: NarrativeContext): SectionLabelTheme {
   for (const entry of VIBE_LABEL_THEME_PRIORITY) {
     if (entry.tags.some((tag) => context.game.vibeTags.includes(tag))) {
       return entry.theme;

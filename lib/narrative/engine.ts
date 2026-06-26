@@ -5,6 +5,7 @@ import { generateDangerousCombo } from "@/lib/narrative/generators/dangerous-com
 import { generateGroupReputation } from "@/lib/narrative/generators/group-reputation";
 import { generateGroupVerdict } from "@/lib/narrative/generators/group-verdict";
 import { generateEnding } from "@/lib/narrative/generators/ending";
+import { generateNarrativeAnnotations } from "@/lib/narrative/generators/narrative-annotations";
 import { generateSectionLabels } from "@/lib/narrative/generators/section-labels";
 import type { NarrativeBundle } from "@/lib/narrative/types";
 import { buildRealResultsPresentationImpl } from "@/lib/results/presentation";
@@ -22,6 +23,7 @@ export function buildNarrative(
   const dangerousCombo = generateDangerousCombo(context);
   const labels = generateSectionLabels(context);
   const ending = generateEnding(context);
+  const annotations = generateNarrativeAnnotations(context);
 
   return buildRealResultsPresentationImpl(game, aggregatedResults, {
     groupVerdict,
@@ -29,5 +31,6 @@ export function buildNarrative(
     dangerousCombo,
     labels,
     ending,
+    annotations,
   });
 }

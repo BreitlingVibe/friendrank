@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { FriendRankSectionAnnotation } from "@/components/friend-rank-section-annotation";
 import { useHeroMoment } from "@/components/friend-rank-hero-moment";
 import {
   ResultsCascadeSection,
@@ -52,7 +53,7 @@ export function FriendRankResultsView({
     return buildDemoResultsPresentation(game, votes);
   }, [aggregatedResults, game, legacyVotes]);
 
-  const { categoryDetails, dangerousCombo, labels } = presentation;
+  const { categoryDetails, dangerousCombo, labels, annotations } = presentation;
   const topThree = categoryDetails.slice(0, 3);
   const [first, second, third] = topThree;
   const extraCategories = categoryDetails.slice(3);
@@ -113,9 +114,15 @@ export function FriendRankResultsView({
         }
       >
         {featured && (
-          <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-violet-200">
-            #1 · Top Rank
-          </p>
+          <div className="mb-3 text-center">
+            <p className="text-xs font-bold uppercase tracking-widest text-violet-200">
+              #1 · Top Rank
+            </p>
+            <FriendRankSectionAnnotation
+              text={annotations.topRank}
+              className="text-center"
+            />
+          </div>
         )}
 
         {detail.category.isCustom && (
@@ -201,6 +208,10 @@ export function FriendRankResultsView({
           <p className="text-xs font-bold uppercase tracking-widest text-fuchsia-300">
             {labels.groupVerdict}
           </p>
+          <FriendRankSectionAnnotation
+            text={annotations.groupVerdict}
+            className="text-center"
+          />
           <p className="mt-2 text-lg font-bold leading-snug text-white">
             {presentation.groupVerdict}
           </p>
@@ -249,6 +260,7 @@ export function FriendRankResultsView({
           <p className="text-xs font-bold uppercase tracking-wider text-cyan-300">
             {labels.groupVibe}
           </p>
+          <FriendRankSectionAnnotation text={annotations.groupVibe} />
           <p className="mt-3 text-base font-medium leading-relaxed text-white">
             {groupVibe}
           </p>
@@ -260,6 +272,7 @@ export function FriendRankResultsView({
           <p className="text-xs font-bold uppercase tracking-wider text-orange-300">
             {labels.dangerousCombo}
           </p>
+          <FriendRankSectionAnnotation text={annotations.dangerousCombo} />
           <p className="mt-3 text-xl font-extrabold text-white">
             {dangerousCombo.name1} + {dangerousCombo.name2}
           </p>
@@ -288,6 +301,10 @@ export function FriendRankResultsView({
           <p className="text-xs font-bold uppercase tracking-wider text-violet-300">
             {labels.groupReputation}
           </p>
+          <FriendRankSectionAnnotation
+            text={annotations.groupReputation}
+            className="text-center"
+          />
           <p className="mt-3 text-xl font-extrabold tracking-tight text-white">
             {presentation.groupReputation}
           </p>
@@ -296,9 +313,15 @@ export function FriendRankResultsView({
 
         <ResultsCascadeSection index={cascadeIndex++}>
         <div className="rounded-3xl border-2 border-violet-400/40 bg-gradient-to-br from-violet-600/35 via-fuchsia-600/20 to-cyan-600/25 px-6 py-10 text-center shadow-xl shadow-violet-500/25">
-          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-violet-200">
-            {presentation.endingCard.heading}
-          </p>
+          <div className="mb-4">
+            <p className="text-xs font-bold uppercase tracking-widest text-violet-200">
+              {presentation.endingCard.heading}
+            </p>
+            <FriendRankSectionAnnotation
+              text={annotations.ending}
+              className="text-center"
+            />
+          </div>
           {presentation.endingCard.lines.map((line, index) => (
             <p
               key={`${line.text}-${index}`}
