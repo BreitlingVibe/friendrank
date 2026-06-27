@@ -10,10 +10,11 @@ export function FriendRankBrand({ href, className = "" }: FriendRankBrandProps) 
   const content = (
     <>
       <Image
-        src="/icon-48.png"
+        src="/icon-192.png"
         alt=""
-        width={48}
-        height={48}
+        width={192}
+        height={192}
+        sizes="36px"
         className="h-8 w-8 shrink-0 sm:h-9 sm:w-9"
         priority
       />
