@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { FriendRankBrand } from "@/components/friend-rank-brand";
 import { useMemo, useRef, useState } from "react";
 import { createGameAction } from "@/app/actions/games";
 import {
@@ -176,12 +177,7 @@ export default function Home() {
 
       <header className="relative z-10 border-b border-white/5">
         <div className="mx-auto flex max-w-6xl items-center px-6 py-5">
-          <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 text-sm font-bold">
-              FR
-            </span>
-            <span className="font-semibold tracking-tight">FriendRank</span>
-          </div>
+          <FriendRankBrand />
         </div>
       </header>
 
