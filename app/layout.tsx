@@ -18,10 +18,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(PRODUCTION_APP_URL),
   title: {
-    default: "FriendRank",
+    default: "FriendRank — Discover your group's lore",
     template: "%s | FriendRank",
   },
-  description: "Create your game. Vote. Reveal the chaos.",
+  description:
+    "Create a social ranking game for your group. Vote, reveal the chaos, and share cinematic results.",
+  alternates: {
+    canonical: PRODUCTION_APP_URL,
+  },
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -34,9 +38,27 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
+    title: "FriendRank — Discover your group's lore",
+    description:
+      "Create a social ranking game for your group. Vote, reveal the chaos, and share cinematic results.",
     url: PRODUCTION_APP_URL,
     siteName: "FriendRank",
     type: "website",
+    images: [
+      {
+        url: "/og/friendrank-og.png",
+        width: 1200,
+        height: 630,
+        alt: "FriendRank — Discover your group's lore",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FriendRank — Discover your group's lore",
+    description:
+      "Create a social ranking game for your group. Vote, reveal the chaos, and share cinematic results.",
+    images: ["/og/friendrank-og.png"],
   },
 };
 
