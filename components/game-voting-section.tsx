@@ -137,17 +137,7 @@ export function GameVotingSection({
   }, [aggregatedResults, game]);
 
   return (
-    <div className="mt-8 space-y-6">
-      <VoteProgressCard
-        voteCount={progress.voteCount}
-        votesRequired={progress.votesRequired}
-        isUnlocked={progress.isUnlocked}
-      />
-
-      {progressError && (
-        <p className="text-center text-sm text-red-400">{progressError}</p>
-      )}
-
+    <div className="mt-6 space-y-6">
       {!progress.isUnlocked && (
         <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-6 sm:p-8">
           <div className="mb-6 text-center">
@@ -170,6 +160,16 @@ export function GameVotingSection({
             />
           </div>
         </div>
+      )}
+
+      <VoteProgressCard
+        voteCount={progress.voteCount}
+        votesRequired={progress.votesRequired}
+        isUnlocked={progress.isUnlocked}
+      />
+
+      {progressError && (
+        <p className="text-center text-sm text-red-400">{progressError}</p>
       )}
 
       {progress.isUnlocked && (

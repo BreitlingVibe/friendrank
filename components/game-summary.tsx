@@ -78,27 +78,6 @@ export function GameSummary({
           )}
         </div>
       </div>
-
-      <div className="mt-6 rounded-2xl border border-white/10 bg-slate-900/50 p-4 backdrop-blur-sm sm:p-5">
-        <p className="mb-4 text-xs font-medium uppercase tracking-wider text-slate-500">
-          FriendRank sample questions
-        </p>
-        <ol className="space-y-3">
-          {game.questions.map((question, index) => (
-            <li
-              key={index}
-              className="flex gap-3 rounded-lg border border-white/5 bg-white/[0.03] p-3 sm:gap-4 sm:p-4"
-            >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500/30 to-cyan-500/20 text-sm font-bold text-violet-300">
-                {game.categories[index]?.emoji}
-              </span>
-              <p className="text-sm leading-relaxed text-slate-200 sm:text-base">
-                {question}
-              </p>
-            </li>
-          ))}
-        </ol>
-      </div>
     </>
   );
 }

@@ -3,6 +3,7 @@ import { FriendRankBrand } from "@/components/friend-rank-brand";
 import { notFound } from "next/navigation";
 import { GameVotingSection } from "@/components/game-voting-section";
 import { GameSummary } from "@/components/game-summary";
+import { GameSampleQuestions } from "@/components/game-sample-questions";
 import { buildGeneratedGameFromRecord } from "@/lib/game-build";
 import { getGameShareUrlForRequest } from "@/lib/game-url-server";
 import { getGameByShareCode } from "@/lib/games/repository";
@@ -44,9 +45,9 @@ export default async function GamePage({ params }: GamePageProps) {
         </div>
       </header>
 
-      <main className="relative z-10 py-20">
+      <main className="relative z-10 py-12 sm:py-16">
         <div className="mx-auto max-w-2xl px-6">
-          <div className="mb-10 text-center">
+          <div className="mb-6 text-center">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
               FriendRank game
             </h1>
@@ -69,6 +70,8 @@ export default async function GamePage({ params }: GamePageProps) {
             initialProgress={initialProgress}
             initialAggregatedResults={initialAggregatedResults}
           />
+
+          <GameSampleQuestions game={game} />
 
           <div className="mt-8 text-center">
             <Link

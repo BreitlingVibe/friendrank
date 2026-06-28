@@ -17,9 +17,14 @@ export type FriendRankShareCardProps = {
 function ShareCardBrand() {
   return (
     <header className="friendrank-share-card__brand">
-      <div className="friendrank-share-card__logo-mark" aria-hidden>
-        FR
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/icon-192.png"
+        alt=""
+        width={72}
+        height={72}
+        className="friendrank-share-card__logo-mark"
+      />
       <p className="friendrank-share-card__wordmark">FriendRank Report</p>
     </header>
   );
