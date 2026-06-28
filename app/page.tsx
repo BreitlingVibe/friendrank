@@ -374,18 +374,22 @@ export default function Home() {
 
                 <FormSection
                   step="Step 4"
-                  title="Categories"
-                  description="Optional custom categories — defaults work great."
-                  optional
+                  title="Game setup"
+                  description="Pick a tone and optionally personalize categories."
                 >
                   <div className="space-y-4">
                     <div>
-                      <label
-                        htmlFor="tone"
-                        className="mb-2 block text-xs font-medium text-slate-400"
-                      >
-                        Game tone
-                      </label>
+                      <div className="mb-2 flex flex-wrap items-center gap-2">
+                        <label
+                          htmlFor="tone"
+                          className="text-xs font-medium text-slate-400"
+                        >
+                          Game tone
+                        </label>
+                        <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                          Required
+                        </span>
+                      </div>
                       <select
                         id="tone"
                         value={tone}
@@ -401,11 +405,16 @@ export default function Home() {
                     </div>
 
                     <div className="rounded-xl border border-dashed border-amber-500/15 bg-amber-500/[0.03] p-4 transition duration-200 hover:border-amber-500/25">
-                      <p className="text-sm font-medium text-slate-300">
-                        Custom categories
-                      </p>
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="text-sm font-medium text-slate-300">
+                          Custom categories
+                        </p>
+                        <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                          Optional
+                        </span>
+                      </div>
                       <p className="mt-0.5 text-xs text-slate-500">
-                        Leave blank to use FriendRank defaults.
+                        Leave blank to use our curated categories.
                       </p>
                       <div className="mt-3 space-y-2.5">
                         {CUSTOM_CATEGORY_PLACEHOLDERS.map(
