@@ -11,6 +11,7 @@ import {
   trackGameCreationAbandoned,
   trackGameCreationStarted,
   trackInviteCopied,
+  trackCtaClicked,
 } from "@/lib/analytics";
 import {
   buildGameCategories,
@@ -233,6 +234,7 @@ export default function Home() {
 
   async function handleGenerateGame(e: React.FormEvent) {
     e.preventDefault();
+    trackCtaClicked({ location: "form_submit" });
     const friends = parseEnteredGroupNames(groupNames);
     if (friends.length < MIN_GROUP_FRIENDS) {
       return;
@@ -309,14 +311,20 @@ export default function Home() {
           <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
             <button
               type="button"
-              onClick={scrollToCreateGame}
+              onClick={() => {
+                trackCtaClicked({ location: "hero_start" });
+                scrollToCreateGame();
+              }}
               className="relative w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-xl shadow-violet-600/30 ring-1 ring-violet-400/35 transition duration-200 hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/45 hover:ring-violet-400/55 active:scale-[0.99] motion-reduce:active:scale-100 sm:w-auto sm:min-w-[220px]"
             >
               Start the Chaos
             </button>
             <button
               type="button"
-              onClick={scrollToCategories}
+              onClick={() => {
+                trackCtaClicked({ location: "categories" });
+                scrollToCategories();
+              }}
               className="w-full rounded-full border border-white/5 bg-transparent px-8 py-3.5 text-sm font-medium text-slate-500 transition duration-200 hover:border-white/10 hover:bg-white/[0.03] hover:text-slate-300 sm:w-auto"
             >
               See FriendRank categories ↓
@@ -725,7 +733,10 @@ export default function Home() {
             </p>
             <button
               type="button"
-              onClick={scrollToCreateGame}
+              onClick={() => {
+                trackCtaClicked({ location: "bottom_start" });
+                scrollToCreateGame();
+              }}
               className="mt-8 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-xl shadow-violet-600/30 ring-1 ring-violet-400/35 transition duration-200 hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/45 hover:ring-violet-400/55 active:scale-[0.99] motion-reduce:active:scale-100"
             >
               Start the Chaos

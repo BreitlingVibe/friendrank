@@ -121,6 +121,20 @@ export function trackCopyShareText() {
   trackEvent("copy_share_text");
 }
 
+export type CtaLocation =
+  | "hero_start"
+  | "categories"
+  | "form_submit"
+  | "bottom_start";
+
+export type CtaClickedParams = {
+  location: CtaLocation;
+};
+
+export function trackCtaClicked(params: CtaClickedParams) {
+  trackEvent("cta_clicked", params);
+}
+
 export function markGameCreationCompleted() {
   if (typeof sessionStorage === "undefined") {
     return;
