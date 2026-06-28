@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { trackCopyShareText } from "@/lib/analytics";
 import { usePrefersReducedMotion } from "@/lib/reveal/use-prefers-reduced-motion";
 
 export const COPY_SHARE_BUTTON_LABEL = "📋 Copy Share Text";
@@ -64,6 +65,7 @@ export function FriendRankCopyShareButton({
 
     try {
       await navigator.clipboard.writeText(shareText);
+      trackCopyShareText();
       setState("success");
 
       if (!prefersReducedMotion) {

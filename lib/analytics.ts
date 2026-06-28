@@ -1,0 +1,142 @@
+"use client";
+
+import { sendGAEvent } from "@next/third-parties/google";
+
+const isProduction = process.env.NODE_ENV === "production";
+
+const SESSION_KEYS = {
+  creationStarted: "friendrank_ga_creation_started",
+  creationAbandoned: "friendrank_ga_creation_abandoned",
+} as const;
+
+type GaEventParams = Record<string, string | number | boolean>;
+
+function trackEvent(eventName: string, params?: GaEventParams) {
+  if (!isProduction) {
+    return;
+  }
+
+  sendGAEvent("event", eventName, params ?? {});
+}
+
+function hasSessionFlag(key: string): boolean {
+  if (typeof sessionStorage === "undefined") {
+    return false;
+  }
+
+  return sessionStorage.getItem(key) === "1";
+}
+
+function setSessionFlag(key: string) {
+  if (typeof sessionStorage === "undefined") {
+    return;
+  }
+
+  sessionStorage.setItem(key, "1");
+}
+
+export type GameCreationStartedParams = {
+  friend_count: number;
+  selected_tone: string;
+  selected_vibe_count: number;
+};
+
+export function trackGameCreationStarted(params: GameCreationStartedParams) {
+  if (hasSessionFlag(SESSION_KEYS.creationStarted)) {
+    return;
+  }
+
+  setSessionFlag(SESSION_KEYS.creationStarted);
+  trackEvent("game_creation_started", params);
+}
+
+export type GameCreatedParams = {
+  friend_count: number;
+  tone: string;
+  custom_categories_used: boolean;
+  category_count: number;
+};
+
+export function trackGameCreated(params: GameCreatedParams) {
+  trackEvent("game_created", params);
+}
+
+export type GameCreationAbandonedParams = {
+  friend_count: number;
+  selected_tone: string;
+  selected_vibe_count: number;
+};
+
+export function trackGameCreationAbandoned(params: GameCreationAbandonedParams) {
+  if (
+    hasSessionFlag(SESSION_KEYS.creationAbandoned) ||
+    !hasSessionFlag(SESSION_KEYS.creationStarted)
+  ) {
+    return;
+  }
+
+  setSessionFlag(SESSION_KEYS.creationAbandoned);
+  trackEvent("game_creation_abandoned", params);
+}
+
+export type InviteCopiedParams = {
+  game_id: string;
+};
+
+export function trackInviteCopied(params: InviteCopiedParams) {
+  trackEvent("invite_link_copied", params);
+}
+
+export type VoteSubmittedParams = {
+  question_index: number;
+  question_count: number;
+};
+
+export function trackVoteSubmitted(params: VoteSubmittedParams) {
+  trackEvent("vote_submitted", params);
+}
+
+export type ResultsUnlockedParams = {
+  friend_count: number;
+  vote_count: number;
+};
+
+export function trackResultsUnlocked(params: ResultsUnlockedParams) {
+  trackEvent("results_unlocked", params);
+}
+
+export function trackSharePreview() {
+  trackEvent("share_card_previewed");
+}
+
+export function trackShareDownloaded() {
+  trackEvent("share_card_downloaded");
+}
+
+export function trackShareShared() {
+  trackEvent("share_card_shared");
+}
+
+export function trackCopyShareText() {
+  trackEvent("copy_share_text");
+}
+
+export function markGameCreationCompleted() {
+  if (typeof sessionStorage === "undefined") {
+    return;
+  }
+
+  sessionStorage.setItem(`${SESSION_KEYS.creationStarted}_done`, "1");
+}
+
+export function shouldTrackGameCreationAbandonment(): boolean {
+  if (typeof sessionStorage === "undefined") {
+    return false;
+  }
+
+  return (
+    hasSessionFlag(SESSION_KEYS.creationStarted) &&
+    sessionStorage.getItem(`${SESSION_KEYS.creationStarted}_done`) !== "1" &&
+    !hasSessionFlag(SESSION_KEYS.creationAbandoned)
+  );
+}

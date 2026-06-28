@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   getGameResultsAction,
   getVoteProgressAction,
@@ -11,6 +11,10 @@ import { FriendRankResultsWithReveal } from "@/components/friend-rank-results-wi
 import { buildNarrativeContext } from "@/lib/narrative/context";
 import { VoteGame } from "@/components/vote-game";
 import { VoteProgressCard } from "@/components/vote-progress-card";
+import {
+  trackResultsUnlocked,
+  trackVoteSubmitted,
+} from "@/lib/analytics";
 import type { GeneratedGame } from "@/lib/game-build";
 import { getOrCreateVoterToken } from "@/lib/voter-token";
 import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
@@ -41,6 +45,7 @@ export function GameVotingSection({
   const [progressError, setProgressError] = useState<string | null>(null);
   const [resultsError, setResultsError] = useState<string | null>(null);
   const [isLoadingResults, setIsLoadingResults] = useState(false);
+  const resultsUnlockedTrackedRef = useRef(false);
 
   useEffect(() => {
     setVoterToken(getOrCreateVoterToken(shareCode));
@@ -97,6 +102,27 @@ export function GameVotingSection({
     void loadResults();
   }, [progress.isUnlocked, aggregatedResults, loadResults]);
 
+  useEffect(() => {
+    if (resultsUnlockedTrackedRef.current || !progress.isUnlocked) {
+      return;
+    }
+
+    if (!aggregatedResults) {
+      return;
+    }
+
+    resultsUnlockedTrackedRef.current = true;
+    trackResultsUnlocked({
+      friend_count: game.friends.length,
+      vote_count: progress.voteCount,
+    });
+  }, [
+    aggregatedResults,
+    game.friends.length,
+    progress.isUnlocked,
+    progress.voteCount,
+  ]);
+
   async function handleVoteComplete(choices: string[]) {
     if (!voterToken || progress.hasVoted) return;
 
@@ -120,6 +146,11 @@ export function GameVotingSection({
     }
 
     setProgress(result.progress);
+
+    trackVoteSubmitted({
+      question_index: game.questions.length - 1,
+      question_count: game.questions.length,
+    });
 
     if (result.progress.isUnlocked) {
       await loadResults();

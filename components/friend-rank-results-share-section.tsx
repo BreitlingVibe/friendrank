@@ -7,6 +7,11 @@ import {
   downloadFriendRankShareCard,
   shareFriendRankResults,
 } from "@/lib/share/native-share";
+import {
+  trackShareDownloaded,
+  trackSharePreview,
+  trackShareShared,
+} from "@/lib/analytics";
 import type { ResultsPresentation } from "@/lib/results/presentation";
 import { SHARE_CARD_DIMENSIONS } from "@/lib/share/share-card-presentation";
 
@@ -168,6 +173,7 @@ export function FriendRankResultsShareSection({
     });
 
     if (result.status === "shared") {
+      trackShareShared();
       scheduleShareReset("shared");
       return;
     }
@@ -195,6 +201,9 @@ export function FriendRankResultsShareSection({
     setDownloadState("preparing");
 
     const success = await downloadFriendRankShareCard(exportNode);
+    if (success) {
+      trackShareDownloaded();
+    }
     scheduleDownloadReset(success ? "downloaded" : "failed");
   }
 
@@ -223,7 +232,10 @@ export function FriendRankResultsShareSection({
         {!previewOpen ? (
           <button
             type="button"
-            onClick={() => setPreviewOpen(true)}
+            onClick={() => {
+              setPreviewOpen(true);
+              trackSharePreview();
+            }}
             className="w-full rounded-full border border-violet-400/25 bg-violet-500/10 py-3.5 text-sm font-semibold text-violet-100 transition hover:border-violet-400/40 hover:bg-violet-500/15"
           >
             👀 Preview Share Card

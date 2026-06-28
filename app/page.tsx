@@ -2,8 +2,16 @@
 
 import Link from "next/link";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
-import { useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createGameAction } from "@/app/actions/games";
+import {
+  markGameCreationCompleted,
+  shouldTrackGameCreationAbandonment,
+  trackGameCreated,
+  trackGameCreationAbandoned,
+  trackGameCreationStarted,
+  trackInviteCopied,
+} from "@/lib/analytics";
 import {
   buildGameCategories,
   buildGeneratedGame,
@@ -120,6 +128,13 @@ export default function Home() {
   const [saveGameError, setSaveGameError] = useState<string | null>(null);
   const [inviteCopied, setInviteCopied] = useState(false);
 
+  const gameCreatedRef = useRef(false);
+  const creationSnapshotRef = useRef({
+    friend_count: 0,
+    selected_tone: "Funny" as Tone,
+    selected_vibe_count: 0,
+  });
+
   const previewCategories = useMemo(
     () => buildGameCategories(customCategories, parseGroupNames(groupNames)),
     [customCategories, groupNames],
@@ -131,7 +146,45 @@ export default function Home() {
   );
   const hasEnoughFriends = enteredFriends.length >= MIN_GROUP_FRIENDS;
 
+  const notifyCreationFormStarted = useCallback(() => {
+    trackGameCreationStarted({
+      friend_count: enteredFriends.length,
+      selected_tone: tone,
+      selected_vibe_count: selectedVibeTags.length,
+    });
+  }, [enteredFriends.length, selectedVibeTags.length, tone]);
+
+  useEffect(() => {
+    creationSnapshotRef.current = {
+      friend_count: enteredFriends.length,
+      selected_tone: tone,
+      selected_vibe_count: selectedVibeTags.length,
+    };
+  }, [enteredFriends.length, selectedVibeTags.length, tone]);
+
+  useEffect(() => {
+    function fireAbandonmentIfNeeded() {
+      if (gameCreatedRef.current || !shouldTrackGameCreationAbandonment()) {
+        return;
+      }
+
+      trackGameCreationAbandoned({
+        friend_count: creationSnapshotRef.current.friend_count,
+        selected_tone: creationSnapshotRef.current.selected_tone,
+        selected_vibe_count: creationSnapshotRef.current.selected_vibe_count,
+      });
+    }
+
+    window.addEventListener("pagehide", fireAbandonmentIfNeeded);
+
+    return () => {
+      window.removeEventListener("pagehide", fireAbandonmentIfNeeded);
+      fireAbandonmentIfNeeded();
+    };
+  }, []);
+
   function updateCustomCategory(index: number, value: string) {
+    notifyCreationFormStarted();
     setCustomCategories((prev) => {
       const next = [...prev];
       next[index] = value;
@@ -157,6 +210,7 @@ export default function Home() {
       await navigator.clipboard.writeText(
         getInviteLinkText(shareCode, window.location.origin),
       );
+      trackInviteCopied({ game_id: shareCode });
       setInviteCopied(true);
       setTimeout(() => setInviteCopied(false), 2000);
     } catch {
@@ -165,6 +219,7 @@ export default function Home() {
   }
 
   function toggleVibeTag(tag: VibeTag) {
+    notifyCreationFormStarted();
     setSelectedVibeTags((prev) => {
       if (prev.includes(tag)) {
         return prev.filter((item) => item !== tag);
@@ -212,6 +267,16 @@ export default function Home() {
 
     setGeneratedGame(game);
     setShareCode(result.shareCode);
+    gameCreatedRef.current = true;
+    markGameCreationCompleted();
+    trackGameCreated({
+      friend_count: friends.length,
+      tone,
+      custom_categories_used: customCategories.some(
+        (category) => category.trim().length > 0,
+      ),
+      category_count: game.categories.length,
+    });
   }
 
   return (
@@ -300,7 +365,10 @@ export default function Home() {
                     id="group-names"
                     type="text"
                     value={groupNames}
-                    onChange={(e) => setGroupNames(e.target.value)}
+                    onChange={(e) => {
+                      notifyCreationFormStarted();
+                      setGroupNames(e.target.value);
+                    }}
                     placeholder="Alex, Taylor, Jordan, Casey"
                     className={inputClassName}
                   />
@@ -366,7 +434,10 @@ export default function Home() {
                     id="extra-context"
                     rows={2}
                     value={extraContext}
-                    onChange={(e) => setExtraContext(e.target.value)}
+                    onChange={(e) => {
+                      notifyCreationFormStarted();
+                      setExtraContext(e.target.value);
+                    }}
                     placeholder="Alex is always late, Taylor starts drama…"
                     className={`${inputClassName} min-h-[72px] resize-y text-sm`}
                   />
@@ -393,7 +464,10 @@ export default function Home() {
                       <select
                         id="tone"
                         value={tone}
-                        onChange={(e) => setTone(e.target.value as Tone)}
+                        onChange={(e) => {
+                          notifyCreationFormStarted();
+                          setTone(e.target.value as Tone);
+                        }}
                         className={`${inputClassName} cursor-pointer appearance-none text-sm`}
                       >
                         {tones.map((t) => (
