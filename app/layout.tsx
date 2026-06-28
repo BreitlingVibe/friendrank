@@ -15,14 +15,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_DESCRIPTION =
+  "Create a social ranking game for your group. Vote with friends, reveal the chaos, and share cinematic results everyone will want to screenshot.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(PRODUCTION_APP_URL),
   title: {
     default: "FriendRank — Discover your group's lore",
     template: "%s | FriendRank",
   },
-  description:
-    "Create a social ranking game for your group. Vote, reveal the chaos, and share cinematic results.",
+  description: SITE_DESCRIPTION,
   alternates: {
     canonical: PRODUCTION_APP_URL,
   },
@@ -39,8 +41,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "FriendRank — Discover your group's lore",
-    description:
-      "Create a social ranking game for your group. Vote, reveal the chaos, and share cinematic results.",
+    description: SITE_DESCRIPTION,
     url: PRODUCTION_APP_URL,
     siteName: "FriendRank",
     type: "website",
@@ -56,8 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "FriendRank — Discover your group's lore",
-    description:
-      "Create a social ranking game for your group. Vote, reveal the chaos, and share cinematic results.",
+    description: SITE_DESCRIPTION,
     images: ["/og/friendrank-og.png"],
   },
 };

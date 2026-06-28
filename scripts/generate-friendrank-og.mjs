@@ -11,6 +11,10 @@ const logoPath = path.join(root, "public/icon-512.png");
 
 const WIDTH = 1200;
 const HEIGHT = 630;
+const LOGO_SIZE = 128;
+const LOGO_LEFT = 84;
+const LOGO_TOP = 248;
+const TEXT_X = 244;
 
 function buildBackgroundSvg() {
   return Buffer.from(`<?xml version="1.0" encoding="UTF-8"?>
@@ -22,47 +26,55 @@ function buildBackgroundSvg() {
       <stop offset="100%" stop-color="#071018"/>
     </linearGradient>
     <radialGradient id="glowViolet" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.34"/>
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.38"/>
       <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="glowCyan" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.24"/>
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.28"/>
       <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0"/>
-      <stop offset="35%" stop-color="#8b5cf6" stop-opacity="0.55"/>
-      <stop offset="65%" stop-color="#22d3ee" stop-opacity="0.55"/>
+      <stop offset="35%" stop-color="#8b5cf6" stop-opacity="0.6"/>
+      <stop offset="65%" stop-color="#22d3ee" stop-opacity="0.6"/>
       <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
     </linearGradient>
     <linearGradient id="headlineAccent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#c4b5fd"/>
+      <stop offset="0%" stop-color="#ddd6fe"/>
       <stop offset="45%" stop-color="#67e8f9"/>
-      <stop offset="100%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#c4b5fd"/>
+    </linearGradient>
+    <linearGradient id="brandAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
     </linearGradient>
   </defs>
 
   <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#bg)"/>
-  <ellipse cx="980" cy="110" rx="320" ry="220" fill="url(#glowViolet)"/>
-  <ellipse cx="180" cy="540" rx="280" ry="200" fill="url(#glowCyan)"/>
-  <rect x="96" y="598" width="1008" height="2" fill="url(#accentLine)" opacity="0.7"/>
+  <ellipse cx="990" cy="96" rx="340" ry="230" fill="url(#glowViolet)"/>
+  <ellipse cx="170" cy="548" rx="300" ry="210" fill="url(#glowCyan)"/>
+  <rect x="84" y="598" width="1032" height="2" fill="url(#accentLine)" opacity="0.75"/>
 
-  <text x="248" y="268" fill="#f8fafc" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="58" font-weight="700" letter-spacing="-1.5">
-    Discover your
-  </text>
-  <text x="248" y="340" fill="url(#headlineAccent)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="58" font-weight="700" letter-spacing="-1.5">
-    group&apos;s lore.
-  </text>
-
-  <text x="248" y="404" fill="#94a3b8" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="30" font-weight="500">
-    Create your game. Vote. Reveal the chaos.
-  </text>
-
-  <text x="248" y="468" fill="#64748b" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="22" font-weight="600" letter-spacing="0.4">
+  <text x="${TEXT_X}" y="214" fill="url(#brandAccent)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="36" font-weight="800" letter-spacing="-0.5">
     FriendRank
   </text>
 
-  <text x="1104" y="582" text-anchor="end" fill="#a5b4fc" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="600" letter-spacing="0.2">
+  <text x="${TEXT_X}" y="286" fill="#f8fafc" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="68" font-weight="800" letter-spacing="-2">
+    Discover your
+  </text>
+  <text x="${TEXT_X}" y="366" fill="url(#headlineAccent)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="68" font-weight="800" letter-spacing="-2">
+    group&apos;s lore.
+  </text>
+
+  <text x="${TEXT_X}" y="432" fill="#cbd5e1" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34" font-weight="500">
+    Create your game. Vote. Reveal the chaos.
+  </text>
+
+  <text x="${TEXT_X}" y="484" fill="#67e8f9" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="30" font-weight="700" letter-spacing="-0.3">
+    Discover who&apos;s really #1
+  </text>
+
+  <text x="1116" y="582" text-anchor="end" fill="#c4b5fd" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="700" letter-spacing="0.2">
     friendrank.app
   </text>
 </svg>`);
@@ -72,13 +84,13 @@ async function main() {
   await mkdir(outputDir, { recursive: true });
 
   const logo = await sharp(logoPath)
-    .resize(112, 112, { kernel: sharp.kernel.lanczos3 })
+    .resize(LOGO_SIZE, LOGO_SIZE, { kernel: sharp.kernel.lanczos3 })
     .png()
     .toBuffer();
 
   await sharp(buildBackgroundSvg())
-    .composite([{ input: logo, top: 248, left: 96 }])
-    .png({ compressionLevel: 9 })
+    .composite([{ input: logo, top: LOGO_TOP, left: LOGO_LEFT }])
+    .png({ compressionLevel: 6 })
     .toFile(outputPath);
 
   const { width, height } = await sharp(outputPath).metadata();
