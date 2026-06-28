@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, type ReactNode } from "react";
 import { createGameAction } from "@/app/actions/games";
 import {
   buildGameCategories,
@@ -50,7 +50,58 @@ const steps = [
 ];
 
 const inputClassName =
-  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20";
+  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition duration-200 focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 hover:border-white/15";
+
+const chipBase =
+  "rounded-full border px-3.5 py-2 text-sm font-medium transition-all duration-200 ease-out motion-reduce:transition-none active:scale-[0.97]";
+
+function chipClassName(isSelected: boolean, isDisabled: boolean) {
+  if (isSelected) {
+    return `${chipBase} border-violet-300/70 bg-violet-500/35 text-white shadow-md shadow-violet-500/35 ring-1 ring-violet-400/45`;
+  }
+  if (isDisabled) {
+    return `${chipBase} cursor-not-allowed border-white/5 bg-white/[0.02] text-slate-600 opacity-60`;
+  }
+  return `${chipBase} border-white/10 bg-white/5 text-slate-300 hover:border-violet-400/45 hover:bg-violet-500/15 hover:text-white hover:shadow-sm hover:shadow-violet-500/20`;
+}
+
+type FormSectionProps = {
+  step: string;
+  title: string;
+  description?: string;
+  optional?: boolean;
+  children: ReactNode;
+};
+
+function FormSection({
+  step,
+  title,
+  description,
+  optional,
+  children,
+}: FormSectionProps) {
+  return (
+    <section className="border-b border-white/5 pb-8 last:border-b-0 last:pb-0">
+      <header className="mb-4 flex flex-wrap items-start justify-between gap-2">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-violet-400/90">
+            {step}
+          </p>
+          <h3 className="mt-1 text-base font-semibold text-white">{title}</h3>
+          {description && (
+            <p className="mt-1 text-sm text-slate-500">{description}</p>
+          )}
+        </div>
+        {optional && (
+          <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+            Optional
+          </span>
+        )}
+      </header>
+      {children}
+    </section>
+  );
+}
 
 export default function Home() {
   const createGameRef = useRef<HTMLElement>(null);
@@ -68,10 +119,6 @@ export default function Home() {
   const [isSavingGame, setIsSavingGame] = useState(false);
   const [saveGameError, setSaveGameError] = useState<string | null>(null);
   const [inviteCopied, setInviteCopied] = useState(false);
-  const [feedbackResponse, setFeedbackResponse] = useState<
-    "yes" | "not-yet" | null
-  >(null);
-  const [shareabilityNote, setShareabilityNote] = useState("");
 
   const previewCategories = useMemo(
     () => buildGameCategories(customCategories, parseGroupNames(groupNames)),
@@ -194,18 +241,18 @@ export default function Home() {
             Create your game. Vote. Reveal the chaos.
           </p>
 
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
             <button
               type="button"
               onClick={scrollToCreateGame}
-              className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/40 sm:w-auto"
+              className="relative w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-xl shadow-violet-600/30 ring-1 ring-violet-400/35 transition duration-200 hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/45 hover:ring-violet-400/55 active:scale-[0.99] motion-reduce:active:scale-100 sm:w-auto sm:min-w-[220px]"
             >
               Start the Chaos
             </button>
             <button
               type="button"
               onClick={scrollToCategories}
-              className="w-full rounded-full border border-white/10 bg-white/5 px-8 py-4 text-base font-medium text-slate-300 transition hover:bg-white/10 sm:w-auto"
+              className="w-full rounded-full border border-white/5 bg-transparent px-8 py-3.5 text-sm font-medium text-slate-500 transition duration-200 hover:border-white/10 hover:bg-white/[0.03] hover:text-slate-300 sm:w-auto"
             >
               See FriendRank categories ↓
             </button>
@@ -224,30 +271,30 @@ export default function Home() {
           className="scroll-mt-8 border-t border-white/5 bg-white/[0.02] pb-20 pt-10 sm:pt-12"
         >
           <div className="mx-auto max-w-2xl px-6">
-            <p className="mb-6 text-center text-base font-semibold text-violet-200">
-              Create a real game for your group
-            </p>
-
-            <div className="mb-10 text-center">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <div className="mb-8 text-center">
+              <p className="text-sm font-medium text-violet-300/90">
+                Create a real game for your group
+              </p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
                 Who&apos;s in your group?
               </h2>
-              <p className="mt-3 text-slate-400">
-                Fill in your group details and share the link with friends
+              <p className="mx-auto mt-2 max-w-md text-sm text-slate-500">
+                Add your friends and vibe — ready to share in under a minute.
               </p>
             </div>
 
             <form
               onSubmit={handleGenerateGame}
-              className="rounded-2xl border border-white/10 bg-slate-900/50 p-6 backdrop-blur-sm sm:p-8"
+              className="rounded-2xl border border-white/10 bg-slate-900/50 p-6 backdrop-blur-sm transition duration-200 hover:border-white/15 sm:p-8"
             >
-              <div className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="group-names"
-                    className="mb-2 block text-sm font-medium text-slate-300"
-                  >
-                    Who&apos;s in your group?
+              <div className="space-y-8">
+                <FormSection
+                  step="Step 1"
+                  title="Group members"
+                  description="Comma-separated names — at least 2 friends."
+                >
+                  <label htmlFor="group-names" className="sr-only">
+                    Group member names
                   </label>
                   <input
                     id="group-names"
@@ -257,150 +304,175 @@ export default function Home() {
                     placeholder="Alex, Taylor, Jordan, Casey"
                     className={inputClassName}
                   />
-                  <p className="mt-2 text-xs text-slate-500">
-                    Comma-separated names · defaults to Alex, Taylor, Jordan,
-                    Casey
-                  </p>
-                </div>
+                  {enteredFriends.length === 0 ? (
+                    <p className="mt-2.5 text-xs text-slate-600">
+                      Example: Alex, Taylor, Jordan, Casey
+                    </p>
+                  ) : (
+                    <p className="mt-2.5 text-xs text-violet-300/90">
+                      {enteredFriends.length} friend
+                      {enteredFriends.length === 1 ? "" : "s"} ·{" "}
+                      {enteredFriends.join(", ")}
+                    </p>
+                  )}
+                  {!hasEnoughFriends && enteredFriends.length > 0 && (
+                    <p className="mt-1 text-xs text-amber-400/90">
+                      Add at least 2 friends to continue.
+                    </p>
+                  )}
+                </FormSection>
 
-                <fieldset>
-                  <legend className="mb-2 block text-sm font-medium text-slate-300">
-                    Pick your group vibe
-                  </legend>
-                  <div className="flex flex-wrap gap-2">
-                    {VIBE_TAGS.map((tag) => {
-                      const isSelected = selectedVibeTags.includes(tag);
-                      const isDisabled =
-                        !isSelected &&
-                        selectedVibeTags.length >= MAX_VIBE_TAGS;
+                <FormSection
+                  step="Step 2"
+                  title="Group vibe"
+                  description={`Pick up to ${MAX_VIBE_TAGS} tags — or skip to move fast.`}
+                >
+                  <fieldset>
+                    <legend className="sr-only">Group vibe tags</legend>
+                    <div className="flex flex-wrap gap-2.5">
+                      {VIBE_TAGS.map((tag) => {
+                        const isSelected = selectedVibeTags.includes(tag);
+                        const isDisabled =
+                          !isSelected &&
+                          selectedVibeTags.length >= MAX_VIBE_TAGS;
 
-                      return (
-                        <button
-                          key={tag}
-                          type="button"
-                          aria-pressed={isSelected}
-                          onClick={() => toggleVibeTag(tag)}
-                          disabled={isDisabled}
-                          className={`rounded-full border px-3 py-1.5 text-sm font-medium transition ${
-                            isSelected
-                              ? "border-violet-400/60 bg-violet-500/25 text-white shadow-sm shadow-violet-500/20"
-                              : isDisabled
-                                ? "cursor-not-allowed border-white/5 bg-white/[0.02] text-slate-600"
-                                : "border-white/10 bg-white/5 text-slate-300 hover:border-violet-500/30 hover:bg-violet-500/10"
-                          }`}
-                        >
-                          {tag}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <p className="mt-2 text-xs text-slate-500">
-                    Pick up to {MAX_VIBE_TAGS} tags — skip if you want to jump
-                    in fast
-                  </p>
-                </fieldset>
+                        return (
+                          <button
+                            key={tag}
+                            type="button"
+                            aria-pressed={isSelected}
+                            onClick={() => toggleVibeTag(tag)}
+                            disabled={isDisabled}
+                            className={chipClassName(isSelected, isDisabled)}
+                          >
+                            {tag}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </fieldset>
+                </FormSection>
 
-                <div>
-                  <label
-                    htmlFor="extra-context"
-                    className="mb-2 block text-sm font-medium text-slate-300"
-                  >
-                    Add inside joke or extra context (optional)
+                <FormSection
+                  step="Step 3"
+                  title="Inside joke or extra context"
+                  description="Helps tailor questions — skip if you want."
+                  optional
+                >
+                  <label htmlFor="extra-context" className="sr-only">
+                    Inside joke or extra context
                   </label>
                   <textarea
                     id="extra-context"
                     rows={2}
                     value={extraContext}
                     onChange={(e) => setExtraContext(e.target.value)}
-                    placeholder="Example: Alex is always late, Taylor starts drama, Jordan disappears from group chats…"
-                    className={`${inputClassName} resize-y min-h-[72px] text-sm`}
+                    placeholder="Alex is always late, Taylor starts drama…"
+                    className={`${inputClassName} min-h-[72px] resize-y text-sm`}
                   />
-                </div>
+                </FormSection>
 
-                <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4">
-                  <p className="text-sm font-medium text-slate-200">
-                    Add your own categories
-                  </p>
-                  <p className="mt-1 text-xs text-slate-500">
-                    Optional — make it personal with inside jokes.
-                  </p>
-                  <div className="mt-4 space-y-3">
-                    {CUSTOM_CATEGORY_PLACEHOLDERS.map((placeholder, index) => (
-                      <input
-                        key={placeholder}
-                        type="text"
-                        value={customCategories[index]}
-                        onChange={(e) =>
-                          updateCustomCategory(index, e.target.value)
-                        }
-                        placeholder={placeholder}
-                        className={`${inputClassName} text-sm`}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="tone"
-                    className="mb-2 block text-sm font-medium text-slate-300"
-                  >
-                    Tone
-                  </label>
-                  <select
-                    id="tone"
-                    value={tone}
-                    onChange={(e) => setTone(e.target.value as Tone)}
-                    className={`${inputClassName} cursor-pointer appearance-none`}
-                  >
-                    {tones.map((t) => (
-                      <option key={t} value={t} className="bg-slate-900">
-                        {t}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="rounded-xl border border-pink-500/20 bg-pink-500/5 p-4">
-                  <p className="text-xs font-medium uppercase tracking-wider text-pink-300">
-                    FriendRank categories in this game
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {previewCategories.map((category) => (
-                      <span
-                        key={category.label}
-                        className={`rounded-full border px-2.5 py-1 text-xs ${
-                          category.isCustom
-                            ? "border-amber-500/30 bg-amber-500/10 text-amber-100"
-                            : "border-white/10 bg-white/5 text-slate-300"
-                        }`}
-                      >
-                        {category.emoji} {category.label}
-                        {category.isCustom ? " · custom" : ""}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSavingGame || !hasEnoughFriends}
-                  className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/40 disabled:cursor-not-allowed disabled:opacity-60"
+                <FormSection
+                  step="Step 4"
+                  title="Categories"
+                  description="Optional custom categories — defaults work great."
+                  optional
                 >
-                  {isSavingGame ? "Saving game..." : "Start the Chaos"}
-                </button>
+                  <div className="space-y-4">
+                    <div>
+                      <label
+                        htmlFor="tone"
+                        className="mb-2 block text-xs font-medium text-slate-400"
+                      >
+                        Game tone
+                      </label>
+                      <select
+                        id="tone"
+                        value={tone}
+                        onChange={(e) => setTone(e.target.value as Tone)}
+                        className={`${inputClassName} cursor-pointer appearance-none text-sm`}
+                      >
+                        {tones.map((t) => (
+                          <option key={t} value={t} className="bg-slate-900">
+                            {t}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-                {!hasEnoughFriends && (
-                  <p className="text-center text-xs text-slate-400">
-                    Add at least 2 friends to start a game.
-                  </p>
-                )}
+                    <div className="rounded-xl border border-dashed border-amber-500/15 bg-amber-500/[0.03] p-4 transition duration-200 hover:border-amber-500/25">
+                      <p className="text-sm font-medium text-slate-300">
+                        Custom categories
+                      </p>
+                      <p className="mt-0.5 text-xs text-slate-500">
+                        Leave blank to use FriendRank defaults.
+                      </p>
+                      <div className="mt-3 space-y-2.5">
+                        {CUSTOM_CATEGORY_PLACEHOLDERS.map(
+                          (placeholder, index) => (
+                            <input
+                              key={placeholder}
+                              type="text"
+                              value={customCategories[index]}
+                              onChange={(e) =>
+                                updateCustomCategory(index, e.target.value)
+                              }
+                              placeholder={placeholder}
+                              className={`${inputClassName} text-sm`}
+                            />
+                          ),
+                        )}
+                      </div>
+                    </div>
 
-                {saveGameError && (
-                  <p className="text-center text-sm text-red-400">
-                    {saveGameError}
-                  </p>
-                )}
+                    <div className="rounded-xl border border-pink-500/15 bg-pink-500/[0.04] p-4">
+                      <p className="text-xs font-medium uppercase tracking-wider text-pink-300/90">
+                        In this game
+                      </p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {previewCategories.map((category) => (
+                          <span
+                            key={category.label}
+                            className={`rounded-full border px-2.5 py-1 text-xs transition duration-200 ${
+                              category.isCustom
+                                ? "border-amber-500/35 bg-amber-500/12 text-amber-100"
+                                : "border-white/10 bg-white/5 text-slate-300"
+                            }`}
+                          >
+                            {category.emoji} {category.label}
+                            {category.isCustom ? " · custom" : ""}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </FormSection>
+
+                <div className="border-t border-white/10 pt-6">
+                  {hasEnoughFriends ? (
+                    <p className="mb-3 text-center text-xs font-medium text-violet-300/80">
+                      Ready — your group game is one tap away.
+                    </p>
+                  ) : (
+                    <p className="mb-3 text-center text-xs text-slate-500">
+                      Add at least 2 friends to unlock Start the Chaos.
+                    </p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isSavingGame || !hasEnoughFriends}
+                    className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-xl shadow-violet-600/30 ring-1 ring-violet-400/35 transition duration-200 hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/45 hover:ring-violet-400/55 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:ring-0 motion-reduce:active:scale-100"
+                  >
+                    {isSavingGame ? "Saving game..." : "Start the Chaos"}
+                  </button>
+
+                  {saveGameError && (
+                    <p className="mt-3 text-center text-sm text-red-400">
+                      {saveGameError}
+                    </p>
+                  )}
+                </div>
               </div>
             </form>
 
@@ -498,59 +570,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="scroll-mt-8 border-t border-white/5 py-20">
-          <div className="mx-auto max-w-2xl px-6 text-center">
-            <div className="rounded-2xl border border-white/10 bg-slate-900/50 px-6 py-8 backdrop-blur-sm sm:px-8 sm:py-10">
-              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                Would you share this with your group chat?
-              </h2>
-
-              {feedbackResponse ? (
-                <div className="mt-6 space-y-5 text-left">
-                  <p className="text-center text-sm text-emerald-400">
-                    Thanks — this helps us improve FriendRank.
-                  </p>
-
-                  {feedbackResponse === "not-yet" && (
-                    <div>
-                      <p className="mb-3 text-sm font-medium text-slate-300">
-                        What would make it more shareable?
-                      </p>
-                      <textarea
-                        value={shareabilityNote}
-                        onChange={(e) => setShareabilityNote(e.target.value)}
-                        placeholder="Example: funnier results, better categories, easier sharing..."
-                        rows={3}
-                        className={`${inputClassName} resize-y min-h-[96px] text-left text-sm`}
-                      />
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setFeedbackResponse("yes")}
-                    className="w-full rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500 sm:w-auto sm:min-w-[220px]"
-                  >
-                    👍 Yes, I&apos;d share it
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setFeedbackResponse("not-yet")}
-                    className="w-full rounded-2xl border border-white/15 bg-white/10 px-8 py-4 text-base font-semibold transition hover:bg-white/15 sm:w-auto sm:min-w-[220px]"
-                  >
-                    👎 Not yet
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
         <section
           ref={categoriesRef}
-          className="mx-auto max-w-6xl scroll-mt-8 px-6 py-20"
+          className="mx-auto max-w-6xl scroll-mt-8 border-t border-white/5 px-6 py-20"
         >
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -565,7 +587,7 @@ export default function Home() {
             {FRIEND_RANK_CATEGORIES.map((category) => (
               <div
                 key={category.label}
-                className="rounded-2xl border border-pink-500/20 bg-gradient-to-br from-pink-500/10 to-violet-600/10 p-5 backdrop-blur-sm"
+                className="rounded-2xl border border-pink-500/20 bg-gradient-to-br from-pink-500/10 to-violet-600/10 p-5 backdrop-blur-sm transition duration-200 hover:border-pink-500/35 hover:shadow-lg hover:shadow-violet-500/10"
               >
                 <p className="text-3xl">{category.emoji}</p>
                 <h3 className="mt-3 text-lg font-semibold">{category.label}</h3>
@@ -594,7 +616,7 @@ export default function Home() {
                   {index < steps.length - 1 && (
                     <div className="absolute left-1/2 top-8 hidden h-px w-full bg-gradient-to-r from-violet-500/40 to-transparent lg:block" />
                   )}
-                  <div className="relative flex flex-col items-center text-center lg:items-start lg:text-left">
+                  <div className="relative flex flex-col items-center text-center transition duration-200 hover:translate-y-[-2px] motion-reduce:hover:translate-y-0 lg:items-start lg:text-left">
                     <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-violet-500/30 bg-violet-500/10 text-lg font-bold text-violet-400">
                       {step.number}
                     </div>
@@ -621,7 +643,7 @@ export default function Home() {
             <button
               type="button"
               onClick={scrollToCreateGame}
-              className="mt-8 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-cyan-500"
+              className="mt-8 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-xl shadow-violet-600/30 ring-1 ring-violet-400/35 transition duration-200 hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/45 hover:ring-violet-400/55 active:scale-[0.99] motion-reduce:active:scale-100"
             >
               Start the Chaos
             </button>
