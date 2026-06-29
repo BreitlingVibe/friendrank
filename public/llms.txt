@@ -1,0 +1,15 @@
+# FriendRank
+
+> FriendRank is a multiplayer social voting game where a group creates a game, invites friends, votes anonymously, and unlocks humorous personality roles and a final group story.
+
+FriendRank is a free web application at https://friendrank.app. Players do not need to create an account. Games are created on the homepage, shared via link, and played in the mobile browser.
+
+## Documentation
+
+- [About FriendRank](https://friendrank.app/about-friendrank.md): Product overview, create-invite-vote-reveal flow, privacy, tones, custom categories, and typical use cases.
+- [FAQ](https://friendrank.app/docs/faq.md): Answers to common questions about gameplay, sharing, voting, results, and mobile use.
+- [Categories](https://friendrank.app/docs/categories.md): Built-in FriendRank category library, what each category means, and how custom categories work.
+
+## Optional
+
+- [Homepage](https://friendrank.app): Create a new FriendRank game and start the invite flow.
