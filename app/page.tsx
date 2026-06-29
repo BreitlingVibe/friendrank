@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
+import { HomepageHubExploreSection } from "@/components/topic-hubs/homepage-hub-explore-section";
 import { FriendRankRevealPreview } from "@/components/friend-rank-reveal-preview";
 import { FriendRankVoteProgressSnippet } from "@/components/friend-rank-vote-progress-snippet";
 import { useLiveVoteProgress } from "@/hooks/use-live-vote-progress";
@@ -741,6 +742,8 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <HomepageHubExploreSection />
 
         <section
           id="how-it-works"

@@ -1,8 +1,8 @@
 import {
   getAllHubs,
+  getHubFeaturedLivePages,
   getHubLandingPages,
   getHubPlannedPages,
-  getHubStats,
   getTopicHubCtaLocation,
 } from "@/lib/topic-hubs";
 import type { HubLandingPageRef, TopicHub } from "@/lib/topic-hubs/hub-types";
@@ -14,7 +14,6 @@ import {
   TopicHubLiveCard,
 } from "@/components/topic-hubs/topic-hub-cards";
 import { TopicHubOtherHubs } from "@/components/topic-hubs/topic-hub-other-hubs";
-import { TopicHubStats } from "@/components/topic-hubs/topic-hub-stats";
 
 type TopicHubPageProps = {
   hub: TopicHub;
@@ -26,27 +25,12 @@ function sortByPriorityDesc(pages: HubLandingPageRef[]): HubLandingPageRef[] {
   );
 }
 
-function resolveFeaturedLivePages(hub: TopicHub): HubLandingPageRef[] {
-  const liveBySlug = new Map(
-    getHubLandingPages(hub.id).map((page) => [page.slug, page]),
-  );
-
-  return (hub.featuredLandingPages ?? [])
-    .map((slug) => liveBySlug.get(slug))
-    .filter((page): page is HubLandingPageRef => page !== undefined);
-}
-
 export function TopicHubPage({ hub }: TopicHubPageProps) {
   const ctaLocation = getTopicHubCtaLocation(hub.id);
-  const featuredPages = resolveFeaturedLivePages(hub);
+  const featuredPages = getHubFeaturedLivePages(hub.id);
   const allLivePages = sortByPriorityDesc(getHubLandingPages(hub.id));
   const plannedPages = sortByPriorityDesc(getHubPlannedPages(hub.id));
-  const stats = getHubStats(hub.id);
   const otherHubs = getAllHubs();
-
-  if (!stats) {
-    return null;
-  }
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-950 text-white">
@@ -141,8 +125,11 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
                 id="topic-hub-planned-heading"
                 className="text-center text-2xl font-bold tracking-tight sm:text-3xl"
               >
-                Coming soon
+                More games on the way
               </h2>
+              <p className="mx-auto mt-3 max-w-xl text-center text-sm text-slate-500">
+                New group games are added regularly. Check back soon.
+              </p>
               <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {plannedPages.map((page) => (
                   <li key={page.slug}>
@@ -153,8 +140,6 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
             </div>
           </section>
         ) : null}
-
-        <TopicHubStats stats={stats} />
 
         <TopicHubOtherHubs hubs={otherHubs} currentHubId={hub.id} />
       </main>

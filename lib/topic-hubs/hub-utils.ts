@@ -119,6 +119,44 @@ export function partitionHubPages(intents: IntentDefinition[]): {
   return { landingPages, plannedPages };
 }
 
+export function selectFeaturedLivePages(
+  hub: TopicHubDefinition,
+  livePages: HubLandingPageRef[],
+  limit = 3,
+): HubLandingPageRef[] {
+  const liveBySlug = new Map(livePages.map((page) => [page.slug, page]));
+  const featuredSlugs = hub.featuredLandingPages ?? [];
+  const selected: HubLandingPageRef[] = [];
+  const usedSlugs = new Set<string>();
+
+  for (const slug of featuredSlugs) {
+    const page = liveBySlug.get(slug);
+    if (!page || usedSlugs.has(page.slug)) {
+      continue;
+    }
+
+    selected.push(page);
+    usedSlugs.add(page.slug);
+
+    if (selected.length >= limit) {
+      return selected;
+    }
+  }
+
+  const remaining = [...livePages]
+    .sort((pageA, pageB) => pageB.estimatedPriority - pageA.estimatedPriority)
+    .filter((page) => !usedSlugs.has(page.slug));
+
+  for (const page of remaining) {
+    selected.push(page);
+    if (selected.length >= limit) {
+      break;
+    }
+  }
+
+  return selected;
+}
+
 export function computeHubStats(
   landingPages: HubLandingPageRef[],
   plannedPages: HubLandingPageRef[],

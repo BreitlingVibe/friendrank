@@ -12,6 +12,7 @@ import {
   computeHubStats,
   partitionHubPages,
   resolveHubMemberIntents,
+  selectFeaturedLivePages,
   sortHubLandingPages,
 } from "@/lib/topic-hubs/hub-utils";
 
@@ -58,4 +59,19 @@ export function getHubPlannedPages(id: string): HubLandingPageRef[] {
 export function getHubStats(id: string): HubStats | undefined {
   const hub = getHub(id);
   return hub?.statistics;
+}
+
+export function getHubFeaturedLivePages(
+  id: string,
+  limit = 3,
+): HubLandingPageRef[] {
+  const definition = getHubDefinition(id);
+  if (!definition) {
+    return [];
+  }
+
+  const livePages = partitionHubPages(resolveHubMemberIntents(definition))
+    .landingPages;
+
+  return selectFeaturedLivePages(definition, livePages, limit);
 }

@@ -16,15 +16,20 @@ export {
   computeHubStats,
   partitionHubPages,
   resolveHubMemberIntents,
+  selectFeaturedLivePages,
   sortHubLandingPages,
 } from "@/lib/topic-hubs/hub-utils";
 
 export {
   getAllHubs,
   getHub,
+  getHubFeaturedLivePages,
   getHubLandingPages,
   getHubPlannedPages,
   getHubStats,
 } from "@/lib/topic-hubs/hub-engine";
 
-export { getTopicHubCtaLocation } from "@/lib/topic-hubs/hub-analytics";
+export {
+  getTopicHubCtaLocation,
+  getHomepageHubCtaLocation,
+} from "@/lib/topic-hubs/hub-analytics";
