@@ -317,8 +317,14 @@ export default function Home() {
       </header>
 
       <main className="relative z-10">
-        <section className="mx-auto max-w-6xl px-6 pb-10 pt-20 text-center sm:pb-12 sm:pt-28">
-          <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+        <section
+          aria-labelledby="friendrank-hero-heading"
+          className="mx-auto max-w-6xl px-6 pb-10 pt-20 text-center sm:pb-12 sm:pt-28"
+        >
+          <h1
+            id="friendrank-hero-heading"
+            className="mx-auto max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+          >
             Discover your{" "}
             <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">
               group&apos;s lore.
@@ -362,6 +368,7 @@ export default function Home() {
         <section
           ref={createGameRef}
           id="create-game"
+          aria-labelledby="create-game-heading"
           className="scroll-mt-8 border-t border-white/5 bg-white/[0.02] pb-20 pt-10 sm:pt-12"
         >
           <div className="mx-auto max-w-2xl px-6">
@@ -369,7 +376,10 @@ export default function Home() {
               <p className="text-sm font-medium text-violet-300/90">
                 Create a real game for your group
               </p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+              <h2
+                id="create-game-heading"
+                className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl"
+              >
                 Who&apos;s in your group?
               </h2>
               <p className="mx-auto mt-2 max-w-md text-sm text-slate-500">
@@ -700,10 +710,15 @@ export default function Home() {
 
         <section
           ref={categoriesRef}
+          id="friendrank-categories"
+          aria-labelledby="friendrank-categories-heading"
           className="mx-auto max-w-6xl scroll-mt-8 border-t border-white/5 px-6 py-20"
         >
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2
+              id="friendrank-categories-heading"
+              className="text-3xl font-bold tracking-tight sm:text-4xl"
+            >
               FriendRank Categories
             </h2>
             <p className="mt-3 text-slate-400">
@@ -727,10 +742,17 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-t border-white/5 bg-white/[0.02] py-20">
+        <section
+          id="how-it-works"
+          aria-labelledby="how-it-works-heading"
+          className="border-t border-white/5 bg-white/[0.02] py-20"
+        >
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-12 text-center">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              <h2
+                id="how-it-works-heading"
+                className="text-3xl font-bold tracking-tight sm:text-4xl"
+              >
                 How It Works
               </h2>
               <p className="mt-3 text-slate-400">
@@ -759,9 +781,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 py-24 text-center">
+        <section
+          aria-labelledby="ready-to-rank-heading"
+          className="mx-auto max-w-6xl px-6 py-24 text-center"
+        >
           <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-violet-500/10 via-slate-900 to-cyan-500/10 px-8 py-16">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2
+              id="ready-to-rank-heading"
+              className="text-3xl font-bold tracking-tight sm:text-4xl"
+            >
               Ready to rank your friends?
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-slate-400">

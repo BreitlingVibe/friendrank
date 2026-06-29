@@ -1,10 +1,12 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
 import { GamePageBody } from "@/components/game-page-body";
 import { notFound } from "next/navigation";
 import { buildGeneratedGameFromRecord } from "@/lib/game-build";
 import { getGameShareUrlForRequest } from "@/lib/game-url-server";
 import { getGameByShareCode } from "@/lib/games/repository";
+import { buildGamePageMetadata } from "@/lib/seo/page-metadata";
 import { getAggregatedResultsForShareCode } from "@/lib/votes/results";
 import { getVoteProgress } from "@/lib/votes/repository";
 
@@ -13,6 +15,13 @@ export const dynamic = "force-dynamic";
 type GamePageProps = {
   params: Promise<{ share_code: string }>;
 };
+
+export async function generateMetadata({
+  params,
+}: GamePageProps): Promise<Metadata> {
+  const { share_code: shareCode } = await params;
+  return buildGamePageMetadata(shareCode);
+}
 
 export default async function GamePage({ params }: GamePageProps) {
   const { share_code: shareCode } = await params;
