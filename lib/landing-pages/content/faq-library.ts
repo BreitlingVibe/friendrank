@@ -440,3 +440,135 @@ export const CLASSROOM_ICEBREAKER_FAQ: LandingPageFaqItem[] = [
       "After enough votes are in, results open on the same link for everyone to view.",
   },
 ];
+
+/** @see FAQ_VERSION */
+export const TEAM_BUILDING_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a team building game?",
+    answer:
+      "It is a light group activity that helps coworkers connect. FriendRank turns it into a quick voting game with anonymous ballots and shared results.",
+  },
+  {
+    question: "Is it appropriate for work?",
+    answer:
+      "Yes. Pick a Wholesome or Funny tone and use workplace-friendly custom questions.",
+  },
+  {
+    question: "Can remote teams play?",
+    answer:
+      "Yes. Share the link in Slack, email, or a video call chat and let everyone vote on their phones.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Individual votes stay private. The team sees aggregated winners only.",
+  },
+  {
+    question: "Do coworkers need accounts?",
+    answer:
+      "No signup required. One person creates the game and shares the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game. Everyone with the link can vote.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for the whole team.",
+  },
+];
+
+/** @see FAQ_VERSION */
+export const TEAM_BONDING_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a team bonding game?",
+    answer:
+      "It is a fun group activity that helps teammates connect beyond daily tasks. FriendRank lets everyone vote on light roles and reveal results together.",
+  },
+  {
+    question: "Is it appropriate for work?",
+    answer:
+      "Yes. Keep questions workplace-friendly with a Wholesome tone or add your own custom prompts.",
+  },
+  {
+    question: "Can remote teams play?",
+    answer:
+      "Yes. Drop the link in your team chat or open it at the start of a video call.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes are private to each person. The group sees winners and story-style results only.",
+  },
+  {
+    question: "Do teammates need accounts?",
+    answer:
+      "No. Create a game, share the link, and let coworkers vote from any phone browser.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Add up to three custom prompts when you set up the game.",
+  },
+  {
+    question: "How long does it take?",
+    answer:
+      "Most teams finish in a few minutes. Create the game, share the link, vote, and reveal.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough teammates vote, results open on the same link for everyone to view together.",
+  },
+];
+
+/** @see FAQ_VERSION */
+export const WORK_TEAM_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a work team game?",
+    answer:
+      "It is a quick workplace activity where coworkers vote on fun team roles. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "Is it appropriate for the office?",
+    answer:
+      "Yes. Use workplace-safe questions and pick a tone that fits your team culture.",
+  },
+  {
+    question: "Can hybrid or remote teams play?",
+    answer:
+      "Yes. Share the link in your team channel and let in-office and remote coworkers vote together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Individual votes stay private. The team sees group results, not who picked whom.",
+  },
+  {
+    question: "Do coworkers need accounts?",
+    answer:
+      "No signup for anyone. The host creates the game and shares one link.",
+  },
+  {
+    question: "Can I share it before a meeting?",
+    answer:
+      "Yes. Send the link ahead of time or kick it off at the start of a team sync.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you create the game. Everyone with the link can vote.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for the whole team.",
+  },
+];

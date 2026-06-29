@@ -221,3 +221,60 @@ export const CLASSROOM_ICEBREAKER_QUESTIONS = [
   { text: "Who has the most unexpected talent?" },
   { text: "Who is most likely to start a new club?" },
 ];
+
+/** @see QUESTION_VERSION */
+export const TEAM_BUILDING_QUESTIONS = [
+  { text: "Who keeps the team motivated?" },
+  { text: "Who is the best problem solver?" },
+  { text: "Who stays calm under pressure?" },
+  { text: "Who always helps others?" },
+  { text: "Who explains things best?" },
+  { text: "Who brings the best energy?" },
+  { text: "Who would lead the next project?" },
+  { text: "Who always has the best ideas?" },
+  { text: "Who deserves more recognition?" },
+  { text: "Who makes teamwork easier?" },
+  { text: "Who keeps meetings productive?" },
+  { text: "Who would organize the best event?" },
+  { text: "Who adapts the fastest?" },
+  { text: "Who makes everyone feel included?" },
+  { text: "Who would make the best mentor?" },
+];
+
+/** @see QUESTION_VERSION */
+export const TEAM_BONDING_QUESTIONS = [
+  { text: "Who is most likely to lift team morale?" },
+  { text: "Who brings the best stories to lunch?" },
+  { text: "Who would plan the best team outing?" },
+  { text: "Who is the best listener on the team?" },
+  { text: "Who makes new teammates feel welcome?" },
+  { text: "Who celebrates wins the loudest?" },
+  { text: "Who stays positive on tough days?" },
+  { text: "Who would win a team trivia night?" },
+  { text: "Who is most likely to remember birthdays?" },
+  { text: "Who keeps the group chat fun?" },
+  { text: "Who would organize a team lunch?" },
+  { text: "Who is the best collaboration partner?" },
+  { text: "Who turns setbacks into motivation?" },
+  { text: "Who is most likely to suggest a team break?" },
+  { text: "Who makes group work feel easy?" },
+];
+
+/** @see QUESTION_VERSION */
+export const WORK_TEAM_QUESTIONS = [
+  { text: "Who is the go-to person at work?" },
+  { text: "Who handles pressure the best?" },
+  { text: "Who would represent the team well?" },
+  { text: "Who is most likely to unblock a project?" },
+  { text: "Who keeps deadlines visible for everyone?" },
+  { text: "Who makes meetings run smoother?" },
+  { text: "Who is the most reliable coworker?" },
+  { text: "Who would step up in a crunch?" },
+  { text: "Who shares credit with the team?" },
+  { text: "Who is best at giving feedback?" },
+  { text: "Who would train a new hire well?" },
+  { text: "Who keeps the team organized?" },
+  { text: "Who is most likely to fix a process gap?" },
+  { text: "Who brings fresh ideas to the table?" },
+  { text: "Who keeps remote work on track?" },
+];

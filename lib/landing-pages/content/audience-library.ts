@@ -129,3 +129,42 @@ export const CLASSROOM_ICEBREAKER_AUDIENCE = {
   finalCtaSubtitle:
     "Free, mobile-friendly, and ready for your next class activity.",
 } as const;
+
+/** @see AUDIENCE_VERSION */
+export const TEAM_BUILDING_AUDIENCE = {
+  heroSubtitle:
+    "Bring your team together with a fun anonymous voting game. Create a game in under a minute, invite everyone, vote, and reveal the results together.",
+  playImmediatelyBody:
+    "Add your team on FriendRank, share the link before or during a meeting, and let coworkers vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are team building questions your group can vote on.",
+  finalCtaTitle: "Start your team building game",
+  finalCtaSubtitle:
+    "Free for teams. Ready to share before your next team activity.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const TEAM_BONDING_AUDIENCE = {
+  heroSubtitle:
+    "Strengthen your team with a quick anonymous voting game that encourages conversation and laughs.",
+  playImmediatelyBody:
+    "Create a game on FriendRank, add your teammates, and share the link. Everyone votes on their phone and you reveal results together.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are team bonding questions that spark conversation.",
+  finalCtaTitle: "Start your team bonding game",
+  finalCtaSubtitle:
+    "Free for teams. Ready to share in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const WORK_TEAM_AUDIENCE = {
+  heroSubtitle:
+    "Create a fun workplace voting game for your coworkers in under a minute.",
+  playImmediatelyBody:
+    "Add coworkers on FriendRank, pick a few workplace prompts, and share one link. The team votes and reveals results together.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are work team questions your coworkers can vote on.",
+  finalCtaTitle: "Start your work team game",
+  finalCtaSubtitle:
+    "Free for workplace teams. Ready before your next sync.",
+} as const;

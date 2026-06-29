@@ -281,6 +281,90 @@ export const CLASSROOM_ICEBREAKER_INTENT = {
   } satisfies LandingPageGamePreset,
 };
 
+/** @see INTENT_VERSION */
+export const TEAM_BUILDING_INTENT = {
+  slug: "team-building-game",
+  title: "Team Building Game",
+  metaTitle: "Team Building Game | Fun Team Activity | FriendRank",
+  metaDescription:
+    "Create a team building game for your coworkers. Invite the team, vote anonymously, reveal fun roles, and bring everyone closer together.",
+  h1: "Team Building Game",
+  intentSummaryTitle: "What is a team building game?",
+  intentSummary:
+    "A team building game helps coworkers connect without forced activities. FriendRank turns it into a quick voting game: add teammates, share one link, vote anonymously on fun roles, and reveal results together. Works for in-person teams, remote syncs, and offsites. No signup required.",
+  whyFriendRankTitle: "Why FriendRank for team building",
+  exampleQuestionsTitle: "Popular team building questions",
+  faqTitle: "Team building game FAQ",
+  schemaDescription:
+    "Create a team building game for your coworkers with FriendRank. Invite the team, vote anonymously, reveal fun roles, and bring everyone closer together. No signup required.",
+  ctaLocation: "landing_team_building_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who keeps the team motivated",
+      "Who is the best problem solver",
+      "Who makes everyone feel included",
+    ],
+    suggestedVibeTags: ["Office", "Party", "Soft drama"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const TEAM_BONDING_INTENT = {
+  slug: "team-bonding-game",
+  title: "Team Bonding Game",
+  metaTitle: "Team Bonding Game | Fun Group Activity | FriendRank",
+  metaDescription:
+    "Create a team bonding game for your group. Share one link, vote anonymously, reveal lighthearted roles, and spark real conversation.",
+  h1: "Team Bonding Game",
+  intentSummaryTitle: "What is a team bonding game?",
+  intentSummary:
+    "A team bonding game helps teammates connect beyond daily tasks. FriendRank makes it a phone voting game: add names, share one link, vote on light roles, and unlock results together. Great for team socials, onboarding, and remote happy hours. No app download needed.",
+  whyFriendRankTitle: "Why FriendRank for team bonding",
+  exampleQuestionsTitle: "Popular team bonding questions",
+  faqTitle: "Team bonding game FAQ",
+  schemaDescription:
+    "Create a team bonding game for your group with FriendRank. Share one link, vote anonymously, reveal lighthearted roles, and spark real conversation. No signup required.",
+  ctaLocation: "landing_team_bonding_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who makes new teammates feel welcome",
+      "Who would plan the best team outing",
+      "Who keeps the group chat fun",
+    ],
+    suggestedVibeTags: ["Office", "Party", "Soft drama"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const WORK_TEAM_INTENT = {
+  slug: "work-team-game",
+  title: "Work Team Game",
+  metaTitle: "Work Team Game | Anonymous Team Activity | FriendRank",
+  metaDescription:
+    "Create a work team game for coworkers. Add names, vote anonymously, reveal fun workplace roles, and break the routine together.",
+  h1: "Work Team Game",
+  intentSummaryTitle: "What is a work team game?",
+  intentSummary:
+    "A work team game is a quick workplace activity that gets coworkers talking. FriendRank gives you anonymous voting on phones: add the team, share a link, vote on fun roles, and reveal results together. Works for hybrid teams, all-hands warmups, and Friday socials. No account needed.",
+  whyFriendRankTitle: "Why FriendRank for work teams",
+  exampleQuestionsTitle: "Popular work team questions",
+  faqTitle: "Work team game FAQ",
+  schemaDescription:
+    "Create a work team game for coworkers with FriendRank. Add names, vote anonymously, reveal fun workplace roles, and break the routine together. No signup required.",
+  ctaLocation: "landing_work_team_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is the most reliable coworker",
+      "Who handles pressure the best",
+      "Who keeps the team organized",
+    ],
+    suggestedVibeTags: ["Office", "Soft drama", "Party"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
 export function getCanonicalUrl(slug: string): string {
   return `${PRODUCTION_APP_URL}/${slug}`;
 }

@@ -83,3 +83,21 @@ export const CLASSROOM_ICEBREAKER_PRIMARY_CTA: LandingPageCta = {
   label: "Create Your Classroom Icebreaker",
   href: CREATE_GAME_HREF,
 };
+
+/** @see CTA_VERSION */
+export const TEAM_BUILDING_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Your Team Building Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const TEAM_BONDING_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Your Team Bonding Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const WORK_TEAM_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Your Work Team Game",
+  href: CREATE_GAME_HREF,
+};

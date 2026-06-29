@@ -27,6 +27,9 @@ export {
   ICEBREAKER_QUESTIONS,
   OFFICE_ICEBREAKER_QUESTIONS,
   CLASSROOM_ICEBREAKER_QUESTIONS,
+  TEAM_BUILDING_QUESTIONS,
+  TEAM_BONDING_QUESTIONS,
+  WORK_TEAM_QUESTIONS,
 } from "@/lib/landing-pages/content/question-library";
 
 export {
@@ -46,6 +49,9 @@ export {
   ICEBREAKER_PRIMARY_CTA,
   OFFICE_ICEBREAKER_PRIMARY_CTA,
   CLASSROOM_ICEBREAKER_PRIMARY_CTA,
+  TEAM_BUILDING_PRIMARY_CTA,
+  TEAM_BONDING_PRIMARY_CTA,
+  WORK_TEAM_PRIMARY_CTA,
 } from "@/lib/landing-pages/content/cta-library";
 
 export {
@@ -60,6 +66,9 @@ export {
   ICEBREAKER_FAQ,
   OFFICE_ICEBREAKER_FAQ,
   CLASSROOM_ICEBREAKER_FAQ,
+  TEAM_BUILDING_FAQ,
+  TEAM_BONDING_FAQ,
+  WORK_TEAM_FAQ,
 } from "@/lib/landing-pages/content/faq-library";
 
 export {
@@ -73,6 +82,9 @@ export {
   ICEBREAKER_AUDIENCE,
   OFFICE_ICEBREAKER_AUDIENCE,
   CLASSROOM_ICEBREAKER_AUDIENCE,
+  TEAM_BUILDING_AUDIENCE,
+  TEAM_BONDING_AUDIENCE,
+  WORK_TEAM_AUDIENCE,
 } from "@/lib/landing-pages/content/audience-library";
 
 export {
@@ -86,5 +98,8 @@ export {
   ICEBREAKER_INTENT,
   OFFICE_ICEBREAKER_INTENT,
   CLASSROOM_ICEBREAKER_INTENT,
+  TEAM_BUILDING_INTENT,
+  TEAM_BONDING_INTENT,
+  WORK_TEAM_INTENT,
   getCanonicalUrl,
 } from "@/lib/landing-pages/content/intent-library";

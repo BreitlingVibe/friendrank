@@ -147,7 +147,15 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
     targetAudience: "Office teams, remote teams, managers, and HR socials",
     searchIntent:
       "Run a light team activity with anonymous voting for coworkers.",
-    memberSlugs: ["office-icebreaker", "team-building-game"],
+    memberSlugs: [
+      "office-icebreaker",
+      "team-building-game",
+      "team-bonding-game",
+      "work-team-game",
+      "remote-team-game",
+      "virtual-team-building",
+      "employee-engagement-game",
+    ],
   },
   {
     id: "relationships",

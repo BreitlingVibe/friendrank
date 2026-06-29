@@ -58,6 +58,21 @@ import {
   CLASSROOM_ICEBREAKER_INTENT,
   CLASSROOM_ICEBREAKER_PRIMARY_CTA,
   CLASSROOM_ICEBREAKER_QUESTIONS,
+  TEAM_BUILDING_AUDIENCE,
+  TEAM_BUILDING_FAQ,
+  TEAM_BUILDING_INTENT,
+  TEAM_BUILDING_PRIMARY_CTA,
+  TEAM_BUILDING_QUESTIONS,
+  TEAM_BONDING_AUDIENCE,
+  TEAM_BONDING_FAQ,
+  TEAM_BONDING_INTENT,
+  TEAM_BONDING_PRIMARY_CTA,
+  TEAM_BONDING_QUESTIONS,
+  WORK_TEAM_AUDIENCE,
+  WORK_TEAM_FAQ,
+  WORK_TEAM_INTENT,
+  WORK_TEAM_PRIMARY_CTA,
+  WORK_TEAM_QUESTIONS,
   getCanonicalUrl,
 } from "@/lib/landing-pages/content";
 
@@ -221,6 +236,30 @@ export const classroomIcebreakerPage = assembleLandingPage({
   exampleQuestions: CLASSROOM_ICEBREAKER_QUESTIONS,
 });
 
+export const teamBuildingGamePage = assembleLandingPage({
+  intent: TEAM_BUILDING_INTENT,
+  audience: TEAM_BUILDING_AUDIENCE,
+  primaryCta: TEAM_BUILDING_PRIMARY_CTA,
+  faq: TEAM_BUILDING_FAQ,
+  exampleQuestions: TEAM_BUILDING_QUESTIONS,
+});
+
+export const teamBondingGamePage = assembleLandingPage({
+  intent: TEAM_BONDING_INTENT,
+  audience: TEAM_BONDING_AUDIENCE,
+  primaryCta: TEAM_BONDING_PRIMARY_CTA,
+  faq: TEAM_BONDING_FAQ,
+  exampleQuestions: TEAM_BONDING_QUESTIONS,
+});
+
+export const workTeamGamePage = assembleLandingPage({
+  intent: WORK_TEAM_INTENT,
+  audience: WORK_TEAM_AUDIENCE,
+  primaryCta: WORK_TEAM_PRIMARY_CTA,
+  faq: WORK_TEAM_FAQ,
+  exampleQuestions: WORK_TEAM_QUESTIONS,
+});
+
 export const LANDING_PAGES: LandingPageData[] = [
   mostLikelyToGeneratorPage,
   bestFriendQuizPage,
@@ -232,6 +271,9 @@ export const LANDING_PAGES: LandingPageData[] = [
   icebreakerGamePage,
   officeIcebreakerPage,
   classroomIcebreakerPage,
+  teamBuildingGamePage,
+  teamBondingGamePage,
+  workTeamGamePage,
 ];
 
 export function getLandingPageBySlug(slug: string): LandingPageData | undefined {

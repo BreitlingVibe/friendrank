@@ -144,8 +144,28 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
     searchIntent:
       "Light team building activity with anonymous group voting and shared results.",
     audience: "Work teams, remote teams, office socials",
-    estimatedPriority: 65,
-    status: "planned",
+    estimatedPriority: 70,
+    status: "live",
+  },
+  {
+    slug: "team-bonding-game",
+    title: "Team Bonding Game",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Team bonding activity with anonymous voting to spark conversation and laughs.",
+    audience: "Work teams, team socials, remote happy hours",
+    estimatedPriority: 66,
+    status: "live",
+  },
+  {
+    slug: "work-team-game",
+    title: "Work Team Game",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Workplace team game with anonymous coworker voting and shared results.",
+    audience: "Office teams, hybrid teams, managers",
+    estimatedPriority: 62,
+    status: "live",
   },
   {
     slug: "friend-test",
@@ -335,6 +355,36 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Collection of group questions turned into a live friend voting game.",
     audience: "Friend groups looking for question prompts",
     estimatedPriority: 35,
+    status: "planned",
+  },
+  {
+    slug: "remote-team-game",
+    title: "Remote Team Game",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Remote team activity with anonymous voting for distributed coworkers.",
+    audience: "Remote teams, distributed teams, async teams",
+    estimatedPriority: 48,
+    status: "planned",
+  },
+  {
+    slug: "virtual-team-building",
+    title: "Virtual Team Building",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Virtual team building with phone-based anonymous group voting.",
+    audience: "Remote teams, virtual offsites, online team socials",
+    estimatedPriority: 46,
+    status: "planned",
+  },
+  {
+    slug: "employee-engagement-game",
+    title: "Employee Engagement Game",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Employee engagement activity using anonymous team voting and shared results.",
+    audience: "HR teams, managers, workplace culture leads",
+    estimatedPriority: 44,
     status: "planned",
   },
 ];
