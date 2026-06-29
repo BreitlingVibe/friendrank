@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
 import { FriendRankRevealPreview } from "@/components/friend-rank-reveal-preview";
 import { FriendRankVoteProgressSnippet } from "@/components/friend-rank-vote-progress-snippet";
@@ -660,6 +661,12 @@ export default function Home() {
                           <>📨 Share invite with your group</>
                         )}
                       </button>
+                      <Link
+                        href={`/game/${shareCode}`}
+                        className="flex w-full items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-slate-300 transition duration-200 hover:border-white/15 hover:bg-white/[0.06] hover:text-white"
+                      >
+                        Vote now
+                      </Link>
                     </div>
                   </div>
                 </div>
