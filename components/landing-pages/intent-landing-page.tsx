@@ -10,8 +10,8 @@ import { FriendRankBrand } from "@/components/friend-rank-brand";
 
 const TRUST_POINTS = [
   "✓ Anonymous voting",
-  "✓ No sign-up required",
-  "✓ Works on any phone",
+  "✓ No signup required",
+  "✓ Ready in under a minute",
 ] as const;
 
 type IntentLandingPageProps = {

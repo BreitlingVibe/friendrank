@@ -70,13 +70,16 @@ const ACTIVE_RELATED_PAGES = [
   { slug: "best-friend-quiz", title: "Best Friend Quiz" },
   { slug: "who-knows-me-best", title: "Who Knows Me Best" },
   { slug: "friendship-test", title: "Friendship Test" },
+  { slug: "anonymous-voting-game", title: "Anonymous Voting Game" },
+  { slug: "group-voting-game", title: "Group Voting Game" },
+  { slug: "party-voting-game", title: "Party Voting Game" },
 ] as const;
 
 const FUTURE_RELATED_PAGES = [
-  { slug: "anonymous-voting-game", title: "Anonymous Voting Game" },
-  { slug: "friend-ranking-game", title: "Friend Ranking Game" },
-  { slug: "party-voting-game", title: "Party Voting Game" },
-  { slug: "group-voting-game", title: "Group Voting Game" },
+  { slug: "icebreaker-game", title: "Icebreaker Game" },
+  { slug: "bestie-quiz", title: "Bestie Quiz" },
+  { slug: "couple-quiz", title: "Couple Quiz" },
+  { slug: "team-building-game", title: "Team Building Game" },
 ] as const;
 
 function buildRelatedPages(currentSlug: string): LandingPageRelatedPage[] {
@@ -539,11 +542,351 @@ export const friendshipTestPage: LandingPageData = {
     "Create a friendship test for your group with FriendRank. Friends vote anonymously, unlock funny roles after enough votes, and share results. No signup required.",
 };
 
+const ANONYMOUS_VOTING_QUESTIONS = [
+  { text: "Who gives the best advice?" },
+  { text: "Who is secretly the funniest?" },
+  { text: "Who would survive a zombie apocalypse?" },
+  { text: "Who always arrives late?" },
+  { text: "Who would become famous?" },
+  { text: "Who is most likely to keep a secret?" },
+  { text: "Who is the friend everyone trusts?" },
+  { text: "Who is most likely to start drama?" },
+  { text: "Who replies last in the group chat?" },
+  { text: "Who is most likely to make everyone laugh?" },
+  { text: "Who is secretly the most responsible?" },
+  { text: "Who is most likely to forget plans?" },
+  { text: "Who would win an argument they should lose?" },
+  { text: "Who is most likely to go viral?" },
+  { text: "Who is the Main Character?" },
+];
+
+const GROUP_VOTING_QUESTIONS = [
+  { text: "Who is the Main Character?" },
+  { text: "Who is the Chaos Agent?" },
+  { text: "Who is the Secret Villain?" },
+  { text: "Who is the biggest foodie?" },
+  { text: "Who is the most competitive?" },
+  { text: "Who is most likely to plan the next hangout?" },
+  { text: "Who is the group therapist?" },
+  { text: "Who is most likely to go viral?" },
+  { text: "Who is chronically online?" },
+  { text: "Who is the walking red flag?" },
+  { text: "Who has the green flag energy?" },
+  { text: "Who is most likely to start a group chat?" },
+  { text: "Who is most likely to be late?" },
+  { text: "Who is the plot twist generator?" },
+  { text: "Who is most likely to make everyone laugh?" },
+];
+
+const PARTY_VOTING_QUESTIONS = [
+  { text: "Who is most likely to start dancing first?" },
+  { text: "Who is the most dramatic?" },
+  { text: "Who is the biggest flirt?" },
+  { text: "Who has the loudest laugh?" },
+  { text: "Who is most likely to lose their phone?" },
+  { text: "Who is most likely to become famous tonight?" },
+  { text: "Who is most likely to start karaoke?" },
+  { text: "Who is most likely to disappear to the snack table?" },
+  { text: "Who is most likely to take the best photos?" },
+  { text: "Who is most likely to stay until the end?" },
+  { text: "Who is most likely to tell the best story?" },
+  { text: "Who is most likely to start a dance circle?" },
+  { text: "Who is the life of the party?" },
+  { text: "Who is most likely to forget someone's name?" },
+  { text: "Who is most likely to suggest an after-party?" },
+];
+
+export const anonymousVotingGamePage: LandingPageData = {
+  slug: "anonymous-voting-game",
+  title: "Anonymous Voting Game",
+  metaTitle:
+    "Anonymous Voting Game | Vote With Friends Online | FriendRank",
+  metaDescription:
+    "Create an anonymous voting game for friends. Share one link, vote privately, unlock group results, and reveal funny roles together.",
+  canonicalUrl: `${PRODUCTION_APP_URL}/anonymous-voting-game`,
+  h1: "Anonymous Voting Game for Friends",
+  heroSubtitle:
+    "Run a private vote with your friend group. No signup, one shared link, and results unlock after everyone votes.",
+  primaryCta: {
+    label: "Create Anonymous Voting Game",
+    href: CREATE_GAME_HREF,
+  },
+  secondaryCta: {
+    label: "See Example Questions",
+    href: "#example-questions",
+  },
+  intentSummaryTitle: "What is an anonymous voting game?",
+  intentSummary:
+    "An anonymous voting game lets a group pick winners for fun categories without exposing individual ballots. FriendRank handles the whole flow: add friend names, share one link, everyone votes on their phone, and results unlock when enough votes are in. No accounts, no app download, and no public record of who voted for whom.",
+  whyFriendRankTitle: "Why FriendRank for anonymous group voting",
+  whyFriendRank: SHARED_WHY_FRIEND_RANK,
+  playImmediatelyTitle: PLAY_IMMEDIATELY_TITLE,
+  playImmediatelyBody:
+    "Create a game on FriendRank, add your group, and share the link. Friends vote in private and you reveal the results together when the vote count is met.",
+  exampleQuestionsTitle: "Popular anonymous voting questions",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are fun questions your group can vote on anonymously.",
+  exampleQuestions: ANONYMOUS_VOTING_QUESTIONS,
+  exampleResultsTitle: "What your group unlocks after voting",
+  exampleResults: [...SHARED_EXAMPLE_RESULTS],
+  faqTitle: "Anonymous voting FAQ",
+  faq: [
+    {
+      question: "Is voting anonymous?",
+      answer:
+        "Yes. Friends vote without signing in. The group sees aggregated winners and story-style results, not individual ballots.",
+    },
+    {
+      question: "Can players see who voted for them?",
+      answer:
+        "No. FriendRank shows category winners and group narrative results. It does not reveal who picked whom.",
+    },
+    {
+      question: "When are results revealed?",
+      answer:
+        "Results unlock after enough friends vote. Then anyone with the link can open it and view together.",
+    },
+    {
+      question: "Do players need accounts?",
+      answer:
+        "No. The host creates a game and shares the link. Voters open it and tap through five questions.",
+    },
+    {
+      question: "How many people can vote?",
+      answer:
+        "Add two to eight names when you create the game. Each friend can vote once from their device.",
+    },
+    {
+      question: "Can I use this in a group chat?",
+      answer:
+        "Yes. Paste the game link in WhatsApp, iMessage, Discord, or any chat app.",
+    },
+    {
+      question: "Does it work on mobile?",
+      answer:
+        "Yes. FriendRank is built for the mobile browser. No install required.",
+    },
+    {
+      question: "Is the game link private?",
+      answer:
+        "The link is unlisted. Anyone with the URL can vote, so share it only with your group.",
+    },
+  ],
+  relatedPagesTitle: "Related games",
+  relatedPages: buildRelatedPages("anonymous-voting-game"),
+  finalCtaTitle: "Start your anonymous voting game",
+  finalCtaSubtitle:
+    "Free, private voting for friend groups. Ready to share in under a minute.",
+  ctaLocation: "landing_anonymous_voting_game",
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who gives the best advice",
+      "Who is secretly the funniest",
+      "Who would survive a zombie apocalypse",
+    ],
+    suggestedVibeTags: ["Discord", "College", "Brutal honesty"],
+    suggestedTone: "Funny",
+  },
+  schemaDescription:
+    "Create an anonymous voting game for friends with FriendRank. Share one link, vote privately, unlock group results and funny roles. No signup required.",
+};
+
+export const groupVotingGamePage: LandingPageData = {
+  slug: "group-voting-game",
+  title: "Group Voting Game",
+  metaTitle: "Group Voting Game | Create a Friend Vote Online | FriendRank",
+  metaDescription:
+    "Create a group voting game for friends. Invite your group, vote on funny roles, unlock results together, and share the story.",
+  canonicalUrl: `${PRODUCTION_APP_URL}/group-voting-game`,
+  h1: "Group Voting Game for Friends",
+  heroSubtitle:
+    "Create a game, invite your group, vote on funny roles, and reveal the results together. One link, no signup, works on any phone.",
+  primaryCta: {
+    label: "Create Group Voting Game",
+    href: CREATE_GAME_HREF,
+  },
+  secondaryCta: {
+    label: "See Example Questions",
+    href: "#example-questions",
+  },
+  intentSummaryTitle: "What is a group voting game?",
+  intentSummary:
+    "A group voting game turns your friend list into a live poll with personality. FriendRank follows a simple flow: create a game with names, invite the group with one link, let everyone vote on their phone, then reveal ranked roles and a group story when enough votes are in. It works for friend groups, roommates, Discord servers, and casual hangouts.",
+  whyFriendRankTitle: "Why FriendRank for group voting",
+  whyFriendRank: SHARED_WHY_FRIEND_RANK,
+  playImmediatelyTitle: PLAY_IMMEDIATELY_TITLE,
+  playImmediatelyBody:
+    "Add your group on the FriendRank homepage, pick a tone, share the link, and let friends vote. Results unlock when the group is ready to reveal.",
+  exampleQuestionsTitle: "Popular group voting questions",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are group voting questions your friends can rank each other on.",
+  exampleQuestions: GROUP_VOTING_QUESTIONS,
+  exampleResultsTitle: "What your group unlocks after voting",
+  exampleResults: [...SHARED_EXAMPLE_RESULTS],
+  faqTitle: "Group voting game FAQ",
+  faq: [
+    {
+      question: "How many friends can join?",
+      answer:
+        "Add two to eight names when you create the game. Everyone in the list appears as a vote option.",
+    },
+    {
+      question: "Does it work on mobile?",
+      answer:
+        "Yes. Share the link in your group chat and friends vote on their phones in seconds.",
+    },
+    {
+      question: "Can I add custom categories?",
+      answer:
+        "Yes. Enter up to three custom prompts when you create the game. FriendRank fills the rest.",
+    },
+    {
+      question: "Can we replay the same game?",
+      answer:
+        "The same link stays live for viewing results. To run a fresh round, create a new game on the homepage.",
+    },
+    {
+      question: "Is voting anonymous?",
+      answer:
+        "Yes. The group sees winners and narrative results, not who voted for whom.",
+    },
+    {
+      question: "Do we need accounts?",
+      answer:
+        "No signup required. Create a game, share the link, and start voting.",
+    },
+    {
+      question: "When do results unlock?",
+      answer:
+        "After enough distinct votes are collected. Then the whole group opens the link to reveal together.",
+    },
+    {
+      question: "Can I share results in the group chat?",
+      answer:
+        "Yes. Unlocked results include ranked roles and a shareable card for WhatsApp or iMessage.",
+    },
+  ],
+  relatedPagesTitle: "Related games",
+  relatedPages: buildRelatedPages("group-voting-game"),
+  finalCtaTitle: "Start your group voting game",
+  finalCtaSubtitle:
+    "Free for friend groups. Create, invite, vote, and reveal in under a minute.",
+  ctaLocation: "landing_group_voting_game",
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is the Main Character",
+      "Who is the Chaos Agent",
+      "Who is the biggest foodie",
+    ],
+    suggestedVibeTags: ["Gaming", "Discord", "Meme-heavy"],
+    suggestedTone: "Chaotic",
+  },
+  schemaDescription:
+    "Create a group voting game for friends with FriendRank. Invite the group, vote on funny roles, unlock results together, and share the story. No signup required.",
+};
+
+export const partyVotingGamePage: LandingPageData = {
+  slug: "party-voting-game",
+  title: "Party Voting Game",
+  metaTitle: "Party Voting Game | Fun Group Vote for Parties | FriendRank",
+  metaDescription:
+    "Create a party voting game for your group. Anonymous votes, funny roles, and shareable results for birthdays, game nights, and college parties.",
+  canonicalUrl: `${PRODUCTION_APP_URL}/party-voting-game`,
+  h1: "Party Voting Game for Groups",
+  heroSubtitle:
+    "Make every party more fun with anonymous voting. Add your friends, share one link, vote on funny roles, and reveal the results together.",
+  primaryCta: {
+    label: "Create Party Voting Game",
+    href: CREATE_GAME_HREF,
+  },
+  secondaryCta: {
+    label: "See Example Questions",
+    href: "#example-questions",
+  },
+  intentSummaryTitle: "What is a party voting game?",
+  intentSummary:
+    "A party voting game gives your group something quick and funny to do together. FriendRank lets everyone vote on their phone while the party is going. Pick categories like who starts dancing first or who has the loudest laugh, collect anonymous votes, and unlock shareable results for the room or the group chat. Works with or without drinks, and fine for mixed-age friend groups.",
+  whyFriendRankTitle: "Why FriendRank works at parties",
+  whyFriendRank: SHARED_WHY_FRIEND_RANK,
+  playImmediatelyTitle: PLAY_IMMEDIATELY_TITLE,
+  playImmediatelyBody:
+    "Create a game before the party or on the spot. Share the link at the table or in the group chat and let votes roll in while everyone hangs out.",
+  exampleQuestionsTitle: "Popular party voting questions",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are party voting questions that get laughs fast.",
+  exampleQuestions: PARTY_VOTING_QUESTIONS,
+  exampleResultsTitle: "What your group unlocks after voting",
+  exampleResults: [...SHARED_EXAMPLE_RESULTS],
+  faqTitle: "Party voting game FAQ",
+  faq: [
+    {
+      question: "Does this work for birthday parties?",
+      answer:
+        "Yes. Create a game with the friend group, share the link at the party, and reveal results together.",
+    },
+    {
+      question: "Is it good for college parties?",
+      answer:
+        "Yes. Friends vote on their phones from the room or the group chat. No app install needed.",
+    },
+    {
+      question: "Can we use it for game night?",
+      answer:
+        "Yes. It is a quick side activity between rounds or a fun opener when everyone arrives.",
+    },
+    {
+      question: "Do we need drinking for this to be fun?",
+      answer:
+        "No. FriendRank is funny on its own. Drinks optional.",
+    },
+    {
+      question: "Is it family friendly?",
+      answer:
+        "You control the tone and custom questions. Pick Wholesome or Funny for lighter party vibes.",
+    },
+    {
+      question: "Is voting anonymous?",
+      answer:
+        "Yes. The group sees winners and story results, not individual ballots.",
+    },
+    {
+      question: "How fast can we start?",
+      answer:
+        "Under a minute to create. Share the link and friends vote in a few taps each.",
+    },
+    {
+      question: "Can we share results after the party?",
+      answer:
+        "Yes. Results stay on the same link and include a shareable card for the group chat.",
+    },
+  ],
+  relatedPagesTitle: "Related games",
+  relatedPages: buildRelatedPages("party-voting-game"),
+  finalCtaTitle: "Start your party voting game",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready before the party gets going.",
+  ctaLocation: "landing_party_voting_game",
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Most likely to start dancing first",
+      "Who has the loudest laugh",
+      "Who is most likely to lose their phone",
+    ],
+    suggestedVibeTags: ["Party", "College", "Chaotic"],
+    suggestedTone: "Chaotic",
+  },
+  schemaDescription:
+    "Create a party voting game for your group with FriendRank. Anonymous votes, funny roles, and shareable results for birthdays, game nights, and friend parties. No signup required.",
+};
+
 export const LANDING_PAGES: LandingPageData[] = [
   mostLikelyToGeneratorPage,
   bestFriendQuizPage,
   whoKnowsMeBestPage,
   friendshipTestPage,
+  anonymousVotingGamePage,
+  groupVotingGamePage,
+  partyVotingGamePage,
 ];
 
 export function getLandingPageBySlug(slug: string): LandingPageData | undefined {
