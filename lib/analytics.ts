@@ -125,7 +125,8 @@ export type CtaLocation =
   | "hero_start"
   | "categories"
   | "form_submit"
-  | "bottom_start";
+  | "bottom_start"
+  | "landing_most_likely_to_generator";
 
 export type CtaClickedParams = {
   location: CtaLocation;

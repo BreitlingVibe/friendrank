@@ -48,6 +48,38 @@ export const rootSiteMetadata: Metadata = {
   },
 };
 
+export function buildLandingPageMetadata(input: {
+  metaTitle: string;
+  metaDescription: string;
+  canonicalUrl: string;
+}): Metadata {
+  const { metaTitle, metaDescription, canonicalUrl } = input;
+
+  return {
+    title: {
+      absolute: metaTitle,
+    },
+    description: metaDescription,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: metaTitle,
+      description: metaDescription,
+      url: canonicalUrl,
+      siteName: SITE_NAME,
+      type: "website",
+      images: [OG_IMAGE],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: metaTitle,
+      description: metaDescription,
+      images: [OG_IMAGE.url],
+    },
+  };
+}
+
 export function buildGamePageMetadata(shareCode: string): Metadata {
   const canonicalUrl = `${PRODUCTION_APP_URL}/game/${shareCode}`;
   const title = "FriendRank Game";
