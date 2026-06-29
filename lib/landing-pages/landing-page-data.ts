@@ -4,6 +4,26 @@ import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 
 const CREATE_GAME_HREF = `${PRODUCTION_APP_URL}/#create-game`;
 
+const PRIMARY_CTA_LABEL = "Create Your Most Likely To Game";
+
+const POPULAR_MOST_LIKELY_TO_QUESTIONS = [
+  { text: "Who is most likely to become famous?" },
+  { text: "Who is most likely to survive a zombie apocalypse?" },
+  { text: "Who is most likely to reply last?" },
+  { text: "Who is most likely to forget a birthday?" },
+  { text: "Who is most likely to become CEO?" },
+  { text: "Who is most likely to go viral?" },
+  { text: "Who is most likely to disappear for a week?" },
+  { text: "Who is most likely to make everyone laugh?" },
+  { text: "Who is most likely to win the lottery?" },
+  { text: "Who is most likely to get lost while using Google Maps?" },
+  { text: "Who is most likely to start a business?" },
+  { text: "Who is most likely to accidentally become famous?" },
+  { text: "Who is most likely to text the wrong person?" },
+  { text: "Who is most likely to sleep through an alarm?" },
+  { text: "Who is most likely to plan the next trip?" },
+] as const;
+
 export const mostLikelyToGeneratorPage: LandingPageData = {
   slug: "most-likely-to-generator",
   title: "Most Likely To Generator",
@@ -11,79 +31,78 @@ export const mostLikelyToGeneratorPage: LandingPageData = {
   metaDescription:
     "Create a Most Likely To game for your friends. Invite your group, vote anonymously, reveal funny roles, and share the results.",
   canonicalUrl: `${PRODUCTION_APP_URL}/most-likely-to-generator`,
-  h1: "Most Likely To Generator",
+  h1: "Most Likely To Generator for Friends",
   heroSubtitle:
-    "Create a Most Likely To game for your friend group. Vote anonymously, unlock funny roles, and share the results — no signup required.",
+    'Create a hilarious "Most Likely To" game in under a minute. Add your friends, share one link, let everyone vote anonymously, then reveal the funniest results together.',
   primaryCta: {
-    label: "Create your Most Likely To game",
+    label: PRIMARY_CTA_LABEL,
     href: CREATE_GAME_HREF,
   },
   secondaryCta: {
-    label: "See example questions",
+    label: "See Example Questions",
     href: "#example-questions",
   },
   intentSummaryTitle: "What is a Most Likely To generator?",
   intentSummary:
-    "A Most Likely To generator helps your group run classic “most likely to…” prompts as a live voting game. FriendRank turns those prompts into a shareable game: you add friend names, invite the group, everyone votes on their phone, and results unlock with ranked roles and a group story. It works for parties, college groups, Discord servers, and casual hangouts — in the mobile browser, with no account needed.",
-  whyFriendRankTitle: "Why use FriendRank for Most Likely To?",
+    'A Most Likely To generator turns classic "most likely to" prompts into a live voting game for your friend group. With FriendRank, you add names, share one link, and everyone votes on their phone. When enough friends have voted, results unlock with ranked winners and a group story you can share back to the chat. No app download. No account needed.',
+  whyFriendRankTitle: "Why FriendRank works for Most Likely To",
   whyFriendRank: [
     {
       title: "Anonymous voting",
       description:
-        "Friends vote without accounts. Individual ballots stay private; the group only sees aggregated winners and narrative results.",
+        "Friends vote without signing in. The group sees results, not individual ballots.",
     },
     {
-      title: "Friends decide the roles",
+      title: "No sign-up required",
       description:
-        "Each category becomes a vote — who is most likely to go viral, start drama, or disappear from the group chat. Your group picks, not a random quiz.",
+        "Create a game on the homepage and share the link. That is the whole setup.",
     },
     {
-      title: "Results unlock after votes",
+      title: "One link for everyone",
       description:
-        "The game stays locked until enough friends vote. Then everyone opens the same link to reveal category winners together.",
+        "Same URL for voting and results. Drop it in WhatsApp, iMessage, or Discord.",
     },
     {
-      title: "Shareable cinematic report",
+      title: "Works on any phone",
       description:
-        "Unlocked results include ranked roles, group verdict copy, and a highlight card you can share back to WhatsApp, iMessage, or Discord.",
+        "Built for the mobile browser. Friends vote in seconds from the group chat.",
+    },
+    {
+      title: "Results unlock after everyone votes",
+      description:
+        "The game stays locked until enough friends vote. Then you reveal together.",
     },
   ],
-  playImmediatelyTitle: "Play immediately",
+  playImmediatelyTitle: "Ready to play?",
   playImmediatelyBody:
-    "FriendRank runs the full create → invite → vote → reveal flow on the homepage. Add your group, optionally enter custom Most Likely To prompts, and share the game link in under a minute.",
-  exampleQuestionsTitle: "Example Most Likely To questions",
-  exampleQuestions: [
-    { text: "Who is most likely to disappear from the group chat?" },
-    { text: "Who is most likely to start drama and deny it?" },
-    { text: "Who is most likely to be late but somehow forgiven?" },
-    { text: "Who is most likely to go viral?" },
-    { text: "Who is the Main Character?" },
-  ],
-  exampleResultsTitle: "Example results your group can unlock",
+    "Head to the FriendRank homepage, add your group, and paste in any Most Likely To prompts you like. You will get a share link in under a minute.",
+  exampleQuestionsTitle: "Popular Most Likely To Questions",
+  exampleQuestions: [...POPULAR_MOST_LIKELY_TO_QUESTIONS],
+  exampleResultsTitle: "What your group unlocks after voting",
   exampleResults: [
     {
       title: "Main Character",
       emoji: "👑",
       description:
-        "The friend the whole story revolves around — ranked from group votes, not a preset quiz answer.",
+        "The friend your group picks as the center of the story. Voted by the group, not assigned by a quiz.",
     },
     {
       title: "Chaos Agent",
       emoji: "🔥",
       description:
-        "Certified chaos energy. A classic Most Likely To outcome when the group picks who escalates everything.",
+        "The friend most likely to stir things up. A classic Most Likely To outcome.",
     },
     {
       title: "Secret Villain",
       emoji: "💀",
       description:
-        "The quiet mastermind role — perfect for “most likely to stir drama from the shadows” style prompts.",
+        "The quiet mastermind. Great for drama-from-the-shadows style prompts.",
     },
     {
       title: "Final group story",
       emoji: "🎭",
       description:
-        "After votes unlock, FriendRank generates a narrative summary — verdict, vibe, combos, and a shareable ending card.",
+        "A narrative wrap-up with verdict, vibe, and a shareable ending card for the group chat.",
     },
   ],
   faqTitle: "Most Likely To game FAQ",
@@ -91,70 +110,65 @@ export const mostLikelyToGeneratorPage: LandingPageData = {
     {
       question: "Is this a free Most Likely To generator?",
       answer:
-        "Yes. FriendRank is free in the browser at friendrank.app. Create a game, share the link, and play with your group at no cost.",
+        "Yes. FriendRank is free at friendrank.app. Create a game, share the link, and play with your group.",
     },
     {
-      question: "Do I need to sign up?",
+      question: "Can we play without creating an account?",
       answer:
-        "No signup is required. The host creates a game on the homepage and shares a link. Voters open it on their phone and tap through five questions.",
+        "Yes. No sign-up, email, or password. The host creates a game and shares the link.",
     },
     {
-      question: "Can I use my own Most Likely To prompts?",
+      question: "Can I create my own Most Likely To questions?",
       answer:
-        "Yes. When creating a game you can enter up to three custom category prompts. FriendRank fills the remaining slots with curated defaults.",
+        "Yes. Enter up to three custom prompts when you create a game. FriendRank fills the rest with defaults.",
     },
     {
       question: "Is voting anonymous?",
       answer:
-        "Votes are aggregated. The group sees winners and story-style results, not a public list of who voted for whom. No accounts are required.",
+        "Votes are private to each person. The group only sees aggregated winners and story-style results.",
     },
     {
-      question: "How many people can play?",
+      question: "How many friends can join a Most Likely To game?",
       answer:
-        "List two to eight friend names when creating the game. Results unlock after enough distinct votes are collected — typically at least as many votes as friends in the game.",
+        "Add two to eight names when you create the game. Results unlock after enough friends vote.",
     },
     {
       question: "Does it work on mobile?",
       answer:
-        "Yes. FriendRank is built for the mobile browser. Share the game link in WhatsApp or any chat app and friends vote on their phones.",
+        "Yes. Share the link in any chat app and friends vote on their phones. No install needed.",
     },
     {
-      question: "When do results appear?",
+      question: "When do results show up?",
       answer:
-        "Results stay locked until the vote threshold is met. Then anyone with the game link can open it to view ranked roles and the group story.",
+        "After enough friends vote, results unlock on the same link for everyone to view together.",
     },
     {
       question: "Who is this for?",
       answer:
-        "Friend groups, parties, college groups, Discord communities, couples with friends, icebreakers, and casual team hangouts — anywhere you want a quick Most Likely To style vote.",
+        "Friend groups, parties, college groups, Discord servers, couples, icebreakers, and casual hangouts.",
     },
   ],
-  relatedPagesTitle: "Related FriendRank pages",
+  relatedPagesTitle: "Related games",
   relatedPages: [
     {
-      slug: "anonymous-voting-game",
-      title: "Anonymous Voting Game",
+      slug: "best-friend-quiz",
+      title: "Best Friend Quiz",
       available: false,
     },
     {
-      slug: "friend-ranking-game",
-      title: "Friend Ranking Game",
+      slug: "friendship-test",
+      title: "Friendship Test",
       available: false,
     },
     {
-      slug: "party-voting-game",
-      title: "Party Voting Game",
-      available: false,
-    },
-    {
-      slug: "group-voting-game",
-      title: "Group Voting Game",
+      slug: "who-knows-me-best",
+      title: "Who Knows Me Best",
       available: false,
     },
   ],
-  finalCtaTitle: "Start your Most Likely To game",
+  finalCtaTitle: "Make your Most Likely To game",
   finalCtaSubtitle:
-    "Free, mobile-friendly, and ready to share in under a minute. No app download.",
+    "Free, works on any phone, and ready to share in under a minute.",
   ctaLocation: "landing_most_likely_to_generator",
   gamePreset: {
     suggestedCustomCategories: [...CUSTOM_CATEGORY_PLACEHOLDERS],
@@ -162,7 +176,7 @@ export const mostLikelyToGeneratorPage: LandingPageData = {
     suggestedTone: "Funny",
   },
   schemaDescription:
-    "Create a Most Likely To voting game for your friends with FriendRank. Groups vote anonymously on phone, unlock funny roles after enough votes, and share results — no signup required.",
+    "Create a Most Likely To voting game for your friends with FriendRank. Groups vote anonymously on phone, unlock funny roles after enough votes, and share results. No signup required.",
 };
 
 export const LANDING_PAGES: LandingPageData[] = [mostLikelyToGeneratorPage];

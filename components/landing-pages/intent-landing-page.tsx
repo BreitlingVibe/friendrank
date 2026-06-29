@@ -5,7 +5,14 @@ import { LandingPageFaq } from "@/components/landing-pages/landing-page-faq";
 import { LandingPageHero } from "@/components/landing-pages/landing-page-hero";
 import { LandingPageRelated } from "@/components/landing-pages/landing-page-related";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
+import { LandingPageTrustStrip } from "@/components/landing-pages/landing-page-trust-strip";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
+
+const TRUST_POINTS = [
+  "✓ Anonymous voting",
+  "✓ No sign-up required",
+  "✓ Works on any phone",
+] as const;
 
 type IntentLandingPageProps = {
   page: LandingPageData;
@@ -29,10 +36,11 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
 
       <main className="relative z-10">
         <LandingPageHero page={page} />
+        <LandingPageTrustStrip points={[...TRUST_POINTS]} />
 
         <section
           aria-labelledby="landing-intent-heading"
-          className="border-t border-white/5 py-16 sm:py-20"
+          className="py-16 sm:py-20"
         >
           <div className="mx-auto max-w-3xl px-6">
             <h2
@@ -58,18 +66,23 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
             >
               {page.whyFriendRankTitle}
             </h2>
-            <ul className="mt-10 space-y-5">
+            <ul className="mt-8 space-y-4">
               {page.whyFriendRank.map((item) => (
-                <li
-                  key={item.title}
-                  className="rounded-2xl border border-white/10 bg-slate-900/40 p-5 sm:p-6"
-                >
-                  <h3 className="text-base font-semibold text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                    {item.description}
-                  </p>
+                <li key={item.title} className="flex gap-3">
+                  <span
+                    className="mt-0.5 shrink-0 text-sm text-slate-500"
+                    aria-hidden="true"
+                  >
+                    ✓
+                  </span>
+                  <div>
+                    <p className="text-sm font-medium text-white">
+                      {item.title}
+                    </p>
+                    <p className="mt-0.5 text-sm leading-relaxed text-slate-500">
+                      {item.description}
+                    </p>
+                  </div>
                 </li>
               ))}
             </ul>

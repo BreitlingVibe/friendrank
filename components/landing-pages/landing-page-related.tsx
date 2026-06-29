@@ -39,7 +39,7 @@ export function LandingPageRelated({ title, pages }: LandingPageRelatedProps) {
                 >
                   {page.title}
                   <span className="ml-2 text-[10px] uppercase tracking-wider text-slate-600">
-                    Soon
+                    Coming Soon
                   </span>
                 </span>
               </li>

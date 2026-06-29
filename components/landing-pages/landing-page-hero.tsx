@@ -39,11 +39,6 @@ export function LandingPageHero({ page }: LandingPageHeroProps) {
           />
         ) : null}
       </div>
-      <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-slate-500">
-        <span>✓ No signup</span>
-        <span>✓ Anonymous voting</span>
-        <span>✓ Mobile friendly</span>
-      </div>
     </section>
   );
 }
