@@ -30,6 +30,9 @@ export {
   TEAM_BUILDING_QUESTIONS,
   TEAM_BONDING_QUESTIONS,
   WORK_TEAM_QUESTIONS,
+  RELATIONSHIP_QUIZ_QUESTIONS,
+  COUPLE_QUIZ_QUESTIONS,
+  BOYFRIEND_GIRLFRIEND_QUIZ_QUESTIONS,
 } from "@/lib/landing-pages/content/question-library";
 
 export {
@@ -52,6 +55,9 @@ export {
   TEAM_BUILDING_PRIMARY_CTA,
   TEAM_BONDING_PRIMARY_CTA,
   WORK_TEAM_PRIMARY_CTA,
+  RELATIONSHIP_QUIZ_PRIMARY_CTA,
+  COUPLE_QUIZ_PRIMARY_CTA,
+  BOYFRIEND_GIRLFRIEND_QUIZ_PRIMARY_CTA,
 } from "@/lib/landing-pages/content/cta-library";
 
 export {
@@ -69,6 +75,9 @@ export {
   TEAM_BUILDING_FAQ,
   TEAM_BONDING_FAQ,
   WORK_TEAM_FAQ,
+  RELATIONSHIP_QUIZ_FAQ,
+  COUPLE_QUIZ_FAQ,
+  BOYFRIEND_GIRLFRIEND_QUIZ_FAQ,
 } from "@/lib/landing-pages/content/faq-library";
 
 export {
@@ -85,6 +94,9 @@ export {
   TEAM_BUILDING_AUDIENCE,
   TEAM_BONDING_AUDIENCE,
   WORK_TEAM_AUDIENCE,
+  RELATIONSHIP_QUIZ_AUDIENCE,
+  COUPLE_QUIZ_AUDIENCE,
+  BOYFRIEND_GIRLFRIEND_QUIZ_AUDIENCE,
 } from "@/lib/landing-pages/content/audience-library";
 
 export {
@@ -101,5 +113,8 @@ export {
   TEAM_BUILDING_INTENT,
   TEAM_BONDING_INTENT,
   WORK_TEAM_INTENT,
+  RELATIONSHIP_QUIZ_INTENT,
+  COUPLE_QUIZ_INTENT,
+  BOYFRIEND_GIRLFRIEND_QUIZ_INTENT,
   getCanonicalUrl,
 } from "@/lib/landing-pages/content/intent-library";

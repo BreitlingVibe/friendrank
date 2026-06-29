@@ -114,8 +114,8 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
     searchIntent:
       "Playful couple quiz extended to friend groups with group voting.",
     audience: "Couples, double dates, friend groups with partners",
-    estimatedPriority: 70,
-    status: "planned",
+    estimatedPriority: 66,
+    status: "live",
   },
   {
     slug: "bestie-quiz",
@@ -234,8 +234,18 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
     searchIntent:
       "Relationship quiz turned into a group voting game for couples and friends.",
     audience: "Couples, friend groups, double dates",
-    estimatedPriority: 55,
-    status: "planned",
+    estimatedPriority: 70,
+    status: "live",
+  },
+  {
+    slug: "boyfriend-girlfriend-quiz",
+    title: "Boyfriend & Girlfriend Quiz",
+    intentCategory: INTENT_CATEGORIES.RELATIONSHIPS,
+    searchIntent:
+      "Boyfriend and girlfriend quiz for dating couples with anonymous group voting.",
+    audience: "Dating couples, new relationships, friend groups",
+    estimatedPriority: 62,
+    status: "live",
   },
   {
     slug: "sleepover-game",
@@ -385,6 +395,36 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Employee engagement activity using anonymous team voting and shared results.",
     audience: "HR teams, managers, workplace culture leads",
     estimatedPriority: 44,
+    status: "planned",
+  },
+  {
+    slug: "anniversary-game",
+    title: "Anniversary Game",
+    intentCategory: INTENT_CATEGORIES.RELATIONSHIPS,
+    searchIntent:
+      "Anniversary game for couples with anonymous voting and shareable results.",
+    audience: "Couples, anniversary celebrations, friend groups",
+    estimatedPriority: 50,
+    status: "planned",
+  },
+  {
+    slug: "date-night-game",
+    title: "Date Night Game",
+    intentCategory: INTENT_CATEGORIES.RELATIONSHIPS,
+    searchIntent:
+      "Date night game with quick phone voting for couples at home or out.",
+    audience: "Couples, date nights, long-distance partners",
+    estimatedPriority: 48,
+    status: "planned",
+  },
+  {
+    slug: "newlywed-game",
+    title: "Newlywed Game",
+    intentCategory: INTENT_CATEGORIES.RELATIONSHIPS,
+    searchIntent:
+      "Newlywed-style game with group voting for couples and wedding parties.",
+    audience: "Newlyweds, wedding parties, couples game nights",
+    estimatedPriority: 46,
     status: "planned",
   },
 ];

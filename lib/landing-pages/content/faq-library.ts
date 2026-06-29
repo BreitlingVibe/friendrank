@@ -572,3 +572,135 @@ export const WORK_TEAM_FAQ: LandingPageFaqItem[] = [
       "After enough votes are in, results open on the same link for the whole team.",
   },
 ];
+
+/** @see FAQ_VERSION */
+export const RELATIONSHIP_QUIZ_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a relationship quiz?",
+    answer:
+      "It is a fun way to explore compatibility and chemistry as a group. FriendRank turns it into a voting game where people pick roles and reveal results together.",
+  },
+  {
+    question: "Is this a solo compatibility test?",
+    answer:
+      "No. FriendRank is a group voting game, not a long solo questionnaire. Everyone votes on their phone and you unlock shared results.",
+  },
+  {
+    question: "Can couples and friends play together?",
+    answer:
+      "Yes. Add your partner, friends, or double date group and share one link.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and story-style results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone browser.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone to view together.",
+  },
+];
+
+/** @see FAQ_VERSION */
+export const COUPLE_QUIZ_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a couple quiz?",
+    answer:
+      "It is a playful game where couples vote on fun roles and questions. FriendRank makes it a shared experience with anonymous voting and group results.",
+  },
+  {
+    question: "Can we play as just the two of us?",
+    answer:
+      "Yes. Add both names plus friends if you want, or keep it to your couple and a few close friends.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Each person votes privately. The group sees aggregated winners, not individual ballots.",
+  },
+  {
+    question: "Do we need to download an app?",
+    answer:
+      "No. Open the link in any mobile browser and start voting.",
+  },
+  {
+    question: "Can I add our own questions?",
+    answer:
+      "Yes. Add up to three custom prompts when you set up the game.",
+  },
+  {
+    question: "Is it good for date night?",
+    answer:
+      "Yes. Create a game in under a minute and play together on the couch or over video call.",
+  },
+  {
+    question: "Can friends join too?",
+    answer:
+      "Yes. Double dates and friend groups work great. Add two to eight names when you create the game.",
+  },
+  {
+    question: "When do results show up?",
+    answer:
+      "After enough votes are in, results unlock on the same link for everyone to reveal together.",
+  },
+];
+
+/** @see FAQ_VERSION */
+export const BOYFRIEND_GIRLFRIEND_QUIZ_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a boyfriend and girlfriend quiz?",
+    answer:
+      "It is a fun dating game where you vote on cute roles and questions. FriendRank turns it into a quick group voting game with shareable results.",
+  },
+  {
+    question: "Is it only for new couples?",
+    answer:
+      "No. Works for new dating, long-term relationships, and friend groups who want to play along.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes are private to each person. The group sees winners and story-style results only.",
+  },
+  {
+    question: "Do we need accounts?",
+    answer:
+      "No signup for anyone. One person creates the game and shares the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on phones?",
+    answer:
+      "Yes. Perfect for texting the link and voting from your phone.",
+  },
+  {
+    question: "Can friends vote too?",
+    answer:
+      "Yes. Add your partner plus friends for extra laughs, or keep the group small.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone to view together.",
+  },
+];

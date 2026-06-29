@@ -168,3 +168,42 @@ export const WORK_TEAM_AUDIENCE = {
   finalCtaSubtitle:
     "Free for workplace teams. Ready before your next sync.",
 } as const;
+
+/** @see AUDIENCE_VERSION */
+export const RELATIONSHIP_QUIZ_AUDIENCE = {
+  heroSubtitle:
+    "Turn a relationship quiz into a fun group game. Add people, vote anonymously on playful roles, and reveal compatibility results together.",
+  playImmediatelyBody:
+    "Create a game on FriendRank, add your group or couple plus friends, and share the link. Everyone votes on their phone and you reveal results together.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are relationship quiz questions your group can vote on.",
+  finalCtaTitle: "Start your relationship quiz",
+  finalCtaSubtitle:
+    "Free, works on any phone, and ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const COUPLE_QUIZ_AUDIENCE = {
+  heroSubtitle:
+    "Play a couple quiz together on your phones. Create a game, vote anonymously, and reveal funny roles and results as a pair or with friends.",
+  playImmediatelyBody:
+    "Add both names on FriendRank, pick a tone, share the link, and vote together on date night or over video call.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are couple quiz questions to play together.",
+  finalCtaTitle: "Start your couple quiz",
+  finalCtaSubtitle:
+    "Free for couples. Ready to share in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const BOYFRIEND_GIRLFRIEND_QUIZ_AUDIENCE = {
+  heroSubtitle:
+    "Make dating more fun with a quick boyfriend and girlfriend quiz. Vote anonymously, reveal cute roles, and share the results together.",
+  playImmediatelyBody:
+    "Create a game, add your names plus friends if you want, and share the link. Vote from your phones and unlock results together.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are boyfriend and girlfriend quiz questions for your game.",
+  finalCtaTitle: "Start your boyfriend and girlfriend quiz",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready for your next date night.",
+} as const;

@@ -73,6 +73,21 @@ import {
   WORK_TEAM_INTENT,
   WORK_TEAM_PRIMARY_CTA,
   WORK_TEAM_QUESTIONS,
+  RELATIONSHIP_QUIZ_AUDIENCE,
+  RELATIONSHIP_QUIZ_FAQ,
+  RELATIONSHIP_QUIZ_INTENT,
+  RELATIONSHIP_QUIZ_PRIMARY_CTA,
+  RELATIONSHIP_QUIZ_QUESTIONS,
+  COUPLE_QUIZ_AUDIENCE,
+  COUPLE_QUIZ_FAQ,
+  COUPLE_QUIZ_INTENT,
+  COUPLE_QUIZ_PRIMARY_CTA,
+  COUPLE_QUIZ_QUESTIONS,
+  BOYFRIEND_GIRLFRIEND_QUIZ_AUDIENCE,
+  BOYFRIEND_GIRLFRIEND_QUIZ_FAQ,
+  BOYFRIEND_GIRLFRIEND_QUIZ_INTENT,
+  BOYFRIEND_GIRLFRIEND_QUIZ_PRIMARY_CTA,
+  BOYFRIEND_GIRLFRIEND_QUIZ_QUESTIONS,
   getCanonicalUrl,
 } from "@/lib/landing-pages/content";
 
@@ -260,6 +275,30 @@ export const workTeamGamePage = assembleLandingPage({
   exampleQuestions: WORK_TEAM_QUESTIONS,
 });
 
+export const relationshipQuizPage = assembleLandingPage({
+  intent: RELATIONSHIP_QUIZ_INTENT,
+  audience: RELATIONSHIP_QUIZ_AUDIENCE,
+  primaryCta: RELATIONSHIP_QUIZ_PRIMARY_CTA,
+  faq: RELATIONSHIP_QUIZ_FAQ,
+  exampleQuestions: RELATIONSHIP_QUIZ_QUESTIONS,
+});
+
+export const coupleQuizPage = assembleLandingPage({
+  intent: COUPLE_QUIZ_INTENT,
+  audience: COUPLE_QUIZ_AUDIENCE,
+  primaryCta: COUPLE_QUIZ_PRIMARY_CTA,
+  faq: COUPLE_QUIZ_FAQ,
+  exampleQuestions: COUPLE_QUIZ_QUESTIONS,
+});
+
+export const boyfriendGirlfriendQuizPage = assembleLandingPage({
+  intent: BOYFRIEND_GIRLFRIEND_QUIZ_INTENT,
+  audience: BOYFRIEND_GIRLFRIEND_QUIZ_AUDIENCE,
+  primaryCta: BOYFRIEND_GIRLFRIEND_QUIZ_PRIMARY_CTA,
+  faq: BOYFRIEND_GIRLFRIEND_QUIZ_FAQ,
+  exampleQuestions: BOYFRIEND_GIRLFRIEND_QUIZ_QUESTIONS,
+});
+
 export const LANDING_PAGES: LandingPageData[] = [
   mostLikelyToGeneratorPage,
   bestFriendQuizPage,
@@ -274,6 +313,9 @@ export const LANDING_PAGES: LandingPageData[] = [
   teamBuildingGamePage,
   teamBondingGamePage,
   workTeamGamePage,
+  relationshipQuizPage,
+  coupleQuizPage,
+  boyfriendGirlfriendQuizPage,
 ];
 
 export function getLandingPageBySlug(slug: string): LandingPageData | undefined {

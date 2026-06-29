@@ -365,6 +365,90 @@ export const WORK_TEAM_INTENT = {
   } satisfies LandingPageGamePreset,
 };
 
+/** @see INTENT_VERSION */
+export const RELATIONSHIP_QUIZ_INTENT = {
+  slug: "relationship-quiz",
+  title: "Relationship Quiz",
+  metaTitle: "Relationship Quiz | Fun Compatibility Game | FriendRank",
+  metaDescription:
+    "Create a relationship quiz for your group. Vote anonymously on playful roles, reveal compatibility results, and share the fun together.",
+  h1: "Relationship Quiz",
+  intentSummaryTitle: "What is a relationship quiz?",
+  intentSummary:
+    "A relationship quiz is a playful way to explore chemistry and compatibility. FriendRank is not a long solo test. It is a group voting game where people pick who fits each role, vote anonymously on their phones, and unlock funny results together. Great for couples, double dates, and friend groups.",
+  whyFriendRankTitle: "Why FriendRank beats a typical relationship quiz",
+  exampleQuestionsTitle: "Popular relationship quiz questions",
+  faqTitle: "Relationship quiz FAQ",
+  schemaDescription:
+    "Create a relationship quiz with FriendRank. Vote anonymously on playful roles, reveal compatibility results, and share the fun together. No signup required.",
+  ctaLocation: "landing_relationship_quiz" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is the most romantic",
+      "Who gives the best relationship advice",
+      "Who keeps the relationship fun",
+    ],
+    suggestedVibeTags: ["Party", "Soft drama", "Family"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const COUPLE_QUIZ_INTENT = {
+  slug: "couple-quiz",
+  title: "Couple Quiz",
+  metaTitle: "Couple Quiz | Play Together Online | FriendRank",
+  metaDescription:
+    "Create a couple quiz you can play together. Vote anonymously, reveal funny roles, and share results on date night or with friends.",
+  h1: "Couple Quiz",
+  intentSummaryTitle: "What is a couple quiz?",
+  intentSummary:
+    "A couple quiz is a fun game for partners to play together. FriendRank turns it into a phone voting game: add both names, share one link, vote on cute roles, and reveal results together. Works for date night, anniversaries, and double dates with friends. No app download needed.",
+  whyFriendRankTitle: "Why FriendRank works for couple quizzes",
+  exampleQuestionsTitle: "Popular couple quiz questions",
+  faqTitle: "Couple quiz FAQ",
+  schemaDescription:
+    "Create a couple quiz with FriendRank. Vote anonymously, reveal funny roles, and share results on date night or with friends. No signup required.",
+  ctaLocation: "landing_couple_quiz" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who sends the sweetest texts",
+      "Who is the planner in the relationship",
+      "Who is the romantic one",
+    ],
+    suggestedVibeTags: ["Party", "Family", "Soft drama"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const BOYFRIEND_GIRLFRIEND_QUIZ_INTENT = {
+  slug: "boyfriend-girlfriend-quiz",
+  title: "Boyfriend & Girlfriend Quiz",
+  metaTitle: "Boyfriend & Girlfriend Quiz | Dating Game | FriendRank",
+  metaDescription:
+    "Create a boyfriend and girlfriend quiz for dating couples. Vote anonymously, reveal cute roles, and play together in minutes.",
+  h1: "Boyfriend & Girlfriend Quiz",
+  intentSummaryTitle: "What is a boyfriend and girlfriend quiz?",
+  intentSummary:
+    "A boyfriend and girlfriend quiz is a light dating game for couples who want something fun to do together. FriendRank makes it a quick voting game on phones: add names, share a link, vote on cute date-night roles, and unlock results together. Perfect for new couples, long-distance dating, and friend groups. No account needed.",
+  whyFriendRankTitle: "Why FriendRank for dating couples",
+  exampleQuestionsTitle: "Popular boyfriend and girlfriend quiz questions",
+  faqTitle: "Boyfriend and girlfriend quiz FAQ",
+  schemaDescription:
+    "Create a boyfriend and girlfriend quiz with FriendRank. Vote anonymously, reveal cute roles, and play together in minutes. No signup required.",
+  ctaLocation: "landing_boyfriend_girlfriend_quiz" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who sends the best good morning text",
+      "Who would pick the perfect date spot",
+      "Who is the sweetest when dating",
+    ],
+    suggestedVibeTags: ["Party", "Soft drama", "College"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
 export function getCanonicalUrl(slug: string): string {
   return `${PRODUCTION_APP_URL}/${slug}`;
 }

@@ -101,3 +101,21 @@ export const WORK_TEAM_PRIMARY_CTA: LandingPageCta = {
   label: "Create Your Work Team Game",
   href: CREATE_GAME_HREF,
 };
+
+/** @see CTA_VERSION */
+export const RELATIONSHIP_QUIZ_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Relationship Quiz",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const COUPLE_QUIZ_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Couple Quiz",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const BOYFRIEND_GIRLFRIEND_QUIZ_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Boyfriend & Girlfriend Quiz",
+  href: CREATE_GAME_HREF,
+};

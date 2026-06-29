@@ -278,3 +278,60 @@ export const WORK_TEAM_QUESTIONS = [
   { text: "Who brings fresh ideas to the table?" },
   { text: "Who keeps remote work on track?" },
 ];
+
+/** @see QUESTION_VERSION */
+export const RELATIONSHIP_QUIZ_QUESTIONS = [
+  { text: "Who is the most romantic?" },
+  { text: "Who gives the best relationship advice?" },
+  { text: "Who is most likely to plan the perfect date?" },
+  { text: "Who remembers anniversaries first?" },
+  { text: "Who is the better listener?" },
+  { text: "Who would write the sweetest love note?" },
+  { text: "Who is most likely to say I love you first?" },
+  { text: "Who handles conflict the calmest?" },
+  { text: "Who is the bigger flirt?" },
+  { text: "Who is most likely to surprise their partner?" },
+  { text: "Who knows their partner's coffee order?" },
+  { text: "Who would win couple trivia?" },
+  { text: "Who is the more patient partner?" },
+  { text: "Who is most likely to plan a weekend getaway?" },
+  { text: "Who keeps the relationship fun?" },
+];
+
+/** @see QUESTION_VERSION */
+export const COUPLE_QUIZ_QUESTIONS = [
+  { text: "Who is the better cook for date night?" },
+  { text: "Who picks the movie?" },
+  { text: "Who is most likely to fall asleep first?" },
+  { text: "Who sends the sweetest texts?" },
+  { text: "Who is the planner in the relationship?" },
+  { text: "Who is more competitive as a couple?" },
+  { text: "Who would win at mini golf?" },
+  { text: "Who is most likely to start a dance in the kitchen?" },
+  { text: "Who remembers the little details?" },
+  { text: "Who is the bigger foodie?" },
+  { text: "Who would plan the surprise party?" },
+  { text: "Who is most likely to get lost together?" },
+  { text: "Who always picks the restaurant?" },
+  { text: "Who is the romantic one?" },
+  { text: "Who would win couple karaoke?" },
+];
+
+/** @see QUESTION_VERSION */
+export const BOYFRIEND_GIRLFRIEND_QUIZ_QUESTIONS = [
+  { text: "Who is most likely to plan the first date?" },
+  { text: "Who sends the best good morning text?" },
+  { text: "Who is the bigger flirt?" },
+  { text: "Who would pick the perfect date spot?" },
+  { text: "Who is most likely to get nervous on a date?" },
+  { text: "Who remembers cute little details?" },
+  { text: "Who would win at arcade games together?" },
+  { text: "Who is most likely to suggest dessert?" },
+  { text: "Who brings the best date energy?" },
+  { text: "Who would write the cuter message?" },
+  { text: "Who is most likely to laugh at the wrong moment?" },
+  { text: "Who picks the better playlist?" },
+  { text: "Who is the sweetest when dating?" },
+  { text: "Who would plan a surprise date?" },
+  { text: "Who is most likely to steal the hoodie?" },
+];

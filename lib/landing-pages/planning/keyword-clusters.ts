@@ -173,7 +173,14 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
     targetAudience: "Couples, double dates, and friend groups with partners",
     searchIntent:
       "Play a relationship or couple quiz as a social group experience.",
-    memberSlugs: ["couple-quiz", "relationship-quiz"],
+    memberSlugs: [
+      "relationship-quiz",
+      "couple-quiz",
+      "boyfriend-girlfriend-quiz",
+      "anniversary-game",
+      "date-night-game",
+      "newlywed-game",
+    ],
   },
   {
     id: "entertainment",
