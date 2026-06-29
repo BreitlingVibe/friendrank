@@ -196,6 +196,91 @@ export const PARTY_VOTING_INTENT = {
   } satisfies LandingPageGamePreset,
 };
 
+/** @see INTENT_VERSION */
+export const ICEBREAKER_INTENT = {
+  slug: "icebreaker-game",
+  title: "Icebreaker Game",
+  metaTitle: "Icebreaker Game | Create a Fun Group Voting Game | FriendRank",
+  metaDescription:
+    "Create an icebreaker game for your group. Add people, vote anonymously, reveal funny roles, and make everyone feel involved.",
+  h1: "Icebreaker Game for Groups",
+  intentSummaryTitle: "What is an icebreaker game?",
+  intentSummary:
+    "An icebreaker game helps a group warm up fast. FriendRank turns it into a phone voting game: add names, share one link, everyone votes on fun roles, and results unlock together. Works for parties, classrooms, teams, clubs, and groups where not everyone knows each other yet. No app download. No account needed.",
+  whyFriendRankTitle: "Why FriendRank works as an icebreaker",
+  exampleQuestionsTitle: "Popular icebreaker questions",
+  faqTitle: "Icebreaker game FAQ",
+  schemaDescription:
+    "Create an icebreaker game for your group with FriendRank. Add people, vote anonymously, reveal funny roles, and make everyone feel involved. No signup required.",
+  ctaLocation: "landing_icebreaker_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is most likely to make everyone laugh",
+      "Who gives the best first impression",
+      "Who is most likely to start a conversation",
+    ],
+    suggestedVibeTags: ["Party", "College", "Office"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const OFFICE_ICEBREAKER_INTENT = {
+  slug: "office-icebreaker",
+  title: "Office Icebreaker",
+  metaTitle: "Office Icebreaker Game | Fun Team Voting Game | FriendRank",
+  metaDescription:
+    "Create an office icebreaker game for your team. Invite coworkers, vote anonymously, reveal funny roles, and make meetings more fun.",
+  h1: "Office Icebreaker Game",
+  intentSummaryTitle: "What is an office icebreaker game?",
+  intentSummary:
+    "An office icebreaker helps teams connect without forced small talk. FriendRank gives you a quick voting game: add coworkers, share a link, vote anonymously on light workplace roles, and reveal results together. Works for in-person teams, remote calls, and new hire onboarding. No signup required.",
+  whyFriendRankTitle: "Why FriendRank for office icebreakers",
+  exampleQuestionsTitle: "Popular office icebreaker questions",
+  faqTitle: "Office icebreaker FAQ",
+  schemaDescription:
+    "Create an office icebreaker game for your team with FriendRank. Invite coworkers, vote anonymously, reveal funny roles, and make meetings more fun. No signup required.",
+  ctaLocation: "landing_office_icebreaker" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is secretly the funniest coworker",
+      "Who is most likely to save the project",
+      "Who keeps the best meeting energy",
+    ],
+    suggestedVibeTags: ["Office", "Party", "Soft drama"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const CLASSROOM_ICEBREAKER_INTENT = {
+  slug: "classroom-icebreaker",
+  title: "Classroom Icebreaker",
+  metaTitle:
+    "Classroom Icebreaker Game | Fun Student Voting Game | FriendRank",
+  metaDescription:
+    "Create a classroom icebreaker game for students. Add classmates, vote anonymously, reveal fun roles, and help everyone get involved.",
+  h1: "Classroom Icebreaker Game",
+  intentSummaryTitle: "What is a classroom icebreaker game?",
+  intentSummary:
+    "A classroom icebreaker helps students feel included quickly. FriendRank makes it a group voting game on phones: add classmates, share one link, vote on fun roles, and unlock results together. Great for teachers, clubs, orientation days, and school activities. No app install needed.",
+  whyFriendRankTitle: "Why FriendRank for classroom icebreakers",
+  exampleQuestionsTitle: "Popular classroom icebreaker questions",
+  faqTitle: "Classroom icebreaker FAQ",
+  schemaDescription:
+    "Create a classroom icebreaker game for students with FriendRank. Add classmates, vote anonymously, reveal fun roles, and help everyone get involved. No signup required.",
+  ctaLocation: "landing_classroom_icebreaker" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is the best group project teammate",
+      "Who is most likely to help a classmate",
+      "Who brings the best energy to class",
+    ],
+    suggestedVibeTags: ["School", "College", "Party"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
 export function getCanonicalUrl(slug: string): string {
   return `${PRODUCTION_APP_URL}/${slug}`;
 }

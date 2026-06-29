@@ -43,6 +43,21 @@ import {
   WHO_KNOWS_ME_BEST_INTENT,
   WHO_KNOWS_ME_BEST_PRIMARY_CTA,
   WHO_KNOWS_ME_BEST_QUESTIONS,
+  ICEBREAKER_AUDIENCE,
+  ICEBREAKER_FAQ,
+  ICEBREAKER_INTENT,
+  ICEBREAKER_PRIMARY_CTA,
+  ICEBREAKER_QUESTIONS,
+  OFFICE_ICEBREAKER_AUDIENCE,
+  OFFICE_ICEBREAKER_FAQ,
+  OFFICE_ICEBREAKER_INTENT,
+  OFFICE_ICEBREAKER_PRIMARY_CTA,
+  OFFICE_ICEBREAKER_QUESTIONS,
+  CLASSROOM_ICEBREAKER_AUDIENCE,
+  CLASSROOM_ICEBREAKER_FAQ,
+  CLASSROOM_ICEBREAKER_INTENT,
+  CLASSROOM_ICEBREAKER_PRIMARY_CTA,
+  CLASSROOM_ICEBREAKER_QUESTIONS,
   getCanonicalUrl,
 } from "@/lib/landing-pages/content";
 
@@ -182,6 +197,30 @@ export const partyVotingGamePage = assembleLandingPage({
   exampleQuestions: PARTY_VOTING_QUESTIONS,
 });
 
+export const icebreakerGamePage = assembleLandingPage({
+  intent: ICEBREAKER_INTENT,
+  audience: ICEBREAKER_AUDIENCE,
+  primaryCta: ICEBREAKER_PRIMARY_CTA,
+  faq: ICEBREAKER_FAQ,
+  exampleQuestions: ICEBREAKER_QUESTIONS,
+});
+
+export const officeIcebreakerPage = assembleLandingPage({
+  intent: OFFICE_ICEBREAKER_INTENT,
+  audience: OFFICE_ICEBREAKER_AUDIENCE,
+  primaryCta: OFFICE_ICEBREAKER_PRIMARY_CTA,
+  faq: OFFICE_ICEBREAKER_FAQ,
+  exampleQuestions: OFFICE_ICEBREAKER_QUESTIONS,
+});
+
+export const classroomIcebreakerPage = assembleLandingPage({
+  intent: CLASSROOM_ICEBREAKER_INTENT,
+  audience: CLASSROOM_ICEBREAKER_AUDIENCE,
+  primaryCta: CLASSROOM_ICEBREAKER_PRIMARY_CTA,
+  faq: CLASSROOM_ICEBREAKER_FAQ,
+  exampleQuestions: CLASSROOM_ICEBREAKER_QUESTIONS,
+});
+
 export const LANDING_PAGES: LandingPageData[] = [
   mostLikelyToGeneratorPage,
   bestFriendQuizPage,
@@ -190,6 +229,9 @@ export const LANDING_PAGES: LandingPageData[] = [
   anonymousVotingGamePage,
   groupVotingGamePage,
   partyVotingGamePage,
+  icebreakerGamePage,
+  officeIcebreakerPage,
+  classroomIcebreakerPage,
 ];
 
 export function getLandingPageBySlug(slug: string): LandingPageData | undefined {

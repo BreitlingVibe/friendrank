@@ -105,7 +105,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Quick icebreaker game for new groups with anonymous friend voting.",
     audience: "New groups, classes, teams, events",
     estimatedPriority: 72,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "couple-quiz",
@@ -195,7 +195,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Office icebreaker using anonymous group voting for team socials.",
     audience: "Office teams, new hires, team offsites",
     estimatedPriority: 58,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "birthday-party-game",
@@ -245,7 +245,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Classroom icebreaker with student-friendly group voting on phones.",
     audience: "Teachers, students, new classes, youth groups",
     estimatedPriority: 52,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "friend-group-game",

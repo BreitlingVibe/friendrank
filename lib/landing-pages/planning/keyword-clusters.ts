@@ -132,6 +132,24 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
     ],
   },
   {
+    id: "teams",
+    name: "Teams",
+    description:
+      "Workplace and team icebreakers for office meetings and remote syncs.",
+    primaryKeyword: "team building game",
+    supportingKeywords: [
+      "office icebreaker",
+      "team icebreaker",
+      "workplace game",
+      "remote team activity",
+      "coworker game",
+    ],
+    targetAudience: "Office teams, remote teams, managers, and HR socials",
+    searchIntent:
+      "Run a light team activity with anonymous voting for coworkers.",
+    memberSlugs: ["office-icebreaker", "team-building-game"],
+  },
+  {
     id: "relationships",
     name: "Relationships",
     description:

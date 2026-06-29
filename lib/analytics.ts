@@ -132,7 +132,10 @@ export type CtaLocation =
   | "landing_friendship_test"
   | "landing_anonymous_voting_game"
   | "landing_group_voting_game"
-  | "landing_party_voting_game";
+  | "landing_party_voting_game"
+  | "landing_icebreaker_game"
+  | "landing_office_icebreaker"
+  | "landing_classroom_icebreaker";
 
 export type CtaClickedParams = {
   location: CtaLocation;

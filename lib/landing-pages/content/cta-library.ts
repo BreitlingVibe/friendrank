@@ -65,3 +65,21 @@ export const PARTY_VOTING_PRIMARY_CTA: LandingPageCta = {
   label: "Create Party Voting Game",
   href: CREATE_GAME_HREF,
 };
+
+/** @see CTA_VERSION */
+export const ICEBREAKER_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Your Icebreaker Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const OFFICE_ICEBREAKER_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Your Office Icebreaker",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const CLASSROOM_ICEBREAKER_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Your Classroom Icebreaker",
+  href: CREATE_GAME_HREF,
+};

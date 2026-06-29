@@ -90,3 +90,42 @@ export const PARTY_VOTING_AUDIENCE = {
   finalCtaSubtitle:
     "Free, mobile-friendly, and ready before the party gets going.",
 } as const;
+
+/** @see AUDIENCE_VERSION */
+export const ICEBREAKER_AUDIENCE = {
+  heroSubtitle:
+    "Break the awkward silence with a quick group voting game. Add your people, share one link, vote anonymously, and reveal the funniest results together.",
+  playImmediatelyBody:
+    "Create a game on FriendRank, add your group, and share the link. Everyone votes on their phone and you reveal the results together.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are icebreaker questions your group can vote on.",
+  finalCtaTitle: "Start your icebreaker game",
+  finalCtaSubtitle:
+    "Free, works on any phone, and ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const OFFICE_ICEBREAKER_AUDIENCE = {
+  heroSubtitle:
+    "Make team meetings less awkward. Create a quick office icebreaker, let coworkers vote anonymously, and reveal funny workplace roles.",
+  playImmediatelyBody:
+    "Add your team on FriendRank, share the link before or during a meeting, and let coworkers vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are office-friendly icebreaker questions for your team.",
+  finalCtaTitle: "Start your office icebreaker",
+  finalCtaSubtitle:
+    "Free for teams. Ready to share before your next meeting.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const CLASSROOM_ICEBREAKER_AUDIENCE = {
+  heroSubtitle:
+    "Help students connect with a quick classroom voting game. Add classmates, share one link, vote anonymously, and reveal fun group results.",
+  playImmediatelyBody:
+    "Create a game, add your class or club, and share the link. Students vote on their phones and you reveal results together.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are classroom icebreaker questions students can vote on.",
+  finalCtaTitle: "Start your classroom icebreaker",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready for your next class activity.",
+} as const;

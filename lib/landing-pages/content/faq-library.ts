@@ -308,3 +308,135 @@ export const PARTY_VOTING_FAQ: LandingPageFaqItem[] = [
 
 /** Alias for friend-group game intents. */
 export const FRIEND_FAQ = BEST_FRIEND_QUIZ_FAQ;
+
+/** @see FAQ_VERSION */
+export const ICEBREAKER_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is an icebreaker game?",
+    answer:
+      "It is a quick group activity that helps people connect. FriendRank turns it into a voting game where everyone picks roles and unlocks shared results.",
+  },
+  {
+    question: "Can this be used with people who do not know each other well?",
+    answer:
+      "Yes. It works well for new groups, first meetings, and anyone who needs a low-pressure way to join in.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and story-style results, not individual ballots.",
+  },
+  {
+    question: "Do players need an account?",
+    answer:
+      "No. Create a game, share the link, and everyone votes from their phone.",
+  },
+  {
+    question: "Can it work on phones?",
+    answer:
+      "Yes. FriendRank is built for the mobile browser. No app install needed.",
+  },
+  {
+    question: "Can I use it for parties, classrooms, or work?",
+    answer:
+      "Yes. Use it for parties, classes, team meetings, clubs, and casual group hangouts.",
+  },
+  {
+    question: "How long does it take?",
+    answer:
+      "Under a minute to create. Voting is five quick taps per person.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough people vote, results open on the same link for the whole group.",
+  },
+];
+
+/** @see FAQ_VERSION */
+export const OFFICE_ICEBREAKER_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is an office icebreaker game?",
+    answer:
+      "It is a light team activity that helps coworkers connect. FriendRank lets the group vote on funny workplace roles and reveal results together.",
+  },
+  {
+    question: "Is it appropriate for work?",
+    answer:
+      "Yes. Pick a Wholesome or Funny tone and use workplace-friendly custom questions.",
+  },
+  {
+    question: "Can remote teams play?",
+    answer:
+      "Yes. Share the link in Slack, email, or a video call chat and let everyone vote on their phones.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Individual votes stay private. The team sees aggregated winners only.",
+  },
+  {
+    question: "Do coworkers need accounts?",
+    answer:
+      "No signup required. One person creates the game and shares the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game. Everyone with the link can vote.",
+  },
+  {
+    question: "Can I share it before a meeting?",
+    answer:
+      "Yes. Send the link ahead of time or open it at the start of a team sync.",
+  },
+];
+
+/** @see FAQ_VERSION */
+export const CLASSROOM_ICEBREAKER_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a classroom icebreaker game?",
+    answer:
+      "It is a fun group activity that helps students connect. FriendRank turns it into a quick voting game with shareable class results.",
+  },
+  {
+    question: "Can teachers use it?",
+    answer:
+      "Yes. Teachers create the game, share the link, and let students vote on their phones.",
+  },
+  {
+    question: "Is it appropriate for students?",
+    answer:
+      "Yes. Choose a Wholesome tone and classroom-friendly custom questions.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes are private to each student. The class sees group results only.",
+  },
+  {
+    question: "Do students need accounts?",
+    answer:
+      "No. Students open the link and vote. No email or password required.",
+  },
+  {
+    question: "Does it work on phones?",
+    answer:
+      "Yes. Students vote from their phones in the browser.",
+  },
+  {
+    question: "Can it be used for clubs or activities?",
+    answer:
+      "Yes. Works for clubs, study groups, orientation days, and school events.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone to view.",
+  },
+];

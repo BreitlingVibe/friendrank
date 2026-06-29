@@ -164,3 +164,60 @@ export const PARTY_VOTING_QUESTIONS = [
 
 /** Alias for friend-group game intents. */
 export const FRIEND_QUESTIONS = BEST_FRIEND_QUIZ_QUESTIONS;
+
+/** @see QUESTION_VERSION */
+export const ICEBREAKER_QUESTIONS = [
+  { text: "Who is most likely to make everyone laugh?" },
+  { text: "Who gives the best first impression?" },
+  { text: "Who is secretly the most competitive?" },
+  { text: "Who would survive a group challenge?" },
+  { text: "Who is most likely to remember everyone's name?" },
+  { text: "Who is the best storyteller?" },
+  { text: "Who would lead the team in a crisis?" },
+  { text: "Who is most likely to start a conversation?" },
+  { text: "Who has the most unexpected talent?" },
+  { text: "Who is most likely to bring people together?" },
+  { text: "Who is the calm one under pressure?" },
+  { text: "Who is most likely to become the group favorite?" },
+  { text: "Who would make the best host?" },
+  { text: "Who is most likely to make a new friend first?" },
+  { text: "Who keeps the best energy in the room?" },
+];
+
+/** @see QUESTION_VERSION */
+export const OFFICE_ICEBREAKER_QUESTIONS = [
+  { text: "Who is most likely to fix the meeting agenda?" },
+  { text: "Who gives the best advice at work?" },
+  { text: "Who is secretly the funniest coworker?" },
+  { text: "Who is most likely to save the project?" },
+  { text: "Who is always calm under pressure?" },
+  { text: "Who is most likely to bring snacks?" },
+  { text: "Who explains things the clearest?" },
+  { text: "Who would be the best team captain?" },
+  { text: "Who is most likely to remember every deadline?" },
+  { text: "Who keeps the best meeting energy?" },
+  { text: "Who is the spreadsheet hero?" },
+  { text: "Who is most likely to turn chaos into a plan?" },
+  { text: "Who is the quiet problem solver?" },
+  { text: "Who makes remote calls more fun?" },
+  { text: "Who is most likely to keep everyone focused?" },
+];
+
+/** @see QUESTION_VERSION */
+export const CLASSROOM_ICEBREAKER_QUESTIONS = [
+  { text: "Who is most likely to help a classmate?" },
+  { text: "Who is the best group project teammate?" },
+  { text: "Who is most likely to make everyone laugh?" },
+  { text: "Who explains things in the clearest way?" },
+  { text: "Who is secretly the most creative?" },
+  { text: "Who would lead the class challenge?" },
+  { text: "Who is most likely to remember homework?" },
+  { text: "Who brings the best energy to class?" },
+  { text: "Who is most likely to ask a great question?" },
+  { text: "Who is the calm one during group work?" },
+  { text: "Who would make the best class host?" },
+  { text: "Who is most likely to cheer everyone up?" },
+  { text: "Who is the most organized?" },
+  { text: "Who has the most unexpected talent?" },
+  { text: "Who is most likely to start a new club?" },
+];
