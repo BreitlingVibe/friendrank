@@ -36,6 +36,9 @@ export {
   BIRTHDAY_PARTY_GAME_QUESTIONS,
   SLEEPOVER_GAME_QUESTIONS,
   GIRLS_NIGHT_GAME_QUESTIONS,
+  FRIEND_TEST_QUESTIONS,
+  BESTIE_QUIZ_QUESTIONS,
+  FUNNY_FRIEND_QUIZ_QUESTIONS,
 } from "@/lib/landing-pages/content/question-library";
 
 export {
@@ -64,6 +67,9 @@ export {
   BIRTHDAY_PARTY_GAME_PRIMARY_CTA,
   SLEEPOVER_GAME_PRIMARY_CTA,
   GIRLS_NIGHT_GAME_PRIMARY_CTA,
+  FRIEND_TEST_PRIMARY_CTA,
+  BESTIE_QUIZ_PRIMARY_CTA,
+  FUNNY_FRIEND_QUIZ_PRIMARY_CTA,
 } from "@/lib/landing-pages/content/cta-library";
 
 export {
@@ -87,6 +93,9 @@ export {
   BIRTHDAY_PARTY_GAME_FAQ,
   SLEEPOVER_GAME_FAQ,
   GIRLS_NIGHT_GAME_FAQ,
+  FRIEND_TEST_FAQ,
+  BESTIE_QUIZ_FAQ,
+  FUNNY_FRIEND_QUIZ_FAQ,
 } from "@/lib/landing-pages/content/faq-library";
 
 export {
@@ -109,6 +118,9 @@ export {
   BIRTHDAY_PARTY_GAME_AUDIENCE,
   SLEEPOVER_GAME_AUDIENCE,
   GIRLS_NIGHT_GAME_AUDIENCE,
+  FRIEND_TEST_AUDIENCE,
+  BESTIE_QUIZ_AUDIENCE,
+  FUNNY_FRIEND_QUIZ_AUDIENCE,
 } from "@/lib/landing-pages/content/audience-library";
 
 export {
@@ -131,5 +143,8 @@ export {
   BIRTHDAY_PARTY_GAME_INTENT,
   SLEEPOVER_GAME_INTENT,
   GIRLS_NIGHT_GAME_INTENT,
+  FRIEND_TEST_INTENT,
+  BESTIE_QUIZ_INTENT,
+  FUNNY_FRIEND_QUIZ_INTENT,
   getCanonicalUrl,
 } from "@/lib/landing-pages/content/intent-library";

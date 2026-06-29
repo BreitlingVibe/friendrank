@@ -246,3 +246,42 @@ export const GIRLS_NIGHT_GAME_AUDIENCE = {
   finalCtaSubtitle:
     "Free for friend groups. Ready to share in under a minute.",
 } as const;
+
+/** @see AUDIENCE_VERSION */
+export const FRIEND_TEST_AUDIENCE = {
+  heroSubtitle:
+    "Put your friend group to the test with a quick voting game. Add friends, vote anonymously on roles, and reveal who passes with flying colors.",
+  playImmediatelyBody:
+    "Create a game on FriendRank, add your group, and share the link. Everyone votes on their phone and you reveal results together.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are friend test questions your group can vote on.",
+  finalCtaTitle: "Start your friend test",
+  finalCtaSubtitle:
+    "Free, works on any phone, and ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const BESTIE_QUIZ_AUDIENCE = {
+  heroSubtitle:
+    "Celebrate your besties with a fun group quiz. Vote anonymously on inside-joke roles and reveal results your whole crew will love.",
+  playImmediatelyBody:
+    "Add your bestie group on FriendRank, pick a few prompts, share the link, and let everyone vote from the group chat.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are bestie quiz questions your group can vote on.",
+  finalCtaTitle: "Start your bestie quiz",
+  finalCtaSubtitle:
+    "Free for best friend groups. Ready to share in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const FUNNY_FRIEND_QUIZ_AUDIENCE = {
+  heroSubtitle:
+    "Turn your group chat into a comedy show. Create a funny friend quiz, vote anonymously, and reveal the most hilarious results together.",
+  playImmediatelyBody:
+    "Set up a game, add your friends, and share the link. Pick a Funny tone and let the group vote on lighthearted roles.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are funny friend quiz questions that get laughs fast.",
+  finalCtaTitle: "Start your funny friend quiz",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready before the next hangout.",
+} as const;

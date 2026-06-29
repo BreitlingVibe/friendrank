@@ -103,6 +103,21 @@ import {
   GIRLS_NIGHT_GAME_INTENT,
   GIRLS_NIGHT_GAME_PRIMARY_CTA,
   GIRLS_NIGHT_GAME_QUESTIONS,
+  FRIEND_TEST_AUDIENCE,
+  FRIEND_TEST_FAQ,
+  FRIEND_TEST_INTENT,
+  FRIEND_TEST_PRIMARY_CTA,
+  FRIEND_TEST_QUESTIONS,
+  BESTIE_QUIZ_AUDIENCE,
+  BESTIE_QUIZ_FAQ,
+  BESTIE_QUIZ_INTENT,
+  BESTIE_QUIZ_PRIMARY_CTA,
+  BESTIE_QUIZ_QUESTIONS,
+  FUNNY_FRIEND_QUIZ_AUDIENCE,
+  FUNNY_FRIEND_QUIZ_FAQ,
+  FUNNY_FRIEND_QUIZ_INTENT,
+  FUNNY_FRIEND_QUIZ_PRIMARY_CTA,
+  FUNNY_FRIEND_QUIZ_QUESTIONS,
   getCanonicalUrl,
 } from "@/lib/landing-pages/content";
 
@@ -338,6 +353,30 @@ export const girlsNightGamePage = assembleLandingPage({
   exampleQuestions: GIRLS_NIGHT_GAME_QUESTIONS,
 });
 
+export const friendTestPage = assembleLandingPage({
+  intent: FRIEND_TEST_INTENT,
+  audience: FRIEND_TEST_AUDIENCE,
+  primaryCta: FRIEND_TEST_PRIMARY_CTA,
+  faq: FRIEND_TEST_FAQ,
+  exampleQuestions: FRIEND_TEST_QUESTIONS,
+});
+
+export const bestieQuizPage = assembleLandingPage({
+  intent: BESTIE_QUIZ_INTENT,
+  audience: BESTIE_QUIZ_AUDIENCE,
+  primaryCta: BESTIE_QUIZ_PRIMARY_CTA,
+  faq: BESTIE_QUIZ_FAQ,
+  exampleQuestions: BESTIE_QUIZ_QUESTIONS,
+});
+
+export const funnyFriendQuizPage = assembleLandingPage({
+  intent: FUNNY_FRIEND_QUIZ_INTENT,
+  audience: FUNNY_FRIEND_QUIZ_AUDIENCE,
+  primaryCta: FUNNY_FRIEND_QUIZ_PRIMARY_CTA,
+  faq: FUNNY_FRIEND_QUIZ_FAQ,
+  exampleQuestions: FUNNY_FRIEND_QUIZ_QUESTIONS,
+});
+
 export const LANDING_PAGES: LandingPageData[] = [
   mostLikelyToGeneratorPage,
   bestFriendQuizPage,
@@ -358,6 +397,9 @@ export const LANDING_PAGES: LandingPageData[] = [
   birthdayPartyGamePage,
   sleepoverGamePage,
   girlsNightGamePage,
+  friendTestPage,
+  bestieQuizPage,
+  funnyFriendQuizPage,
 ];
 
 export function getLandingPageBySlug(slug: string): LandingPageData | undefined {

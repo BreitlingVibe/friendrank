@@ -392,3 +392,60 @@ export const GIRLS_NIGHT_GAME_QUESTIONS = [
   { text: "Who keeps the best energy in the room?" },
   { text: "Who is most likely to make everyone feel included?" },
 ];
+
+/** @see QUESTION_VERSION */
+export const FRIEND_TEST_QUESTIONS = [
+  { text: "Who is the most loyal friend?" },
+  { text: "Who gives the best advice?" },
+  { text: "Who knows the group best?" },
+  { text: "Who is most likely to check in on everyone?" },
+  { text: "Who would you call in a crisis?" },
+  { text: "Who is the friend everyone trusts?" },
+  { text: "Who is most likely to keep a secret?" },
+  { text: "Who is most likely to forgive first?" },
+  { text: "Who keeps the group together?" },
+  { text: "Who is most likely to remember important dates?" },
+  { text: "Who is the most supportive friend?" },
+  { text: "Who is most likely to defend a friend?" },
+  { text: "Who makes friendships feel easy?" },
+  { text: "Who is most likely to plan the next hangout?" },
+  { text: "Who would pass the ultimate friend test?" },
+];
+
+/** @see QUESTION_VERSION */
+export const BESTIE_QUIZ_QUESTIONS = [
+  { text: "Who is your ride-or-die bestie?" },
+  { text: "Who knows your inside jokes best?" },
+  { text: "Who would drop everything to help you?" },
+  { text: "Who sends the best memes?" },
+  { text: "Who knows your coffee order?" },
+  { text: "Who is most likely to stay up late with you?" },
+  { text: "Who remembers your birthday without a reminder?" },
+  { text: "Who is the gossip partner you trust?" },
+  { text: "Who would be your maid of honor or best man?" },
+  { text: "Who knows your screen time habits?" },
+  { text: "Who is most likely to hype you up?" },
+  { text: "Who would survive a bestie road trip?" },
+  { text: "Who knows your favorite comfort show?" },
+  { text: "Who is most likely to keep your secrets?" },
+  { text: "Who would win bestie trivia?" },
+];
+
+/** @see QUESTION_VERSION */
+export const FUNNY_FRIEND_QUIZ_QUESTIONS = [
+  { text: "Who is most likely to trip over nothing?" },
+  { text: "Who would survive a zombie apocalypse by accident?" },
+  { text: "Who is secretly the biggest goofball?" },
+  { text: "Who is most likely to send a voice note instead of texting?" },
+  { text: "Who would laugh at their own joke first?" },
+  { text: "Who is most likely to become famous for something dumb?" },
+  { text: "Who has the worst sense of direction?" },
+  { text: "Who is most likely to eat someone else's fries?" },
+  { text: "Who would win a meme championship?" },
+  { text: "Who is chronically late but always worth the wait?" },
+  { text: "Who is most likely to start a TikTok trend?" },
+  { text: "Who would forget their own birthday?" },
+  { text: "Who is the biggest drama queen (lovingly)?" },
+  { text: "Who is most likely to get lost in a mall?" },
+  { text: "Who would make the funniest group chat nickname?" },
+];

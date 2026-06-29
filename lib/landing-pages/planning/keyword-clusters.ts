@@ -33,7 +33,11 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
       "friendship-test",
       "friend-test",
       "bestie-quiz",
+      "funny-friend-quiz",
       "who-knows-me-best",
+      "childhood-friends-quiz",
+      "new-friends-game",
+      "friendship-challenge",
     ],
   },
   {

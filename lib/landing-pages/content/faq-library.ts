@@ -836,3 +836,135 @@ export const GIRLS_NIGHT_GAME_FAQ: LandingPageFaqItem[] = [
       "After enough votes are in, results open on the same link for everyone to view together.",
   },
 ];
+
+/** @see FAQ_VERSION */
+export const FRIEND_TEST_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a friend test?",
+    answer:
+      "It is a fun group game that explores how well your friends know each other. FriendRank turns it into anonymous voting with shareable results.",
+  },
+  {
+    question: "Is this a solo compatibility quiz?",
+    answer:
+      "No. The whole group votes on their phones and you unlock shared results together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and story-style results only.",
+  },
+  {
+    question: "Do friends need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone browser.",
+  },
+  {
+    question: "How many friends can play?",
+    answer:
+      "Add two to eight names when you set up the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough friends vote, results open on the same link for everyone to view together.",
+  },
+];
+
+/** @see FAQ_VERSION */
+export const BESTIE_QUIZ_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a bestie quiz?",
+    answer:
+      "It is a playful quiz for close friends to vote on who fits each role. FriendRank makes it a group game with anonymous voting.",
+  },
+  {
+    question: "Can best friends play together?",
+    answer:
+      "Yes. Add your bestie group, share one link, and vote on inside-joke roles.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Each friend votes privately. The group sees aggregated winners only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No. Open the link and vote. No email or password required.",
+  },
+  {
+    question: "Can I add custom questions?",
+    answer:
+      "Yes. Add up to three custom prompts when you set up the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Perfect for group chats and hangouts on phones.",
+  },
+  {
+    question: "Can more than two besties play?",
+    answer:
+      "Yes. Add two to eight names when you create the game.",
+  },
+  {
+    question: "When do results show up?",
+    answer:
+      "After enough votes are in, results unlock on the same link for the whole group.",
+  },
+];
+
+/** @see FAQ_VERSION */
+export const FUNNY_FRIEND_QUIZ_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a funny friend quiz?",
+    answer:
+      "It is a lighthearted group game where friends vote on humorous roles. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "Is it mean-spirited?",
+    answer:
+      "No. Pick a Funny tone and use playful custom questions that fit your group.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes are private to each person. The group sees funny winners and results only.",
+  },
+  {
+    question: "Do friends need accounts?",
+    answer:
+      "No signup for anyone. One person creates the game and shares the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in your group chat and vote from any phone.",
+  },
+  {
+    question: "Is it good for parties?",
+    answer:
+      "Yes. Works for pre-games, hangouts, and any friend group that wants laughs.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough friends vote, results open on the same link for everyone to reveal together.",
+  },
+];

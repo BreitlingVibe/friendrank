@@ -144,7 +144,10 @@ export type CtaLocation =
   | "landing_boyfriend_girlfriend_quiz"
   | "landing_birthday_party_game"
   | "landing_sleepover_game"
-  | "landing_girls_night_game";
+  | "landing_girls_night_game"
+  | "landing_friend_test"
+  | "landing_bestie_quiz"
+  | "landing_funny_friend_quiz";
 
 export type CtaClickedParams = {
   location: CtaLocation;

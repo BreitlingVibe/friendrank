@@ -124,8 +124,8 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
     searchIntent:
       "Fun bestie quiz where close friends vote on roles and inside jokes.",
     audience: "Best friend pairs, tight friend circles",
-    estimatedPriority: 68,
-    status: "planned",
+    estimatedPriority: 66,
+    status: "live",
   },
   {
     slug: "friend-ranking-game",
@@ -174,18 +174,18 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
     searchIntent:
       "Friend test game where the group votes on traits and roles.",
     audience: "Friend groups, casual social games",
-    estimatedPriority: 64,
-    status: "planned",
+    estimatedPriority: 68,
+    status: "live",
   },
   {
     slug: "funny-friend-quiz",
     title: "Funny Friend Quiz",
-    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    intentCategory: INTENT_CATEGORIES.FRIENDSHIP,
     searchIntent:
       "Humorous friend quiz with anonymous voting and funny group results.",
     audience: "Friend groups, party pre-games, group chats",
     estimatedPriority: 62,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "party-game-for-adults",
@@ -445,6 +445,36 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Drinking game alternative with anonymous group voting on phones.",
     audience: "Adult friend groups, parties, casual hangouts",
     estimatedPriority: 52,
+    status: "planned",
+  },
+  {
+    slug: "childhood-friends-quiz",
+    title: "Childhood Friends Quiz",
+    intentCategory: INTENT_CATEGORIES.FRIENDSHIP,
+    searchIntent:
+      "Childhood friends quiz with group voting on nostalgic roles and memories.",
+    audience: "Long-term friend groups, childhood besties, reunions",
+    estimatedPriority: 54,
+    status: "planned",
+  },
+  {
+    slug: "new-friends-game",
+    title: "New Friends Game",
+    intentCategory: INTENT_CATEGORIES.FRIENDSHIP,
+    searchIntent:
+      "New friends game to help groups bond with anonymous phone voting.",
+    audience: "New friend groups, orientation, social meetups",
+    estimatedPriority: 50,
+    status: "planned",
+  },
+  {
+    slug: "friendship-challenge",
+    title: "Friendship Challenge",
+    intentCategory: INTENT_CATEGORIES.FRIENDSHIP,
+    searchIntent:
+      "Friendship challenge game with group voting and shareable results.",
+    audience: "Friend groups, group chats, social challenges",
+    estimatedPriority: 48,
     status: "planned",
   },
 ];

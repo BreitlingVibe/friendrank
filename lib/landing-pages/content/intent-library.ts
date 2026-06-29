@@ -533,6 +533,90 @@ export const GIRLS_NIGHT_GAME_INTENT = {
   } satisfies LandingPageGamePreset,
 };
 
+/** @see INTENT_VERSION */
+export const FRIEND_TEST_INTENT = {
+  slug: "friend-test",
+  title: "Friend Test",
+  metaTitle: "Friend Test | Fun Friend Compatibility Game | FriendRank",
+  metaDescription:
+    "Create a friend test for your group. Vote anonymously on friendship roles, reveal compatibility results, and share the fun together.",
+  h1: "Friend Test",
+  intentSummaryTitle: "What is a friend test?",
+  intentSummary:
+    "A friend test is a playful way to see how well your group knows each other. FriendRank is not a boring solo quiz. It is a group voting game where friends pick who fits each role, vote anonymously on their phones, and unlock results together. Perfect for friend groups, roommates, and close circles.",
+  whyFriendRankTitle: "Why FriendRank beats a typical friend test",
+  exampleQuestionsTitle: "Popular friend test questions",
+  faqTitle: "Friend test FAQ",
+  schemaDescription:
+    "Create a friend test for your group with FriendRank. Vote anonymously on friendship roles, reveal compatibility results, and share the fun together. No signup required.",
+  ctaLocation: "landing_friend_test" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is the most loyal friend",
+      "Who gives the best advice",
+      "Who keeps the group together",
+    ],
+    suggestedVibeTags: ["College", "Discord", "Party"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const BESTIE_QUIZ_INTENT = {
+  slug: "bestie-quiz",
+  title: "Bestie Quiz",
+  metaTitle: "Bestie Quiz | Fun Best Friend Voting Game | FriendRank",
+  metaDescription:
+    "Create a bestie quiz for your closest friends. Vote anonymously, reveal funny roles, and celebrate your best friend group.",
+  h1: "Bestie Quiz",
+  intentSummaryTitle: "What is a bestie quiz?",
+  intentSummary:
+    "A bestie quiz is a fun game for your closest friends. FriendRank turns it into a phone voting game: add names, share one link, vote on inside-joke roles, and reveal results together. Great for best friend groups, roommates, and tight friend circles. No app download needed.",
+  whyFriendRankTitle: "Why FriendRank for bestie quizzes",
+  exampleQuestionsTitle: "Popular bestie quiz questions",
+  faqTitle: "Bestie quiz FAQ",
+  schemaDescription:
+    "Create a bestie quiz for your closest friends with FriendRank. Vote anonymously, reveal funny roles, and celebrate your best friend group. No signup required.",
+  ctaLocation: "landing_bestie_quiz" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is your ride-or-die bestie",
+      "Who sends the best memes",
+      "Who knows your inside jokes best",
+    ],
+    suggestedVibeTags: ["College", "Discord", "Party"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const FUNNY_FRIEND_QUIZ_INTENT = {
+  slug: "funny-friend-quiz",
+  title: "Funny Friend Quiz",
+  metaTitle: "Funny Friend Quiz | Hilarious Group Voting Game | FriendRank",
+  metaDescription:
+    "Create a funny friend quiz for your group. Vote anonymously on hilarious roles, reveal laugh-out-loud results, and share them in the chat.",
+  h1: "Funny Friend Quiz",
+  intentSummaryTitle: "What is a funny friend quiz?",
+  intentSummary:
+    "A funny friend quiz is a lighthearted group game built for laughs. FriendRank lets everyone vote on their phone about who fits each silly role, keeps votes anonymous, and unlocks shareable results for the group chat. Perfect for hangouts, pre-games, and meme-heavy friend groups. No account needed.",
+  whyFriendRankTitle: "Why FriendRank for funny friend quizzes",
+  exampleQuestionsTitle: "Popular funny friend quiz questions",
+  faqTitle: "Funny friend quiz FAQ",
+  schemaDescription:
+    "Create a funny friend quiz for your group with FriendRank. Vote anonymously on hilarious roles, reveal laugh-out-loud results, and share them in the chat. No signup required.",
+  ctaLocation: "landing_funny_friend_quiz" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is secretly the biggest goofball",
+      "Who would win a meme championship",
+      "Who is most likely to trip over nothing",
+    ],
+    suggestedVibeTags: ["Meme-heavy", "Chaotic", "Party"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
 export function getCanonicalUrl(slug: string): string {
   return `${PRODUCTION_APP_URL}/${slug}`;
 }
