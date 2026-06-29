@@ -449,6 +449,90 @@ export const BOYFRIEND_GIRLFRIEND_QUIZ_INTENT = {
   } satisfies LandingPageGamePreset,
 };
 
+/** @see INTENT_VERSION */
+export const BIRTHDAY_PARTY_GAME_INTENT = {
+  slug: "birthday-party-game",
+  title: "Birthday Party Game",
+  metaTitle: "Birthday Party Game | Fun Group Vote | FriendRank",
+  metaDescription:
+    "Create a birthday party game for your group. Vote anonymously on funny roles, reveal shareable results, and make the celebration more fun.",
+  h1: "Birthday Party Game",
+  intentSummaryTitle: "What is a birthday party game?",
+  intentSummary:
+    "A birthday party game gives guests something quick and funny to do together. FriendRank turns it into a phone voting game: add names, share one link, vote on birthday roles, and unlock results for the room or group chat. Works for house parties, restaurant dinners, and friend celebrations. No app download needed.",
+  whyFriendRankTitle: "Why FriendRank for birthday parties",
+  exampleQuestionsTitle: "Popular birthday party questions",
+  faqTitle: "Birthday party game FAQ",
+  schemaDescription:
+    "Create a birthday party game with FriendRank. Vote anonymously on funny roles, reveal shareable results, and make the celebration more fun. No signup required.",
+  ctaLocation: "landing_birthday_party_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is most likely to start the dance floor",
+      "Who gives the best birthday toast",
+      "Who brings the best party energy",
+    ],
+    suggestedVibeTags: ["Party", "College", "Family"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const SLEEPOVER_GAME_INTENT = {
+  slug: "sleepover-game",
+  title: "Sleepover Game",
+  metaTitle: "Sleepover Game | Fun Friend Voting Game | FriendRank",
+  metaDescription:
+    "Create a sleepover game for your friend group. Vote anonymously on silly roles, reveal funny results, and play together all night.",
+  h1: "Sleepover Game",
+  intentSummaryTitle: "What is a sleepover game?",
+  intentSummary:
+    "A sleepover game is a late-night activity that keeps the group laughing. FriendRank makes it a quick voting game on phones: add friends, share one link, vote on fun roles, and reveal results together. Perfect for teen and young adult sleepovers, movie nights, and friend hangouts. No signup required.",
+  whyFriendRankTitle: "Why FriendRank for sleepovers",
+  exampleQuestionsTitle: "Popular sleepover game questions",
+  faqTitle: "Sleepover game FAQ",
+  schemaDescription:
+    "Create a sleepover game with FriendRank. Vote anonymously on silly roles, reveal funny results, and play together all night. No signup required.",
+  ctaLocation: "landing_sleepover_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is most likely to stay awake until sunrise",
+      "Who is most likely to fall asleep first",
+      "Who would suggest truth or dare",
+    ],
+    suggestedVibeTags: ["Party", "College", "Chaotic"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const GIRLS_NIGHT_GAME_INTENT = {
+  slug: "girls-night-game",
+  title: "Girls Night Game",
+  metaTitle: "Girls Night Game | Fun Group Voting Game | FriendRank",
+  metaDescription:
+    "Create a girls night game for your friend group. Vote anonymously, reveal funny roles, and add laughs to your night out or night in.",
+  h1: "Girls Night Game",
+  intentSummaryTitle: "What is a girls night game?",
+  intentSummary:
+    "A girls night game adds something playful to dinner, drinks, or getting ready together. FriendRank is a group voting game on phones: add friends, share one link, vote on funny roles, and unlock shareable results. Works at home or out on the town. No account needed.",
+  whyFriendRankTitle: "Why FriendRank for girls night",
+  exampleQuestionsTitle: "Popular girls night questions",
+  faqTitle: "Girls night game FAQ",
+  schemaDescription:
+    "Create a girls night game with FriendRank. Vote anonymously, reveal funny roles, and add laughs to your night out or night in. No signup required.",
+  ctaLocation: "landing_girls_night_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is most likely to order dessert for the table",
+      "Who would plan the perfect night out",
+      "Who is most likely to convince everyone to take selfies",
+    ],
+    suggestedVibeTags: ["Party", "Soft drama", "College"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
 export function getCanonicalUrl(slug: string): string {
   return `${PRODUCTION_APP_URL}/${slug}`;
 }

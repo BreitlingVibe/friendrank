@@ -119,3 +119,21 @@ export const BOYFRIEND_GIRLFRIEND_QUIZ_PRIMARY_CTA: LandingPageCta = {
   label: "Create Boyfriend & Girlfriend Quiz",
   href: CREATE_GAME_HREF,
 };
+
+/** @see CTA_VERSION */
+export const BIRTHDAY_PARTY_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Birthday Party Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const SLEEPOVER_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Sleepover Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const GIRLS_NIGHT_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Girls Night Game",
+  href: CREATE_GAME_HREF,
+};

@@ -88,6 +88,21 @@ import {
   BOYFRIEND_GIRLFRIEND_QUIZ_INTENT,
   BOYFRIEND_GIRLFRIEND_QUIZ_PRIMARY_CTA,
   BOYFRIEND_GIRLFRIEND_QUIZ_QUESTIONS,
+  BIRTHDAY_PARTY_GAME_AUDIENCE,
+  BIRTHDAY_PARTY_GAME_FAQ,
+  BIRTHDAY_PARTY_GAME_INTENT,
+  BIRTHDAY_PARTY_GAME_PRIMARY_CTA,
+  BIRTHDAY_PARTY_GAME_QUESTIONS,
+  SLEEPOVER_GAME_AUDIENCE,
+  SLEEPOVER_GAME_FAQ,
+  SLEEPOVER_GAME_INTENT,
+  SLEEPOVER_GAME_PRIMARY_CTA,
+  SLEEPOVER_GAME_QUESTIONS,
+  GIRLS_NIGHT_GAME_AUDIENCE,
+  GIRLS_NIGHT_GAME_FAQ,
+  GIRLS_NIGHT_GAME_INTENT,
+  GIRLS_NIGHT_GAME_PRIMARY_CTA,
+  GIRLS_NIGHT_GAME_QUESTIONS,
   getCanonicalUrl,
 } from "@/lib/landing-pages/content";
 
@@ -299,6 +314,30 @@ export const boyfriendGirlfriendQuizPage = assembleLandingPage({
   exampleQuestions: BOYFRIEND_GIRLFRIEND_QUIZ_QUESTIONS,
 });
 
+export const birthdayPartyGamePage = assembleLandingPage({
+  intent: BIRTHDAY_PARTY_GAME_INTENT,
+  audience: BIRTHDAY_PARTY_GAME_AUDIENCE,
+  primaryCta: BIRTHDAY_PARTY_GAME_PRIMARY_CTA,
+  faq: BIRTHDAY_PARTY_GAME_FAQ,
+  exampleQuestions: BIRTHDAY_PARTY_GAME_QUESTIONS,
+});
+
+export const sleepoverGamePage = assembleLandingPage({
+  intent: SLEEPOVER_GAME_INTENT,
+  audience: SLEEPOVER_GAME_AUDIENCE,
+  primaryCta: SLEEPOVER_GAME_PRIMARY_CTA,
+  faq: SLEEPOVER_GAME_FAQ,
+  exampleQuestions: SLEEPOVER_GAME_QUESTIONS,
+});
+
+export const girlsNightGamePage = assembleLandingPage({
+  intent: GIRLS_NIGHT_GAME_INTENT,
+  audience: GIRLS_NIGHT_GAME_AUDIENCE,
+  primaryCta: GIRLS_NIGHT_GAME_PRIMARY_CTA,
+  faq: GIRLS_NIGHT_GAME_FAQ,
+  exampleQuestions: GIRLS_NIGHT_GAME_QUESTIONS,
+});
+
 export const LANDING_PAGES: LandingPageData[] = [
   mostLikelyToGeneratorPage,
   bestFriendQuizPage,
@@ -316,6 +355,9 @@ export const LANDING_PAGES: LandingPageData[] = [
   relationshipQuizPage,
   coupleQuizPage,
   boyfriendGirlfriendQuizPage,
+  birthdayPartyGamePage,
+  sleepoverGamePage,
+  girlsNightGamePage,
 ];
 
 export function getLandingPageBySlug(slug: string): LandingPageData | undefined {

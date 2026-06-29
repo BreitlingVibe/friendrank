@@ -335,3 +335,60 @@ export const BOYFRIEND_GIRLFRIEND_QUIZ_QUESTIONS = [
   { text: "Who would plan a surprise date?" },
   { text: "Who is most likely to steal the hoodie?" },
 ];
+
+/** @see QUESTION_VERSION */
+export const BIRTHDAY_PARTY_GAME_QUESTIONS = [
+  { text: "Who is most likely to eat the biggest slice of cake?" },
+  { text: "Who is most likely to forget where the presents are?" },
+  { text: "Who is most likely to start the dance floor?" },
+  { text: "Who would pick the best playlist for the party?" },
+  { text: "Who is most likely to blow out the candles twice?" },
+  { text: "Who gives the best birthday toast?" },
+  { text: "Who is most likely to arrive with the loudest gift wrap?" },
+  { text: "Who would plan the surprise party?" },
+  { text: "Who is most likely to sing happy birthday off-key?" },
+  { text: "Who remembers everyone's birthday?" },
+  { text: "Who is most likely to take the best birthday photos?" },
+  { text: "Who would stay until cleanup?" },
+  { text: "Who is most likely to suggest karaoke?" },
+  { text: "Who brings the best party energy?" },
+  { text: "Who is most likely to make the birthday person laugh?" },
+];
+
+/** @see QUESTION_VERSION */
+export const SLEEPOVER_GAME_QUESTIONS = [
+  { text: "Who is most likely to stay awake until sunrise?" },
+  { text: "Who is most likely to fall asleep first?" },
+  { text: "Who is most likely to suggest another movie?" },
+  { text: "Who tells the scariest stories?" },
+  { text: "Who is most likely to raid the kitchen at midnight?" },
+  { text: "Who would win a pillow fight?" },
+  { text: "Who is most likely to ghost the group chat after midnight?" },
+  { text: "Who brings the best snacks?" },
+  { text: "Who is most likely to forget whose house we are at?" },
+  { text: "Who would suggest truth or dare?" },
+  { text: "Who is most likely to laugh until they cry?" },
+  { text: "Who has the best sleepover playlist?" },
+  { text: "Who is most likely to build a blanket fort?" },
+  { text: "Who would survive an all-nighter?" },
+  { text: "Who is most likely to prank someone while they sleep?" },
+];
+
+/** @see QUESTION_VERSION */
+export const GIRLS_NIGHT_GAME_QUESTIONS = [
+  { text: "Who is most likely to organize the next girls trip?" },
+  { text: "Who is most likely to convince everyone to take selfies?" },
+  { text: "Who is most likely to order dessert for the table?" },
+  { text: "Who gives the best life advice?" },
+  { text: "Who is most likely to pick the restaurant?" },
+  { text: "Who would plan the perfect night out?" },
+  { text: "Who is most likely to start the dance floor?" },
+  { text: "Who sends the funniest group chat messages?" },
+  { text: "Who is most likely to book the spa day?" },
+  { text: "Who has the best outfit every time?" },
+  { text: "Who is most likely to turn up the music?" },
+  { text: "Who would win brunch trivia?" },
+  { text: "Who is most likely to suggest a wine night?" },
+  { text: "Who keeps the best energy in the room?" },
+  { text: "Who is most likely to make everyone feel included?" },
+];

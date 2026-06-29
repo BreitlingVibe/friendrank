@@ -207,3 +207,42 @@ export const BOYFRIEND_GIRLFRIEND_QUIZ_AUDIENCE = {
   finalCtaSubtitle:
     "Free, mobile-friendly, and ready for your next date night.",
 } as const;
+
+/** @see AUDIENCE_VERSION */
+export const BIRTHDAY_PARTY_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Make any birthday more fun with a quick voting game. Add friends, share one link, vote anonymously, and reveal funny birthday roles together.",
+  playImmediatelyBody:
+    "Create a game on FriendRank before the party or when everyone arrives. Share the link and let guests vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are birthday party questions your group can vote on.",
+  finalCtaTitle: "Start your birthday party game",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready before the candles are lit.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const SLEEPOVER_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Turn a sleepover into a group voting game. Add friends, vote anonymously on silly roles, and reveal the funniest results together.",
+  playImmediatelyBody:
+    "Create a game, share the link in the group chat, and let everyone vote while you hang out or watch movies.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are sleepover game questions your friends can vote on.",
+  finalCtaTitle: "Start your sleepover game",
+  finalCtaSubtitle:
+    "Free, works on any phone, and ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const GIRLS_NIGHT_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Add something fun to girls night with anonymous voting. Create a game, share one link, vote on funny roles, and reveal results together.",
+  playImmediatelyBody:
+    "Set up a game before you go out or while you get ready. Share the link and let the group vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are girls night questions your group can vote on.",
+  finalCtaTitle: "Start your girls night game",
+  finalCtaSubtitle:
+    "Free for friend groups. Ready to share in under a minute.",
+} as const;

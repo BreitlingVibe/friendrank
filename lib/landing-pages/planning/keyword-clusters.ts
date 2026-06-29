@@ -100,11 +100,12 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
       "Find a quick party game that works on phones without setup or downloads.",
     memberSlugs: [
       "party-voting-game",
-      "party-game-for-adults",
       "birthday-party-game",
-      "college-party-game",
-      "girls-night-game",
       "sleepover-game",
+      "girls-night-game",
+      "adult-party-game",
+      "college-party-game",
+      "drinking-game",
     ],
   },
   {

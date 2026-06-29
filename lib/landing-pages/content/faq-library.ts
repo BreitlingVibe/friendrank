@@ -704,3 +704,135 @@ export const BOYFRIEND_GIRLFRIEND_QUIZ_FAQ: LandingPageFaqItem[] = [
       "After enough votes are in, results open on the same link for everyone to view together.",
   },
 ];
+
+/** @see FAQ_VERSION */
+export const BIRTHDAY_PARTY_GAME_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a birthday party game?",
+    answer:
+      "It is a fun group activity where friends vote on funny birthday roles. FriendRank turns it into a quick phone voting game with shareable results.",
+  },
+  {
+    question: "Can we play at a birthday party?",
+    answer:
+      "Yes. Create a game before the party or on the spot and share the link with guests.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and story-style results only.",
+  },
+  {
+    question: "Do guests need accounts?",
+    answer:
+      "No signup required. One person creates the game and shares the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Guests vote from their phones in any browser.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game. Everyone with the link can vote.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for the whole party.",
+  },
+];
+
+/** @see FAQ_VERSION */
+export const SLEEPOVER_GAME_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a sleepover game?",
+    answer:
+      "It is a fun late-night group game where friends vote on silly roles. FriendRank makes it easy with one link and anonymous voting.",
+  },
+  {
+    question: "Can we play during a sleepover?",
+    answer:
+      "Yes. Share the link in the group chat or pass phones around while you hang out.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Each person votes privately. The group sees aggregated winners only.",
+  },
+  {
+    question: "Do friends need accounts?",
+    answer:
+      "No. Create a game and share the link. No email or password needed.",
+  },
+  {
+    question: "Can I add our own questions?",
+    answer:
+      "Yes. Add up to three custom prompts when you set up the game.",
+  },
+  {
+    question: "Does it work on phones?",
+    answer:
+      "Yes. Perfect for sleepovers where everyone already has their phone nearby.",
+  },
+  {
+    question: "Is it good for teens and young adults?",
+    answer:
+      "Yes. Pick a tone that fits your group and use fun custom questions.",
+  },
+  {
+    question: "When do results show up?",
+    answer:
+      "After enough friends vote, results unlock on the same link for everyone to reveal together.",
+  },
+];
+
+/** @see FAQ_VERSION */
+export const GIRLS_NIGHT_GAME_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is a girls night game?",
+    answer:
+      "It is a fun group voting game for girls night out or at home. FriendRank lets everyone vote on funny roles and reveal results together.",
+  },
+  {
+    question: "Can we play at home or out?",
+    answer:
+      "Yes. Works for dinner, wine night, getting ready together, or a night out.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes are private to each person. The group sees winners and story-style results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup for anyone. One person creates the game and shares the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in your group chat and vote from any phone browser.",
+  },
+  {
+    question: "Can more friends join?",
+    answer:
+      "Yes. Add two to eight names when you create the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone to view together.",
+  },
+];

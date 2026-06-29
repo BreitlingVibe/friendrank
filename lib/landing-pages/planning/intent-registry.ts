@@ -224,8 +224,8 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
     searchIntent:
       "Birthday party game where friends vote on roles and share results.",
     audience: "Birthday groups, celebrations, friend gatherings",
-    estimatedPriority: 56,
-    status: "planned",
+    estimatedPriority: 68,
+    status: "live",
   },
   {
     slug: "relationship-quiz",
@@ -254,8 +254,8 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
     searchIntent:
       "Sleepover game with friend voting on phones and shareable results.",
     audience: "Teen and young adult friend groups, sleepovers",
-    estimatedPriority: 54,
-    status: "planned",
+    estimatedPriority: 64,
+    status: "live",
   },
   {
     slug: "girls-night-game",
@@ -264,8 +264,8 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
     searchIntent:
       "Girls night game with anonymous voting and funny group roles.",
     audience: "Friend groups, girls nights, casual hangouts",
-    estimatedPriority: 53,
-    status: "planned",
+    estimatedPriority: 62,
+    status: "live",
   },
   {
     slug: "classroom-icebreaker",
@@ -425,6 +425,26 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Newlywed-style game with group voting for couples and wedding parties.",
     audience: "Newlyweds, wedding parties, couples game nights",
     estimatedPriority: 46,
+    status: "planned",
+  },
+  {
+    slug: "adult-party-game",
+    title: "Adult Party Game",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Adult party game with phone-based anonymous voting and shareable results.",
+    audience: "Adult friend groups, house parties, social gatherings",
+    estimatedPriority: 58,
+    status: "planned",
+  },
+  {
+    slug: "drinking-game",
+    title: "Drinking Game",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Drinking game alternative with anonymous group voting on phones.",
+    audience: "Adult friend groups, parties, casual hangouts",
+    estimatedPriority: 52,
     status: "planned",
   },
 ];
