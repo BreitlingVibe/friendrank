@@ -437,3 +437,44 @@ body {
   font-size: 20px;
 }
 
+@keyframes friendrank-progress-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.82;
+  }
+}
+
+@keyframes friendrank-reveal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.friendrank-progress-fill--active {
+  animation: friendrank-progress-pulse 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .friendrank-progress-fill--active {
+    animation: none;
+  }
+
+  .friendrank-reveal-preview--enter {
+    animation: none;
+  }
+}
+
+.friendrank-reveal-preview--enter {
+  animation: friendrank-reveal-enter 0.45s ease-out both;
+}
+
