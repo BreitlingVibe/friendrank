@@ -1,12 +1,31 @@
 # FriendRank Landing Page Planning
 
-Internal planning layer for programmatic SEO. This folder defines **what** landing pages exist or are planned. It does not render public pages.
+Internal planning layer for programmatic SEO. This folder defines **what** landing pages exist or are planned, how they are prioritized, and how they group into topical clusters. It does not render public pages.
 
-Live pages are implemented in:
+## How the systems work together
 
-- `lib/landing-pages/content/` — reusable copy libraries
-- `lib/landing-pages/landing-page-data.ts` — page assembly
-- `app/{slug}/page.tsx` — thin routes
+```
+Intent Registry     →  roadmap (what pages exist / are planned)
+Keyword Clusters    →  topical authority (how pages group for SEO)
+Content Libraries   →  reusable copy (FAQ, questions, benefits, CTAs)
+Landing Engine      →  rendering (metadata, schema, UI, sitemap)
+```
+
+| Layer | Location | Role |
+|-------|----------|------|
+| **Intent Registry** | `intent-registry.ts` | Master backlog of every landing page slug with status, priority, and audience |
+| **Keyword Clusters** | `keyword-clusters.ts` | Topical groupings for internal linking and future topic hubs |
+| **Content Libraries** | `../content/` | Shared FAQ, questions, benefits, CTAs, and intent copy |
+| **Landing Engine** | `../landing-page-data.ts`, `../../components/landing-pages/` | Assembles and renders live pages |
+
+**Typical workflow**
+
+1. Add a slug to `INTENT_REGISTRY` with `status: "planned"`.
+2. Assign it to a cluster in `keyword-clusters.ts` via `memberSlugs`.
+3. When ready to ship, add content libraries and wire `assembleLandingPage()`.
+4. Mark the registry entry `status: "live"`.
+
+Future sprints can use cluster data to auto-generate related links, breadcrumbs, topic hubs, cluster analytics, and internal linking without duplicating slug lists.
 
 ## Files
 
@@ -15,6 +34,8 @@ Live pages are implemented in:
 | `intent-registry.ts` | Master list of all intents (live + planned) |
 | `intent-categories.ts` | Shared category labels |
 | `intent-priority.ts` | Static priority tier helpers |
+| `keyword-clusters.ts` | Topical SEO cluster definitions |
+| `cluster-utils.ts` | Cluster comparison and filtering helpers |
 
 ## Adding a new landing page
 
@@ -40,7 +61,21 @@ Pick a category from `intent-categories.ts`.
 
 Set `estimatedPriority` as a static score from 0–100. Use `getPriorityTier()` in `intent-priority.ts` to interpret it.
 
-### 2. Build content (when ready to ship)
+### 2. Assign a keyword cluster
+
+Add the slug to `memberSlugs` in the appropriate cluster in `keyword-clusters.ts`:
+
+```typescript
+memberSlugs: [
+  "icebreaker-game",
+  "office-icebreaker",
+  // ...
+],
+```
+
+A slug may appear in more than one cluster when it serves multiple topical angles (for example `party-voting-game` in both Social Voting and Party). `getClusterBySlug()` returns the first matching cluster by definition order. Use `getClustersBySlug()` or `getAllRelatedSlugs()` when you need the full picture.
+
+### 3. Build content (when ready to ship)
 
 When an intent moves from planning to implementation:
 
@@ -51,7 +86,7 @@ When an intent moves from planning to implementation:
 
 The page is automatically included in the sitemap through `LANDING_PAGES`.
 
-### 3. Mark the intent live
+### 4. Mark the intent live
 
 Update the registry entry:
 
@@ -65,6 +100,7 @@ Optionally verify the slug matches:
 
 - A route in `app/{slug}/`
 - An entry in `LANDING_PAGES`
+- A `memberSlugs` entry in at least one keyword cluster
 
 ## Status lifecycle
 
@@ -97,6 +133,44 @@ Helpers in `intent-priority.ts`:
 
 Priorities are planning opinions. Re-score entries during quarterly SEO reviews.
 
+## Keyword clusters
+
+Clusters group slugs under a **primary keyword** for topical authority planning.
+
+| Cluster | Primary keyword | Example members |
+|---------|-----------------|-----------------|
+| Friendship | friend quiz | best-friend-quiz, who-knows-me-best |
+| Social Voting | anonymous voting game | anonymous-voting-game, group-voting-game |
+| Most Likely | most likely to generator | most-likely-to-generator |
+| Party | party games | birthday-party-game, sleepover-game |
+| Icebreakers | icebreaker game | icebreaker-game, team-building-game |
+| Relationships | relationship quiz | couple-quiz, relationship-quiz |
+| Entertainment | group games | social-game, would-you-rather-friends |
+
+### Cluster helpers
+
+```typescript
+getClusters()
+getCluster("party")
+getClusterBySlug("party-voting-game")
+getClusterMembers("best-friend-quiz")
+getPrimaryKeyword("most-likely-to-generator")
+getSupportingKeywords("group-voting-game")
+getRelatedSlugs("friendship-test")
+getAllRelatedSlugs("party-voting-game") // spans multiple clusters
+```
+
+### Cluster utils
+
+```typescript
+isSameCluster("best-friend-quiz", "who-knows-me-best") // true
+sortByCluster(slugs, "friendship")
+filterClusterMembers(slugs, "party")
+groupSlugsByCluster(slugs)
+```
+
+Clusters are **not wired to the UI yet**. They exist so future sprints can drive related links, breadcrumbs, topic hubs, and internal linking from one source of truth.
+
 ## Registry helpers
 
 ```typescript
@@ -112,5 +186,6 @@ getIntentsByCategory(INTENT_CATEGORIES.PARTY)
 - No routing
 - No metadata or JSON-LD generation
 - No sitemap or analytics wiring
+- No changes to live related-pages components
 
-Those remain in the Landing Page Engine. This folder is the **backlog and taxonomy** for future pages.
+Those remain in the Landing Page Engine. This folder is the **backlog, taxonomy, and topical map** for current and future pages.

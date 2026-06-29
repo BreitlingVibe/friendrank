@@ -25,3 +25,26 @@ export {
   type IntentDefinition,
   type IntentStatus,
 } from "@/lib/landing-pages/planning/intent-registry";
+
+export {
+  KEYWORD_CLUSTERS,
+  getAllRelatedSlugs,
+  getCluster,
+  getClusterBySlug,
+  getClusterIdForSlug,
+  getClusterMembers,
+  getClusters,
+  getClustersBySlug,
+  getPrimaryKeyword,
+  getRelatedSlugs,
+  getSupportingKeywords,
+  type KeywordCluster,
+} from "@/lib/landing-pages/planning/keyword-clusters";
+
+export {
+  filterClusterMembers,
+  getClusterNamesForSlug,
+  groupSlugsByCluster,
+  isSameCluster,
+  sortByCluster,
+} from "@/lib/landing-pages/planning/cluster-utils";
