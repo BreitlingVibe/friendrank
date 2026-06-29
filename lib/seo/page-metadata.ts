@@ -80,6 +80,27 @@ export function buildLandingPageMetadata(input: {
   };
 }
 
+export function buildTopicHubMetadata(input: {
+  title: string;
+  description: string;
+  slug: string;
+}): Metadata {
+  const metaTitle = `${input.title} | ${SITE_NAME}`;
+  const canonicalUrl = `${PRODUCTION_APP_URL}/${input.slug}`;
+
+  return {
+    ...buildLandingPageMetadata({
+      metaTitle,
+      metaDescription: input.description,
+      canonicalUrl,
+    }),
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
 export function buildGamePageMetadata(shareCode: string): Metadata {
   const canonicalUrl = `${PRODUCTION_APP_URL}/game/${shareCode}`;
   const title = "FriendRank Game";

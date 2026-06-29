@@ -26,3 +26,5 @@ export {
   getHubPlannedPages,
   getHubStats,
 } from "@/lib/topic-hubs/hub-engine";
+
+export { getTopicHubCtaLocation } from "@/lib/topic-hubs/hub-analytics";
