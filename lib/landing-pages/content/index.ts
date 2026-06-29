@@ -1,0 +1,109 @@
+import type { LandingPageRelatedPage } from "@/lib/landing-pages/landing-page-types";
+
+const ACTIVE_RELATED_PAGES = [
+  { slug: "most-likely-to-generator", title: "Most Likely To Generator" },
+  { slug: "best-friend-quiz", title: "Best Friend Quiz" },
+  { slug: "who-knows-me-best", title: "Who Knows Me Best" },
+  { slug: "friendship-test", title: "Friendship Test" },
+  { slug: "anonymous-voting-game", title: "Anonymous Voting Game" },
+  { slug: "group-voting-game", title: "Group Voting Game" },
+  { slug: "party-voting-game", title: "Party Voting Game" },
+] as const;
+
+const FUTURE_RELATED_PAGES = [
+  { slug: "icebreaker-game", title: "Icebreaker Game" },
+  { slug: "bestie-quiz", title: "Bestie Quiz" },
+  { slug: "couple-quiz", title: "Couple Quiz" },
+  { slug: "team-building-game", title: "Team Building Game" },
+] as const;
+
+export function buildRelatedPages(currentSlug: string): LandingPageRelatedPage[] {
+  return [
+    ...ACTIVE_RELATED_PAGES.filter((page) => page.slug !== currentSlug).map(
+      (page) => ({
+        ...page,
+        available: true,
+      }),
+    ),
+    ...FUTURE_RELATED_PAGES.map((page) => ({
+      ...page,
+      available: false,
+    })),
+  ];
+}
+
+export {
+  CONTENT_VERSION,
+  FAQ_VERSION,
+  QUESTION_VERSION,
+  BENEFIT_VERSION,
+  CTA_VERSION,
+  INTENT_VERSION,
+  AUDIENCE_VERSION,
+} from "@/lib/landing-pages/content/version";
+
+export {
+  GROUP_GAME_BENEFITS,
+  FRIEND_GAME_BENEFITS,
+  ANONYMOUS_VOTING_BENEFITS,
+} from "@/lib/landing-pages/content/benefit-library";
+
+export {
+  GROUP_VOTE_RESULTS,
+  MOST_LIKELY_QUESTIONS,
+  BEST_FRIEND_QUIZ_QUESTIONS,
+  WHO_KNOWS_ME_BEST_QUESTIONS,
+  FRIENDSHIP_TEST_QUESTIONS,
+  ANONYMOUS_VOTING_QUESTIONS,
+  GROUP_VOTING_QUESTIONS,
+  PARTY_VOTING_QUESTIONS,
+  FRIEND_QUESTIONS,
+} from "@/lib/landing-pages/content/question-library";
+
+export {
+  CREATE_GAME_HREF,
+  PLAY_IMMEDIATELY_TITLE,
+  EXAMPLE_QUESTIONS_SECONDARY_CTA,
+  EXAMPLE_RESULTS_TITLE,
+  RELATED_GAMES_TITLE,
+  FINAL_CTA_SUBTITLE_MOBILE,
+  MOST_LIKELY_TO_PRIMARY_CTA,
+  BEST_FRIEND_QUIZ_PRIMARY_CTA,
+  WHO_KNOWS_ME_BEST_PRIMARY_CTA,
+  FRIENDSHIP_TEST_PRIMARY_CTA,
+  ANONYMOUS_VOTING_PRIMARY_CTA,
+  GROUP_VOTING_PRIMARY_CTA,
+  PARTY_VOTING_PRIMARY_CTA,
+} from "@/lib/landing-pages/content/cta-library";
+
+export {
+  MOST_LIKELY_TO_FAQ,
+  BEST_FRIEND_QUIZ_FAQ,
+  WHO_KNOWS_ME_BEST_FAQ,
+  FRIENDSHIP_TEST_FAQ,
+  ANONYMOUS_VOTING_FAQ,
+  GROUP_VOTING_FAQ,
+  PARTY_VOTING_FAQ,
+  FRIEND_FAQ,
+} from "@/lib/landing-pages/content/faq-library";
+
+export {
+  MOST_LIKELY_TO_AUDIENCE,
+  BEST_FRIEND_QUIZ_AUDIENCE,
+  WHO_KNOWS_ME_BEST_AUDIENCE,
+  FRIENDSHIP_TEST_AUDIENCE,
+  ANONYMOUS_VOTING_AUDIENCE,
+  GROUP_VOTING_AUDIENCE,
+  PARTY_VOTING_AUDIENCE,
+} from "@/lib/landing-pages/content/audience-library";
+
+export {
+  MOST_LIKELY_TO_INTENT,
+  BEST_FRIEND_QUIZ_INTENT,
+  WHO_KNOWS_ME_BEST_INTENT,
+  FRIENDSHIP_TEST_INTENT,
+  ANONYMOUS_VOTING_INTENT,
+  GROUP_VOTING_INTENT,
+  PARTY_VOTING_INTENT,
+  getCanonicalUrl,
+} from "@/lib/landing-pages/content/intent-library";
