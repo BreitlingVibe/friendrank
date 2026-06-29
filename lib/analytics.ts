@@ -126,7 +126,10 @@ export type CtaLocation =
   | "categories"
   | "form_submit"
   | "bottom_start"
-  | "landing_most_likely_to_generator";
+  | "landing_most_likely_to_generator"
+  | "landing_best_friend_quiz"
+  | "landing_who_knows_me_best"
+  | "landing_friendship_test";
 
 export type CtaClickedParams = {
   location: CtaLocation;

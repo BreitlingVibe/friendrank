@@ -116,6 +116,7 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
 
         <LandingPageExamples
           questionsTitle={page.exampleQuestionsTitle}
+          questionsIntro={page.exampleQuestionsIntro}
           questions={page.exampleQuestions}
           resultsTitle={page.exampleResultsTitle}
           results={page.exampleResults}

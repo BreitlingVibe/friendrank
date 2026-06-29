@@ -5,6 +5,7 @@ import type {
 
 type LandingPageExamplesProps = {
   questionsTitle: string;
+  questionsIntro: string;
   questions: LandingPageExampleQuestion[];
   resultsTitle: string;
   results: LandingPageExampleResult[];
@@ -12,6 +13,7 @@ type LandingPageExamplesProps = {
 
 export function LandingPageExamples({
   questionsTitle,
+  questionsIntro,
   questions,
   resultsTitle,
   results,
@@ -63,8 +65,7 @@ export function LandingPageExamples({
             {questionsTitle}
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-center text-sm leading-relaxed text-slate-500">
-            Need inspiration? Here are some of the funniest &ldquo;Most Likely
-            To&rdquo; questions to play with your friends.
+            {questionsIntro}
           </p>
           <ul className="mt-10 space-y-3">
             {questions.map((question) => (

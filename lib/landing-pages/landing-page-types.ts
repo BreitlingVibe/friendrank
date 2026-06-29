@@ -56,6 +56,7 @@ export type LandingPageData = {
   playImmediatelyTitle: string;
   playImmediatelyBody: string;
   exampleQuestionsTitle: string;
+  exampleQuestionsIntro: string;
   exampleQuestions: LandingPageExampleQuestion[];
   exampleResultsTitle: string;
   exampleResults: LandingPageExampleResult[];
