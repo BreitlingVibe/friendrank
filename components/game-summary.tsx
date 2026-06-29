@@ -1,18 +1,20 @@
 import type { GeneratedGame } from "@/lib/game-build";
 import { FriendRankRevealPreview } from "@/components/friend-rank-reveal-preview";
 import { FriendRankVoteProgressSnippet } from "@/components/friend-rank-vote-progress-snippet";
-import { getVotesRequired } from "@/lib/votes/constants";
+import type { VoteProgress } from "@/lib/votes/types";
 
 type GameSummaryProps = {
   game: GeneratedGame;
   shareUrl?: string;
   createdAt?: string;
+  progress: VoteProgress;
 };
 
 export function GameSummary({
   game,
   shareUrl,
   createdAt,
+  progress,
 }: GameSummaryProps) {
   const formattedDate = createdAt
     ? new Date(createdAt).toLocaleString(undefined, {
@@ -20,8 +22,6 @@ export function GameSummary({
         timeStyle: "short",
       })
     : null;
-
-  const votesRequired = getVotesRequired(game.friends.length);
 
   return (
     <>
@@ -51,8 +51,9 @@ export function GameSummary({
           </div>
 
           <FriendRankVoteProgressSnippet
-            voteCount={0}
-            votesRequired={votesRequired}
+            voteCount={progress.voteCount}
+            votesRequired={progress.votesRequired}
+            isUnlocked={progress.isUnlocked}
             className="mb-5"
           />
 
@@ -72,7 +73,9 @@ export function GameSummary({
               </span>
             ))}
             <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-200">
-              🔒 Locked until friends vote
+              {progress.isUnlocked
+                ? "🔓 Results unlocked"
+                : "🔒 Locked until friends vote"}
             </span>
             <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-400">
               {game.friends.join(", ")}

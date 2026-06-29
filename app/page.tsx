@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
 import { FriendRankRevealPreview } from "@/components/friend-rank-reveal-preview";
 import { FriendRankVoteProgressSnippet } from "@/components/friend-rank-vote-progress-snippet";
+import { useLiveVoteProgress } from "@/hooks/use-live-vote-progress";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createGameAction } from "@/app/actions/games";
 import {
@@ -148,6 +148,24 @@ export default function Home() {
     [groupNames],
   );
   const hasEnoughFriends = enteredFriends.length >= MIN_GROUP_FRIENDS;
+
+  const inviteInitialProgress = useMemo(() => {
+    if (!generatedGame) {
+      return null;
+    }
+
+    return {
+      voteCount: 0,
+      votesRequired: getVotesRequired(generatedGame.friends.length),
+      isUnlocked: false,
+      hasVoted: false,
+    };
+  }, [generatedGame]);
+
+  const { progress: inviteProgress } = useLiveVoteProgress(
+    shareCode,
+    inviteInitialProgress,
+  );
 
   const notifyCreationFormStarted = useCallback(() => {
     trackGameCreationStarted({
@@ -569,7 +587,7 @@ export default function Home() {
               </div>
             </form>
 
-            {generatedGame && shareCode && (
+            {generatedGame && shareCode && inviteProgress && (
               <>
                 <div className="friendrank-invite-ready relative mt-8 overflow-hidden rounded-2xl border border-violet-500/40 bg-gradient-to-br from-violet-600/20 via-slate-900 to-cyan-600/15 p-6 shadow-xl shadow-violet-500/10 sm:p-8">
                   <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-violet-500/20 blur-2xl" />
@@ -597,8 +615,9 @@ export default function Home() {
                     </div>
 
                     <FriendRankVoteProgressSnippet
-                      voteCount={0}
-                      votesRequired={getVotesRequired(generatedGame.friends.length)}
+                      voteCount={inviteProgress.voteCount}
+                      votesRequired={inviteProgress.votesRequired}
+                      isUnlocked={inviteProgress.isUnlocked}
                       className="mb-5"
                     />
 
@@ -610,7 +629,9 @@ export default function Home() {
                         {generatedGame.tone}
                       </span>
                       <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-200">
-                        🔒 Locked until friends vote
+                        {inviteProgress.isUnlocked
+                          ? "🔓 Results unlocked"
+                          : "🔒 Locked until friends vote"}
                       </span>
                       <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-400">
                         {generatedGame.friends.join(", ")}
@@ -639,12 +660,6 @@ export default function Home() {
                           <>📨 Share invite with your group</>
                         )}
                       </button>
-                      <Link
-                        href={`/game/${shareCode}`}
-                        className="flex w-full items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-slate-400 transition duration-200 hover:border-white/15 hover:bg-white/[0.06] hover:text-slate-300"
-                      >
-                        Preview game page
-                      </Link>
                     </div>
                   </div>
                 </div>

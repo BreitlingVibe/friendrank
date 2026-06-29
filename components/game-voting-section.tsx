@@ -26,6 +26,7 @@ type GameVotingSectionProps = {
   shareCode: string;
   initialProgress: VoteProgress;
   initialAggregatedResults: AggregatedCategoryResult[] | null;
+  onProgressChange?: (progress: VoteProgress) => void;
 };
 
 export function GameVotingSection({
@@ -34,6 +35,7 @@ export function GameVotingSection({
   shareCode,
   initialProgress,
   initialAggregatedResults,
+  onProgressChange,
 }: GameVotingSectionProps) {
   const [progress, setProgress] = useState(initialProgress);
   const [aggregatedResults, setAggregatedResults] = useState(
@@ -50,6 +52,10 @@ export function GameVotingSection({
   useEffect(() => {
     setVoterToken(getOrCreateVoterToken(shareCode));
   }, [shareCode]);
+
+  useEffect(() => {
+    onProgressChange?.(progress);
+  }, [onProgressChange, progress]);
 
   const loadResults = useCallback(async () => {
     setIsLoadingResults(true);
