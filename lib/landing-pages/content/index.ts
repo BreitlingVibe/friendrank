@@ -1,37 +1,3 @@
-import type { LandingPageRelatedPage } from "@/lib/landing-pages/landing-page-types";
-
-const ACTIVE_RELATED_PAGES = [
-  { slug: "most-likely-to-generator", title: "Most Likely To Generator" },
-  { slug: "best-friend-quiz", title: "Best Friend Quiz" },
-  { slug: "who-knows-me-best", title: "Who Knows Me Best" },
-  { slug: "friendship-test", title: "Friendship Test" },
-  { slug: "anonymous-voting-game", title: "Anonymous Voting Game" },
-  { slug: "group-voting-game", title: "Group Voting Game" },
-  { slug: "party-voting-game", title: "Party Voting Game" },
-] as const;
-
-const FUTURE_RELATED_PAGES = [
-  { slug: "icebreaker-game", title: "Icebreaker Game" },
-  { slug: "bestie-quiz", title: "Bestie Quiz" },
-  { slug: "couple-quiz", title: "Couple Quiz" },
-  { slug: "team-building-game", title: "Team Building Game" },
-] as const;
-
-export function buildRelatedPages(currentSlug: string): LandingPageRelatedPage[] {
-  return [
-    ...ACTIVE_RELATED_PAGES.filter((page) => page.slug !== currentSlug).map(
-      (page) => ({
-        ...page,
-        available: true,
-      }),
-    ),
-    ...FUTURE_RELATED_PAGES.map((page) => ({
-      ...page,
-      available: false,
-    })),
-  ];
-}
-
 export {
   CONTENT_VERSION,
   FAQ_VERSION,

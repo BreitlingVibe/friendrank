@@ -1,5 +1,6 @@
 import type { CtaLocation } from "@/lib/analytics";
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
+import { getRelatedLandingPageItems } from "@/lib/landing-pages/internal-links";
 import {
   ANONYMOUS_VOTING_AUDIENCE,
   ANONYMOUS_VOTING_FAQ,
@@ -42,7 +43,6 @@ import {
   WHO_KNOWS_ME_BEST_INTENT,
   WHO_KNOWS_ME_BEST_PRIMARY_CTA,
   WHO_KNOWS_ME_BEST_QUESTIONS,
-  buildRelatedPages,
   getCanonicalUrl,
 } from "@/lib/landing-pages/content";
 
@@ -78,10 +78,18 @@ type LandingPageAssemblyInput = {
   primaryCta: LandingPageData["primaryCta"];
   faq: LandingPageData["faq"];
   exampleQuestions: LandingPageData["exampleQuestions"];
+  relatedPagesOverride?: LandingPageData["relatedPages"];
 };
 
 function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
-  const { intent, audience, primaryCta, faq, exampleQuestions } = input;
+  const {
+    intent,
+    audience,
+    primaryCta,
+    faq,
+    exampleQuestions,
+    relatedPagesOverride,
+  } = input;
 
   return {
     slug: intent.slug,
@@ -107,7 +115,9 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     faqTitle: intent.faqTitle,
     faq,
     relatedPagesTitle: RELATED_GAMES_TITLE,
-    relatedPages: buildRelatedPages(intent.slug),
+    relatedPages: getRelatedLandingPageItems(intent.slug, {
+      override: relatedPagesOverride,
+    }),
     finalCtaTitle: audience.finalCtaTitle,
     finalCtaSubtitle: audience.finalCtaSubtitle,
     ctaLocation: intent.ctaLocation,
