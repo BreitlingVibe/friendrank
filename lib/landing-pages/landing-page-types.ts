@@ -1,4 +1,7 @@
 import type { CtaLocation } from "@/lib/analytics";
+import type { HowToPlayContent } from "@/lib/landing-pages/content/how-to-play-library";
+import type { BestForTag } from "@/lib/landing-pages/best-for-tags";
+import type { FormatComparison } from "@/lib/landing-pages/format-comparison";
 import type { Tone, VibeTag } from "@/lib/game-build";
 
 export type LandingPageCta = {
@@ -56,6 +59,8 @@ export type LandingPageData = {
   canonicalUrl: string;
   h1: string;
   heroSubtitle: string;
+  /** Optional registry-driven lead shown before the intent summary. */
+  intentLead?: string;
   primaryCta: LandingPageCta;
   secondaryCta?: LandingPageCta;
   intentSummaryTitle: string;
@@ -77,6 +82,12 @@ export type LandingPageData = {
   youMayAlsoLike: LandingPageRelatedPage[];
   popularSearchesTitle: string;
   popularSearches: PopularSearchLink[];
+  bestForTitle: string;
+  bestForTags: BestForTag[];
+  howToPlay: HowToPlayContent;
+  playersAlsoEnjoyTitle: string;
+  playersAlsoEnjoy: LandingPageRelatedPage[];
+  formatComparison?: FormatComparison | null;
   finalCtaTitle: string;
   finalCtaSubtitle: string;
   ctaLocation: CtaLocation;

@@ -102,7 +102,7 @@ function toAutomaticRelatedPage(
     estimatedPriority: intent.estimatedPriority,
     tier,
     priorityTier: getPriorityTier(intent.estimatedPriority),
-    linkLabel: getLandingPageLinkLabel(intent.title, slug, "view"),
+    linkLabel: getLandingPageLinkLabel(intent.title, slug, "play"),
   };
 }
 
@@ -267,7 +267,7 @@ export function getRelatedLandingPageItems(
       ...page,
       linkLabel:
         page.linkLabel ??
-        getLandingPageLinkLabel(page.title, page.slug, "view"),
+        getLandingPageLinkLabel(page.title, page.slug, "play"),
     }));
   }
 

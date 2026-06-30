@@ -1,11 +1,15 @@
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 import { buildLandingPageBreadcrumbItems } from "@/lib/seo/breadcrumbs";
 import { LandingPageStructuredData } from "@/components/landing-pages/landing-page-structured-data";
+import { LandingPageBestFor } from "@/components/landing-pages/landing-page-best-for";
 import { LandingPageExamples } from "@/components/landing-pages/landing-page-examples";
 import { LandingPageFaq } from "@/components/landing-pages/landing-page-faq";
+import { LandingPageFormatComparison } from "@/components/landing-pages/landing-page-format-comparison";
 import { LandingPageHero } from "@/components/landing-pages/landing-page-hero";
+import { LandingPageHowToPlay } from "@/components/landing-pages/landing-page-how-to-play";
 import { LandingPageRelated } from "@/components/landing-pages/landing-page-related";
 import { LandingPagePopularSearches } from "@/components/landing-pages/landing-page-popular-searches";
+import { LandingPagePlayersAlsoEnjoy } from "@/components/landing-pages/landing-page-players-also-enjoy";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
 import { LandingPageTrustSection } from "@/components/landing-pages/landing-page-trust-section";
 import { SemanticBreadcrumbs } from "@/components/shared/semantic-breadcrumbs";
@@ -39,6 +43,8 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
       <main id="main-content" className="relative z-10">
         <LandingPageHero page={page} />
 
+        <LandingPageBestFor title={page.bestForTitle} tags={page.bestForTags} />
+
         <section
           aria-labelledby="landing-intent-heading"
           className="py-16 sm:py-20"
@@ -50,11 +56,20 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
             >
               {page.intentSummaryTitle}
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-slate-400">
+            {page.intentLead ? (
+              <p className="mt-4 text-base font-medium leading-relaxed text-slate-300">
+                {page.intentLead}
+              </p>
+            ) : null}
+            <p
+              className={`${page.intentLead ? "mt-3" : "mt-4"} text-base leading-relaxed text-slate-400`}
+            >
               {page.intentSummary}
             </p>
           </div>
         </section>
+
+        <LandingPageHowToPlay content={page.howToPlay} />
 
         <section
           aria-labelledby="landing-why-heading"
@@ -124,7 +139,16 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
           results={page.exampleResults}
         />
 
+        {page.formatComparison ? (
+          <LandingPageFormatComparison comparison={page.formatComparison} />
+        ) : null}
+
         <LandingPageFaq title={page.faqTitle} items={page.faq} />
+
+        <LandingPagePlayersAlsoEnjoy
+          title={page.playersAlsoEnjoyTitle}
+          pages={page.playersAlsoEnjoy}
+        />
 
         <LandingPageRelated
           title={page.youMayAlsoLikeTitle}

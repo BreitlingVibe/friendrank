@@ -4,11 +4,25 @@ import { registerAudienceAuthorityPages } from "@/lib/landing-pages/audience-aut
 import { registerAudienceAuthorityWave2Pages } from "@/lib/landing-pages/audience-authority-wave2-pages";
 import { getRelatedLandingPageItems } from "@/lib/landing-pages/internal-links";
 import {
+  BEST_FOR_SECTION_TITLE,
+  getBestForTags,
+} from "@/lib/landing-pages/best-for-tags";
+import { resolveHowToPlay } from "@/lib/landing-pages/content/how-to-play-library";
+import { enrichLandingPageFaq } from "@/lib/landing-pages/content/supplemental-faq-library";
+import { resolveFormatComparison } from "@/lib/landing-pages/format-comparison";
+import {
+  getPlayersAlsoEnjoyItems,
   getPopularSearchLinks,
   getYouMayAlsoLikeItemsWithMinimum,
+  PLAYERS_ALSO_ENJOY_TITLE,
   POPULAR_SEARCHES_TITLE,
   YOU_MAY_ALSO_LIKE_TITLE,
 } from "@/lib/landing-pages/page-recommendations";
+import {
+  buildSemanticHeroSubtitle,
+  buildSemanticIntentLead,
+} from "@/lib/landing-pages/semantic-intro";
+import { getIntentBySlug } from "@/lib/landing-pages/planning/intent-registry";
 import {
   ANONYMOUS_VOTING_AUDIENCE,
   ANONYMOUS_VOTING_FAQ,
@@ -376,9 +390,20 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
   const youMayAlsoLike = getYouMayAlsoLikeItemsWithMinimum(intent.slug, {
     excludeSlugs: relatedSlugs,
   });
-  const popularSearches = getPopularSearchLinks(intent.slug, {
-    excludeSlugs: [...relatedSlugs, ...youMayAlsoLike.map((page) => page.slug)],
+  const youMayAlsoLikeSlugs = youMayAlsoLike.map((page) => page.slug);
+  const playersAlsoEnjoy = getPlayersAlsoEnjoyItems(intent.slug, {
+    excludeSlugs: [...relatedSlugs, ...youMayAlsoLikeSlugs],
   });
+  const popularSearches = getPopularSearchLinks(intent.slug, {
+    excludeSlugs: [
+      ...relatedSlugs,
+      ...youMayAlsoLikeSlugs,
+      ...playersAlsoEnjoy.map((page) => page.slug),
+    ],
+  });
+  const registryIntent = getIntentBySlug(intent.slug);
+  const enrichedFaq = enrichLandingPageFaq(intent.slug, faq);
+  const formatComparison = resolveFormatComparison(intent.slug, relatedPages);
 
   return {
     slug: intent.slug,
@@ -387,7 +412,13 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     metaDescription: intent.metaDescription,
     canonicalUrl: getCanonicalUrl(intent.slug),
     h1: intent.h1,
-    heroSubtitle: audience.heroSubtitle,
+    heroSubtitle:
+      registryIntent != null
+        ? buildSemanticHeroSubtitle(registryIntent, audience.heroSubtitle)
+        : audience.heroSubtitle,
+    intentLead: registryIntent
+      ? buildSemanticIntentLead(registryIntent) ?? undefined
+      : undefined,
     primaryCta,
     secondaryCta: EXAMPLE_QUESTIONS_SECONDARY_CTA,
     intentSummaryTitle: intent.intentSummaryTitle,
@@ -402,13 +433,29 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     exampleResultsTitle: EXAMPLE_RESULTS_TITLE,
     exampleResults: GROUP_VOTE_RESULTS,
     faqTitle: intent.faqTitle,
-    faq,
+    faq: enrichedFaq,
     relatedPagesTitle: RELATED_GAMES_TITLE,
     relatedPages,
     youMayAlsoLikeTitle: YOU_MAY_ALSO_LIKE_TITLE,
     youMayAlsoLike,
     popularSearchesTitle: POPULAR_SEARCHES_TITLE,
     popularSearches,
+    bestForTitle: BEST_FOR_SECTION_TITLE,
+    bestForTags: getBestForTags(intent.slug),
+    howToPlay: resolveHowToPlay(
+      registryIntent ?? {
+        slug: intent.slug,
+        title: intent.title,
+        intentCategory: "Entertainment" as const,
+        searchIntent: intent.intentSummary,
+        audience: audience.heroSubtitle,
+        estimatedPriority: 0,
+        status: "live" as const,
+      },
+    ),
+    playersAlsoEnjoyTitle: PLAYERS_ALSO_ENJOY_TITLE,
+    playersAlsoEnjoy,
+    formatComparison,
     finalCtaTitle: audience.finalCtaTitle,
     finalCtaSubtitle: audience.finalCtaSubtitle,
     ctaLocation: intent.ctaLocation,

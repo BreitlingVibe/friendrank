@@ -28,11 +28,14 @@ import {
 
 export const YOU_MAY_ALSO_LIKE_TITLE = "You may also like";
 export const POPULAR_SEARCHES_TITLE = "Popular searches";
+export const PLAYERS_ALSO_ENJOY_TITLE = "Players also enjoy";
 
 const MIN_YOU_MAY_ALSO_LIKE = 3;
 const MAX_YOU_MAY_ALSO_LIKE = 5;
 const MIN_POPULAR_SEARCHES = 5;
 const MAX_POPULAR_SEARCHES = 8;
+const MIN_PLAYERS_ALSO_ENJOY = 3;
+const MAX_PLAYERS_ALSO_ENJOY = 5;
 
 function toExcludeSet(
   slug: string,
@@ -327,4 +330,86 @@ export function getPopularSearchLinks(
   }
 
   return deduped.slice(0, MAX_POPULAR_SEARCHES);
+}
+
+/** Adjacent formats and experiences, distinct from Related Games scoring. */
+export function getPlayersAlsoEnjoyItems(
+  slug: string,
+  options: { excludeSlugs?: Iterable<string> } = {},
+): LandingPageRelatedPage[] {
+  const exclude = toExcludeSet(slug, options.excludeSlugs);
+  const source = getIntentBySlug(slug);
+  if (!source) {
+    return [];
+  }
+
+  const clusterSlugs = new Set<string>();
+  for (const cluster of getClustersBySlug(slug)) {
+    for (const memberSlug of cluster.memberSlugs) {
+      if (memberSlug !== slug) {
+        clusterSlugs.add(memberSlug);
+      }
+    }
+  }
+
+  const scored = getLiveIntents()
+    .filter((intent) => !exclude.has(intent.slug))
+    .map((intent) => {
+      let score = 0;
+      const tier = getRecommendationTier(slug, intent.slug);
+
+      if (intent.intentCategory === source.intentCategory) {
+        score += 30;
+      }
+
+      if (clusterSlugs.has(intent.slug)) {
+        score += 25;
+      }
+
+      if (tier === "cluster") {
+        score += 22;
+      } else if (tier === "audience") {
+        score += 16;
+      } else if (tier === "topic_hub") {
+        score += 12;
+      } else if (tier === "intent") {
+        score += 6;
+      }
+
+      score += intent.estimatedPriority / 10;
+
+      return { slug: intent.slug, score };
+    })
+    .sort((entryA, entryB) => entryB.score - entryA.score);
+
+  let items = scored
+    .slice(0, MAX_PLAYERS_ALSO_ENJOY)
+    .map((entry) => toRelatedPage(entry.slug, true, "play"))
+    .filter((page): page is LandingPageRelatedPage => page !== undefined);
+
+  if (items.length >= MIN_PLAYERS_ALSO_ENJOY) {
+    return items;
+  }
+
+  const used = new Set([...exclude, ...items.map((item) => item.slug)]);
+
+  for (const candidateSlug of sortLiveCandidates(slug, collectClusterCandidateSlugs(slug))) {
+    if (used.has(candidateSlug)) {
+      continue;
+    }
+
+    const page = toRelatedPage(candidateSlug, true, "play");
+    if (!page) {
+      continue;
+    }
+
+    items.push(page);
+    used.add(candidateSlug);
+
+    if (items.length >= MIN_PLAYERS_ALSO_ENJOY) {
+      break;
+    }
+  }
+
+  return items.slice(0, MAX_PLAYERS_ALSO_ENJOY);
 }
