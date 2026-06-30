@@ -126,7 +126,7 @@ export const ENTITY_REGISTRY: EntityDefinition[] = [
     entityType: ENTITY_TYPES.GAME_FORMAT,
     relatedEntities: ["friends", "party", "relationship"],
     relatedTopicHubs: ["question-games"],
-    relatedLandingPages: ["question-games"],
+    relatedLandingPages: ["party-questions"],
     keywords: ["question game", "conversation questions"],
   },
   {
@@ -174,7 +174,7 @@ export const ENTITY_REGISTRY: EntityDefinition[] = [
     entityType: ENTITY_TYPES.AUDIENCE,
     relatedEntities: ["friend-quiz", "social-voting-game", "party"],
     relatedTopicHubs: ["friend-games"],
-    relatedLandingPages: ["friend-games", "best-friend-quiz"],
+    relatedLandingPages: ["best-friend-quiz"],
     keywords: ["friends", "friend group", "besties"],
     aliases: ["friend group", "best friends"],
   },
@@ -245,7 +245,7 @@ export const ENTITY_REGISTRY: EntityDefinition[] = [
     description:
       "College dorms, house parties, and campus friend groups.",
     entityType: ENTITY_TYPES.AUDIENCE,
-    relatedEntities: ["party", "friends", "pregame"],
+    relatedEntities: ["party", "friends"],
     relatedTopicHubs: ["party-games"],
     relatedLandingPages: ["games-for-college-students"],
     keywords: ["college", "campus", "dorm"],
@@ -367,7 +367,7 @@ export const ENTITY_REGISTRY: EntityDefinition[] = [
     entityType: ENTITY_TYPES.PARTY,
     relatedEntities: ["party-voting-game", "friends", "birthday-party"],
     relatedTopicHubs: ["party-games"],
-    relatedLandingPages: ["party-games"],
+    relatedLandingPages: ["party-voting-game"],
     keywords: ["party", "hangout", "get together"],
   },
   {
@@ -379,7 +379,7 @@ export const ENTITY_REGISTRY: EntityDefinition[] = [
     entityType: ENTITY_TYPES.RELATIONSHIP,
     relatedEntities: ["couple-quiz", "couples", "date-night"],
     relatedTopicHubs: ["relationship-games"],
-    relatedLandingPages: ["relationship-games"],
+    relatedLandingPages: ["relationship-quiz"],
     keywords: ["relationship", "romance", "couple"],
   },
   {
@@ -391,7 +391,7 @@ export const ENTITY_REGISTRY: EntityDefinition[] = [
     entityType: ENTITY_TYPES.WORK,
     relatedEntities: ["teams", "coworkers", "team-building-game"],
     relatedTopicHubs: ["team-building-games"],
-    relatedLandingPages: ["team-building-games"],
+    relatedLandingPages: ["team-building-game"],
     keywords: ["work", "office", "workplace", "corporate"],
   },
   {
