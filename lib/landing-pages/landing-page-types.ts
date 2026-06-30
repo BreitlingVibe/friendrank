@@ -2,6 +2,7 @@ import type { CtaLocation } from "@/lib/analytics";
 import type { HowToPlayContent } from "@/lib/landing-pages/content/how-to-play-library";
 import type { BestForTag } from "@/lib/landing-pages/best-for-tags";
 import type { FormatComparison } from "@/lib/landing-pages/format-comparison";
+import type { EntityNavigation } from "@/lib/entities/entity-navigation";
 import type { LandingPageEntityRef } from "@/lib/entities/entity-utils";
 import type { Tone, VibeTag } from "@/lib/game-build";
 
@@ -97,6 +98,8 @@ export type LandingPageData = {
   relatedEntities: LandingPageEntityRef[];
   /** Hero entity chips derived from primary and secondary entities. */
   entityChips: LandingPageEntityRef[];
+  /** Registry-driven entity explorer groups. */
+  entityNavigation: EntityNavigation;
   finalCtaTitle: string;
   finalCtaSubtitle: string;
   ctaLocation: CtaLocation;

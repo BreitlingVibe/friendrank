@@ -5,20 +5,26 @@ import {
   buildTopicHubBreadcrumbItems,
 } from "@/lib/seo/breadcrumbs";
 import type { HubFaqItem } from "@/lib/topic-hubs/hub-content-types";
+import type { EntityNavigation } from "@/lib/entities/entity-navigation";
+import { flattenEntityNavigation } from "@/lib/entities/entity-navigation";
 
 export function buildTopicHubStructuredData(input: {
   title: string;
   slug: string;
   schemaDescription: string;
   faq: HubFaqItem[];
+  entityNavigation?: EntityNavigation;
 }) {
   const canonicalUrl = `${PRODUCTION_APP_URL}/${input.slug}`;
   const pageId = `${canonicalUrl}/#webpage`;
   const breadcrumbItems = buildTopicHubBreadcrumbItems(input.slug, input.title);
+  const explorerChips = input.entityNavigation
+    ? flattenEntityNavigation(input.entityNavigation).filter(
+        (chip) => chip.clickable && chip.href,
+      )
+    : [];
 
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
+  const graph: Record<string, unknown>[] = [
       {
         "@type": "WebPage",
         "@id": pageId,
@@ -58,6 +64,24 @@ export function buildTopicHubStructuredData(input: {
           "@id": pageId,
         },
       },
-    ],
+  ];
+
+  if (explorerChips.length > 0) {
+    graph.push({
+      "@type": "ItemList",
+      "@id": `${canonicalUrl}#entity-explorer`,
+      name: input.entityNavigation?.title ?? "Explore by topic",
+      itemListElement: explorerChips.map((chip, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: chip.name,
+        url: `${PRODUCTION_APP_URL}${chip.href}`,
+      })),
+    });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
   };
 }

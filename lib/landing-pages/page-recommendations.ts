@@ -20,6 +20,7 @@ import {
   getIntentBySlug,
   getLiveIntents,
 } from "@/lib/landing-pages/planning/intent-registry";
+import { scoreEntityRelationship } from "@/lib/entities/entity-navigation";
 import { getSharedEntityIds } from "@/lib/entities/entity-utils";
 import { getRecommendedTopicHubs } from "@/lib/topic-hubs/hub-recommendations";
 import {
@@ -368,10 +369,14 @@ export function getPlayersAlsoEnjoyItems(
       }
 
       if (getSharedEntityIds(slug, intent.slug).length > 0) {
-        score += 20;
+        score += 12;
       }
 
-      if (tier === "cluster") {
+      score += Math.min(scoreEntityRelationship(slug, intent.slug), 18);
+
+      if (tier === "entity") {
+        score += 14;
+      } else if (tier === "cluster") {
         score += 22;
       } else if (tier === "audience") {
         score += 16;

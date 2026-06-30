@@ -12,6 +12,7 @@ import { LandingPagePopularSearches } from "@/components/landing-pages/landing-p
 import { LandingPagePlayersAlsoEnjoy } from "@/components/landing-pages/landing-page-players-also-enjoy";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
 import { LandingPageTrustSection } from "@/components/landing-pages/landing-page-trust-section";
+import { EntityExplorer } from "@/components/shared/entity-explorer";
 import { SemanticBreadcrumbs } from "@/components/shared/semantic-breadcrumbs";
 import { SiteAuthorityFooter } from "@/components/shared/site-authority-footer";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
@@ -44,6 +45,11 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
         <LandingPageHero page={page} />
 
         <LandingPageBestFor title={page.bestForTitle} tags={page.bestForTags} />
+
+        <EntityExplorer
+          navigation={page.entityNavigation}
+          headingId="landing-entity-explorer-heading"
+        />
 
         <section
           aria-labelledby="landing-intent-heading"

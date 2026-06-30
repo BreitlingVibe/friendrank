@@ -1,6 +1,7 @@
 import { getCluster } from "@/lib/landing-pages/planning/keyword-clusters";
 import type { HubPageContent } from "@/lib/topic-hubs/hub-content-types";
 import type { TopicHubDefinition } from "@/lib/topic-hubs/hub-types";
+import { buildHubEntitySemanticLine } from "@/lib/entities/entity-navigation";
 
 const GENERIC_LIVE_SECTION_TITLE = "Explore all games";
 
@@ -26,11 +27,16 @@ export function resolveHubHeroCopy(
   hub: TopicHubDefinition,
   content?: HubPageContent,
 ): ResolvedHubHeroCopy {
+  const entitySemanticLine = buildHubEntitySemanticLine(hub.title, hub.id);
   const paragraphs =
     content?.heroParagraphs ??
     [hub.hero, hub.description].filter((paragraph): paragraph is string =>
       Boolean(paragraph),
     );
+
+  if (entitySemanticLine && !content?.heroParagraphs) {
+    paragraphs.push(entitySemanticLine);
+  }
 
   return {
     lead: content?.heroLead ?? buildDefaultHeroLead(hub),

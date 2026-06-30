@@ -5,6 +5,10 @@ import {
   buildLandingPageBreadcrumbItems,
 } from "@/lib/seo/breadcrumbs";
 import { buildEntitySummary } from "@/lib/entities/entity-graph";
+import {
+  flattenEntityNavigation,
+  type EntityNavigation,
+} from "@/lib/entities/entity-navigation";
 import { getEntity } from "@/lib/entities/entity-utils";
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 import type { LandingPageEntityRef } from "@/lib/entities/entity-utils";
@@ -91,6 +95,31 @@ function buildMentionNodes(pageUrl: string, entities: LandingPageEntityRef[]) {
   }));
 }
 
+function buildEntityExplorerItemList(
+  pageUrl: string,
+  navigation: EntityNavigation,
+) {
+  const chips = flattenEntityNavigation(navigation).filter(
+    (chip) => chip.clickable && chip.href,
+  );
+
+  if (chips.length === 0) {
+    return null;
+  }
+
+  return {
+    "@type": "ItemList",
+    "@id": `${pageUrl}#entity-explorer`,
+    name: navigation.title,
+    itemListElement: chips.map((chip, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: chip.name,
+      url: `${PRODUCTION_APP_URL}${chip.href}`,
+    })),
+  };
+}
+
 export function buildLandingPageStructuredData(page: LandingPageData) {
   const pageId = `${page.canonicalUrl}/#webpage`;
   const breadcrumbItems = buildLandingPageBreadcrumbItems(page.slug, page.title);
@@ -107,6 +136,11 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
     "#players-also-enjoy",
     page.playersAlsoEnjoyTitle,
     page.playersAlsoEnjoy,
+  );
+
+  const entityExplorerList = buildEntityExplorerItemList(
+    page.canonicalUrl,
+    page.entityNavigation,
   );
 
   const primaryEntityNodes = buildEntityStructuredNodes(
@@ -191,6 +225,10 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
 
   if (playersAlsoEnjoyList) {
     graph.push(playersAlsoEnjoyList);
+  }
+
+  if (entityExplorerList) {
+    graph.push(entityExplorerList);
   }
 
   for (const entityNode of primaryEntityNodes) {

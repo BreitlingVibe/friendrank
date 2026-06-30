@@ -10,6 +10,13 @@ export {
 } from "@/lib/entities/entity-registry";
 
 export {
+  isValidNavigationTarget,
+  resolveEntityNavigationTarget,
+  type EntityLinkKind,
+  type EntityNavigationTarget,
+} from "@/lib/entities/entity-targets";
+
+export {
   getEntity,
   getEntityBySlug,
   getAllEntities,
@@ -32,3 +39,17 @@ export {
   getSiblingEntities,
   buildEntitySummary,
 } from "@/lib/entities/entity-graph";
+
+export {
+  groupEntitiesByType,
+  getEntityNavigationChips,
+  getEntityNavigationForLandingPage,
+  getEntityNavigationForHub,
+  flattenEntityNavigation,
+  buildHubEntitySemanticLine,
+  scoreEntityRelationship,
+  type EntityNavigationChip,
+  type EntityNavigationGroup,
+  type EntityNavigationGroupKey,
+  type EntityNavigation,
+} from "@/lib/entities/entity-navigation";

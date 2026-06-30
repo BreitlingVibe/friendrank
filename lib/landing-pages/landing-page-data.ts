@@ -26,6 +26,7 @@ import {
   getEntityChipsForSlug,
   resolveLandingPageEntities,
 } from "@/lib/entities/entity-utils";
+import { getEntityNavigationForLandingPage } from "@/lib/entities/entity-navigation";
 import { getIntentBySlug } from "@/lib/landing-pages/planning/intent-registry";
 import {
   ANONYMOUS_VOTING_AUDIENCE,
@@ -410,6 +411,7 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
   const formatComparison = resolveFormatComparison(intent.slug, relatedPages);
   const pageEntities = resolveLandingPageEntities(intent.slug);
   const entityChips = getEntityChipsForSlug(intent.slug);
+  const entityNavigation = getEntityNavigationForLandingPage(intent.slug);
 
   return {
     slug: intent.slug,
@@ -466,6 +468,7 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     secondaryEntities: pageEntities.secondaryEntities,
     relatedEntities: pageEntities.relatedEntities,
     entityChips,
+    entityNavigation,
     finalCtaTitle: audience.finalCtaTitle,
     finalCtaSubtitle: audience.finalCtaSubtitle,
     ctaLocation: intent.ctaLocation,

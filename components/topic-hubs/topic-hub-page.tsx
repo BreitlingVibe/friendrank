@@ -8,6 +8,7 @@ import {
   resolveHubSectionCopy,
 } from "@/lib/topic-hubs";
 import { getHubPageContent } from "@/lib/topic-hubs/hub-content";
+import { getEntityNavigationForHub } from "@/lib/entities/entity-navigation";
 import { buildTopicHubBreadcrumbItems } from "@/lib/seo/breadcrumbs";
 import type { HubLandingPageRef, TopicHub } from "@/lib/topic-hubs/hub-types";
 import { CREATE_GAME_HREF } from "@/lib/landing-pages/content/cta-library";
@@ -22,6 +23,7 @@ import {
 } from "@/components/topic-hubs/topic-hub-cards";
 import { TopicHubFaq } from "@/components/topic-hubs/topic-hub-faq";
 import { TopicHubOtherHubs } from "@/components/topic-hubs/topic-hub-other-hubs";
+import { TopicHubEntityNavigation } from "@/components/topic-hubs/topic-hub-entity-navigation";
 import { TopicHubStructuredData } from "@/components/topic-hubs/topic-hub-structured-data";
 
 type TopicHubPageProps = {
@@ -43,6 +45,7 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
   const allLivePages = sortByPriorityDesc(getHubLandingPages(hub.id));
   const plannedPages = sortByPriorityDesc(getHubPlannedPages(hub.id));
   const otherHubs = getAllHubs();
+  const entityNavigation = getEntityNavigationForHub(hub.id);
   const breadcrumbs = buildTopicHubBreadcrumbItems(hub.slug, hub.title);
 
   const featuredTitle = sectionCopy.featuredSectionTitle;
@@ -59,6 +62,7 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
           slug={hub.slug}
           schemaDescription={content.schemaDescription}
           faq={content.faq}
+          entityNavigation={entityNavigation}
         />
       ) : null}
 
@@ -112,6 +116,8 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
             />
           </div>
         </section>
+
+        <TopicHubEntityNavigation navigation={entityNavigation} />
 
         {featuredPages.length > 0 ? (
           <section

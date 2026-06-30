@@ -9,6 +9,10 @@ import {
 } from "@/lib/entities/entity-registry";
 import { getClustersBySlug } from "@/lib/landing-pages/planning/keyword-clusters";
 import { getIntentBySlug } from "@/lib/landing-pages/planning/intent-registry";
+import {
+  resolveEntityNavigationTarget,
+  type EntityLinkKind,
+} from "@/lib/entities/entity-targets";
 import { getAllHubDefinitions } from "@/lib/topic-hubs/hub-registry";
 import { collectHubMemberSlugs } from "@/lib/topic-hubs/hub-utils";
 
@@ -18,7 +22,9 @@ export type LandingPageEntityRef = {
   name: string;
   entityType: EntityType;
   description: string;
-  href: string;
+  href: string | null;
+  clickable: boolean;
+  linkKind: EntityLinkKind | null;
 };
 
 export type LandingPageEntities = {
@@ -56,26 +62,18 @@ const MAX_PRIMARY = 3;
 const MAX_SECONDARY = 4;
 const MAX_CHIP_ENTITIES = 7;
 
-function resolveEntityHref(entity: EntityDefinition): string {
-  if (entity.relatedTopicHubs?.length) {
-    return `/${entity.relatedTopicHubs[0]}`;
-  }
-
-  if (entity.relatedLandingPages?.length) {
-    return `/${entity.relatedLandingPages[0]}`;
-  }
-
-  return `/${entity.slug}`;
-}
-
 function toEntityRef(entity: EntityDefinition): LandingPageEntityRef {
+  const target = resolveEntityNavigationTarget(entity);
+
   return {
     id: entity.id,
     slug: entity.slug,
     name: entity.name,
     entityType: entity.entityType,
     description: entity.description,
-    href: resolveEntityHref(entity),
+    href: target.href,
+    clickable: target.clickable,
+    linkKind: target.linkKind,
   };
 }
 

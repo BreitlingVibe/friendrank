@@ -4,6 +4,7 @@ import {
   type IntentDefinition,
 } from "@/lib/landing-pages/planning/intent-registry";
 import { sharesEntity } from "@/lib/entities/entity-utils";
+import { scoreEntityRelationship } from "@/lib/entities/entity-navigation";
 import { getAllHubDefinitions } from "@/lib/topic-hubs/hub-registry";
 import { collectHubMemberSlugs } from "@/lib/topic-hubs/hub-utils";
 import type { TopicHubDefinition } from "@/lib/topic-hubs/hub-types";
@@ -166,6 +167,13 @@ export function compareRecommendationSlugs(
 
   if (overlapB !== overlapA) {
     return overlapB - overlapA;
+  }
+
+  const entityScoreA = scoreEntityRelationship(sourceSlug, slugA);
+  const entityScoreB = scoreEntityRelationship(sourceSlug, slugB);
+
+  if (entityScoreB !== entityScoreA) {
+    return entityScoreB - entityScoreA;
   }
 
   return intentB.estimatedPriority - intentA.estimatedPriority;
