@@ -172,6 +172,17 @@ export type CtaLocation =
   | "landing_team_introduction_game"
   | "landing_get_to_know_you_game"
   | "landing_meeting_icebreaker"
+  | "landing_would_you_rather_friends"
+  | "landing_never_have_i_ever_friends"
+  | "landing_this_or_that_friends"
+  | "landing_most_likely_to_questions"
+  | "landing_friendship_questions"
+  | "landing_icebreaker_questions"
+  | "landing_team_building_questions"
+  | "landing_party_questions"
+  | "landing_couple_questions"
+  | "landing_question_games"
+  | "homepage_question_games"
   | "homepage_icebreaker_games";
 
 export type CtaClickedParams = {

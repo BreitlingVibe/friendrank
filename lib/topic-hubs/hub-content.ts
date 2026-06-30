@@ -456,6 +456,96 @@ const HUB_CONTENT: Record<string, HubPageContent> = {
     schemaDescription:
       "FriendRank icebreaker games include office icebreakers, classroom icebreakers, and group voting games for new teams and events.",
   },
+  "question-games": {
+    heroParagraphs: [
+      "FriendRank question games turn classic prompts into live group voting. Pick Would You Rather, Never Have I Ever, This or That, or themed question lists, share one link, and let everyone vote on their phone.",
+      "Expect anonymous ballots, ranked winners, and shareable results you can drop back into the chat. No app download and no signup required.",
+      "These work for group chats, parties, date nights, team meetings, and any hangout where you need fresh question prompts fast.",
+    ],
+    featuredSectionTitle: "Start with these favorites",
+    featuredSectionIntro:
+      "Popular question formats to turn into a live voting game in under a minute.",
+    liveSectionTitle: "Explore all games",
+    liveSectionIntro:
+      "Browse every live question game in this category. Each page helps you create a custom game for your group.",
+    comingSoonIntro:
+      "More question games are coming to this category as FriendRank continues expanding.",
+    benefitsTitle: "Why people love these games",
+    benefits: [
+      {
+        title: "Instant conversation",
+        description:
+          "Question prompts get people talking without awkward small talk.",
+      },
+      {
+        title: "Works in any group chat",
+        description:
+          "Share one link in WhatsApp, iMessage, Discord, or Slack and play from any phone.",
+      },
+      {
+        title: "Classic formats, new twist",
+        description:
+          "Would You Rather, Never Have I Ever, and more become group voting games.",
+      },
+      {
+        title: "Anonymous and fun",
+        description:
+          "Votes stay private while results reveal how the group really sees each other.",
+      },
+      {
+        title: "Ready in under a minute",
+        description:
+          "Pick prompts, add names, and share a link before the conversation stalls.",
+      },
+    ],
+    faqTitle: "Question games FAQ",
+    faq: [
+      {
+        question: "What are the best question games for friends?",
+        answer:
+          "Would You Rather, Never Have I Ever, and Most Likely To questions work well because everyone votes on their phone and results unlock together.",
+      },
+      {
+        question: "Can question games work for parties?",
+        answer:
+          "Yes. Party questions and Never Have I Ever style prompts are built for hangouts and group chats.",
+      },
+      {
+        question: "Are question games anonymous?",
+        answer:
+          "Votes are private to each person. The group only sees aggregated winners and results.",
+      },
+      {
+        question: "Can these games be played remotely?",
+        answer:
+          "Yes. Remote groups play the same way by sharing a link in any chat app or video call.",
+      },
+      {
+        question: "Do players need accounts?",
+        answer:
+          "No signup required. One person creates the game and shares the link.",
+      },
+      {
+        question: "Can I use my own questions?",
+        answer:
+          "Yes. Add up to three custom prompts when you create the game.",
+      },
+      {
+        question: "Do question games work for couples?",
+        answer:
+          "Yes. Couple questions pages help pairs vote on playful roles together.",
+      },
+      {
+        question: "How many people can play?",
+        answer:
+          "Add two to eight names when you set up the game.",
+      },
+    ],
+    metaDescription:
+      "Explore question games on FriendRank: Would You Rather, Never Have I Ever, friendship questions, party questions, and live group voting prompts.",
+    schemaDescription:
+      "FriendRank question games include Would You Rather, Never Have I Ever, friendship questions, and party questions turned into live group voting games.",
+  },
 };
 
 export function getHubPageContent(hubId: string): HubPageContent | undefined {

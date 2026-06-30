@@ -480,3 +480,112 @@ export const FUNNY_FRIEND_QUIZ_AUDIENCE = {
   finalCtaSubtitle:
     "Free, mobile-friendly, and ready before the next hangout.",
 } as const;
+
+/** @see AUDIENCE_VERSION */
+export const WOULD_YOU_RATHER_FRIENDS_AUDIENCE = {
+  heroSubtitle:
+    "Turn Would You Rather into a group voting game. Add friends, vote anonymously on hilarious choices, and reveal results together.",
+  playImmediatelyBody:
+    "Create a game on FriendRank, add your group, pick Would You Rather style prompts, share the link, and let everyone vote from the chat.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are Would You Rather questions your friends can vote on.",
+  finalCtaTitle: "Start your Would You Rather game",
+  finalCtaSubtitle:
+    "Free for friend groups. Ready in under a minute.",
+} as const;
+/** @see AUDIENCE_VERSION */
+export const NEVER_HAVE_I_EVER_FRIENDS_AUDIENCE = {
+  heroSubtitle:
+    "Turn Never Have I Ever into a group voting game. Vote anonymously, reveal who gets picked, and share the funniest results.",
+  playImmediatelyBody:
+    "Set up a game, add your friends, choose playful Never Have I Ever prompts, share the link, and let the group vote.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are Never Have I Ever prompts your group can vote on.",
+  finalCtaTitle: "Start your Never Have I Ever game",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready before the next hangout.",
+} as const;
+/** @see AUDIENCE_VERSION */
+export const THIS_OR_THAT_FRIENDS_AUDIENCE = {
+  heroSubtitle:
+    "Make This or That a group voting game. Add friends, vote anonymously on quick choices, and reveal results in seconds.",
+  playImmediatelyBody:
+    "Create a game, add your crew, pick This or That prompts, share the link in chat, and let everyone vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are This or That questions your friends can vote on.",
+  finalCtaTitle: "Start your This or That game",
+  finalCtaSubtitle:
+    "Free for friend groups. Ready in under a minute.",
+} as const;
+/** @see AUDIENCE_VERSION */
+export const MOST_LIKELY_TO_QUESTIONS_AUDIENCE = {
+  heroSubtitle:
+    "Turn Most Likely To questions into a live voting game. Add friends, vote anonymously, and reveal who your group picks.",
+  playImmediatelyBody:
+    "Pick your favorite Most Likely To prompts on FriendRank, add names, share the link, and let everyone vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are Most Likely To questions your group can vote on.",
+  finalCtaTitle: "Start your Most Likely To game",
+  finalCtaSubtitle:
+    "Free, works on any phone, and ready in under a minute.",
+} as const;
+/** @see AUDIENCE_VERSION */
+export const FRIENDSHIP_QUESTIONS_AUDIENCE = {
+  heroSubtitle:
+    "Turn friendship questions into a group voting game. Vote anonymously and reveal how your friends see each other.",
+  playImmediatelyBody:
+    "Add your friend group on FriendRank, choose friendship prompts, share one link, and let everyone vote from the chat.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are friendship questions your group can vote on.",
+  finalCtaTitle: "Start your friendship questions game",
+  finalCtaSubtitle:
+    "Free for friend groups. Ready in under a minute.",
+} as const;
+/** @see AUDIENCE_VERSION */
+export const ICEBREAKER_QUESTIONS_AUDIENCE = {
+  heroSubtitle:
+    "Turn icebreaker questions into a quick voting game. Add people, vote anonymously, and reveal fun roles together.",
+  playImmediatelyBody:
+    "Create a game, add your group, pick icebreaker prompts, share the link, and let everyone vote before you reveal results.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are icebreaker questions your group can vote on.",
+  finalCtaTitle: "Start your icebreaker questions game",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready in under a minute.",
+} as const;
+/** @see AUDIENCE_VERSION */
+export const TEAM_BUILDING_QUESTIONS_AUDIENCE = {
+  heroSubtitle:
+    "Turn team building questions into a quick coworker voting game. Vote anonymously and reveal lighthearted results together.",
+  playImmediatelyBody:
+    "Add your team on FriendRank, pick workplace-friendly prompts, share the link in Slack or meeting chat, and let everyone vote.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are team building questions your coworkers can vote on.",
+  finalCtaTitle: "Start your team building questions game",
+  finalCtaSubtitle:
+    "Free for workplace teams. Ready before your next sync.",
+} as const;
+/** @see AUDIENCE_VERSION */
+export const PARTY_QUESTIONS_AUDIENCE = {
+  heroSubtitle:
+    "Turn party questions into a live voting game. Add friends, vote anonymously, and reveal the funniest group picks.",
+  playImmediatelyBody:
+    "Create a game before the party starts, add your crew, share the link, and let guests vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are party questions your group can vote on.",
+  finalCtaTitle: "Start your party questions game",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready before the party gets going.",
+} as const;
+/** @see AUDIENCE_VERSION */
+export const COUPLE_QUESTIONS_AUDIENCE = {
+  heroSubtitle:
+    "Turn couple questions into a fun voting game. Vote anonymously on romantic roles and reveal results together.",
+  playImmediatelyBody:
+    "Add both names on FriendRank, pick couple prompts, share the link, and vote together on date night or over video call.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are couple questions to play together.",
+  finalCtaTitle: "Start your couple questions game",
+  finalCtaSubtitle:
+    "Free for couples. Ready to share in under a minute.",
+} as const;

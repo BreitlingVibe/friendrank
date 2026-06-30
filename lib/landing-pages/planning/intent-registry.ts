@@ -335,7 +335,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "This or That style prompts adapted to a friend group voting game.",
     audience: "Friend groups, casual icebreakers, group chats",
     estimatedPriority: 42,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "never-have-i-ever-friends",
@@ -345,7 +345,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Never Have I Ever style social game with group voting mechanics.",
     audience: "Friend groups, parties, casual hangouts",
     estimatedPriority: 40,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "would-you-rather-friends",
@@ -355,6 +355,116 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Would You Rather prompts as a group voting game for friends.",
     audience: "Friend groups, party games, online chats",
     estimatedPriority: 38,
+    status: "live",
+  },
+  {
+    slug: "most-likely-to-questions",
+    title: "Most Likely To Questions",
+    intentCategory: INTENT_CATEGORIES.SOCIAL_VOTING,
+    searchIntent:
+      "Most Likely To question prompts turned into a live friend group voting game.",
+    audience: "Friend groups, parties, college groups, Discord communities",
+    estimatedPriority: 44,
+    status: "live",
+  },
+  {
+    slug: "friendship-questions",
+    title: "Friendship Questions",
+    intentCategory: INTENT_CATEGORIES.FRIENDSHIP,
+    searchIntent:
+      "Friendship question prompts for a group voting game with anonymous results.",
+    audience: "Close friend groups, roommates, group chats",
+    estimatedPriority: 43,
+    status: "live",
+  },
+  {
+    slug: "icebreaker-questions",
+    title: "Icebreaker Questions",
+    intentCategory: INTENT_CATEGORIES.ICEBREAKERS,
+    searchIntent:
+      "Icebreaker question prompts for new groups with phone-based group voting.",
+    audience: "Teams, classrooms, events, new friend groups",
+    estimatedPriority: 42,
+    status: "live",
+  },
+  {
+    slug: "team-building-questions",
+    title: "Team Building Questions",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Team building question prompts for workplace group voting activities.",
+    audience: "Office teams, remote teams, managers, HR socials",
+    estimatedPriority: 41,
+    status: "live",
+  },
+  {
+    slug: "party-questions",
+    title: "Party Questions",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Party question prompts for friend group voting games at hangouts.",
+    audience: "Party hosts, birthday groups, college parties, hangouts",
+    estimatedPriority: 40,
+    status: "live",
+  },
+  {
+    slug: "couple-questions",
+    title: "Couple Questions",
+    intentCategory: INTENT_CATEGORIES.RELATIONSHIPS,
+    searchIntent:
+      "Couple question prompts for a playful relationship voting game.",
+    audience: "Couples, date nights, double dates, friend groups",
+    estimatedPriority: 39,
+    status: "live",
+  },
+  {
+    slug: "truth-or-dare-questions",
+    title: "Truth or Dare Questions",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Truth or dare style question prompts adapted to a group voting game.",
+    audience: "Friend groups, parties, casual hangouts",
+    estimatedPriority: 36,
+    status: "planned",
+  },
+  {
+    slug: "deep-questions-for-friends",
+    title: "Deep Questions for Friends",
+    intentCategory: INTENT_CATEGORIES.FRIENDSHIP,
+    searchIntent:
+      "Deep conversation questions for close friend groups with group voting.",
+    audience: "Close friend groups, late-night hangouts, meaningful conversations",
+    estimatedPriority: 35,
+    status: "planned",
+  },
+  {
+    slug: "funny-questions",
+    title: "Funny Questions",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Funny question prompts for a lighthearted friend group voting game.",
+    audience: "Friend groups, parties, meme-heavy group chats",
+    estimatedPriority: 34,
+    status: "planned",
+  },
+  {
+    slug: "random-questions",
+    title: "Random Questions",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Random question prompts for spontaneous friend group voting games.",
+    audience: "Friend groups, casual game nights, group chats",
+    estimatedPriority: 33,
+    status: "planned",
+  },
+  {
+    slug: "conversation-starters",
+    title: "Conversation Starters",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Conversation starter prompts turned into a group voting game for friends.",
+    audience: "New groups, dates, team socials, friend meetups",
+    estimatedPriority: 32,
     status: "planned",
   },
   {

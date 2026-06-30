@@ -245,3 +245,49 @@ export const MEETING_ICEBREAKER_PRIMARY_CTA: LandingPageCta = {
   label: "Create Meeting Icebreaker",
   href: CREATE_GAME_HREF,
 };
+
+/** @see CTA_VERSION */
+export const WOULD_YOU_RATHER_FRIENDS_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Would You Rather Game",
+  href: CREATE_GAME_HREF,
+};
+/** @see CTA_VERSION */
+export const NEVER_HAVE_I_EVER_FRIENDS_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Never Have I Ever Game",
+  href: CREATE_GAME_HREF,
+};
+/** @see CTA_VERSION */
+export const THIS_OR_THAT_FRIENDS_PRIMARY_CTA: LandingPageCta = {
+  label: "Create This or That Game",
+  href: CREATE_GAME_HREF,
+};
+/** @see CTA_VERSION */
+export const MOST_LIKELY_TO_QUESTIONS_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Most Likely To Game",
+  href: CREATE_GAME_HREF,
+};
+/** @see CTA_VERSION */
+export const FRIENDSHIP_QUESTIONS_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Friendship Questions Game",
+  href: CREATE_GAME_HREF,
+};
+/** @see CTA_VERSION */
+export const ICEBREAKER_QUESTIONS_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Icebreaker Questions Game",
+  href: CREATE_GAME_HREF,
+};
+/** @see CTA_VERSION */
+export const TEAM_BUILDING_QUESTIONS_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Team Building Questions Game",
+  href: CREATE_GAME_HREF,
+};
+/** @see CTA_VERSION */
+export const PARTY_QUESTIONS_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Party Questions Game",
+  href: CREATE_GAME_HREF,
+};
+/** @see CTA_VERSION */
+export const COUPLE_QUESTIONS_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Couple Questions Game",
+  href: CREATE_GAME_HREF,
+};

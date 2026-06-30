@@ -211,9 +211,44 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
     memberSlugs: [
       "social-game",
       "group-questions",
+    ],
+  },
+  {
+    id: "questions",
+    name: "Questions",
+    description:
+      "Question prompts and formats turned into live friend group voting games.",
+    primaryKeyword: "questions for friends",
+    supportingKeywords: [
+      "would you rather friends",
+      "never have i ever friends",
+      "this or that friends",
+      "most likely to questions",
+      "friendship questions",
+      "icebreaker questions",
+      "party questions",
+      "couple questions",
+      "team building questions",
+    ],
+    targetAudience:
+      "Friend groups, parties, teams, couples, and hosts looking for question prompts",
+    searchIntent:
+      "Find question prompts to play as a live group voting game with friends online.",
+    memberSlugs: [
       "would-you-rather-friends",
       "never-have-i-ever-friends",
       "this-or-that-friends",
+      "most-likely-to-questions",
+      "friendship-questions",
+      "icebreaker-questions",
+      "team-building-questions",
+      "party-questions",
+      "couple-questions",
+      "truth-or-dare-questions",
+      "deep-questions-for-friends",
+      "funny-questions",
+      "random-questions",
+      "conversation-starters",
     ],
   },
 ];

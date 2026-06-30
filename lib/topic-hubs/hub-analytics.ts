@@ -6,6 +6,7 @@ const HUB_CTA_LOCATION_BY_ID: Record<string, CtaLocation> = {
   "team-building-games": "landing_team_building_games",
   "relationship-games": "landing_relationship_games",
   "icebreaker-games": "landing_icebreaker_games",
+  "question-games": "landing_question_games",
 };
 
 const HOMEPAGE_HUB_CTA_LOCATION_BY_ID: Record<string, CtaLocation> = {
@@ -14,6 +15,7 @@ const HOMEPAGE_HUB_CTA_LOCATION_BY_ID: Record<string, CtaLocation> = {
   "team-building-games": "homepage_team_building_games",
   "relationship-games": "homepage_relationship_games",
   "icebreaker-games": "homepage_icebreaker_games",
+  "question-games": "homepage_question_games",
 };
 
 export function getTopicHubCtaLocation(hubId: string): CtaLocation {

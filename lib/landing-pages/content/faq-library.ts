@@ -1628,3 +1628,391 @@ export const MEETING_ICEBREAKER_FAQ: LandingPageFaqItem[] = [
       "After enough votes are in, results open on the same link for everyone.",
   },
 ];
+
+/** @see FAQ_VERSION */
+export const WOULD_YOU_RATHER_FRIENDS_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is would you rather for friends?",
+    answer:
+      "It is a collection of prompts turned into a group voting game. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "How does FriendRank work?",
+    answer:
+      "Add names, pick prompts, share one link, vote anonymously on phones, and reveal results together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone.",
+  },
+];
+/** @see FAQ_VERSION */
+export const NEVER_HAVE_I_EVER_FRIENDS_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is never have i ever for friends?",
+    answer:
+      "It is a collection of prompts turned into a group voting game. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "How does FriendRank work?",
+    answer:
+      "Add names, pick prompts, share one link, vote anonymously on phones, and reveal results together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone.",
+  },
+];
+/** @see FAQ_VERSION */
+export const THIS_OR_THAT_FRIENDS_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is this or that for friends?",
+    answer:
+      "It is a collection of prompts turned into a group voting game. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "How does FriendRank work?",
+    answer:
+      "Add names, pick prompts, share one link, vote anonymously on phones, and reveal results together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone.",
+  },
+];
+/** @see FAQ_VERSION */
+export const MOST_LIKELY_TO_QUESTIONS_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is most likely to questions?",
+    answer:
+      "It is a collection of prompts turned into a group voting game. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "How does FriendRank work?",
+    answer:
+      "Add names, pick prompts, share one link, vote anonymously on phones, and reveal results together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone.",
+  },
+];
+/** @see FAQ_VERSION */
+export const FRIENDSHIP_QUESTIONS_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is friendship questions?",
+    answer:
+      "It is a collection of prompts turned into a group voting game. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "How does FriendRank work?",
+    answer:
+      "Add names, pick prompts, share one link, vote anonymously on phones, and reveal results together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone.",
+  },
+];
+/** @see FAQ_VERSION */
+export const ICEBREAKER_QUESTIONS_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is icebreaker questions?",
+    answer:
+      "It is a collection of prompts turned into a group voting game. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "How does FriendRank work?",
+    answer:
+      "Add names, pick prompts, share one link, vote anonymously on phones, and reveal results together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone.",
+  },
+];
+/** @see FAQ_VERSION */
+export const TEAM_BUILDING_QUESTIONS_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is team building questions?",
+    answer:
+      "It is a collection of prompts turned into a group voting game. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "How does FriendRank work?",
+    answer:
+      "Add names, pick prompts, share one link, vote anonymously on phones, and reveal results together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone.",
+  },
+];
+/** @see FAQ_VERSION */
+export const PARTY_QUESTIONS_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is party questions?",
+    answer:
+      "It is a collection of prompts turned into a group voting game. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "How does FriendRank work?",
+    answer:
+      "Add names, pick prompts, share one link, vote anonymously on phones, and reveal results together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone.",
+  },
+];
+/** @see FAQ_VERSION */
+export const COUPLE_QUESTIONS_FAQ: LandingPageFaqItem[] = [
+  {
+    question: "What is couple questions?",
+    answer:
+      "It is a collection of prompts turned into a group voting game. FriendRank handles voting, results, and sharing in one link.",
+  },
+  {
+    question: "How does FriendRank work?",
+    answer:
+      "Add names, pick prompts, share one link, vote anonymously on phones, and reveal results together.",
+  },
+  {
+    question: "Is voting anonymous?",
+    answer:
+      "Yes. Votes stay private. The group sees winners and results only.",
+  },
+  {
+    question: "Do players need accounts?",
+    answer:
+      "No signup required. Create a game and share the link.",
+  },
+  {
+    question: "Can I customize the questions?",
+    answer:
+      "Yes. Enter up to three custom prompts when you create the game.",
+  },
+  {
+    question: "Does it work on mobile?",
+    answer:
+      "Yes. Share the link in any chat app and vote from your phone.",
+  },
+  {
+    question: "How many people can play?",
+    answer:
+      "Add two to eight names when you set up the game.",
+  },
+  {
+    question: "When do results unlock?",
+    answer:
+      "After enough votes are in, results open on the same link for everyone.",
+  },
+];
