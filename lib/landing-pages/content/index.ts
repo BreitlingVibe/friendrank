@@ -343,3 +343,5 @@ export {
   CONVERSATION_STARTER_QUESTIONS_INTENT,
   getCanonicalUrl,
 } from "@/lib/landing-pages/content/intent-library";
+
+export * from "@/lib/landing-pages/content/audience-authority-content";

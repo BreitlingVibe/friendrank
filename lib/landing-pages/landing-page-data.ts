@@ -1,5 +1,6 @@
 import type { CtaLocation } from "@/lib/analytics";
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
+import { registerAudienceAuthorityPages } from "@/lib/landing-pages/audience-authority-pages";
 import { getRelatedLandingPageItems } from "@/lib/landing-pages/internal-links";
 import {
   getPopularSearchLinks,
@@ -892,6 +893,30 @@ export const conversationStarterQuestionsPage = assembleLandingPage({
   exampleQuestions: CONVERSATION_STARTER_QUESTIONS_QUESTIONS,
 });
 
+export const {
+  gamesForLargeGroupsPage,
+  gamesForSmallGroupsPage,
+  gamesForRoommatesPage,
+  gamesForCollegeStudentsPage,
+  gamesForWorkMeetingsPage,
+  gamesForRemoteTeamsPage,
+  fridayTeamGamesPage,
+  teamLunchGamesPage,
+  longDistanceCoupleGamesPage,
+  newlyDatingGamesPage,
+  marriedCoupleGamesPage,
+  doubleDateGamesPage,
+  sleepoverGamesPage,
+  housePartyGamesPage,
+  birthdayPartyGamesPage,
+  bachelorettePartyGamesPage,
+  gamesForAdultsPage,
+  gamesForTeensPage,
+  gamesForFamiliesPage,
+  gamesForGroupsPage,
+  pages: audienceAuthorityLandingPages,
+} = registerAudienceAuthorityPages({ assembleLandingPage });
+
 export const LANDING_PAGES: LandingPageData[] = [
   mostLikelyToGeneratorPage,
   bestFriendQuizPage,
@@ -954,6 +979,7 @@ export const LANDING_PAGES: LandingPageData[] = [
   drinkingQuestionsPage,
   birthdayQuestionsPage,
   conversationStarterQuestionsPage,
+  ...audienceAuthorityLandingPages,
 ];
 
 export function getLandingPageBySlug(slug: string): LandingPageData | undefined {

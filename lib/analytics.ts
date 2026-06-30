@@ -198,7 +198,27 @@ export type CtaLocation =
   | "landing_drinking_questions"
   | "landing_birthday_questions"
   | "landing_conversation_starter_questions"
-  | "homepage_icebreaker_games";
+  | "homepage_icebreaker_games"
+  | "landing_games_for_large_groups"
+  | "landing_games_for_small_groups"
+  | "landing_games_for_roommates"
+  | "landing_games_for_college_students"
+  | "landing_games_for_work_meetings"
+  | "landing_games_for_remote_teams"
+  | "landing_friday_team_games"
+  | "landing_team_lunch_games"
+  | "landing_long_distance_couple_games"
+  | "landing_newly_dating_games"
+  | "landing_married_couple_games"
+  | "landing_double_date_games"
+  | "landing_sleepover_games"
+  | "landing_house_party_games"
+  | "landing_birthday_party_games"
+  | "landing_bachelorette_party_games"
+  | "landing_games_for_adults"
+  | "landing_games_for_teens"
+  | "landing_games_for_families"
+  | "landing_games_for_groups";
 
 export type CtaClickedParams = {
   location: CtaLocation;

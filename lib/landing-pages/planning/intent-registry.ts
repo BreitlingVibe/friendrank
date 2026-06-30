@@ -727,6 +727,206 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
     estimatedPriority: 45,
     status: "live",
   },
+  {
+    slug: "games-for-large-groups",
+    title: "Games for Large Groups",
+    intentCategory: INTENT_CATEGORIES.SOCIAL_VOTING,
+    searchIntent:
+      "Find browser games for large groups with anonymous phone voting and one shared link.",
+    audience: "Large friend groups, reunions, big parties, and event hosts",
+    estimatedPriority: 52,
+    status: "live",
+  },
+  {
+    slug: "games-for-small-groups",
+    title: "Games for Small Groups",
+    intentCategory: INTENT_CATEGORIES.FRIENDSHIP,
+    searchIntent:
+      "Find intimate browser games for small groups with anonymous voting and shared results.",
+    audience: "Small friend circles, trios, foursomes, and tight hangouts",
+    estimatedPriority: 51,
+    status: "live",
+  },
+  {
+    slug: "games-for-roommates",
+    title: "Games for Roommates",
+    intentCategory: INTENT_CATEGORIES.FRIENDSHIP,
+    searchIntent:
+      "Find funny roommate games with anonymous voting and shareable results in the browser.",
+    audience: "Roommates, housemates, and shared-living friend groups",
+    estimatedPriority: 50,
+    status: "live",
+  },
+  {
+    slug: "games-for-college-students",
+    title: "Games for College Students",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find browser games for college students with anonymous voting and one link for the group chat.",
+    audience: "College students, dorm groups, campus clubs, and student friend circles",
+    estimatedPriority: 49,
+    status: "live",
+  },
+  {
+    slug: "games-for-work-meetings",
+    title: "Games for Work Meetings",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Find light games for work meetings with anonymous voting that works on phones in minutes.",
+    audience: "Managers, team leads, and coworkers in meetings and workshops",
+    estimatedPriority: 48,
+    status: "live",
+  },
+  {
+    slug: "games-for-remote-teams",
+    title: "Games for Remote Teams",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Find browser games for remote teams with anonymous voting over video calls and chat apps.",
+    audience: "Remote teams, distributed coworkers, and virtual team leads",
+    estimatedPriority: 47,
+    status: "live",
+  },
+  {
+    slug: "friday-team-games",
+    title: "Friday Team Games",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Find fun Friday team games with anonymous voting to end the work week on a light note.",
+    audience: "Office teams, managers, and coworkers winding down on Fridays",
+    estimatedPriority: 46,
+    status: "live",
+  },
+  {
+    slug: "team-lunch-games",
+    title: "Team Lunch Games",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Find quick team lunch games with anonymous phone voting while everyone eats together.",
+    audience: "Coworkers, managers, and office teams at lunch or team meals",
+    estimatedPriority: 45,
+    status: "live",
+  },
+  {
+    slug: "long-distance-couple-games",
+    title: "Long Distance Couple Games",
+    intentCategory: INTENT_CATEGORIES.RELATIONSHIPS,
+    searchIntent:
+      "Find browser games for long-distance couples with anonymous voting over video calls.",
+    audience: "Long-distance couples, partners in different cities, and LDR relationships",
+    estimatedPriority: 44,
+    status: "live",
+  },
+  {
+    slug: "newly-dating-games",
+    title: "Newly Dating Games",
+    intentCategory: INTENT_CATEGORIES.RELATIONSHIPS,
+    searchIntent:
+      "Find light games for newly dating couples with anonymous voting and playful results.",
+    audience: "New couples, early dating pairs, and people in the first few months together",
+    estimatedPriority: 43,
+    status: "live",
+  },
+  {
+    slug: "married-couple-games",
+    title: "Married Couple Games",
+    intentCategory: INTENT_CATEGORIES.RELATIONSHIPS,
+    searchIntent:
+      "Find fun games for married couples with anonymous voting and shareable results at home.",
+    audience: "Married couples, long-term partners, and spouses at home or on date night",
+    estimatedPriority: 42,
+    status: "live",
+  },
+  {
+    slug: "double-date-games",
+    title: "Double Date Games",
+    intentCategory: INTENT_CATEGORIES.RELATIONSHIPS,
+    searchIntent:
+      "Find games for double dates with anonymous group voting and shareable results for four people.",
+    audience: "Couples on double dates, friend couples, and pairs hanging out together",
+    estimatedPriority: 41,
+    status: "live",
+  },
+  {
+    slug: "sleepover-games",
+    title: "Sleepover Games",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find sleepover games with anonymous phone voting and funny late-night results.",
+    audience: "Friend groups at sleepovers, overnight hangs, and late-night get-togethers",
+    estimatedPriority: 40,
+    status: "live",
+  },
+  {
+    slug: "house-party-games",
+    title: "House Party Games",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find house party games with anonymous phone voting and one link for the whole room.",
+    audience: "House party hosts, friend groups, and casual home celebrations",
+    estimatedPriority: 39,
+    status: "live",
+  },
+  {
+    slug: "birthday-party-games",
+    title: "Birthday Party Games",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find birthday party games with anonymous voting and shareable results for the celebration.",
+    audience: "Birthday hosts, party guests, and friend groups celebrating together",
+    estimatedPriority: 38,
+    status: "live",
+  },
+  {
+    slug: "bachelorette-party-games",
+    title: "Bachelorette Party Games",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find bachelorette party games with anonymous voting and funny bridal-party results.",
+    audience: "Bachelorette parties, bridal groups, and wedding celebration weekends",
+    estimatedPriority: 37,
+    status: "live",
+  },
+  {
+    slug: "games-for-adults",
+    title: "Games for Adults",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find browser games for adults with anonymous voting and funny group results.",
+    audience: "Adult friend groups, house parties, and grown-up hangouts",
+    estimatedPriority: 36,
+    status: "live",
+  },
+  {
+    slug: "games-for-teens",
+    title: "Games for Teens",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Find browser games for teens with anonymous voting and shareable group results.",
+    audience: "Teen friend groups, youth hangouts, and high school social circles",
+    estimatedPriority: 35,
+    status: "live",
+  },
+  {
+    slug: "games-for-families",
+    title: "Games for Families",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Find browser games for families with anonymous voting that works for mixed ages.",
+    audience: "Families, relatives, holiday gatherings, and mixed-age groups",
+    estimatedPriority: 34,
+    status: "live",
+  },
+  {
+    slug: "games-for-groups",
+    title: "Games for Groups",
+    intentCategory: INTENT_CATEGORIES.SOCIAL_VOTING,
+    searchIntent:
+      "Find browser games for groups with anonymous voting and one shared link.",
+    audience: "General groups, friend circles, events, and any social gathering",
+    estimatedPriority: 53,
+    status: "live",
+  },
 ];
 
 export function getIntentBySlug(slug: string): IntentDefinition | undefined {
