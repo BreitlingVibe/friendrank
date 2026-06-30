@@ -6,12 +6,14 @@ type LandingPageRelatedProps = {
   title: string;
   pages: LandingPageRelatedPage[];
   headingId?: string;
+  explanation?: string;
 };
 
 export function LandingPageRelated({
   title,
   pages,
   headingId = "landing-related-heading",
+  explanation,
 }: LandingPageRelatedProps) {
   if (pages.length === 0) {
     return null;
@@ -29,6 +31,11 @@ export function LandingPageRelated({
         >
           {title}
         </h2>
+        {explanation ? (
+          <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-slate-500">
+            {explanation}
+          </p>
+        ) : null}
         <ul className="mt-10 flex flex-wrap justify-center gap-3">
           {pages.map((page) =>
             page.available ? (

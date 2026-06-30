@@ -21,6 +21,7 @@ import {
   getLiveIntents,
 } from "@/lib/landing-pages/planning/intent-registry";
 import { scoreEntityRelationship } from "@/lib/entities/entity-navigation";
+import { scoreEntityAuthorityAlignment } from "@/lib/entities/entity-authority";
 import { getSharedEntityIds } from "@/lib/entities/entity-utils";
 import { getRecommendedTopicHubs } from "@/lib/topic-hubs/hub-recommendations";
 import {
@@ -118,6 +119,7 @@ export function getYouMayAlsoLikeItems(
       candidateSlug,
       tier: RECOMMENDATION_TIER_ORDER[getRecommendationTier(slug, candidateSlug)],
       crossHubBoost,
+      authorityScore: scoreEntityAuthorityAlignment(slug, candidateSlug),
       priority: getIntentBySlug(candidateSlug)?.estimatedPriority ?? 0,
     };
   });
@@ -129,6 +131,10 @@ export function getYouMayAlsoLikeItems(
 
     if (entryB.crossHubBoost !== entryA.crossHubBoost) {
       return entryB.crossHubBoost - entryA.crossHubBoost;
+    }
+
+    if (entryB.authorityScore !== entryA.authorityScore) {
+      return entryB.authorityScore - entryA.authorityScore;
     }
 
     return entryB.priority - entryA.priority;
@@ -373,6 +379,7 @@ export function getPlayersAlsoEnjoyItems(
       }
 
       score += Math.min(scoreEntityRelationship(slug, intent.slug), 18);
+      score += scoreEntityAuthorityAlignment(slug, intent.slug);
 
       if (tier === "entity") {
         score += 14;

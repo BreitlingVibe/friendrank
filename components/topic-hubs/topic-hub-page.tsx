@@ -9,6 +9,7 @@ import {
 } from "@/lib/topic-hubs";
 import { getHubPageContent } from "@/lib/topic-hubs/hub-content";
 import { getEntityNavigationForHub } from "@/lib/entities/entity-navigation";
+import { getHubAuthorityPanel } from "@/lib/entities/entity-authority";
 import { buildTopicHubBreadcrumbItems } from "@/lib/seo/breadcrumbs";
 import type { HubLandingPageRef, TopicHub } from "@/lib/topic-hubs/hub-types";
 import { CREATE_GAME_HREF } from "@/lib/landing-pages/content/cta-library";
@@ -24,6 +25,7 @@ import {
 import { TopicHubFaq } from "@/components/topic-hubs/topic-hub-faq";
 import { TopicHubOtherHubs } from "@/components/topic-hubs/topic-hub-other-hubs";
 import { TopicHubEntityNavigation } from "@/components/topic-hubs/topic-hub-entity-navigation";
+import { TopicHubAuthorityPanel } from "@/components/topic-hubs/topic-hub-authority-panel";
 import { TopicHubStructuredData } from "@/components/topic-hubs/topic-hub-structured-data";
 
 type TopicHubPageProps = {
@@ -46,6 +48,7 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
   const plannedPages = sortByPriorityDesc(getHubPlannedPages(hub.id));
   const otherHubs = getAllHubs();
   const entityNavigation = getEntityNavigationForHub(hub.id);
+  const hubAuthorityPanel = getHubAuthorityPanel(hub.id);
   const breadcrumbs = buildTopicHubBreadcrumbItems(hub.slug, hub.title);
 
   const featuredTitle = sectionCopy.featuredSectionTitle;
@@ -118,6 +121,8 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
         </section>
 
         <TopicHubEntityNavigation navigation={entityNavigation} />
+
+        <TopicHubAuthorityPanel panel={hubAuthorityPanel} />
 
         {featuredPages.length > 0 ? (
           <section

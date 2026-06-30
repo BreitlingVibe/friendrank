@@ -2,6 +2,10 @@ import type { CtaLocation } from "@/lib/analytics";
 import type { HowToPlayContent } from "@/lib/landing-pages/content/how-to-play-library";
 import type { BestForTag } from "@/lib/landing-pages/best-for-tags";
 import type { FormatComparison } from "@/lib/landing-pages/format-comparison";
+import type {
+  EntityAuthorityPanel,
+  RelatedSectionExplanations,
+} from "@/lib/entities/entity-authority";
 import type { EntityNavigation } from "@/lib/entities/entity-navigation";
 import type { LandingPageEntityRef } from "@/lib/entities/entity-utils";
 import type { Tone, VibeTag } from "@/lib/game-build";
@@ -100,6 +104,12 @@ export type LandingPageData = {
   entityChips: LandingPageEntityRef[];
   /** Registry-driven entity explorer groups. */
   entityNavigation: EntityNavigation;
+  /** Registry-driven authority bullets for this page. */
+  entityAuthorityPanel: EntityAuthorityPanel;
+  /** Natural-language summary from primary entities. */
+  entitySummary?: string;
+  /** Short entity-based explanations for recommendation sections. */
+  relatedSectionExplanations: RelatedSectionExplanations;
   finalCtaTitle: string;
   finalCtaSubtitle: string;
   ctaLocation: CtaLocation;

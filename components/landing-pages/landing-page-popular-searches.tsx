@@ -4,11 +4,13 @@ import { PRODUCTION_APP_URL } from "@/lib/app-url";
 type LandingPagePopularSearchesProps = {
   title: string;
   links: PopularSearchLink[];
+  explanation?: string;
 };
 
 export function LandingPagePopularSearches({
   title,
   links,
+  explanation,
 }: LandingPagePopularSearchesProps) {
   if (links.length === 0) {
     return null;
@@ -26,6 +28,11 @@ export function LandingPagePopularSearches({
         >
           {title}
         </h2>
+        {explanation ? (
+          <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-slate-500">
+            {explanation}
+          </p>
+        ) : null}
         <ul className="mt-10 flex flex-wrap justify-center gap-3">
           {links.map((link) => (
             <li key={`${link.kind}-${link.slug}`}>

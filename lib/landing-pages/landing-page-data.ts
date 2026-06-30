@@ -27,6 +27,11 @@ import {
   resolveLandingPageEntities,
 } from "@/lib/entities/entity-utils";
 import { getEntityNavigationForLandingPage } from "@/lib/entities/entity-navigation";
+import {
+  buildLandingPageEntitySummary,
+  buildRelatedSectionExplanations,
+  getLandingPageAuthorityPanel,
+} from "@/lib/entities/entity-authority";
 import { getIntentBySlug } from "@/lib/landing-pages/planning/intent-registry";
 import {
   ANONYMOUS_VOTING_AUDIENCE,
@@ -412,6 +417,19 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
   const pageEntities = resolveLandingPageEntities(intent.slug);
   const entityChips = getEntityChipsForSlug(intent.slug);
   const entityNavigation = getEntityNavigationForLandingPage(intent.slug);
+  const entityAuthorityPanel = getLandingPageAuthorityPanel(intent.slug);
+  const entitySummary = buildLandingPageEntitySummary(intent.slug) ?? undefined;
+  const relatedSectionExplanations = buildRelatedSectionExplanations(
+    intent.slug,
+    {
+      relatedPages: relatedPages.map((page) => page.slug),
+      playersAlsoEnjoy: playersAlsoEnjoy.map((page) => page.slug),
+      youMayAlsoLike: youMayAlsoLike.map((page) => page.slug),
+      popularSearches: popularSearches
+        .filter((link) => link.kind === "landing")
+        .map((link) => link.slug),
+    },
+  );
 
   return {
     slug: intent.slug,
@@ -469,6 +487,9 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     relatedEntities: pageEntities.relatedEntities,
     entityChips,
     entityNavigation,
+    entityAuthorityPanel,
+    entitySummary,
+    relatedSectionExplanations,
     finalCtaTitle: audience.finalCtaTitle,
     finalCtaSubtitle: audience.finalCtaSubtitle,
     ctaLocation: intent.ctaLocation,

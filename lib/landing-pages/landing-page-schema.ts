@@ -87,12 +87,20 @@ function buildEntityStructuredNodes(
 }
 
 function buildMentionNodes(pageUrl: string, entities: LandingPageEntityRef[]) {
-  return entities.map((entity) => ({
-    "@type": "Thing",
-    "@id": `${pageUrl}/#entity-${entity.id}`,
-    name: entity.name,
-    description: entity.description,
-  }));
+  return entities.map((entity) => {
+    const registryEntity = getEntity(entity.id);
+    const description =
+      registryEntity != null
+        ? buildEntitySummary(registryEntity)
+        : entity.description;
+
+    return {
+      "@type": "Thing",
+      "@id": `${pageUrl}/#entity-${entity.id}`,
+      name: entity.name,
+      description,
+    };
+  });
 }
 
 function buildEntityExplorerItemList(

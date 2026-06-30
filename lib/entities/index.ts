@@ -53,3 +53,15 @@ export {
   type EntityNavigationGroupKey,
   type EntityNavigation,
 } from "@/lib/entities/entity-navigation";
+
+export {
+  getLandingPageAuthorityPanel,
+  getHubAuthorityPanel,
+  buildLandingPageEntitySummary,
+  buildRelatedTopicsExplanation,
+  buildRelatedSectionExplanations,
+  scoreEntityAuthorityAlignment,
+  type EntityAuthorityBullet,
+  type EntityAuthorityPanel,
+  type RelatedSectionExplanations,
+} from "@/lib/entities/entity-authority";

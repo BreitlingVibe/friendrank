@@ -13,6 +13,7 @@ import { LandingPagePlayersAlsoEnjoy } from "@/components/landing-pages/landing-
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
 import { LandingPageTrustSection } from "@/components/landing-pages/landing-page-trust-section";
 import { EntityExplorer } from "@/components/shared/entity-explorer";
+import { EntityAuthorityPanelSection } from "@/components/shared/entity-authority-panel";
 import { SemanticBreadcrumbs } from "@/components/shared/semantic-breadcrumbs";
 import { SiteAuthorityFooter } from "@/components/shared/site-authority-footer";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
@@ -49,6 +50,13 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
         <EntityExplorer
           navigation={page.entityNavigation}
           headingId="landing-entity-explorer-heading"
+        />
+
+        <EntityAuthorityPanelSection
+          panel={page.entityAuthorityPanel}
+          headingId="landing-entity-authority-heading"
+          summary={page.entitySummary}
+          summaryId="landing-entity-summary"
         />
 
         <section
@@ -154,22 +162,26 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
         <LandingPagePlayersAlsoEnjoy
           title={page.playersAlsoEnjoyTitle}
           pages={page.playersAlsoEnjoy}
+          explanation={page.relatedSectionExplanations.playersAlsoEnjoy}
         />
 
         <LandingPageRelated
           title={page.youMayAlsoLikeTitle}
           pages={page.youMayAlsoLike}
           headingId="landing-you-may-also-like-heading"
+          explanation={page.relatedSectionExplanations.youMayAlsoLike}
         />
 
         <LandingPageRelated
           title={page.relatedPagesTitle}
           pages={page.relatedPages}
+          explanation={page.relatedSectionExplanations.relatedPages}
         />
 
         <LandingPagePopularSearches
           title={page.popularSearchesTitle}
           links={page.popularSearches}
+          explanation={page.relatedSectionExplanations.popularSearches}
         />
 
         <LandingPageTrustSection />
