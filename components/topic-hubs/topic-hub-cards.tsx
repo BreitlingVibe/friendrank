@@ -19,6 +19,7 @@ export function TopicHubLiveCard({
       <div className="mt-6">
         <Link
           href={`/${page.slug}`}
+          aria-label={`${ctaLabel}: ${page.title}`}
           className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-violet-400/45 hover:bg-violet-500/15 hover:text-white"
         >
           {ctaLabel}
@@ -36,6 +37,7 @@ export function TopicHubComingSoonCard({ page }: TopicHubComingSoonCardProps) {
   return (
     <article
       aria-disabled="true"
+      aria-label={`${page.title} coming soon`}
       className="flex h-full flex-col rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-6"
     >
       <div className="flex items-start justify-between gap-3">

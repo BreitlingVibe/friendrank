@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { TopicHubPage } from "@/components/topic-hubs/topic-hub-page";
 import { getHub } from "@/lib/topic-hubs";
+import { getHubPageContent } from "@/lib/topic-hubs/hub-content";
 import { buildTopicHubMetadata } from "@/lib/seo/page-metadata";
 
 export function createTopicHubRoute(hubId: string) {
@@ -22,7 +23,8 @@ export function createTopicHubRoute(hubId: string) {
 
     return buildTopicHubMetadata({
       title: hub.title,
-      description: hub.description,
+      description:
+        getHubPageContent(hubId)?.metaDescription ?? hub.description,
       slug: hub.slug,
     });
   }
