@@ -205,7 +205,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "College party game for dorms and friend groups with quick mobile voting.",
     audience: "College students, dorm groups, campus parties",
     estimatedPriority: 58,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "office-icebreaker",
@@ -375,7 +375,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Remote team activity with anonymous voting for distributed coworkers.",
     audience: "Remote teams, distributed teams, async teams",
     estimatedPriority: 48,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "virtual-team-building",
@@ -385,7 +385,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Virtual team building with phone-based anonymous group voting.",
     audience: "Remote teams, virtual offsites, online team socials",
     estimatedPriority: 46,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "employee-engagement-game",
@@ -395,7 +395,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Employee engagement activity using anonymous team voting and shared results.",
     audience: "HR teams, managers, workplace culture leads",
     estimatedPriority: 44,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "anniversary-game",
@@ -405,7 +405,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Anniversary game for couples with anonymous voting and shareable results.",
     audience: "Couples, anniversary celebrations, friend groups",
     estimatedPriority: 50,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "date-night-game",
@@ -415,7 +415,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Date night game with quick phone voting for couples at home or out.",
     audience: "Couples, date nights, long-distance partners",
     estimatedPriority: 48,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "newlywed-game",
@@ -425,7 +425,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Newlywed-style game with group voting for couples and wedding parties.",
     audience: "Newlyweds, wedding parties, couples game nights",
     estimatedPriority: 46,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "adult-party-game",
@@ -435,7 +435,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Adult party game with phone-based anonymous voting and shareable results.",
     audience: "Adult friend groups, house parties, social gatherings",
     estimatedPriority: 58,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "drinking-game",
@@ -445,7 +445,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Drinking game alternative with anonymous group voting on phones.",
     audience: "Adult friend groups, parties, casual hangouts",
     estimatedPriority: 52,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "childhood-friends-quiz",
@@ -455,7 +455,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Childhood friends quiz with group voting on nostalgic roles and memories.",
     audience: "Long-term friend groups, childhood besties, reunions",
     estimatedPriority: 54,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "new-friends-game",
@@ -465,7 +465,7 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "New friends game to help groups bond with anonymous phone voting.",
     audience: "New friend groups, orientation, social meetups",
     estimatedPriority: 50,
-    status: "planned",
+    status: "live",
   },
   {
     slug: "friendship-challenge",
@@ -475,7 +475,37 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       "Friendship challenge game with group voting and shareable results.",
     audience: "Friend groups, group chats, social challenges",
     estimatedPriority: 48,
-    status: "planned",
+    status: "live",
+  },
+  {
+    slug: "team-introduction-game",
+    title: "Team Introduction Game",
+    intentCategory: INTENT_CATEGORIES.ICEBREAKERS,
+    searchIntent:
+      "Team introduction game for new groups with anonymous phone voting and shared results.",
+    audience: "New teams, clubs, orientation groups, first-day meetings",
+    estimatedPriority: 47,
+    status: "live",
+  },
+  {
+    slug: "get-to-know-you-game",
+    title: "Get to Know You Game",
+    intentCategory: INTENT_CATEGORIES.ICEBREAKERS,
+    searchIntent:
+      "Get to know you game for new groups with quick anonymous voting on phones.",
+    audience: "Events, new classes, team socials, friend meetups",
+    estimatedPriority: 46,
+    status: "live",
+  },
+  {
+    slug: "meeting-icebreaker",
+    title: "Meeting Icebreaker",
+    intentCategory: INTENT_CATEGORIES.ICEBREAKERS,
+    searchIntent:
+      "Quick meeting icebreaker with anonymous group voting before the agenda starts.",
+    audience: "Teams, workshops, standups, all-hands meetings",
+    estimatedPriority: 45,
+    status: "live",
   },
 ];
 

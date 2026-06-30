@@ -157,6 +157,21 @@ export type CtaLocation =
   | "homepage_party_games"
   | "homepage_team_building_games"
   | "homepage_relationship_games"
+  | "landing_new_friends_game"
+  | "landing_childhood_friends_quiz"
+  | "landing_friendship_challenge"
+  | "landing_date_night_game"
+  | "landing_newlywed_game"
+  | "landing_anniversary_game"
+  | "landing_adult_party_game"
+  | "landing_drinking_game"
+  | "landing_college_party_game"
+  | "landing_remote_team_game"
+  | "landing_employee_engagement_game"
+  | "landing_virtual_team_building"
+  | "landing_team_introduction_game"
+  | "landing_get_to_know_you_game"
+  | "landing_meeting_icebreaker"
   | "homepage_icebreaker_games";
 
 export type CtaClickedParams = {

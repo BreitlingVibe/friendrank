@@ -449,3 +449,288 @@ export const FUNNY_FRIEND_QUIZ_QUESTIONS = [
   { text: "Who is most likely to get lost in a mall?" },
   { text: "Who would make the funniest group chat nickname?" },
 ];
+
+/** @see QUESTION_VERSION */
+export const NEW_FRIENDS_GAME_QUESTIONS = [
+  { text: "Who is most likely to remember everyone's name first?" },
+  { text: "Who gives the best first impression?" },
+  { text: "Who is most likely to start a conversation?" },
+  { text: "Who would plan the next group hangout?" },
+  { text: "Who is most likely to suggest a group photo?" },
+  { text: "Who brings the best energy to a new group?" },
+  { text: "Who is most likely to break an awkward silence?" },
+  { text: "Who would introduce themselves to everyone?" },
+  { text: "Who is most likely to organize a group chat?" },
+  { text: "Who makes new people feel welcome?" },
+  { text: "Who is most likely to share contact info first?" },
+  { text: "Who would survive a meet-and-greet event?" },
+  { text: "Who is most likely to suggest getting food together?" },
+  { text: "Who keeps the friendliest vibe in the room?" },
+  { text: "Who would win new-friends trivia?" },
+];
+
+/** @see QUESTION_VERSION */
+export const CHILDHOOD_FRIENDS_QUIZ_QUESTIONS = [
+  { text: "Who has known you the longest?" },
+  { text: "Who remembers the most embarrassing childhood moment?" },
+  { text: "Who stayed friends through every phase?" },
+  { text: "Who is most likely to bring up old memories?" },
+  { text: "Who would win a childhood photo trivia game?" },
+  { text: "Who kept the same nickname since day one?" },
+  { text: "Who is most likely to plan a reunion?" },
+  { text: "Who knows your family stories best?" },
+  { text: "Who would survive a throwback sleepover?" },
+  { text: "Who is most loyal from the old days?" },
+  { text: "Who is most likely to find an old yearbook photo?" },
+  { text: "Who remembers your first inside joke?" },
+  { text: "Who would recreate a childhood hangout?" },
+  { text: "Who is the keeper of group history?" },
+  { text: "Who would pass the ultimate childhood friends test?" },
+];
+
+/** @see QUESTION_VERSION */
+export const FRIENDSHIP_CHALLENGE_QUESTIONS = [
+  { text: "Who would win the ultimate friendship challenge?" },
+  { text: "Who is most likely to accept any dare?" },
+  { text: "Who keeps the best challenge streak going?" },
+  { text: "Who is most likely to hype the group up?" },
+  { text: "Who would survive a 24-hour friend challenge?" },
+  { text: "Who is most competitive in a friendly way?" },
+  { text: "Who is most likely to start a group challenge?" },
+  { text: "Who would lose a challenge but make everyone laugh?" },
+  { text: "Who is most likely to document everything?" },
+  { text: "Who would plan the next challenge?" },
+  { text: "Who is most likely to go all in?" },
+  { text: "Who keeps score in the group chat?" },
+  { text: "Who would win a trivia face-off?" },
+  { text: "Who is most likely to celebrate the winners?" },
+  { text: "Who would make the best challenge host?" },
+];
+
+/** @see QUESTION_VERSION */
+export const DATE_NIGHT_GAME_QUESTIONS = [
+  { text: "Who plans the better date night?" },
+  { text: "Who is the more romantic partner?" },
+  { text: "Who picks the best restaurant?" },
+  { text: "Who is most likely to suggest a movie night?" },
+  { text: "Who remembers important dates first?" },
+  { text: "Who gives the better compliments?" },
+  { text: "Who is most likely to surprise their partner?" },
+  { text: "Who would win couple trivia?" },
+  { text: "Who keeps date night energy high?" },
+  { text: "Who is most likely to order dessert to share?" },
+  { text: "Who suggests the best weekend plans?" },
+  { text: "Who is the better gift giver?" },
+  { text: "Who is most likely to start a deep conversation?" },
+  { text: "Who would plan the perfect stay-in date?" },
+  { text: "Who makes date night feel special?" },
+];
+
+/** @see QUESTION_VERSION */
+export const NEWLYWED_GAME_QUESTIONS = [
+  { text: "Who knows their partner best?" },
+  { text: "Who would win the newlywed round?" },
+  { text: "Who gives the funniest answer?" },
+  { text: "Who is most likely to blush during the game?" },
+  { text: "Who remembers how they first met?" },
+  { text: "Who is the better dancer at weddings?" },
+  { text: "Who would plan the dream honeymoon?" },
+  { text: "Who is most likely to cry during vows?" },
+  { text: "Who picks the better wedding song?" },
+  { text: "Who is the bigger romantic?" },
+  { text: "Who would survive a newlywed trivia show?" },
+  { text: "Who is most likely to steal the spotlight?" },
+  { text: "Who gives the best toast?" },
+  { text: "Who would win a compatibility challenge?" },
+  { text: "Who keeps the couple laughing?" },
+];
+
+/** @see QUESTION_VERSION */
+export const ANNIVERSARY_GAME_QUESTIONS = [
+  { text: "Who is the more romantic partner?" },
+  { text: "Who remembers the anniversary first?" },
+  { text: "Who plans the best celebration?" },
+  { text: "Who is most likely to write a heartfelt note?" },
+  { text: "Who picks the best anniversary gift?" },
+  { text: "Who would plan the dream trip together?" },
+  { text: "Who keeps the relationship fun after years?" },
+  { text: "Who is most likely to recreate a first date?" },
+  { text: "Who gives the better compliments?" },
+  { text: "Who would win couple history trivia?" },
+  { text: "Who is most likely to suggest a photo album?" },
+  { text: "Who makes every year feel special?" },
+  { text: "Who is the better cook for date night?" },
+  { text: "Who would survive a relationship milestone quiz?" },
+  { text: "Who keeps the spark alive?" },
+];
+
+/** @see QUESTION_VERSION */
+export const ADULT_PARTY_GAME_QUESTIONS = [
+  { text: "Who is the life of the party?" },
+  { text: "Who is most likely to start a dance floor?" },
+  { text: "Who tells the best stories?" },
+  { text: "Who is most likely to suggest another round?" },
+  { text: "Who would host the best house party?" },
+  { text: "Who is most likely to make a toast?" },
+  { text: "Who keeps the best party playlist?" },
+  { text: "Who is most likely to stay until the end?" },
+  { text: "Who would win party trivia?" },
+  { text: "Who is most likely to start a group photo?" },
+  { text: "Who brings the funniest energy?" },
+  { text: "Who is most likely to suggest a game?" },
+  { text: "Who would survive the longest party night?" },
+  { text: "Who is most likely to hype up the room?" },
+  { text: "Who would make the best party host?" },
+];
+
+/** @see QUESTION_VERSION */
+export const DRINKING_GAME_QUESTIONS = [
+  { text: "Who is most likely to suggest another round?" },
+  { text: "Who tells the best party stories?" },
+  { text: "Who keeps the best energy in the room?" },
+  { text: "Who is most likely to start a group chant?" },
+  { text: "Who would host the best pregame?" },
+  { text: "Who is most likely to make everyone laugh?" },
+  { text: "Who keeps the party playlist going?" },
+  { text: "Who is most likely to suggest a group photo?" },
+  { text: "Who would survive the longest night out?" },
+  { text: "Who is most likely to hype up the table?" },
+  { text: "Who brings the most chaotic energy?" },
+  { text: "Who is most likely to order for the group?" },
+  { text: "Who would win party trivia?" },
+  { text: "Who is most likely to start dancing first?" },
+  { text: "Who would make the best party MC?" },
+];
+
+/** @see QUESTION_VERSION */
+export const COLLEGE_PARTY_GAME_QUESTIONS = [
+  { text: "Who is most likely to survive finals then party?" },
+  { text: "Who knows every campus spot?" },
+  { text: "Who keeps the dorm energy alive?" },
+  { text: "Who is most likely to start a dorm pregame?" },
+  { text: "Who would win campus trivia?" },
+  { text: "Who is most likely to pull an all-nighter?" },
+  { text: "Who has the best group chat memes?" },
+  { text: "Who is most likely to organize the next hangout?" },
+  { text: "Who would survive a roommate challenge?" },
+  { text: "Who is most likely to suggest late-night food?" },
+  { text: "Who brings the best party energy?" },
+  { text: "Who is most likely to know everyone on campus?" },
+  { text: "Who would host the best dorm game night?" },
+  { text: "Who is most likely to hype up the room?" },
+  { text: "Who would make the best college party host?" },
+];
+
+/** @see QUESTION_VERSION */
+export const REMOTE_TEAM_GAME_QUESTIONS = [
+  { text: "Who keeps the best remote meeting energy?" },
+  { text: "Who is most likely to unmute with a good idea?" },
+  { text: "Who makes new teammates feel welcome?" },
+  { text: "Who is most likely to fix a video call issue?" },
+  { text: "Who sends the best Slack reactions?" },
+  { text: "Who would plan the best virtual team outing?" },
+  { text: "Who is most likely to share a helpful resource?" },
+  { text: "Who keeps the team chat fun?" },
+  { text: "Who is most likely to celebrate a win loudly?" },
+  { text: "Who would survive a timezone juggling challenge?" },
+  { text: "Who is the best async communicator?" },
+  { text: "Who is most likely to organize a virtual coffee chat?" },
+  { text: "Who brings the best energy to standups?" },
+  { text: "Who would win remote team trivia?" },
+  { text: "Who keeps the team connected across locations?" },
+];
+
+/** @see QUESTION_VERSION */
+export const EMPLOYEE_ENGAGEMENT_GAME_QUESTIONS = [
+  { text: "Who celebrates teammates the most?" },
+  { text: "Who brings the best energy to meetings?" },
+  { text: "Who makes new hires feel welcome?" },
+  { text: "Who is most likely to mentor a colleague?" },
+  { text: "Who keeps the team motivated?" },
+  { text: "Who is most likely to share a win with the group?" },
+  { text: "Who would plan the best team social?" },
+  { text: "Who is most likely to recognize great work?" },
+  { text: "Who keeps collaboration positive?" },
+  { text: "Who is the best cross-team connector?" },
+  { text: "Who would win workplace trivia?" },
+  { text: "Who is most likely to volunteer for a project?" },
+  { text: "Who brings thoughtful ideas to the table?" },
+  { text: "Who keeps the culture fun and inclusive?" },
+  { text: "Who would make the best engagement activity host?" },
+];
+
+/** @see QUESTION_VERSION */
+export const VIRTUAL_TEAM_BUILDING_QUESTIONS = [
+  { text: "Who would plan the best virtual team event?" },
+  { text: "Who keeps remote collaboration fun?" },
+  { text: "Who makes everyone feel included on calls?" },
+  { text: "Who is most likely to share a helpful tip in chat?" },
+  { text: "Who brings the best energy to video meetings?" },
+  { text: "Who would win virtual team trivia?" },
+  { text: "Who is most likely to organize a team coffee break?" },
+  { text: "Who keeps the Slack channel active?" },
+  { text: "Who is most likely to celebrate a teammate?" },
+  { text: "Who would survive a back-to-back meeting day?" },
+  { text: "Who is the best at async updates?" },
+  { text: "Who is most likely to suggest a team game?" },
+  { text: "Who makes onboarding feel welcoming?" },
+  { text: "Who keeps the team laughing on calls?" },
+  { text: "Who would make the best virtual event host?" },
+];
+
+/** @see QUESTION_VERSION */
+export const TEAM_INTRODUCTION_GAME_QUESTIONS = [
+  { text: "Who gives the best first impression?" },
+  { text: "Who is most likely to remember every name?" },
+  { text: "Who would make a great team ambassador?" },
+  { text: "Who is most likely to start a conversation?" },
+  { text: "Who brings the best energy to a new group?" },
+  { text: "Who is most likely to ask great intro questions?" },
+  { text: "Who would plan the best team welcome event?" },
+  { text: "Who is most likely to help a shy teammate?" },
+  { text: "Who keeps introductions fun and relaxed?" },
+  { text: "Who is most likely to suggest a group photo?" },
+  { text: "Who would win introduction trivia?" },
+  { text: "Who makes new people feel included fast?" },
+  { text: "Who is most likely to follow up after meeting someone new?" },
+  { text: "Who would make the best orientation leader?" },
+  { text: "Who keeps the friendliest vibe in the room?" },
+];
+
+/** @see QUESTION_VERSION */
+export const GET_TO_KNOW_YOU_GAME_QUESTIONS = [
+  { text: "Who is most likely to share a fun fact first?" },
+  { text: "Who asks the best questions?" },
+  { text: "Who makes everyone feel comfortable?" },
+  { text: "Who is most likely to remember personal details?" },
+  { text: "Who would win get-to-know-you trivia?" },
+  { text: "Who is most likely to suggest a group activity?" },
+  { text: "Who brings the warmest energy to a new group?" },
+  { text: "Who is most likely to find common interests fast?" },
+  { text: "Who would make the best conversation starter?" },
+  { text: "Who is most likely to introduce two people?" },
+  { text: "Who keeps the icebreaker fun and light?" },
+  { text: "Who is most likely to organize a follow-up hangout?" },
+  { text: "Who would survive a speed-friending event?" },
+  { text: "Who is most likely to make shy people laugh?" },
+  { text: "Who would make the best icebreaker host?" },
+];
+
+/** @see QUESTION_VERSION */
+export const MEETING_ICEBREAKER_QUESTIONS = [
+  { text: "Who brings the best meeting energy?" },
+  { text: "Who is most likely to ask a great question?" },
+  { text: "Who keeps discussions on track?" },
+  { text: "Who is most likely to share a useful update?" },
+  { text: "Who makes meetings feel less awkward?" },
+  { text: "Who is most likely to celebrate a teammate win?" },
+  { text: "Who would plan the best team warmup?" },
+  { text: "Who is most likely to lighten the mood?" },
+  { text: "Who keeps the meeting chat active?" },
+  { text: "Who is most likely to volunteer first?" },
+  { text: "Who would win meeting trivia?" },
+  { text: "Who is most likely to suggest a quick break?" },
+  { text: "Who makes new attendees feel welcome?" },
+  { text: "Who keeps collaboration positive?" },
+  { text: "Who would make the best meeting facilitator?" },
+];

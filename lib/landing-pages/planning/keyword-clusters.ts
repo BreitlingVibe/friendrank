@@ -134,6 +134,9 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
       "office-icebreaker",
       "classroom-icebreaker",
       "team-building-game",
+      "team-introduction-game",
+      "get-to-know-you-game",
+      "meeting-icebreaker",
     ],
   },
   {

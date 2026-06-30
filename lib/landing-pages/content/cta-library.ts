@@ -155,3 +155,93 @@ export const FUNNY_FRIEND_QUIZ_PRIMARY_CTA: LandingPageCta = {
   label: "Create Funny Friend Quiz",
   href: CREATE_GAME_HREF,
 };
+
+/** @see CTA_VERSION */
+export const NEW_FRIENDS_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create New Friends Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const CHILDHOOD_FRIENDS_QUIZ_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Childhood Friends Quiz",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const FRIENDSHIP_CHALLENGE_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Friendship Challenge",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const DATE_NIGHT_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Date Night Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const NEWLYWED_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Newlywed Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const ANNIVERSARY_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Anniversary Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const ADULT_PARTY_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Adult Party Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const DRINKING_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Drinking Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const COLLEGE_PARTY_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create College Party Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const REMOTE_TEAM_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Remote Team Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const EMPLOYEE_ENGAGEMENT_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Employee Engagement Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const VIRTUAL_TEAM_BUILDING_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Virtual Team Building Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const TEAM_INTRODUCTION_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Team Introduction Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const GET_TO_KNOW_YOU_GAME_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Get to Know You Game",
+  href: CREATE_GAME_HREF,
+};
+
+/** @see CTA_VERSION */
+export const MEETING_ICEBREAKER_PRIMARY_CTA: LandingPageCta = {
+  label: "Create Meeting Icebreaker",
+  href: CREATE_GAME_HREF,
+};

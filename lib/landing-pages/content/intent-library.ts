@@ -617,6 +617,427 @@ export const FUNNY_FRIEND_QUIZ_INTENT = {
   } satisfies LandingPageGamePreset,
 };
 
+
+/** @see INTENT_VERSION */
+export const NEW_FRIENDS_GAME_INTENT = {
+  slug: "new-friends-game",
+  title: "New Friends Game",
+  metaTitle: "New Friends Game | Fun Group Voting Game | FriendRank",
+  metaDescription:
+    "Create a new friends game for your group. Vote anonymously on fun roles, break the ice fast, and reveal shareable results together.",
+  h1: "New Friends Game",
+  intentSummaryTitle: "What is a new friends game?",
+  intentSummary:
+    "A new friends game helps people bond when the group is still getting to know each other. FriendRank turns it into a quick phone voting game: add names, share one link, vote on lighthearted roles, and reveal results together. Perfect for orientation, meetups, new roommates, and fresh group chats. No signup required.",
+  whyFriendRankTitle: "Why FriendRank for new friend groups",
+  exampleQuestionsTitle: "Popular new friends game questions",
+  faqTitle: "New friends game FAQ",
+  schemaDescription:
+    "Create a new friends game with FriendRank. Vote anonymously on fun roles, break the ice fast, and reveal shareable results together. No signup required.",
+  ctaLocation: "landing_new_friends_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who makes the best first impression",
+      "Who is most likely to start a conversation",
+      "Who would plan the next hangout",
+    ],
+    suggestedVibeTags: ["College","Party","Discord"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const CHILDHOOD_FRIENDS_QUIZ_INTENT = {
+  slug: "childhood-friends-quiz",
+  title: "Childhood Friends Quiz",
+  metaTitle: "Childhood Friends Quiz | Nostalgic Friend Voting Game | FriendRank",
+  metaDescription:
+    "Create a childhood friends quiz for your crew. Vote anonymously on nostalgic roles, reveal funny memories, and share results together.",
+  h1: "Childhood Friends Quiz",
+  intentSummaryTitle: "What is a childhood friends quiz?",
+  intentSummary:
+    "A childhood friends quiz celebrates the friends who have known you forever. FriendRank makes it a group voting game on phones: add names, share one link, vote on nostalgic roles and inside jokes, and unlock shareable results. Great for reunions, hometown visits, and long-term friend groups. No app download needed.",
+  whyFriendRankTitle: "Why FriendRank for childhood friend groups",
+  exampleQuestionsTitle: "Popular childhood friends quiz questions",
+  faqTitle: "Childhood friends quiz FAQ",
+  schemaDescription:
+    "Create a childhood friends quiz with FriendRank. Vote anonymously on nostalgic roles, reveal funny memories, and share results together. No signup required.",
+  ctaLocation: "landing_childhood_friends_quiz" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who has the oldest friendship story",
+      "Who remembers the most embarrassing moment",
+      "Who stayed friends the longest",
+    ],
+    suggestedVibeTags: ["Family","College","Party"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const FRIENDSHIP_CHALLENGE_INTENT = {
+  slug: "friendship-challenge",
+  title: "Friendship Challenge",
+  metaTitle: "Friendship Challenge | Fun Friend Voting Game | FriendRank",
+  metaDescription:
+    "Create a friendship challenge for your group. Vote anonymously on funny roles, compete for bragging rights, and share results in the chat.",
+  h1: "Friendship Challenge",
+  intentSummaryTitle: "What is a friendship challenge?",
+  intentSummary:
+    "A friendship challenge turns your group chat into a playful competition. FriendRank is a phone voting game where friends pick who fits each role, vote anonymously, and unlock shareable results together. Perfect for social challenges, group dares, and meme-heavy friend circles. No account needed.",
+  whyFriendRankTitle: "Why FriendRank for friendship challenges",
+  exampleQuestionsTitle: "Popular friendship challenge questions",
+  faqTitle: "Friendship challenge FAQ",
+  schemaDescription:
+    "Create a friendship challenge with FriendRank. Vote anonymously on funny roles, compete for bragging rights, and share results in the chat. No signup required.",
+  ctaLocation: "landing_friendship_challenge" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who would win the ultimate friend challenge",
+      "Who is most likely to accept any dare",
+      "Who keeps the best challenge streak",
+    ],
+    suggestedVibeTags: ["Chaotic","Party","Discord"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const DATE_NIGHT_GAME_INTENT = {
+  slug: "date-night-game",
+  title: "Date Night Game",
+  metaTitle: "Date Night Game | Fun Couple Voting Game | FriendRank",
+  metaDescription:
+    "Create a date night game for couples. Vote anonymously on playful roles, spark conversation, and reveal shareable results together.",
+  h1: "Date Night Game",
+  intentSummaryTitle: "What is a date night game?",
+  intentSummary:
+    "A date night game adds something playful to dinner, drinks, or a cozy night in. FriendRank is a quick phone voting game: add names, share one link, vote on romantic and funny roles, and unlock results together. Works for couples at home, restaurants, and long-distance video dates. No signup required.",
+  whyFriendRankTitle: "Why FriendRank for date night",
+  exampleQuestionsTitle: "Popular date night game questions",
+  faqTitle: "Date night game FAQ",
+  schemaDescription:
+    "Create a date night game with FriendRank. Vote anonymously on playful roles, spark conversation, and reveal shareable results together. No signup required.",
+  ctaLocation: "landing_date_night_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who plans the better date night",
+      "Who is the more romantic partner",
+      "Who picks the best restaurant",
+    ],
+    suggestedVibeTags: ["Soft drama","Party","Family"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const NEWLYWED_GAME_INTENT = {
+  slug: "newlywed-game",
+  title: "Newlywed Game",
+  metaTitle: "Newlywed Game | Fun Couple Voting Game | FriendRank",
+  metaDescription:
+    "Create a newlywed-style game for couples and wedding parties. Vote anonymously, reveal funny answers, and share results with the group.",
+  h1: "Newlywed Game",
+  intentSummaryTitle: "What is a newlywed game?",
+  intentSummary:
+    "A newlywed game is a classic couples activity where partners guess how the other would answer. FriendRank adapts it into a group voting game: add names, share one link, vote on playful couple roles, and reveal results together. Great for wedding parties, bridal showers, and couple game nights. No app download needed.",
+  whyFriendRankTitle: "Why FriendRank for newlywed games",
+  exampleQuestionsTitle: "Popular newlywed game questions",
+  faqTitle: "Newlywed game FAQ",
+  schemaDescription:
+    "Create a newlywed-style game with FriendRank. Vote anonymously, reveal funny answers, and share results with the group. No signup required.",
+  ctaLocation: "landing_newlywed_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who knows their partner best",
+      "Who would win the newlywed round",
+      "Who gives the funniest answer",
+    ],
+    suggestedVibeTags: ["Party","Family","Soft drama"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const ANNIVERSARY_GAME_INTENT = {
+  slug: "anniversary-game",
+  title: "Anniversary Game",
+  metaTitle: "Anniversary Game | Fun Couple Celebration Game | FriendRank",
+  metaDescription:
+    "Create an anniversary game for couples. Vote anonymously on sweet roles, celebrate your relationship, and share results together.",
+  h1: "Anniversary Game",
+  intentSummaryTitle: "What is an anniversary game?",
+  intentSummary:
+    "An anniversary game celebrates your relationship with something playful and shareable. FriendRank is a phone voting game: add names, share one link, vote on romantic and funny roles, and unlock results together. Perfect for anniversary dinners, couple trips, and celebrations with friends. No account needed.",
+  whyFriendRankTitle: "Why FriendRank for anniversary celebrations",
+  exampleQuestionsTitle: "Popular anniversary game questions",
+  faqTitle: "Anniversary game FAQ",
+  schemaDescription:
+    "Create an anniversary game with FriendRank. Vote anonymously on sweet roles, celebrate your relationship, and share results together. No signup required.",
+  ctaLocation: "landing_anniversary_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is the more romantic partner",
+      "Who remembers the anniversary first",
+      "Who plans the best celebration",
+    ],
+    suggestedVibeTags: ["Soft drama","Family","Party"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const ADULT_PARTY_GAME_INTENT = {
+  slug: "adult-party-game",
+  title: "Adult Party Game",
+  metaTitle: "Adult Party Game | Fun Group Voting Game | FriendRank",
+  metaDescription:
+    "Create an adult party game for your group. Vote anonymously on funny roles, keep the energy high, and share results in the chat.",
+  h1: "Adult Party Game",
+  intentSummaryTitle: "What is an adult party game?",
+  intentSummary:
+    "An adult party game keeps the night moving without complicated setup. FriendRank is a phone voting game: add friends, share one link, vote on hilarious roles, and reveal shareable results. Works for house parties, dinner parties, and adult hangouts. No app install or signup required.",
+  whyFriendRankTitle: "Why FriendRank for adult parties",
+  exampleQuestionsTitle: "Popular adult party game questions",
+  faqTitle: "Adult party game FAQ",
+  schemaDescription:
+    "Create an adult party game with FriendRank. Vote anonymously on funny roles, keep the energy high, and share results in the chat. No signup required.",
+  ctaLocation: "landing_adult_party_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is the life of the party",
+      "Who is most likely to start a dance floor",
+      "Who tells the best stories",
+    ],
+    suggestedVibeTags: ["Party","Chaotic","Meme-heavy"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const DRINKING_GAME_INTENT = {
+  slug: "drinking-game",
+  title: "Drinking Game",
+  metaTitle: "Drinking Game Alternative | Group Voting Game | FriendRank",
+  metaDescription:
+    "Create a drinking game alternative with group voting. Vote anonymously on funny roles, keep the party fun, and share results together.",
+  h1: "Drinking Game",
+  intentSummaryTitle: "What is a drinking game on FriendRank?",
+  intentSummary:
+    "FriendRank is a drinking game alternative that keeps the focus on laughs, not rules. Add friends, share one link, vote anonymously on funny roles, and reveal shareable results. Works for pregames, house parties, and casual hangouts. Play responsibly. No signup required.",
+  whyFriendRankTitle: "Why FriendRank as a party voting game",
+  exampleQuestionsTitle: "Popular drinking game questions",
+  faqTitle: "Drinking game FAQ",
+  schemaDescription:
+    "Create a drinking game alternative with FriendRank. Vote anonymously on funny roles, keep the party fun, and share results together. No signup required.",
+  ctaLocation: "landing_drinking_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is most likely to suggest another round",
+      "Who tells the best party stories",
+      "Who keeps the best energy in the room",
+    ],
+    suggestedVibeTags: ["Party","Chaotic","College"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const COLLEGE_PARTY_GAME_INTENT = {
+  slug: "college-party-game",
+  title: "College Party Game",
+  metaTitle: "College Party Game | Fun Dorm Voting Game | FriendRank",
+  metaDescription:
+    "Create a college party game for your friend group. Vote anonymously on funny roles, play from any phone, and share results in the chat.",
+  h1: "College Party Game",
+  intentSummaryTitle: "What is a college party game?",
+  intentSummary:
+    "A college party game needs to be fast, funny, and phone-friendly. FriendRank is a group voting game: add friends, share one link, vote on dorm and party roles, and unlock shareable results. Perfect for dorm hangouts, campus parties, and college group chats. No app download needed.",
+  whyFriendRankTitle: "Why FriendRank for college parties",
+  exampleQuestionsTitle: "Popular college party game questions",
+  faqTitle: "College party game FAQ",
+  schemaDescription:
+    "Create a college party game with FriendRank. Vote anonymously on funny roles, play from any phone, and share results in the chat. No signup required.",
+  ctaLocation: "landing_college_party_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is most likely to survive finals week then party",
+      "Who knows every campus spot",
+      "Who keeps the dorm energy alive",
+    ],
+    suggestedVibeTags: ["College","Party","Chaotic"],
+    suggestedTone: "Funny",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const REMOTE_TEAM_GAME_INTENT = {
+  slug: "remote-team-game",
+  title: "Remote Team Game",
+  metaTitle: "Remote Team Game | Fun Virtual Team Activity | FriendRank",
+  metaDescription:
+    "Create a remote team game for distributed coworkers. Vote anonymously, spark conversation, and reveal lighthearted results together.",
+  h1: "Remote Team Game",
+  intentSummaryTitle: "What is a remote team game?",
+  intentSummary:
+    "A remote team game helps distributed coworkers connect beyond status updates. FriendRank is a phone voting game: add teammates, share one link in Slack or Zoom chat, vote anonymously on light roles, and reveal results together. Works for remote standups, virtual happy hours, and async teams. No signup required.",
+  whyFriendRankTitle: "Why FriendRank for remote teams",
+  exampleQuestionsTitle: "Popular remote team game questions",
+  faqTitle: "Remote team game FAQ",
+  schemaDescription:
+    "Create a remote team game with FriendRank. Vote anonymously, spark conversation, and reveal lighthearted results together. No signup required.",
+  ctaLocation: "landing_remote_team_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who keeps the best remote meeting energy",
+      "Who is most likely to unmute with a good idea",
+      "Who makes new teammates feel welcome",
+    ],
+    suggestedVibeTags: ["Office","Party","Soft drama"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const EMPLOYEE_ENGAGEMENT_GAME_INTENT = {
+  slug: "employee-engagement-game",
+  title: "Employee Engagement Game",
+  metaTitle: "Employee Engagement Game | Fun Workplace Activity | FriendRank",
+  metaDescription:
+    "Create an employee engagement game for your team. Vote anonymously on lighthearted roles, boost morale, and share results together.",
+  h1: "Employee Engagement Game",
+  intentSummaryTitle: "What is an employee engagement game?",
+  intentSummary:
+    "An employee engagement game is a light activity that helps teams feel connected. FriendRank gives you a quick voting game: add coworkers, share one link, vote anonymously on positive roles, and reveal results together. Works for all-hands warmups, HR socials, and culture events. No app download needed.",
+  whyFriendRankTitle: "Why FriendRank for employee engagement",
+  exampleQuestionsTitle: "Popular employee engagement questions",
+  faqTitle: "Employee engagement game FAQ",
+  schemaDescription:
+    "Create an employee engagement game with FriendRank. Vote anonymously on lighthearted roles, boost morale, and share results together. No signup required.",
+  ctaLocation: "landing_employee_engagement_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who celebrates teammates the most",
+      "Who brings the best energy to meetings",
+      "Who makes new hires feel welcome",
+    ],
+    suggestedVibeTags: ["Office","Soft drama","Party"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const VIRTUAL_TEAM_BUILDING_INTENT = {
+  slug: "virtual-team-building",
+  title: "Virtual Team Building",
+  metaTitle: "Virtual Team Building Game | Fun Remote Activity | FriendRank",
+  metaDescription:
+    "Create a virtual team building game for remote coworkers. Vote anonymously, connect your team, and reveal shareable results together.",
+  h1: "Virtual Team Building",
+  intentSummaryTitle: "What is virtual team building on FriendRank?",
+  intentSummary:
+    "Virtual team building needs something quick that works on every device. FriendRank is a phone voting game: add teammates, share one link, vote anonymously on lighthearted roles, and unlock results together on a video call. Perfect for remote offsites, virtual happy hours, and distributed teams. No signup required.",
+  whyFriendRankTitle: "Why FriendRank for virtual team building",
+  exampleQuestionsTitle: "Popular virtual team building questions",
+  faqTitle: "Virtual team building FAQ",
+  schemaDescription:
+    "Create a virtual team building game with FriendRank. Vote anonymously, connect your team, and reveal shareable results together. No signup required.",
+  ctaLocation: "landing_virtual_team_building" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who would plan the best virtual team event",
+      "Who keeps remote collaboration fun",
+      "Who makes everyone feel included on calls",
+    ],
+    suggestedVibeTags: ["Office","Party","Soft drama"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const TEAM_INTRODUCTION_GAME_INTENT = {
+  slug: "team-introduction-game",
+  title: "Team Introduction Game",
+  metaTitle: "Team Introduction Game | Fun Group Icebreaker | FriendRank",
+  metaDescription:
+    "Create a team introduction game for new groups. Vote anonymously on fun roles, help everyone connect, and reveal results together.",
+  h1: "Team Introduction Game",
+  intentSummaryTitle: "What is a team introduction game?",
+  intentSummary:
+    "A team introduction game helps new groups learn names and personalities fast. FriendRank is a phone voting game: add people, share one link, vote on light roles, and reveal results together. Works for new teams, clubs, orientation, and first-day meetings. No app download needed.",
+  whyFriendRankTitle: "Why FriendRank for team introductions",
+  exampleQuestionsTitle: "Popular team introduction questions",
+  faqTitle: "Team introduction game FAQ",
+  schemaDescription:
+    "Create a team introduction game with FriendRank. Vote anonymously on fun roles, help everyone connect, and reveal results together. No signup required.",
+  ctaLocation: "landing_team_introduction_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who gives the best first impression",
+      "Who is most likely to remember every name",
+      "Who would make a great team ambassador",
+    ],
+    suggestedVibeTags: ["Office","College","Party"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const GET_TO_KNOW_YOU_GAME_INTENT = {
+  slug: "get-to-know-you-game",
+  title: "Get to Know You Game",
+  metaTitle: "Get to Know You Game | Fun Group Icebreaker | FriendRank",
+  metaDescription:
+    "Create a get to know you game for your group. Vote anonymously on fun roles, break the ice fast, and reveal shareable results.",
+  h1: "Get to Know You Game",
+  intentSummaryTitle: "What is a get to know you game?",
+  intentSummary:
+    "A get to know you game helps people open up without awkward small talk. FriendRank turns it into a phone voting game: add names, share one link, vote on playful roles, and unlock results together. Great for events, new classes, team socials, and friend meetups. No signup required.",
+  whyFriendRankTitle: "Why FriendRank for get to know you games",
+  exampleQuestionsTitle: "Popular get to know you questions",
+  faqTitle: "Get to know you game FAQ",
+  schemaDescription:
+    "Create a get to know you game with FriendRank. Vote anonymously on fun roles, break the ice fast, and reveal shareable results. No signup required.",
+  ctaLocation: "landing_get_to_know_you_game" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who is most likely to share a fun fact first",
+      "Who asks the best questions",
+      "Who makes everyone feel comfortable",
+    ],
+    suggestedVibeTags: ["Party","College","Office"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
+/** @see INTENT_VERSION */
+export const MEETING_ICEBREAKER_INTENT = {
+  slug: "meeting-icebreaker",
+  title: "Meeting Icebreaker",
+  metaTitle: "Meeting Icebreaker Game | Quick Team Warmup | FriendRank",
+  metaDescription:
+    "Create a meeting icebreaker for your team. Vote anonymously on light roles, warm up fast, and reveal results before the agenda starts.",
+  h1: "Meeting Icebreaker",
+  intentSummaryTitle: "What is a meeting icebreaker?",
+  intentSummary:
+    "A meeting icebreaker gets everyone engaged before the real agenda starts. FriendRank is a two-minute phone voting game: add attendees, share one link, vote on light roles, and reveal results together. Works for team meetings, workshops, standups, and all-hands. No signup required.",
+  whyFriendRankTitle: "Why FriendRank for meeting icebreakers",
+  exampleQuestionsTitle: "Popular meeting icebreaker questions",
+  faqTitle: "Meeting icebreaker FAQ",
+  schemaDescription:
+    "Create a meeting icebreaker with FriendRank. Vote anonymously on light roles, warm up fast, and reveal results before the agenda starts. No signup required.",
+  ctaLocation: "landing_meeting_icebreaker" as const,
+  gamePreset: {
+    suggestedCustomCategories: [
+      "Who brings the best meeting energy",
+      "Who is most likely to ask a great question",
+      "Who keeps discussions on track",
+    ],
+    suggestedVibeTags: ["Office","Party","College"],
+    suggestedTone: "Wholesome",
+  } satisfies LandingPageGamePreset,
+};
+
 export function getCanonicalUrl(slug: string): string {
   return `${PRODUCTION_APP_URL}/${slug}`;
 }

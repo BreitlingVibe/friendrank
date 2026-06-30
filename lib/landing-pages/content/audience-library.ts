@@ -1,6 +1,201 @@
 import { AUDIENCE_VERSION } from "@/lib/landing-pages/content/version";
 
 /** @see AUDIENCE_VERSION */
+export const NEW_FRIENDS_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Help a new friend group connect fast. Create a voting game, share one link, vote anonymously, and reveal fun roles together.",
+  playImmediatelyBody:
+    "Add everyone on FriendRank, pick a few prompts, share the link in the group chat, and let people vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are new friends game questions your group can vote on.",
+  finalCtaTitle: "Start your new friends game",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const CHILDHOOD_FRIENDS_QUIZ_AUDIENCE = {
+  heroSubtitle:
+    "Celebrate your day-one friends with a nostalgic quiz. Vote anonymously on childhood roles and reveal results your whole crew will love.",
+  playImmediatelyBody:
+    "Add your childhood friend group on FriendRank, pick nostalgic prompts, share the link, and let everyone vote from the group chat.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are childhood friends quiz questions your group can vote on.",
+  finalCtaTitle: "Start your childhood friends quiz",
+  finalCtaSubtitle:
+    "Free for long-term friend groups. Ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const FRIENDSHIP_CHALLENGE_AUDIENCE = {
+  heroSubtitle:
+    "Turn your friend group into a friendly competition. Vote anonymously on challenge roles and reveal who wins bragging rights.",
+  playImmediatelyBody:
+    "Set up a game on FriendRank, add your crew, pick challenge-style prompts, share the link, and let everyone vote.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are friendship challenge questions your group can vote on.",
+  finalCtaTitle: "Start your friendship challenge",
+  finalCtaSubtitle:
+    "Free, works on any phone, and ready before the next hangout.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const DATE_NIGHT_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Make date night more fun with a quick couple voting game. Vote anonymously, reveal playful roles, and share the results together.",
+  playImmediatelyBody:
+    "Add both names on FriendRank, pick a tone, share the link, and vote together at the table or over video call.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are date night game questions to play together.",
+  finalCtaTitle: "Start your date night game",
+  finalCtaSubtitle:
+    "Free for couples. Ready to share in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const NEWLYWED_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Bring the classic newlywed game to your group. Vote anonymously on couple roles and reveal laugh-out-loud results together.",
+  playImmediatelyBody:
+    "Create a game, add the couple plus wedding party friends if you want, share the link, and let everyone vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are newlywed game questions for your group.",
+  finalCtaTitle: "Start your newlywed game",
+  finalCtaSubtitle:
+    "Free for couples and wedding parties. Ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const ANNIVERSARY_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Celebrate your anniversary with a fun couple voting game. Vote anonymously on sweet roles and reveal results together.",
+  playImmediatelyBody:
+    "Add your names on FriendRank, pick anniversary-themed prompts, share the link, and vote together at dinner or over video call.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are anniversary game questions for your celebration.",
+  finalCtaTitle: "Start your anniversary game",
+  finalCtaSubtitle:
+    "Free for couples. Ready before your special night.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const ADULT_PARTY_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Keep the party going with a quick adult voting game. Add friends, vote anonymously, and reveal funny roles together.",
+  playImmediatelyBody:
+    "Create a game before guests arrive or when the party starts. Share the link and let everyone vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are adult party game questions your group can vote on.",
+  finalCtaTitle: "Start your adult party game",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const DRINKING_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Try a drinking game alternative with anonymous group voting. Add friends, vote on funny roles, and reveal results together.",
+  playImmediatelyBody:
+    "Set up a game, add your crew, share the link in the group chat, and let everyone vote while the party is going.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are party voting questions your group can use.",
+  finalCtaTitle: "Start your party voting game",
+  finalCtaSubtitle:
+    "Free, works on any phone, and ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const COLLEGE_PARTY_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Make any college hangout more fun with a quick voting game. Add friends, vote anonymously, and reveal funny roles together.",
+  playImmediatelyBody:
+    "Create a game in the dorm or before the party. Share the link in the group chat and let everyone vote from their phones.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are college party game questions your group can vote on.",
+  finalCtaTitle: "Start your college party game",
+  finalCtaSubtitle:
+    "Free for college friend groups. Ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const REMOTE_TEAM_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Connect your remote team with a quick voting game. Share one link, vote anonymously, and reveal fun roles together on video call.",
+  playImmediatelyBody:
+    "Add teammates on FriendRank, share the link in Slack or the meeting chat, and let everyone vote before you reveal results live.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are remote team game questions your coworkers can vote on.",
+  finalCtaTitle: "Start your remote team game",
+  finalCtaSubtitle:
+    "Free for distributed teams. Ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const EMPLOYEE_ENGAGEMENT_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Boost team morale with a quick employee engagement game. Vote anonymously on positive roles and reveal results together.",
+  playImmediatelyBody:
+    "Create a game for your team, share the link in email or Slack, and let coworkers vote before you reveal results at the next meeting.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are employee engagement questions your team can vote on.",
+  finalCtaTitle: "Start your employee engagement game",
+  finalCtaSubtitle:
+    "Free for workplace teams. Ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const VIRTUAL_TEAM_BUILDING_AUDIENCE = {
+  heroSubtitle:
+    "Run virtual team building in under five minutes. Share one link, vote anonymously, and reveal fun roles together on video call.",
+  playImmediatelyBody:
+    "Add your team on FriendRank, share the link in the meeting chat, and let everyone vote before you reveal results live.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are virtual team building questions your coworkers can vote on.",
+  finalCtaTitle: "Start your virtual team building game",
+  finalCtaSubtitle:
+    "Free for remote teams. Ready before your next sync.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const TEAM_INTRODUCTION_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Help a new team introduce themselves with a quick voting game. Vote anonymously on fun roles and reveal results together.",
+  playImmediatelyBody:
+    "Add everyone on FriendRank, share the link at the start of the meeting, and let people vote before you reveal results together.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are team introduction questions your group can vote on.",
+  finalCtaTitle: "Start your team introduction game",
+  finalCtaSubtitle:
+    "Free for new teams and groups. Ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const GET_TO_KNOW_YOU_GAME_AUDIENCE = {
+  heroSubtitle:
+    "Break the ice with a get to know you voting game. Add people, vote anonymously, and reveal fun roles together.",
+  playImmediatelyBody:
+    "Create a game, add your group, share the link, and let everyone vote from their phones before you reveal results.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are get to know you questions your group can vote on.",
+  finalCtaTitle: "Start your get to know you game",
+  finalCtaSubtitle:
+    "Free, mobile-friendly, and ready in under a minute.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
+export const MEETING_ICEBREAKER_AUDIENCE = {
+  heroSubtitle:
+    "Start any meeting with a quick icebreaker. Vote anonymously on light roles and reveal results before the agenda begins.",
+  playImmediatelyBody:
+    "Add attendees on FriendRank, drop the link in the meeting chat at the start, and let everyone vote before you reveal results live.",
+  exampleQuestionsIntro:
+    "Need inspiration? Here are meeting icebreaker questions your group can vote on.",
+  finalCtaTitle: "Start your meeting icebreaker",
+  finalCtaSubtitle:
+    "Free for teams and meetings. Ready in under two minutes.",
+} as const;
+
+/** @see AUDIENCE_VERSION */
 export const MOST_LIKELY_TO_AUDIENCE = {
   heroSubtitle:
     'Create a hilarious "Most Likely To" game in under a minute. Add your friends, share one link, let everyone vote anonymously, then reveal the funniest results together.',
