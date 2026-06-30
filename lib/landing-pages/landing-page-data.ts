@@ -22,6 +22,10 @@ import {
   buildSemanticHeroSubtitle,
   buildSemanticIntentLead,
 } from "@/lib/landing-pages/semantic-intro";
+import {
+  getEntityChipsForSlug,
+  resolveLandingPageEntities,
+} from "@/lib/entities/entity-utils";
 import { getIntentBySlug } from "@/lib/landing-pages/planning/intent-registry";
 import {
   ANONYMOUS_VOTING_AUDIENCE,
@@ -404,6 +408,8 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
   const registryIntent = getIntentBySlug(intent.slug);
   const enrichedFaq = enrichLandingPageFaq(intent.slug, faq);
   const formatComparison = resolveFormatComparison(intent.slug, relatedPages);
+  const pageEntities = resolveLandingPageEntities(intent.slug);
+  const entityChips = getEntityChipsForSlug(intent.slug);
 
   return {
     slug: intent.slug,
@@ -456,6 +462,10 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     playersAlsoEnjoyTitle: PLAYERS_ALSO_ENJOY_TITLE,
     playersAlsoEnjoy,
     formatComparison,
+    primaryEntities: pageEntities.primaryEntities,
+    secondaryEntities: pageEntities.secondaryEntities,
+    relatedEntities: pageEntities.relatedEntities,
+    entityChips,
     finalCtaTitle: audience.finalCtaTitle,
     finalCtaSubtitle: audience.finalCtaSubtitle,
     ctaLocation: intent.ctaLocation,

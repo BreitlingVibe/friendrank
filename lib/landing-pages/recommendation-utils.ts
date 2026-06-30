@@ -3,6 +3,7 @@ import {
   getIntentBySlug,
   type IntentDefinition,
 } from "@/lib/landing-pages/planning/intent-registry";
+import { sharesEntity } from "@/lib/entities/entity-utils";
 import { getAllHubDefinitions } from "@/lib/topic-hubs/hub-registry";
 import { collectHubMemberSlugs } from "@/lib/topic-hubs/hub-utils";
 import type { TopicHubDefinition } from "@/lib/topic-hubs/hub-types";
@@ -10,6 +11,7 @@ import type { TopicHubDefinition } from "@/lib/topic-hubs/hub-types";
 export type RecommendationTier =
   | "intent"
   | "audience"
+  | "entity"
   | "topic_hub"
   | "cluster"
   | "fallback";
@@ -17,9 +19,10 @@ export type RecommendationTier =
 export const RECOMMENDATION_TIER_ORDER: Record<RecommendationTier, number> = {
   intent: 0,
   audience: 1,
-  topic_hub: 2,
-  cluster: 3,
-  fallback: 4,
+  entity: 2,
+  topic_hub: 3,
+  cluster: 4,
+  fallback: 5,
 };
 
 let slugToHubIdsCache: Map<string, string[]> | null = null;
@@ -113,6 +116,10 @@ export function getRecommendationTier(
 
   if (audienceOverlap >= 0.25 || searchIntentOverlap >= 0.2) {
     return "audience";
+  }
+
+  if (sharesEntity(sourceSlug, candidateSlug)) {
+    return "entity";
   }
 
   if (sharesTopicHub(sourceSlug, candidateSlug)) {

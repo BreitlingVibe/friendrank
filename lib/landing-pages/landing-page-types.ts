@@ -2,6 +2,7 @@ import type { CtaLocation } from "@/lib/analytics";
 import type { HowToPlayContent } from "@/lib/landing-pages/content/how-to-play-library";
 import type { BestForTag } from "@/lib/landing-pages/best-for-tags";
 import type { FormatComparison } from "@/lib/landing-pages/format-comparison";
+import type { LandingPageEntityRef } from "@/lib/entities/entity-utils";
 import type { Tone, VibeTag } from "@/lib/game-build";
 
 export type LandingPageCta = {
@@ -88,6 +89,14 @@ export type LandingPageData = {
   playersAlsoEnjoyTitle: string;
   playersAlsoEnjoy: LandingPageRelatedPage[];
   formatComparison?: FormatComparison | null;
+  /** Registry-driven primary knowledge graph entities. */
+  primaryEntities: LandingPageEntityRef[];
+  /** Registry-driven secondary entities for the page topic. */
+  secondaryEntities: LandingPageEntityRef[];
+  /** Adjacent entities linked from primary and secondary nodes. */
+  relatedEntities: LandingPageEntityRef[];
+  /** Hero entity chips derived from primary and secondary entities. */
+  entityChips: LandingPageEntityRef[];
   finalCtaTitle: string;
   finalCtaSubtitle: string;
   ctaLocation: CtaLocation;

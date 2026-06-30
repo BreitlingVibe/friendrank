@@ -4,7 +4,10 @@ import {
   buildBreadcrumbListStructuredData,
   buildLandingPageBreadcrumbItems,
 } from "@/lib/seo/breadcrumbs";
+import { buildEntitySummary } from "@/lib/entities/entity-graph";
+import { getEntity } from "@/lib/entities/entity-utils";
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
+import type { LandingPageEntityRef } from "@/lib/entities/entity-utils";
 
 function buildTextItemList(
   pageUrl: string,
@@ -53,6 +56,41 @@ function buildRelatedItemList(
   };
 }
 
+function buildEntityStructuredNodes(
+  pageUrl: string,
+  entities: LandingPageEntityRef[],
+) {
+  return entities.map((entity) => {
+    const registryEntity = getEntity(entity.id);
+    const description =
+      registryEntity != null
+        ? buildEntitySummary(registryEntity)
+        : entity.description;
+
+    return {
+      "@type": "DefinedTerm",
+      "@id": `${pageUrl}/#entity-${entity.id}`,
+      name: entity.name,
+      description,
+      termCode: entity.slug,
+      inDefinedTermSet: {
+        "@type": "DefinedTermSet",
+        "@id": `${PRODUCTION_APP_URL}/#entity-vocabulary`,
+        name: `${SITE_NAME} Game Entities`,
+      },
+    };
+  });
+}
+
+function buildMentionNodes(pageUrl: string, entities: LandingPageEntityRef[]) {
+  return entities.map((entity) => ({
+    "@type": "Thing",
+    "@id": `${pageUrl}/#entity-${entity.id}`,
+    name: entity.name,
+    description: entity.description,
+  }));
+}
+
 export function buildLandingPageStructuredData(page: LandingPageData) {
   const pageId = `${page.canonicalUrl}/#webpage`;
   const breadcrumbItems = buildLandingPageBreadcrumbItems(page.slug, page.title);
@@ -71,6 +109,19 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
     page.playersAlsoEnjoy,
   );
 
+  const primaryEntityNodes = buildEntityStructuredNodes(
+    page.canonicalUrl,
+    page.primaryEntities,
+  );
+  const secondaryMentionNodes = buildMentionNodes(
+    page.canonicalUrl,
+    [...page.secondaryEntities, ...page.relatedEntities],
+  );
+  const aboutNodes = [
+    { "@id": `${page.canonicalUrl}/#webapp` },
+    ...primaryEntityNodes.map((node) => ({ "@id": node["@id"] })),
+  ];
+
   const graph: Record<string, unknown>[] = [
     {
       "@type": "WebPage",
@@ -82,9 +133,11 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
       isPartOf: {
         "@id": `${PRODUCTION_APP_URL}/#website`,
       },
-      about: {
-        "@id": `${page.canonicalUrl}/#webapp`,
-      },
+      about: aboutNodes,
+      mentions:
+        secondaryMentionNodes.length > 0
+          ? secondaryMentionNodes.map((node) => ({ "@id": node["@id"] }))
+          : undefined,
       breadcrumb: {
         "@id": `${page.canonicalUrl}/#breadcrumb`,
       },
@@ -138,6 +191,16 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
 
   if (playersAlsoEnjoyList) {
     graph.push(playersAlsoEnjoyList);
+  }
+
+  for (const entityNode of primaryEntityNodes) {
+    graph.push(entityNode);
+  }
+
+  for (const mentionNode of secondaryMentionNodes) {
+    if (!primaryEntityNodes.some((node) => node["@id"] === mentionNode["@id"])) {
+      graph.push(mentionNode);
+    }
   }
 
   return {

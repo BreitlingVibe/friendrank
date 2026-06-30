@@ -20,6 +20,7 @@ import {
   getIntentBySlug,
   getLiveIntents,
 } from "@/lib/landing-pages/planning/intent-registry";
+import { getSharedEntityIds } from "@/lib/entities/entity-utils";
 import { getRecommendedTopicHubs } from "@/lib/topic-hubs/hub-recommendations";
 import {
   getAllHubDefinitions,
@@ -364,6 +365,10 @@ export function getPlayersAlsoEnjoyItems(
 
       if (clusterSlugs.has(intent.slug)) {
         score += 25;
+      }
+
+      if (getSharedEntityIds(slug, intent.slug).length > 0) {
+        score += 20;
       }
 
       if (tier === "cluster") {

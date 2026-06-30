@@ -1,11 +1,17 @@
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
+import { EntityChips } from "@/components/shared/entity-chips";
 import { HERO_TRUST_SIGNALS } from "@/lib/seo/trust-content";
 
 type LandingPageHeroProps = {
   page: Pick<
     LandingPageData,
-    "h1" | "heroSubtitle" | "primaryCta" | "secondaryCta" | "ctaLocation"
+    | "h1"
+    | "heroSubtitle"
+    | "primaryCta"
+    | "secondaryCta"
+    | "ctaLocation"
+    | "entityChips"
   >;
 };
 
@@ -24,6 +30,7 @@ export function LandingPageHero({ page }: LandingPageHeroProps) {
       <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400 sm:text-xl">
         {page.heroSubtitle}
       </p>
+      <EntityChips entities={page.entityChips} labelledBy="landing-hero-heading" />
       <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
         <LandingPageCta
           label={page.primaryCta.label}
