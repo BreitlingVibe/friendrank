@@ -2,6 +2,12 @@ import type { CtaLocation } from "@/lib/analytics";
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 import { getRelatedLandingPageItems } from "@/lib/landing-pages/internal-links";
 import {
+  getPopularSearchLinks,
+  getYouMayAlsoLikeItemsWithMinimum,
+  POPULAR_SEARCHES_TITLE,
+  YOU_MAY_ALSO_LIKE_TITLE,
+} from "@/lib/landing-pages/page-recommendations";
+import {
   ANONYMOUS_VOTING_AUDIENCE,
   ANONYMOUS_VOTING_FAQ,
   ANONYMOUS_VOTING_INTENT,
@@ -361,6 +367,17 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     relatedPagesOverride,
   } = input;
 
+  const relatedPages = getRelatedLandingPageItems(intent.slug, {
+    override: relatedPagesOverride,
+  });
+  const relatedSlugs = relatedPages.map((page) => page.slug);
+  const youMayAlsoLike = getYouMayAlsoLikeItemsWithMinimum(intent.slug, {
+    excludeSlugs: relatedSlugs,
+  });
+  const popularSearches = getPopularSearchLinks(intent.slug, {
+    excludeSlugs: [...relatedSlugs, ...youMayAlsoLike.map((page) => page.slug)],
+  });
+
   return {
     slug: intent.slug,
     title: intent.title,
@@ -385,9 +402,11 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     faqTitle: intent.faqTitle,
     faq,
     relatedPagesTitle: RELATED_GAMES_TITLE,
-    relatedPages: getRelatedLandingPageItems(intent.slug, {
-      override: relatedPagesOverride,
-    }),
+    relatedPages,
+    youMayAlsoLikeTitle: YOU_MAY_ALSO_LIKE_TITLE,
+    youMayAlsoLike,
+    popularSearchesTitle: POPULAR_SEARCHES_TITLE,
+    popularSearches,
     finalCtaTitle: audience.finalCtaTitle,
     finalCtaSubtitle: audience.finalCtaSubtitle,
     ctaLocation: intent.ctaLocation,

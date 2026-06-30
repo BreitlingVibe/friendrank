@@ -1,15 +1,21 @@
 import Link from "next/link";
+import { getLandingPageLinkLabel } from "@/lib/landing-pages/link-labels";
 import type { HubLandingPageRef } from "@/lib/topic-hubs/hub-types";
 
 type TopicHubLiveCardProps = {
   page: HubLandingPageRef;
   ctaLabel?: string;
+  linkStyle?: "play" | "view" | "create";
 };
 
 export function TopicHubLiveCard({
   page,
-  ctaLabel = "View game",
+  ctaLabel,
+  linkStyle = "view",
 }: TopicHubLiveCardProps) {
+  const label =
+    ctaLabel ?? getLandingPageLinkLabel(page.title, page.slug, linkStyle);
+
   return (
     <article className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-violet-400/35 hover:bg-white/[0.05]">
       <h3 className="text-lg font-semibold text-white">{page.title}</h3>
@@ -19,10 +25,10 @@ export function TopicHubLiveCard({
       <div className="mt-6">
         <Link
           href={`/${page.slug}`}
-          aria-label={`${ctaLabel}: ${page.title}`}
+          aria-label={`${label}: ${page.title}`}
           className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-violet-400/45 hover:bg-violet-500/15 hover:text-white"
         >
-          {ctaLabel}
+          {label}
         </Link>
       </div>
     </article>

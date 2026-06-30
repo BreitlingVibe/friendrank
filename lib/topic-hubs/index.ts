@@ -33,3 +33,6 @@ export {
   getTopicHubCtaLocation,
   getHomepageHubCtaLocation,
 } from "@/lib/topic-hubs/hub-analytics";
+
+export { getRecommendedTopicHubs } from "@/lib/topic-hubs/hub-recommendations";
+export { resolveHubSectionCopy } from "@/lib/topic-hubs/hub-section-copy";

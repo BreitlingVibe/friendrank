@@ -4,6 +4,7 @@ import { LandingPageExamples } from "@/components/landing-pages/landing-page-exa
 import { LandingPageFaq } from "@/components/landing-pages/landing-page-faq";
 import { LandingPageHero } from "@/components/landing-pages/landing-page-hero";
 import { LandingPageRelated } from "@/components/landing-pages/landing-page-related";
+import { LandingPagePopularSearches } from "@/components/landing-pages/landing-page-popular-searches";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
 import { LandingPageTrustStrip } from "@/components/landing-pages/landing-page-trust-strip";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
@@ -125,8 +126,19 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
         <LandingPageFaq title={page.faqTitle} items={page.faq} />
 
         <LandingPageRelated
+          title={page.youMayAlsoLikeTitle}
+          pages={page.youMayAlsoLike}
+          headingId="landing-you-may-also-like-heading"
+        />
+
+        <LandingPageRelated
           title={page.relatedPagesTitle}
           pages={page.relatedPages}
+        />
+
+        <LandingPagePopularSearches
+          title={page.popularSearchesTitle}
+          links={page.popularSearches}
         />
 
         <section

@@ -1,5 +1,13 @@
 import type { LandingPageRelatedPage } from "@/lib/landing-pages/landing-page-types";
 import {
+  getLandingPageLinkLabel,
+} from "@/lib/landing-pages/link-labels";
+import {
+  compareRecommendationSlugs,
+  getRecommendationTier,
+  RECOMMENDATION_TIER_ORDER,
+} from "@/lib/landing-pages/recommendation-utils";
+import {
   getIntentBySlug,
   getLiveIntents,
 } from "@/lib/landing-pages/planning/intent-registry";
@@ -7,12 +15,9 @@ import {
   getPriorityTier,
   type IntentPriorityTier,
 } from "@/lib/landing-pages/planning/intent-priority";
-import {
-  getClusterBySlug,
-  getClustersBySlug,
-} from "@/lib/landing-pages/planning/keyword-clusters";
+import { getClustersBySlug } from "@/lib/landing-pages/planning/keyword-clusters";
 
-/** Popular live pages used to balance Related Games when cluster live links are sparse. */
+/** High-traffic live pages used when recommendation tiers are sparse. */
 export const POPULAR_LIVE_FALLBACK = [
   "most-likely-to-generator",
   "anonymous-voting-game",
@@ -25,13 +30,7 @@ export const POPULAR_LIVE_FALLBACK = [
 
 const TARGET_LIVE_TOTAL = 6;
 const MAX_LIVE_TOTAL = 7;
-const MAX_SAME_CLUSTER_LIVE = 4;
-const MAX_OVERLAPPING_LIVE = 3;
-const MAX_POPULAR_FALLBACK_LIVE = 3;
 const MAX_PLANNED = 3;
-
-/** Rank used for popular fallback and generic live backfill (outside clusters). */
-const FALLBACK_CLUSTER_RANK = 999;
 
 const PLANNED_TIER_ORDER: IntentPriorityTier[] = ["High", "Medium", "Low"];
 
@@ -40,13 +39,13 @@ export type AutomaticRelatedPage = {
   title: string;
   available: boolean;
   estimatedPriority: number;
-  /** Lower is closer (0 = primary cluster). 999 = popular fallback. */
-  clusterRank: number;
+  tier: number;
   priorityTier: IntentPriorityTier;
+  linkLabel: string;
 };
 
 export type RelatedPagesOptions = {
-  /** Optional manual override. When set, skips automatic cluster linking. */
+  /** Optional manual override. When set, skips automatic linking. */
   override?: LandingPageRelatedPage[];
   maxLive?: number;
   maxPlanned?: number;
@@ -64,31 +63,7 @@ function isLiveSlug(slug: string, liveSlugs: Set<string>): boolean {
   return liveSlugs.has(slug);
 }
 
-function getClusterRank(currentSlug: string, candidateSlug: string): number {
-  const currentClusters = getClustersBySlug(currentSlug);
-  if (currentClusters.length === 0) {
-    return FALLBACK_CLUSTER_RANK;
-  }
-
-  const primaryClusterId = currentClusters[0]?.id;
-
-  for (let index = 0; index < currentClusters.length; index++) {
-    const cluster = currentClusters[index];
-    if (!cluster.memberSlugs.includes(candidateSlug)) {
-      continue;
-    }
-
-    if (cluster.id === primaryClusterId) {
-      return 0;
-    }
-
-    return index + 1;
-  }
-
-  return FALLBACK_CLUSTER_RANK;
-}
-
-function collectClusterCandidateSlugs(currentSlug: string): string[] {
+function collectCandidateSlugs(currentSlug: string): string[] {
   const candidates = new Set<string>();
 
   for (const cluster of getClustersBySlug(currentSlug)) {
@@ -99,6 +74,12 @@ function collectClusterCandidateSlugs(currentSlug: string): string[] {
     }
   }
 
+  for (const intent of getLiveIntents()) {
+    if (intent.slug !== currentSlug) {
+      candidates.add(intent.slug);
+    }
+  }
+
   return [...candidates];
 }
 
@@ -106,40 +87,31 @@ function toAutomaticRelatedPage(
   slug: string,
   currentSlug: string,
   liveSlugs: Set<string>,
-  clusterRank: number,
 ): AutomaticRelatedPage | undefined {
   const intent = getIntentBySlug(slug);
   if (!intent) {
     return undefined;
   }
 
+  const tier = RECOMMENDATION_TIER_ORDER[getRecommendationTier(currentSlug, slug)];
+
   return {
     slug,
     title: intent.title,
     available: isLiveSlug(slug, liveSlugs),
     estimatedPriority: intent.estimatedPriority,
-    clusterRank,
+    tier,
     priorityTier: getPriorityTier(intent.estimatedPriority),
+    linkLabel: getLandingPageLinkLabel(intent.title, slug, "view"),
   };
-}
-
-function compareLiveCandidates(
-  a: AutomaticRelatedPage,
-  b: AutomaticRelatedPage,
-): number {
-  if (a.clusterRank !== b.clusterRank) {
-    return a.clusterRank - b.clusterRank;
-  }
-
-  return b.estimatedPriority - a.estimatedPriority;
 }
 
 function comparePlannedCandidates(
   a: AutomaticRelatedPage,
   b: AutomaticRelatedPage,
 ): number {
-  if (a.clusterRank !== b.clusterRank) {
-    return a.clusterRank - b.clusterRank;
+  if (a.tier !== b.tier) {
+    return a.tier - b.tier;
   }
 
   const tierDelta =
@@ -169,33 +141,6 @@ function dedupeBySlug<T extends { slug: string }>(items: T[]): T[] {
   return result;
 }
 
-function addLivePages(
-  selectedLive: AutomaticRelatedPage[],
-  usedSlugs: Set<string>,
-  candidates: AutomaticRelatedPage[],
-  maxForTier: number,
-  maxLiveTotal: number,
-): number {
-  let added = 0;
-
-  for (const item of candidates) {
-    if (
-      added >= maxForTier ||
-      selectedLive.length >= maxLiveTotal ||
-      usedSlugs.has(item.slug) ||
-      !item.available
-    ) {
-      continue;
-    }
-
-    selectedLive.push(item);
-    usedSlugs.add(item.slug);
-    added += 1;
-  }
-
-  return added;
-}
-
 type BuildAutomaticOptions = {
   maxLive: number;
   maxPlanned: number;
@@ -208,88 +153,67 @@ function buildAutomaticRelatedPages(
   const liveSlugs = getLiveSlugSet();
   const usedSlugs = new Set<string>([slug]);
 
-  const fromClusters = dedupeBySlug(
-    collectClusterCandidateSlugs(slug)
-      .map((candidateSlug) =>
-        toAutomaticRelatedPage(
-          candidateSlug,
-          slug,
-          liveSlugs,
-          getClusterRank(slug, candidateSlug),
-        ),
-      )
+  const candidates = dedupeBySlug(
+    collectCandidateSlugs(slug)
+      .map((candidateSlug) => toAutomaticRelatedPage(candidateSlug, slug, liveSlugs))
       .filter((item): item is AutomaticRelatedPage => item !== undefined),
   );
 
-  const liveFromClusters = fromClusters
+  const liveCandidates = candidates
     .filter((entry) => entry.available)
-    .sort(compareLiveCandidates);
-
-  const sameClusterLive = liveFromClusters.filter((entry) => entry.clusterRank === 0);
-  const overlappingLive = liveFromClusters.filter(
-    (entry) => entry.clusterRank > 0 && entry.clusterRank < FALLBACK_CLUSTER_RANK,
-  );
+    .sort((entryA, entryB) => compareRecommendationSlugs(slug, entryA.slug, entryB.slug));
 
   const selectedLive: AutomaticRelatedPage[] = [];
 
-  addLivePages(
-    selectedLive,
-    usedSlugs,
-    sameClusterLive,
-    MAX_SAME_CLUSTER_LIVE,
-    options.maxLive,
-  );
+  for (const item of liveCandidates) {
+    if (selectedLive.length >= options.maxLive || usedSlugs.has(item.slug)) {
+      continue;
+    }
 
-  addLivePages(
-    selectedLive,
-    usedSlugs,
-    overlappingLive,
-    MAX_OVERLAPPING_LIVE,
-    options.maxLive,
-  );
-
-  const popularFallbackLive = POPULAR_LIVE_FALLBACK.map((fallbackSlug) =>
-    toAutomaticRelatedPage(fallbackSlug, slug, liveSlugs, FALLBACK_CLUSTER_RANK),
-  ).filter((item): item is AutomaticRelatedPage => item !== undefined);
-
-  addLivePages(
-    selectedLive,
-    usedSlugs,
-    popularFallbackLive,
-    MAX_POPULAR_FALLBACK_LIVE,
-    options.maxLive,
-  );
+    selectedLive.push(item);
+    usedSlugs.add(item.slug);
+  }
 
   if (selectedLive.length < TARGET_LIVE_TOTAL) {
-    addLivePages(
-      selectedLive,
-      usedSlugs,
-      remainingLiveFromIntents(slug, liveSlugs),
-      Number.MAX_SAFE_INTEGER,
-      Math.min(TARGET_LIVE_TOTAL, options.maxLive),
-    );
+    for (const fallbackSlug of POPULAR_LIVE_FALLBACK) {
+      if (selectedLive.length >= TARGET_LIVE_TOTAL || usedSlugs.has(fallbackSlug)) {
+        continue;
+      }
+
+      const fallback = toAutomaticRelatedPage(fallbackSlug, slug, liveSlugs);
+      if (!fallback?.available) {
+        continue;
+      }
+
+      selectedLive.push(fallback);
+      usedSlugs.add(fallbackSlug);
+    }
   }
 
   if (selectedLive.length < options.maxLive) {
-    addLivePages(
-      selectedLive,
-      usedSlugs,
-      remainingLiveFromIntents(slug, liveSlugs),
-      Number.MAX_SAFE_INTEGER,
-      options.maxLive,
-    );
+    for (const intent of getLiveIntents().sort(
+      (intentA, intentB) => intentB.estimatedPriority - intentA.estimatedPriority,
+    )) {
+      if (selectedLive.length >= options.maxLive || usedSlugs.has(intent.slug)) {
+        continue;
+      }
+
+      const backfill = toAutomaticRelatedPage(intent.slug, slug, liveSlugs);
+      if (!backfill?.available) {
+        continue;
+      }
+
+      selectedLive.push(backfill);
+      usedSlugs.add(intent.slug);
+    }
   }
 
   const selectedPlanned: AutomaticRelatedPage[] = [];
-  const plannedFromClusters = fromClusters
+  const plannedCandidates = candidates
     .filter((entry) => !entry.available)
     .sort(comparePlannedCandidates);
 
-  const sameClusterPlanned = plannedFromClusters.filter(
-    (entry) => entry.clusterRank === 0,
-  );
-
-  for (const item of sameClusterPlanned) {
+  for (const item of plannedCandidates) {
     if (selectedPlanned.length >= options.maxPlanned || usedSlugs.has(item.slug)) {
       continue;
     }
@@ -298,37 +222,19 @@ function buildAutomaticRelatedPages(
     usedSlugs.add(item.slug);
   }
 
-  for (const tier of PLANNED_TIER_ORDER) {
-    for (const item of plannedFromClusters) {
-      if (selectedPlanned.length >= options.maxPlanned || usedSlugs.has(item.slug)) {
-        continue;
-      }
-
-      if (item.priorityTier !== tier) {
-        continue;
-      }
-
-      selectedPlanned.push(item);
-      usedSlugs.add(item.slug);
-    }
-  }
-
   return [...selectedLive, ...selectedPlanned];
 }
 
-function remainingLiveFromIntents(
-  slug: string,
-  liveSlugs: Set<string>,
-): AutomaticRelatedPage[] {
-  return getLiveIntents()
-    .sort((a, b) => b.estimatedPriority - a.estimatedPriority)
-    .map((intent) =>
-      toAutomaticRelatedPage(intent.slug, slug, liveSlugs, FALLBACK_CLUSTER_RANK),
-    )
-    .filter((item): item is AutomaticRelatedPage => item !== undefined);
+function toRelatedPageItem(page: AutomaticRelatedPage): LandingPageRelatedPage {
+  return {
+    slug: page.slug,
+    title: page.title,
+    available: page.available,
+    linkLabel: page.linkLabel,
+  };
 }
 
-/** Returns scored related slug candidates from clusters plus live backfill. */
+/** Returns scored related slug candidates using intent, audience, hub, and cluster signals. */
 export function getAutomaticRelatedPages(
   slug: string,
   options: Pick<RelatedPagesOptions, "maxLive" | "maxPlanned"> = {},
@@ -342,29 +248,13 @@ export function getAutomaticRelatedPages(
 export function getLiveRelatedPages(slug: string): LandingPageRelatedPage[] {
   return getAutomaticRelatedPages(slug)
     .filter((page) => page.available)
-    .map(({ slug: pageSlug, title }) => ({
-      slug: pageSlug,
-      title,
-      available: true,
-    }));
+    .map(toRelatedPageItem);
 }
 
 export function getFutureRelatedPages(slug: string): LandingPageRelatedPage[] {
   return getAutomaticRelatedPages(slug)
     .filter((page) => !page.available)
-    .map(({ slug: pageSlug, title }) => ({
-      slug: pageSlug,
-      title,
-      available: false,
-    }));
-}
-
-function toRelatedPageItem(page: AutomaticRelatedPage): LandingPageRelatedPage {
-  return {
-    slug: page.slug,
-    title: page.title,
-    available: page.available,
-  };
+    .map(toRelatedPageItem);
 }
 
 /** Returns Related Games items for the landing page component. */
@@ -373,7 +263,12 @@ export function getRelatedLandingPageItems(
   options: RelatedPagesOptions = {},
 ): LandingPageRelatedPage[] {
   if (options.override) {
-    return options.override;
+    return options.override.map((page) => ({
+      ...page,
+      linkLabel:
+        page.linkLabel ??
+        getLandingPageLinkLabel(page.title, page.slug, "view"),
+    }));
   }
 
   return getAutomaticRelatedPages(slug, options).map(toRelatedPageItem);
@@ -381,5 +276,5 @@ export function getRelatedLandingPageItems(
 
 /** Returns the primary keyword cluster id for a slug, if any. */
 export function getPrimaryClusterIdForSlug(slug: string): string | undefined {
-  return getClusterBySlug(slug)?.id;
+  return getClustersBySlug(slug)[0]?.id;
 }

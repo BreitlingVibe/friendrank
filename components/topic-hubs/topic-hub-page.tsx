@@ -6,6 +6,7 @@ import {
   getTopicHubCtaLocation,
 } from "@/lib/topic-hubs";
 import { getHubPageContent } from "@/lib/topic-hubs/hub-content";
+import { resolveHubSectionCopy } from "@/lib/topic-hubs/hub-section-copy";
 import type { HubLandingPageRef, TopicHub } from "@/lib/topic-hubs/hub-types";
 import { CREATE_GAME_HREF } from "@/lib/landing-pages/content/cta-library";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
@@ -31,6 +32,7 @@ function sortByPriorityDesc(pages: HubLandingPageRef[]): HubLandingPageRef[] {
 
 export function TopicHubPage({ hub }: TopicHubPageProps) {
   const content = getHubPageContent(hub.id);
+  const sectionCopy = resolveHubSectionCopy(hub, content);
   const ctaLocation = getTopicHubCtaLocation(hub.id);
   const featuredPages = getHubFeaturedLivePages(hub.id);
   const allLivePages = sortByPriorityDesc(getHubLandingPages(hub.id));
@@ -38,15 +40,11 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
   const otherHubs = getAllHubs();
 
   const heroParagraphs = content?.heroParagraphs ?? [hub.intro];
-  const featuredTitle = content?.featuredSectionTitle ?? "Featured games";
-  const featuredIntro = content?.featuredSectionIntro;
-  const liveTitle = content?.liveSectionTitle ?? "Explore all games";
-  const liveIntro =
-    content?.liveSectionIntro ??
-    "Browse every live game in this category and create one for your group.";
-  const comingSoonIntro =
-    content?.comingSoonIntro ??
-    "More games are coming to this category as FriendRank continues expanding.";
+  const featuredTitle = sectionCopy.featuredSectionTitle;
+  const featuredIntro = sectionCopy.featuredSectionIntro;
+  const liveTitle = sectionCopy.liveSectionTitle;
+  const liveIntro = sectionCopy.liveSectionIntro;
+  const comingSoonIntro = sectionCopy.comingSoonIntro;
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-950 text-white">
@@ -123,7 +121,7 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
               <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {featuredPages.map((page) => (
                   <li key={page.slug}>
-                    <TopicHubLiveCard page={page} ctaLabel="Play now" />
+                    <TopicHubLiveCard page={page} linkStyle="play" />
                   </li>
                 ))}
               </ul>
@@ -151,7 +149,7 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
               <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {allLivePages.map((page) => (
                   <li key={page.slug}>
-                    <TopicHubLiveCard page={page} ctaLabel="View game" />
+                    <TopicHubLiveCard page={page} linkStyle="view" />
                   </li>
                 ))}
               </ul>

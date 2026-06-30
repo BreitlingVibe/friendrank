@@ -31,6 +31,15 @@ export type LandingPageRelatedPage = {
   title: string;
   /** When false, render as upcoming — no href. */
   available: boolean;
+  /** Descriptive anchor text for internal links. */
+  linkLabel?: string;
+};
+
+export type PopularSearchLink = {
+  slug: string;
+  title: string;
+  linkLabel: string;
+  kind: "landing" | "hub";
 };
 
 export type LandingPageGamePreset = {
@@ -64,6 +73,10 @@ export type LandingPageData = {
   faq: LandingPageFaqItem[];
   relatedPagesTitle: string;
   relatedPages: LandingPageRelatedPage[];
+  youMayAlsoLikeTitle: string;
+  youMayAlsoLike: LandingPageRelatedPage[];
+  popularSearchesTitle: string;
+  popularSearches: PopularSearchLink[];
   finalCtaTitle: string;
   finalCtaSubtitle: string;
   ctaLocation: CtaLocation;
