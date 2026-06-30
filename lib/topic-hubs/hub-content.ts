@@ -2,6 +2,8 @@ import type { HubPageContent } from "@/lib/topic-hubs/hub-content-types";
 
 const HUB_CONTENT: Record<string, HubPageContent> = {
   "friend-games": {
+    heroLead:
+      "FriendRank friend games turn your group chat into a live voting game — best friend quizzes, Most Likely To prompts, and funny friend games you can share with one browser link.",
     heroParagraphs: [
       "FriendRank friend games turn your group chat into a live voting game. Pick a best friend quiz, funny friend game, or Most Likely To style prompt, share one link, and let everyone vote on their phone.",
       "Expect anonymous ballots, ranked winners, and shareable results you can drop back into the chat. No app download and no signup required.",
@@ -92,6 +94,8 @@ const HUB_CONTENT: Record<string, HubPageContent> = {
       "FriendRank friend games include best friend quizzes, funny friend games, Most Likely To generators, and group voting games for friend groups.",
   },
   "party-games": {
+    heroLead:
+      "Party games on FriendRank help birthdays, sleepovers, and girls nights start fast — anonymous phone voting, funny roles, and reveal-ready results without an app download.",
     heroParagraphs: [
       "Party games on FriendRank help you break the ice at birthdays, sleepovers, girls nights, and casual hangouts. Create a game, share one link, and let the group vote anonymously from their phones.",
       "Expect funny roles, quick rounds, and results you can reveal together in the room or the group chat.",
@@ -182,6 +186,8 @@ const HUB_CONTENT: Record<string, HubPageContent> = {
       "FriendRank party games include birthday party games, sleepover games, girls night games, and group voting games for hangouts.",
   },
   "team-building-games": {
+    heroLead:
+      "Team building games on FriendRank give coworkers and remote teams a light, browser-based voting game — icebreakers, personality prompts, and shared results from one link.",
     heroParagraphs: [
       "Team building games on FriendRank give coworkers a light way to connect without forced small talk. Create a game, invite the team, vote anonymously, and reveal results together.",
       "Expect workplace-safe prompts, phone voting, and shareable outcomes that work for in-person teams, hybrid offices, and remote syncs.",
@@ -272,6 +278,8 @@ const HUB_CONTENT: Record<string, HubPageContent> = {
       "FriendRank team building games include office icebreakers, team bonding activities, and anonymous coworker voting games.",
   },
   "relationship-games": {
+    heroLead:
+      "Relationship games on FriendRank help couples and close pairs play anonymous voting quizzes in the browser — date night prompts, couple questions, and reveal-ready results from one shared link.",
     heroParagraphs: [
       "Relationship games on FriendRank turn couple quizzes and dating prompts into a social voting experience. Add names, share one link, vote anonymously, and reveal playful results together.",
       "Expect date night ideas that spark conversation, not a long solo compatibility test. Works for couples, double dates, and friend groups who want to play along.",
@@ -362,6 +370,8 @@ const HUB_CONTENT: Record<string, HubPageContent> = {
       "FriendRank relationship games include couple quizzes, relationship quizzes, and dating games with anonymous group voting.",
   },
   "icebreaker-games": {
+    heroLead:
+      "Icebreaker games on FriendRank warm up new groups fast — anonymous voting prompts, phone-friendly rounds, and shareable results for classrooms, meetups, and team intros.",
     heroParagraphs: [
       "Icebreaker games on FriendRank help new groups warm up fast. Add names, share one link, vote anonymously on fun roles, and reveal results together in minutes.",
       "Expect mobile-friendly games for offices, classrooms, events, and friend groups where not everyone knows each other yet.",
@@ -457,6 +467,8 @@ const HUB_CONTENT: Record<string, HubPageContent> = {
       "FriendRank icebreaker games include office icebreakers, classroom icebreakers, and group voting games for new teams and events.",
   },
   "question-games": {
+    heroLead:
+      "Question games on FriendRank turn prompts into group voting rounds — trivia-style quizzes, would-you-rather questions, and reveal games your friends can answer from any phone.",
     heroParagraphs: [
       "FriendRank question games turn classic prompts into live group voting. Pick Would You Rather, Never Have I Ever, This or That, or themed question lists, share one link, and let everyone vote on their phone.",
       "Expect anonymous ballots, ranked winners, and shareable results you can drop back into the chat. No app download and no signup required.",

@@ -1,9 +1,14 @@
 import { PRODUCTION_APP_URL } from "@/lib/app-url";
 import { SITE_NAME } from "@/lib/seo/site-metadata";
+import {
+  buildBreadcrumbListStructuredData,
+  buildLandingPageBreadcrumbItems,
+} from "@/lib/seo/breadcrumbs";
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 
 export function buildLandingPageStructuredData(page: LandingPageData) {
   const pageId = `${page.canonicalUrl}/#webpage`;
+  const breadcrumbItems = buildLandingPageBreadcrumbItems(page.slug, page.title);
 
   return {
     "@context": "https://schema.org",
@@ -21,7 +26,15 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
         about: {
           "@id": `${page.canonicalUrl}/#webapp`,
         },
+        breadcrumb: {
+          "@id": `${page.canonicalUrl}/#breadcrumb`,
+        },
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: ["#landing-hero-heading", "#landing-intent-heading"],
+        },
       },
+      buildBreadcrumbListStructuredData(breadcrumbItems, page.canonicalUrl),
       {
         "@type": "FAQPage",
         "@id": `${page.canonicalUrl}/#faq`,
@@ -53,6 +66,9 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
         },
         isPartOf: {
           "@id": `${PRODUCTION_APP_URL}/#website`,
+        },
+        publisher: {
+          "@id": `${PRODUCTION_APP_URL}/#organization`,
         },
       },
     ],

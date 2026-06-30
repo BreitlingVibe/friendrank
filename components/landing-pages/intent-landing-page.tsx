@@ -1,4 +1,5 @@
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
+import { buildLandingPageBreadcrumbItems } from "@/lib/seo/breadcrumbs";
 import { LandingPageStructuredData } from "@/components/landing-pages/landing-page-structured-data";
 import { LandingPageExamples } from "@/components/landing-pages/landing-page-examples";
 import { LandingPageFaq } from "@/components/landing-pages/landing-page-faq";
@@ -6,20 +7,18 @@ import { LandingPageHero } from "@/components/landing-pages/landing-page-hero";
 import { LandingPageRelated } from "@/components/landing-pages/landing-page-related";
 import { LandingPagePopularSearches } from "@/components/landing-pages/landing-page-popular-searches";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
-import { LandingPageTrustStrip } from "@/components/landing-pages/landing-page-trust-strip";
+import { LandingPageTrustSection } from "@/components/landing-pages/landing-page-trust-section";
+import { SemanticBreadcrumbs } from "@/components/shared/semantic-breadcrumbs";
+import { SiteAuthorityFooter } from "@/components/shared/site-authority-footer";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
-
-const TRUST_POINTS = [
-  "✓ Anonymous voting",
-  "✓ No signup required",
-  "✓ Ready in under a minute",
-] as const;
 
 type IntentLandingPageProps = {
   page: LandingPageData;
 };
 
 export function IntentLandingPage({ page }: IntentLandingPageProps) {
+  const breadcrumbs = buildLandingPageBreadcrumbItems(page.slug, page.title);
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-950 text-white">
       <LandingPageStructuredData page={page} />
@@ -35,9 +34,10 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
         </div>
       </header>
 
-      <main className="relative z-10">
+      <SemanticBreadcrumbs items={breadcrumbs} />
+
+      <main id="main-content" className="relative z-10">
         <LandingPageHero page={page} />
-        <LandingPageTrustStrip points={[...TRUST_POINTS]} />
 
         <section
           aria-labelledby="landing-intent-heading"
@@ -109,7 +109,8 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
                 label={page.primaryCta.label}
                 href={page.primaryCta.href}
                 location={page.ctaLocation}
-                variant="primary"
+                variant="secondary"
+                ariaLabel={`${page.primaryCta.label} — continue to create your game`}
               />
             </div>
           </div>
@@ -141,6 +142,8 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
           links={page.popularSearches}
         />
 
+        <LandingPageTrustSection />
+
         <section
           aria-labelledby="landing-final-cta-heading"
           className="border-t border-white/5 py-16 sm:py-24"
@@ -167,17 +170,7 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
         </section>
       </main>
 
-      <footer className="relative z-10 border-t border-white/5 py-8">
-        <div className="mx-auto max-w-6xl px-6 text-center text-sm text-slate-600">
-          <p>
-            <a href="/" className="text-slate-500 transition hover:text-slate-300">
-              FriendRank
-            </a>
-            {" · "}
-            Free friend voting games in the browser
-          </p>
-        </div>
-      </footer>
+      <SiteAuthorityFooter />
     </div>
   );
 }

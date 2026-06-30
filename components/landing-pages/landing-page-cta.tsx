@@ -15,6 +15,7 @@ type LandingPageCtaProps = {
   location: CtaLocation;
   variant?: "primary" | "secondary";
   className?: string;
+  ariaLabel?: string;
 };
 
 export function LandingPageCta({
@@ -23,6 +24,7 @@ export function LandingPageCta({
   location,
   variant = "primary",
   className = "",
+  ariaLabel,
 }: LandingPageCtaProps) {
   const isExternal = href.startsWith("http");
   const isHashLink = href.startsWith("#");
@@ -39,14 +41,19 @@ export function LandingPageCta({
 
   if (isExternal) {
     return (
-      <a href={href} onClick={handleClick} className={classes}>
+      <a
+        href={href}
+        onClick={handleClick}
+        className={classes}
+        aria-label={ariaLabel}
+      >
         {label}
       </a>
     );
   }
 
   return (
-    <Link href={href} onClick={handleClick} className={classes}>
+    <Link href={href} onClick={handleClick} className={classes} aria-label={ariaLabel}>
       {label}
     </Link>
   );

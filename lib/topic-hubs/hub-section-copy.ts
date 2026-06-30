@@ -12,6 +12,32 @@ export type ResolvedHubSectionCopy = {
   comingSoonIntro: string;
 };
 
+export type ResolvedHubHeroCopy = {
+  lead: string;
+  paragraphs: string[];
+};
+
+function buildDefaultHeroLead(hub: TopicHubDefinition): string {
+  return `Browse ${hub.primaryKeyword} on FriendRank to create anonymous voting games, quizzes, and question games your group can play in the browser — free, mobile-friendly, and shareable with one link.`;
+}
+
+/** Merges curated hub content with keyword-aware hero defaults from the hub registry. */
+export function resolveHubHeroCopy(
+  hub: TopicHubDefinition,
+  content?: HubPageContent,
+): ResolvedHubHeroCopy {
+  const paragraphs =
+    content?.heroParagraphs ??
+    [hub.hero, hub.description].filter((paragraph): paragraph is string =>
+      Boolean(paragraph),
+    );
+
+  return {
+    lead: content?.heroLead ?? buildDefaultHeroLead(hub),
+    paragraphs,
+  };
+}
+
 function buildFeaturedIntro(hub: TopicHubDefinition): string {
   const audience =
     getCluster(hub.clusterIds[0] ?? "")?.targetAudience ??

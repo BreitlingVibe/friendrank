@@ -4,13 +4,17 @@ import {
   getHubLandingPages,
   getHubPlannedPages,
   getTopicHubCtaLocation,
+  resolveHubHeroCopy,
+  resolveHubSectionCopy,
 } from "@/lib/topic-hubs";
 import { getHubPageContent } from "@/lib/topic-hubs/hub-content";
-import { resolveHubSectionCopy } from "@/lib/topic-hubs/hub-section-copy";
+import { buildTopicHubBreadcrumbItems } from "@/lib/seo/breadcrumbs";
 import type { HubLandingPageRef, TopicHub } from "@/lib/topic-hubs/hub-types";
 import { CREATE_GAME_HREF } from "@/lib/landing-pages/content/cta-library";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
+import { SemanticBreadcrumbs } from "@/components/shared/semantic-breadcrumbs";
+import { SiteAuthorityFooter } from "@/components/shared/site-authority-footer";
 import { TopicHubBenefits } from "@/components/topic-hubs/topic-hub-benefits";
 import {
   TopicHubComingSoonCard,
@@ -32,14 +36,15 @@ function sortByPriorityDesc(pages: HubLandingPageRef[]): HubLandingPageRef[] {
 
 export function TopicHubPage({ hub }: TopicHubPageProps) {
   const content = getHubPageContent(hub.id);
+  const heroCopy = resolveHubHeroCopy(hub, content);
   const sectionCopy = resolveHubSectionCopy(hub, content);
   const ctaLocation = getTopicHubCtaLocation(hub.id);
   const featuredPages = getHubFeaturedLivePages(hub.id);
   const allLivePages = sortByPriorityDesc(getHubLandingPages(hub.id));
   const plannedPages = sortByPriorityDesc(getHubPlannedPages(hub.id));
   const otherHubs = getAllHubs();
+  const breadcrumbs = buildTopicHubBreadcrumbItems(hub.slug, hub.title);
 
-  const heroParagraphs = content?.heroParagraphs ?? [hub.intro];
   const featuredTitle = sectionCopy.featuredSectionTitle;
   const featuredIntro = sectionCopy.featuredSectionIntro;
   const liveTitle = sectionCopy.liveSectionTitle;
@@ -68,7 +73,9 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
         </div>
       </header>
 
-      <main className="relative z-10">
+      <SemanticBreadcrumbs items={breadcrumbs} />
+
+      <main id="main-content" className="relative z-10">
         <section
           aria-labelledby="topic-hub-hero-heading"
           className="mx-auto max-w-3xl px-6 pb-10 pt-16 text-center sm:pb-12 sm:pt-24"
@@ -79,8 +86,14 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
           >
             {hub.title}
           </h1>
+          <p
+            id="topic-hub-hero-lead"
+            className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-relaxed text-slate-300 sm:text-xl"
+          >
+            {heroCopy.lead}
+          </p>
           <div className="mx-auto mt-6 max-w-2xl space-y-4 text-left sm:text-center">
-            {heroParagraphs.map((paragraph) => (
+            {heroCopy.paragraphs.map((paragraph) => (
               <p
                 key={paragraph}
                 className="text-base leading-relaxed text-slate-400 sm:text-lg"
@@ -95,6 +108,7 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
               href={CREATE_GAME_HREF}
               location={ctaLocation}
               variant="primary"
+              ariaLabel="Create your game on FriendRank — start a free browser voting game"
             />
           </div>
         </section>
@@ -199,17 +213,7 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
         <TopicHubOtherHubs hubs={otherHubs} currentHubId={hub.id} />
       </main>
 
-      <footer className="relative z-10 border-b border-white/5 py-8">
-        <div className="mx-auto max-w-6xl px-6 text-center text-sm text-slate-600">
-          <p>
-            <a href="/" className="text-slate-500 transition hover:text-slate-300">
-              FriendRank home
-            </a>
-            {" · "}
-            Free friend voting games in the browser
-          </p>
-        </div>
-      </footer>
+      <SiteAuthorityFooter />
     </div>
   );
 }

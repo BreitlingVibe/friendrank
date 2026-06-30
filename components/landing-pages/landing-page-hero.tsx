@@ -1,5 +1,6 @@
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
+import { HERO_TRUST_SIGNALS } from "@/lib/seo/trust-content";
 
 type LandingPageHeroProps = {
   page: Pick<
@@ -39,6 +40,19 @@ export function LandingPageHero({ page }: LandingPageHeroProps) {
           />
         ) : null}
       </div>
+      <ul
+        aria-label="FriendRank trust highlights"
+        className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-slate-500 sm:text-sm"
+      >
+        {HERO_TRUST_SIGNALS.map((signal) => (
+          <li key={signal.title} className="flex items-center gap-1.5">
+            <span aria-hidden="true" className="text-emerald-500/80">
+              ✓
+            </span>
+            <span>{signal.title}</span>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

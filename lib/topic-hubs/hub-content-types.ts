@@ -9,6 +9,7 @@ export type HubFaqItem = {
 };
 
 export type HubPageContent = {
+  heroLead?: string;
   heroParagraphs: string[];
   featuredSectionTitle: string;
   featuredSectionIntro?: string;
