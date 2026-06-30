@@ -183,6 +183,21 @@ export type CtaLocation =
   | "landing_couple_questions"
   | "landing_question_games"
   | "homepage_question_games"
+  | "landing_deep_questions_for_friends"
+  | "landing_funny_questions_for_friends"
+  | "landing_random_questions_for_friends"
+  | "landing_deep_questions_for_couples"
+  | "landing_romantic_questions"
+  | "landing_couple_conversation_starters"
+  | "landing_funny_icebreaker_questions"
+  | "landing_virtual_icebreaker_questions"
+  | "landing_work_icebreaker_questions"
+  | "landing_team_meeting_questions"
+  | "landing_team_check_in_questions"
+  | "landing_team_conversation_starters"
+  | "landing_drinking_questions"
+  | "landing_birthday_questions"
+  | "landing_conversation_starter_questions"
   | "homepage_icebreaker_games";
 
 export type CtaClickedParams = {
