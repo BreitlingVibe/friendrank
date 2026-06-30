@@ -927,6 +927,206 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
     estimatedPriority: 53,
     status: "live",
   },
+  {
+    slug: "pregame-games",
+    title: "Pregame Games",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find quick pregame games with anonymous phone voting before the main event starts.",
+    audience: "Friend groups warming up before a night out, house party, or celebration",
+    estimatedPriority: 33,
+    status: "live",
+  },
+  {
+    slug: "boys-night-games",
+    title: "Boys Night Games",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find browser games for boys night with anonymous voting and one shared link.",
+    audience: "Guys nights, bachelor hangs, and male friend groups",
+    estimatedPriority: 32,
+    status: "live",
+  },
+  {
+    slug: "vacation-games",
+    title: "Vacation Games",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Find vacation games for travel groups with anonymous phone voting.",
+    audience: "Friend groups on vacation, travel crews, and holiday trips",
+    estimatedPriority: 31,
+    status: "live",
+  },
+  {
+    slug: "road-trip-games",
+    title: "Road Trip Games",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Find road trip games with anonymous voting that work from phones in the car.",
+    audience: "Road trip crews, carpool groups, and long-drive friend groups",
+    estimatedPriority: 30,
+    status: "live",
+  },
+  {
+    slug: "classroom-games",
+    title: "Classroom Games",
+    intentCategory: INTENT_CATEGORIES.ICEBREAKERS,
+    searchIntent:
+      "Find classroom games with anonymous phone voting for students and teachers.",
+    audience: "Teachers, students, and classroom groups looking for quick activities",
+    estimatedPriority: 29,
+    status: "live",
+  },
+  {
+    slug: "high-school-games",
+    title: "High School Games",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Find high school games with anonymous voting for teen friend groups.",
+    audience: "High school students, teen friend groups, and school social circles",
+    estimatedPriority: 28,
+    status: "live",
+  },
+  {
+    slug: "middle-school-games",
+    title: "Middle School Games",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Find middle school games with anonymous voting for younger teen groups.",
+    audience: "Middle school students, youth groups, and younger teen friend circles",
+    estimatedPriority: 27,
+    status: "live",
+  },
+  {
+    slug: "student-orientation-games",
+    title: "Student Orientation Games",
+    intentCategory: INTENT_CATEGORIES.ICEBREAKERS,
+    searchIntent:
+      "Find student orientation games with anonymous voting for new campus groups.",
+    audience: "New students, orientation leaders, and campus welcome groups",
+    estimatedPriority: 26,
+    status: "live",
+  },
+  {
+    slug: "new-employee-games",
+    title: "New Employee Games",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Find new employee games with anonymous voting for welcome sessions.",
+    audience: "HR teams, managers, and new hires in their first weeks",
+    estimatedPriority: 25,
+    status: "live",
+  },
+  {
+    slug: "onboarding-games",
+    title: "Onboarding Games",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Find onboarding games with anonymous voting for structured new-hire sessions.",
+    audience: "HR leaders, people ops, and teams running structured onboarding",
+    estimatedPriority: 24,
+    status: "live",
+  },
+  {
+    slug: "workshop-games",
+    title: "Workshop Games",
+    intentCategory: INTENT_CATEGORIES.TEAMS,
+    searchIntent:
+      "Find workshop games with anonymous voting for training sessions and offsites.",
+    audience: "Facilitators, trainers, and teams running workshops or offsites",
+    estimatedPriority: 23,
+    status: "live",
+  },
+  {
+    slug: "conference-icebreaker-games",
+    title: "Conference Icebreaker Games",
+    intentCategory: INTENT_CATEGORIES.ICEBREAKERS,
+    searchIntent:
+      "Find conference icebreaker games with anonymous voting for large attendee groups.",
+    audience: "Conference attendees, event hosts, and large professional gatherings",
+    estimatedPriority: 22,
+    status: "live",
+  },
+  {
+    slug: "family-reunion-games",
+    title: "Family Reunion Games",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Find family reunion games with anonymous voting for mixed-age relatives.",
+    audience: "Extended families, reunion hosts, and multi-generation gatherings",
+    estimatedPriority: 21,
+    status: "live",
+  },
+  {
+    slug: "holiday-family-games",
+    title: "Holiday Family Games",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Find holiday family games with anonymous voting for seasonal gatherings.",
+    audience: "Families celebrating holidays together at home or visiting relatives",
+    estimatedPriority: 20,
+    status: "live",
+  },
+  {
+    slug: "christmas-family-games",
+    title: "Christmas Family Games",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Find Christmas family games with anonymous voting for holiday gatherings.",
+    audience: "Families celebrating Christmas together at home or visiting relatives",
+    estimatedPriority: 19,
+    status: "live",
+  },
+  {
+    slug: "thanksgiving-games",
+    title: "Thanksgiving Games",
+    intentCategory: INTENT_CATEGORIES.ENTERTAINMENT,
+    searchIntent:
+      "Find Thanksgiving games with anonymous voting for holiday dinner groups.",
+    audience: "Families and friends gathering for Thanksgiving dinner",
+    estimatedPriority: 18,
+    status: "live",
+  },
+  {
+    slug: "graduation-party-games",
+    title: "Graduation Party Games",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find graduation party games with anonymous voting for celebration guests.",
+    audience: "Graduation hosts, families, and friends celebrating a graduate",
+    estimatedPriority: 17,
+    status: "live",
+  },
+  {
+    slug: "baby-shower-games",
+    title: "Baby Shower Games",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find baby shower games with anonymous voting for shower guests.",
+    audience: "Baby shower hosts, expecting parents, and celebration guests",
+    estimatedPriority: 16,
+    status: "live",
+  },
+  {
+    slug: "bridal-shower-games",
+    title: "Bridal Shower Games",
+    intentCategory: INTENT_CATEGORIES.PARTY,
+    searchIntent:
+      "Find bridal shower games with anonymous voting for wedding celebrations.",
+    audience: "Bridal shower hosts, wedding parties, and celebration guests",
+    estimatedPriority: 15,
+    status: "live",
+  },
+  {
+    slug: "reunion-games",
+    title: "Reunion Games",
+    intentCategory: INTENT_CATEGORIES.FRIENDSHIP,
+    searchIntent:
+      "Find reunion games for friend and alumni groups with anonymous phone voting.",
+    audience: "Friend groups, alumni crews, and class reunions reconnecting after time apart",
+    estimatedPriority: 14,
+    status: "live",
+  },
 ];
 
 export function getIntentBySlug(slug: string): IntentDefinition | undefined {

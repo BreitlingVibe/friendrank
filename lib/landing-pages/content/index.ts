@@ -345,3 +345,5 @@ export {
 } from "@/lib/landing-pages/content/intent-library";
 
 export * from "@/lib/landing-pages/content/audience-authority-content";
+
+export * from "@/lib/landing-pages/content/audience-authority-wave2-content";

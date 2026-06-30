@@ -1,6 +1,7 @@
 import type { CtaLocation } from "@/lib/analytics";
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 import { registerAudienceAuthorityPages } from "@/lib/landing-pages/audience-authority-pages";
+import { registerAudienceAuthorityWave2Pages } from "@/lib/landing-pages/audience-authority-wave2-pages";
 import { getRelatedLandingPageItems } from "@/lib/landing-pages/internal-links";
 import {
   getPopularSearchLinks,
@@ -917,6 +918,30 @@ export const {
   pages: audienceAuthorityLandingPages,
 } = registerAudienceAuthorityPages({ assembleLandingPage });
 
+export const {
+  pregameGamesPage,
+  boysNightGamesPage,
+  vacationGamesPage,
+  roadTripGamesPage,
+  classroomGamesPage,
+  highSchoolGamesPage,
+  middleSchoolGamesPage,
+  studentOrientationGamesPage,
+  newEmployeeGamesPage,
+  onboardingGamesPage,
+  workshopGamesPage,
+  conferenceIcebreakerGamesPage,
+  familyReunionGamesPage,
+  holidayFamilyGamesPage,
+  christmasFamilyGamesPage,
+  thanksgivingGamesPage,
+  graduationPartyGamesPage,
+  babyShowerGamesPage,
+  bridalShowerGamesPage,
+  reunionGamesPage,
+  pages: audienceAuthorityWave2LandingPages,
+} = registerAudienceAuthorityWave2Pages({ assembleLandingPage });
+
 export const LANDING_PAGES: LandingPageData[] = [
   mostLikelyToGeneratorPage,
   bestFriendQuizPage,
@@ -980,6 +1005,7 @@ export const LANDING_PAGES: LandingPageData[] = [
   birthdayQuestionsPage,
   conversationStarterQuestionsPage,
   ...audienceAuthorityLandingPages,
+  ...audienceAuthorityWave2LandingPages,
 ];
 
 export function getLandingPageBySlug(slug: string): LandingPageData | undefined {
