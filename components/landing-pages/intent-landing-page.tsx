@@ -1,23 +1,19 @@
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 import { buildLandingPageBreadcrumbItems } from "@/lib/seo/breadcrumbs";
 import { LandingPageStructuredData } from "@/components/landing-pages/landing-page-structured-data";
-import { LandingPageBestFor } from "@/components/landing-pages/landing-page-best-for";
-import {
-  LandingPageGoodForSection,
-  LandingPageWhenAndDifferentSections,
-} from "@/components/landing-pages/landing-page-content-quality";
 import { LandingPageExamples } from "@/components/landing-pages/landing-page-examples";
 import { LandingPageFaq } from "@/components/landing-pages/landing-page-faq";
 import { LandingPageFormatComparison } from "@/components/landing-pages/landing-page-format-comparison";
 import { LandingPageHero } from "@/components/landing-pages/landing-page-hero";
-import { LandingPageHowToPlay } from "@/components/landing-pages/landing-page-how-to-play";
 import { LandingPageRelated } from "@/components/landing-pages/landing-page-related";
 import { LandingPagePopularSearches } from "@/components/landing-pages/landing-page-popular-searches";
 import { LandingPagePlayersAlsoEnjoy } from "@/components/landing-pages/landing-page-players-also-enjoy";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
 import { LandingPageTrustSection } from "@/components/landing-pages/landing-page-trust-section";
-import { EntityExplorer } from "@/components/shared/entity-explorer";
-import { EntityAuthorityPanelSection } from "@/components/shared/entity-authority-panel";
+import {
+  LandingPageMainSections,
+  getLandingPageRecommendationCopy,
+} from "@/components/landing-pages/landing-page-main-sections";
 import { SemanticBreadcrumbs } from "@/components/shared/semantic-breadcrumbs";
 import { SiteAuthorityFooter } from "@/components/shared/site-authority-footer";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
@@ -28,6 +24,7 @@ type IntentLandingPageProps = {
 
 export function IntentLandingPage({ page }: IntentLandingPageProps) {
   const breadcrumbs = buildLandingPageBreadcrumbItems(page.slug, page.title);
+  const recommendationCopy = getLandingPageRecommendationCopy(page);
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-950 text-white">
@@ -49,49 +46,7 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
       <main id="main-content" className="relative z-10">
         <LandingPageHero page={page} />
 
-        <LandingPageBestFor title={page.bestForTitle} tags={page.bestForTags} />
-
-        <LandingPageGoodForSection contentQuality={page.contentQuality} />
-
-        <EntityExplorer
-          navigation={page.entityNavigation}
-          headingId="landing-entity-explorer-heading"
-        />
-
-        <EntityAuthorityPanelSection
-          panel={page.entityAuthorityPanel}
-          headingId="landing-entity-authority-heading"
-          summary={page.entitySummary}
-          summaryId="landing-entity-summary"
-        />
-
-        <section
-          aria-labelledby="landing-intent-heading"
-          className="py-16 sm:py-20"
-        >
-          <div className="mx-auto max-w-3xl px-6">
-            <h2
-              id="landing-intent-heading"
-              className="text-2xl font-bold tracking-tight sm:text-3xl"
-            >
-              {page.intentSummaryTitle}
-            </h2>
-            {page.intentLead ? (
-              <p className="mt-4 text-base font-medium leading-relaxed text-slate-300">
-                {page.intentLead}
-              </p>
-            ) : null}
-            <p
-              className={`${page.intentLead ? "mt-3" : "mt-4"} text-base leading-relaxed text-slate-400`}
-            >
-              {page.intentSummary}
-            </p>
-          </div>
-        </section>
-
-        <LandingPageWhenAndDifferentSections contentQuality={page.contentQuality} />
-
-        <LandingPageHowToPlay content={page.howToPlay} />
+        <LandingPageMainSections page={page} />
 
         <section
           aria-labelledby="landing-why-heading"
@@ -143,11 +98,11 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
             </p>
             <div className="mt-8">
               <LandingPageCta
-                label={page.primaryCta.label}
+                label={page.contentVariation.cta.midPageLabel}
                 href={page.primaryCta.href}
                 location={page.ctaLocation}
                 variant="secondary"
-                ariaLabel={`${page.primaryCta.label} — continue to create your game`}
+                ariaLabel={`${page.contentVariation.cta.midPageLabel} — continue to create your game`}
               />
             </div>
           </div>
@@ -168,28 +123,28 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
         <LandingPageFaq title={page.faqTitle} items={page.faq} />
 
         <LandingPagePlayersAlsoEnjoy
-          title={page.playersAlsoEnjoyTitle}
+          title={recommendationCopy.playersAlsoEnjoyTitle}
           pages={page.playersAlsoEnjoy}
-          explanation={page.relatedSectionExplanations.playersAlsoEnjoy}
+          explanation={recommendationCopy.playersAlsoEnjoyExplanation}
         />
 
         <LandingPageRelated
           title={page.youMayAlsoLikeTitle}
           pages={page.youMayAlsoLike}
           headingId="landing-you-may-also-like-heading"
-          explanation={page.relatedSectionExplanations.youMayAlsoLike}
+          explanation={recommendationCopy.youMayAlsoLikeExplanation}
         />
 
         <LandingPageRelated
           title={page.relatedPagesTitle}
           pages={page.relatedPages}
-          explanation={page.relatedSectionExplanations.relatedPages}
+          explanation={recommendationCopy.relatedPagesExplanation}
         />
 
         <LandingPagePopularSearches
           title={page.popularSearchesTitle}
           links={page.popularSearches}
-          explanation={page.relatedSectionExplanations.popularSearches}
+          explanation={recommendationCopy.popularSearchesExplanation}
         />
 
         <LandingPageTrustSection />
@@ -210,7 +165,7 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
             </p>
             <div className="mt-8">
               <LandingPageCta
-                label={page.primaryCta.label}
+                label={page.contentVariation.cta.finalButtonLabel}
                 href={page.primaryCta.href}
                 location={page.ctaLocation}
                 variant="primary"

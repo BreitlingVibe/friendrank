@@ -1,4 +1,5 @@
 import type { LandingPageContentQuality } from "@/lib/landing-pages/content-quality";
+import type { LandingPageContentVariation } from "@/lib/landing-pages/content-variation";
 import type { CtaLocation } from "@/lib/analytics";
 import type { HowToPlayContent } from "@/lib/landing-pages/content/how-to-play-library";
 import type { BestForTag } from "@/lib/landing-pages/best-for-tags";
@@ -119,4 +120,6 @@ export type LandingPageData = {
   schemaDescription: string;
   /** Registry-driven content quality sections for depth and usefulness. */
   contentQuality: LandingPageContentQuality;
+  /** Registry-driven presentation variation for personality and layout. */
+  contentVariation: LandingPageContentVariation;
 };

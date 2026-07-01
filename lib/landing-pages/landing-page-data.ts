@@ -12,6 +12,10 @@ import { enrichLandingPageFaq } from "@/lib/landing-pages/content/supplemental-f
 import { resolveFormatComparison } from "@/lib/landing-pages/format-comparison";
 import { buildLandingPageContentQuality } from "@/lib/landing-pages/content-quality";
 import {
+  applyContentQualityHeadings,
+  buildLandingPageContentVariation,
+} from "@/lib/landing-pages/content-variation";
+import {
   getPlayersAlsoEnjoyItems,
   getPopularSearchLinks,
   getYouMayAlsoLikeItemsWithMinimum,
@@ -428,7 +432,15 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     },
   );
 
-  const contentQuality = buildLandingPageContentQuality(intent.slug);
+  const baseContentQuality = buildLandingPageContentQuality(intent.slug);
+  const contentVariation = buildLandingPageContentVariation(
+    intent.slug,
+    baseContentQuality,
+  );
+  const contentQuality = applyContentQualityHeadings(
+    baseContentQuality,
+    contentVariation.headings,
+  );
 
   return {
     slug: intent.slug,
@@ -438,10 +450,13 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     canonicalUrl: getCanonicalUrl(intent.slug),
     h1: intent.h1,
     heroSubtitle: registryIntent
-      ? contentQuality.enhancedHeroSubtitle
+      ? contentVariation.personalityHeroSubtitle
       : audience.heroSubtitle,
     intentLead: contentQuality.enhancedIntentLead,
-    primaryCta,
+    primaryCta: {
+      ...primaryCta,
+      label: contentVariation.cta.primaryLabel,
+    },
     secondaryCta: EXAMPLE_QUESTIONS_SECONDARY_CTA,
     intentSummaryTitle: intent.intentSummaryTitle,
     intentSummary: intent.intentSummary,
@@ -486,12 +501,13 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     entityAuthorityPanel,
     entitySummary,
     relatedSectionExplanations,
-    finalCtaTitle: audience.finalCtaTitle,
-    finalCtaSubtitle: audience.finalCtaSubtitle,
+    finalCtaTitle: contentVariation.cta.finalTitle,
+    finalCtaSubtitle: contentVariation.cta.finalSubtitle,
     ctaLocation: intent.ctaLocation,
     gamePreset: intent.gamePreset,
     schemaDescription: intent.schemaDescription,
     contentQuality,
+    contentVariation,
   };
 }
 

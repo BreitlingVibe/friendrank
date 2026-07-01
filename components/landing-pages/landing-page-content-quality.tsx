@@ -8,62 +8,79 @@ type LandingPageContentQualitySectionsProps = {
   contentQuality: LandingPageContentQuality;
 };
 
-function ContentQualityBlockSection({
+export function SectionTransition({ text }: { text?: string }) {
+  if (!text?.trim()) {
+    return null;
+  }
+
+  return (
+    <div className="mx-auto max-w-3xl px-6 pt-2">
+      <p className="text-sm leading-relaxed text-slate-500">{text}</p>
+    </div>
+  );
+}
+
+export function ContentQualityBlockSection({
   block,
   headingId,
+  transition,
 }: {
   block: ContentQualityBlock;
   headingId: string;
+  transition?: string;
 }) {
   if (block.paragraphs.length === 0 && block.bullets.length === 0) {
     return null;
   }
 
   return (
-    <section
-      aria-labelledby={headingId}
-      className="border-t border-white/5 py-12 sm:py-16"
-    >
-      <div className="mx-auto max-w-3xl px-6">
-        <h2
-          id={headingId}
-          className="text-xl font-bold tracking-tight sm:text-2xl"
-        >
-          {block.title}
-        </h2>
-        {block.paragraphs.length > 0 ? (
-          <div className="mt-4 space-y-3">
-            {block.paragraphs.map((paragraph) => (
-              <p
-                key={paragraph}
-                className="text-base leading-relaxed text-slate-400"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        ) : null}
-        {block.bullets.length > 0 ? (
-          <ul className="mt-5 space-y-2.5">
-            {block.bullets.map((bullet) => (
-              <li key={bullet} className="flex gap-3 text-sm leading-relaxed">
-                <span
-                  className="mt-0.5 shrink-0 text-slate-500"
-                  aria-hidden="true"
+    <>
+      <SectionTransition text={transition} />
+      <section
+        aria-labelledby={headingId}
+        className="border-t border-white/5 py-12 sm:py-16"
+      >
+        <div className="mx-auto max-w-3xl px-6">
+          <h2
+            id={headingId}
+            className="text-xl font-bold tracking-tight sm:text-2xl"
+          >
+            {block.title}
+          </h2>
+          {block.paragraphs.length > 0 ? (
+            <div className="mt-4 space-y-3">
+              {block.paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="text-base leading-relaxed text-slate-400"
                 >
-                  •
-                </span>
-                <span className="text-slate-400">{bullet}</span>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
-    </section>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          ) : null}
+          {block.bullets.length > 0 ? (
+            <ul className="mt-5 space-y-2.5">
+              {block.bullets.map((bullet) => (
+                <li key={bullet} className="flex gap-3 text-sm leading-relaxed">
+                  <span
+                    className="mt-0.5 shrink-0 text-slate-500"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
+                  <span className="text-slate-400">{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      </section>
+    </>
   );
 }
 
-function QuickSetupCallout({ content }: { content: QuickSetupContent }) {
+export function QuickSetupCallout({ content }: { content: QuickSetupContent }) {
   return (
     <aside
       aria-labelledby="landing-quick-setup-heading"
