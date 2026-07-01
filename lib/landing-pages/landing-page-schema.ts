@@ -164,6 +164,20 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
     ...primaryEntityNodes.map((node) => ({ "@id": node["@id"] })),
   ];
 
+  const whenToUseList = buildTextItemList(
+    page.canonicalUrl,
+    "#when-to-use",
+    page.contentQuality.whenToUse.title,
+    page.contentQuality.whenToUse.bullets,
+  );
+
+  const differentiatorsList = buildTextItemList(
+    page.canonicalUrl,
+    "#what-makes-different",
+    page.contentQuality.whatMakesDifferent.title,
+    page.contentQuality.whatMakesDifferent.bullets,
+  );
+
   const graph: Record<string, unknown>[] = [
     {
       "@type": "WebPage",
@@ -185,7 +199,11 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
       },
       speakable: {
         "@type": "SpeakableSpecification",
-        cssSelector: ["#landing-hero-heading", "#landing-intent-heading"],
+        cssSelector: [
+          "#landing-hero-heading",
+          "#landing-intent-heading",
+          "#landing-good-for-heading",
+        ],
       },
     },
     buildBreadcrumbListStructuredData(breadcrumbItems, page.canonicalUrl),
@@ -237,6 +255,14 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
 
   if (entityExplorerList) {
     graph.push(entityExplorerList);
+  }
+
+  if (whenToUseList) {
+    graph.push(whenToUseList);
+  }
+
+  if (differentiatorsList) {
+    graph.push(differentiatorsList);
   }
 
   for (const entityNode of primaryEntityNodes) {

@@ -1,3 +1,4 @@
+import type { LandingPageContentQuality } from "@/lib/landing-pages/content-quality";
 import type { CtaLocation } from "@/lib/analytics";
 import type { HowToPlayContent } from "@/lib/landing-pages/content/how-to-play-library";
 import type { BestForTag } from "@/lib/landing-pages/best-for-tags";
@@ -116,4 +117,6 @@ export type LandingPageData = {
   gamePreset?: LandingPageGamePreset;
   /** Short description for WebPage / WebApplication JSON-LD. */
   schemaDescription: string;
+  /** Registry-driven content quality sections for depth and usefulness. */
+  contentQuality: LandingPageContentQuality;
 };

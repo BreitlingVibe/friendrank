@@ -2,6 +2,10 @@ import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 import { buildLandingPageBreadcrumbItems } from "@/lib/seo/breadcrumbs";
 import { LandingPageStructuredData } from "@/components/landing-pages/landing-page-structured-data";
 import { LandingPageBestFor } from "@/components/landing-pages/landing-page-best-for";
+import {
+  LandingPageGoodForSection,
+  LandingPageWhenAndDifferentSections,
+} from "@/components/landing-pages/landing-page-content-quality";
 import { LandingPageExamples } from "@/components/landing-pages/landing-page-examples";
 import { LandingPageFaq } from "@/components/landing-pages/landing-page-faq";
 import { LandingPageFormatComparison } from "@/components/landing-pages/landing-page-format-comparison";
@@ -47,6 +51,8 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
 
         <LandingPageBestFor title={page.bestForTitle} tags={page.bestForTags} />
 
+        <LandingPageGoodForSection contentQuality={page.contentQuality} />
+
         <EntityExplorer
           navigation={page.entityNavigation}
           headingId="landing-entity-explorer-heading"
@@ -82,6 +88,8 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
             </p>
           </div>
         </section>
+
+        <LandingPageWhenAndDifferentSections contentQuality={page.contentQuality} />
 
         <LandingPageHowToPlay content={page.howToPlay} />
 

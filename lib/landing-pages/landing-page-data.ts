@@ -10,6 +10,7 @@ import {
 import { resolveHowToPlay } from "@/lib/landing-pages/content/how-to-play-library";
 import { enrichLandingPageFaq } from "@/lib/landing-pages/content/supplemental-faq-library";
 import { resolveFormatComparison } from "@/lib/landing-pages/format-comparison";
+import { buildLandingPageContentQuality } from "@/lib/landing-pages/content-quality";
 import {
   getPlayersAlsoEnjoyItems,
   getPopularSearchLinks,
@@ -18,10 +19,6 @@ import {
   POPULAR_SEARCHES_TITLE,
   YOU_MAY_ALSO_LIKE_TITLE,
 } from "@/lib/landing-pages/page-recommendations";
-import {
-  buildSemanticHeroSubtitle,
-  buildSemanticIntentLead,
-} from "@/lib/landing-pages/semantic-intro";
 import {
   getEntityChipsForSlug,
   resolveLandingPageEntities,
@@ -431,6 +428,8 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     },
   );
 
+  const contentQuality = buildLandingPageContentQuality(intent.slug);
+
   return {
     slug: intent.slug,
     title: intent.title,
@@ -438,13 +437,10 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     metaDescription: intent.metaDescription,
     canonicalUrl: getCanonicalUrl(intent.slug),
     h1: intent.h1,
-    heroSubtitle:
-      registryIntent != null
-        ? buildSemanticHeroSubtitle(registryIntent, audience.heroSubtitle)
-        : audience.heroSubtitle,
-    intentLead: registryIntent
-      ? buildSemanticIntentLead(registryIntent) ?? undefined
-      : undefined,
+    heroSubtitle: registryIntent
+      ? contentQuality.enhancedHeroSubtitle
+      : audience.heroSubtitle,
+    intentLead: contentQuality.enhancedIntentLead,
     primaryCta,
     secondaryCta: EXAMPLE_QUESTIONS_SECONDARY_CTA,
     intentSummaryTitle: intent.intentSummaryTitle,
@@ -495,6 +491,7 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     ctaLocation: intent.ctaLocation,
     gamePreset: intent.gamePreset,
     schemaDescription: intent.schemaDescription,
+    contentQuality,
   };
 }
 

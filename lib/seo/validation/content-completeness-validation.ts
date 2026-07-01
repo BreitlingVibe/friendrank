@@ -127,6 +127,111 @@ export function validateContentCompleteness(): ValidationResult {
       );
     }
 
+    const quality = page.contentQuality;
+    if (
+      quality.goodFor.paragraphs.length === 0 &&
+      quality.goodFor.bullets.length === 0
+    ) {
+      issues.push(
+        issue(
+          "content.missing_good_for",
+          "error",
+          "Landing page is missing the content quality good-for section.",
+          page.slug,
+        ),
+      );
+    }
+
+    if (quality.whenToUse.bullets.length < 4) {
+      issues.push(
+        issue(
+          "content.missing_when_to_use",
+          "error",
+          "Landing page must include at least four when-to-use cases.",
+          page.slug,
+        ),
+      );
+    }
+
+    if (quality.whatMakesDifferent.bullets.length === 0) {
+      issues.push(
+        issue(
+          "content.missing_differentiators",
+          "error",
+          "Landing page is missing what-makes-it-different bullets.",
+          page.slug,
+        ),
+      );
+    }
+
+    if (quality.quickSetup.steps.length === 0) {
+      issues.push(
+        issue(
+          "content.missing_quick_setup",
+          "error",
+          "Landing page is missing quick setup steps.",
+          page.slug,
+        ),
+      );
+    }
+
+    requireNonEmpty(
+      issues,
+      "content.missing_enhanced_intro",
+      "Landing page is missing enhanced intro lead.",
+      page.slug,
+      page.intentLead ?? "",
+    );
+
+    const sectionTitles = [
+      quality.goodFor.title,
+      quality.whenToUse.title,
+      quality.whatMakesDifferent.title,
+      quality.quickSetup.title,
+    ];
+    if (new Set(sectionTitles).size !== sectionTitles.length) {
+      issues.push(
+        issue(
+          "content.duplicate_quality_headings",
+          "error",
+          "Content quality sections contain duplicate headings.",
+          page.slug,
+        ),
+      );
+    }
+
+    for (const block of [
+      quality.goodFor,
+      quality.whenToUse,
+      quality.whatMakesDifferent,
+    ]) {
+      for (const paragraph of block.paragraphs) {
+        if (!paragraph.trim()) {
+          issues.push(
+            issue(
+              "content.empty_quality_copy",
+              "error",
+              `Content quality section "${block.title}" contains empty copy.`,
+              page.slug,
+            ),
+          );
+        }
+      }
+
+      for (const bullet of block.bullets) {
+        if (!bullet.trim()) {
+          issues.push(
+            issue(
+              "content.empty_quality_copy",
+              "error",
+              `Content quality section "${block.title}" contains empty bullets.`,
+              page.slug,
+            ),
+          );
+        }
+      }
+    }
+
     const schemaResult = validateStructuredDataGraph(
       buildLandingPageStructuredData(page),
       page.slug,
@@ -144,17 +249,6 @@ export function validateContentCompleteness(): ValidationResult {
           ),
         );
       }
-    }
-
-    if (!page.intentLead?.trim()) {
-      issues.push(
-        issue(
-          "content.missing_intent_lead",
-          "warning",
-          "Landing page is missing registry-driven intent lead.",
-          page.slug,
-        ),
-      );
     }
 
     if (!page.entitySummary?.trim()) {
