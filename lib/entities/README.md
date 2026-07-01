@@ -105,7 +105,8 @@ Run audits locally before pushing SEO, entity, or routing changes.
 | Command | Scope |
 | --- | --- |
 | `npm run audit:entities` | Entity registry, landing/hub entities, internal links, JSON-LD |
-| `npm run audit:all` | Full pipeline: entity audit + route integrity + sitemap + recommendations |
+| `npm run audit:index` | Canonical, metadata, sitemap quality, robots, overlap, content completeness |
+| `npm run audit:all` | Full pipeline: entity + index + route + recommendation checks |
 
 Recommended pre-push sequence:
 
@@ -113,6 +114,8 @@ Recommended pre-push sequence:
 npm run audit:all
 npm run build
 ```
+
+Search Console setup and indexing priorities: [lib/seo/SEARCH_CONSOLE.md](../seo/SEARCH_CONSOLE.md).
 
 ### What `audit:all` checks
 
@@ -123,6 +126,15 @@ npm run build
 - topic hub entity navigation
 - internal link safety in recommendation sections
 - JSON-LD graph validity
+
+**Index quality audit** (same as `audit:index`):
+
+- canonical URL integrity for landing pages and topic hubs
+- metadata titles, descriptions, Open Graph, and robots settings
+- sitemap completeness, production URLs, priority/changefreq validity
+- robots.txt sitemap reference and public route allow rules
+- search overlap / cannibalization warnings
+- landing page content completeness for indexing
 
 **Route integrity** (`lib/seo/validation/route-validation.ts`):
 
@@ -139,6 +151,8 @@ npm run build
 - no duplicate sitemap URLs
 - canonical URLs use the production app URL prefix
 - no planned intents in the sitemap
+- sitemap entry count matches expected route count
+- valid `priority` and `changeFrequency` values
 
 **Recommendations and links** (`lib/seo/validation/recommendation-validation.ts`):
 
@@ -182,6 +196,11 @@ console.log(formatEntityAuditReport(report));
 | `links.invalid_active_recommendation` | Link only to live landing pages or topic hubs |
 | `landing.broken_chip_href` | Fix entity `relatedLandingPages` / `relatedTopicHubs` or hub routing in `entity-targets.ts` |
 | `schema.duplicate_id` | Ensure unique `@id` values in landing page or hub JSON-LD graphs |
+| `canonical.slug_mismatch` | Set canonical to `https://friendrank.app/{slug}` via `getCanonicalUrl()` |
+| `metadata.duplicate_title` | Differentiate meta titles across overlapping intents |
+| `overlap.similar_slug` | Review whether pages should remain separate or be consolidated later |
+| `content.missing_faq` | Add FAQ entries in the intent content library |
+| `robots.missing_sitemap_reference` | Ensure `app/robots.ts` references production sitemap URL |
 
 ## Deployment checklist
 
@@ -197,4 +216,5 @@ After deploy:
 
 1. Verify `/sitemap.xml` includes expected landing pages and topic hubs.
 2. Submit updated sitemap in Search Console if URLs changed materially.
+3. Follow the Search Console checklist in [lib/seo/SEARCH_CONSOLE.md](../seo/SEARCH_CONSOLE.md).
 

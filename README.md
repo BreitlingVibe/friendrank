@@ -80,8 +80,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 Before pushing SEO, entity, or routing changes:
 
 ```bash
+npm run audit:index
 npm run audit:all
 npm run build
 ```
 
-See [lib/entities/README.md](lib/entities/README.md) for what each audit checks and how to fix common failures.
+See [lib/seo/SEARCH_CONSOLE.md](lib/seo/SEARCH_CONSOLE.md) for Search Console setup and [lib/entities/README.md](lib/entities/README.md) for audit details.

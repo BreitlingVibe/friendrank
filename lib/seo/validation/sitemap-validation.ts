@@ -17,11 +17,22 @@ function normalizeUrl(url: string): string {
   return url.replace(/\/+$/, "");
 }
 
+const VALID_CHANGE_FREQUENCIES = new Set([
+  "always",
+  "hourly",
+  "daily",
+  "weekly",
+  "monthly",
+  "yearly",
+  "never",
+]);
+
 /** Validates sitemap entries against live landing pages and topic hubs. */
 export function validateSitemapIntegrity(): ValidationResult {
   const issues: ValidationIssue[] = [];
   const entries = sitemap();
   const urls = entries.map((entry) => normalizeUrl(entry.url));
+  const entryByUrl = new Map(urls.map((url, index) => [url, entries[index]]));
   const urlCounts = new Map<string, number>();
 
   for (const url of urls) {
@@ -62,6 +73,17 @@ export function validateSitemapIntegrity(): ValidationResult {
   for (const page of LANDING_PAGES) {
     const canonical = normalizeUrl(page.canonicalUrl);
 
+    if (!page.canonicalUrl.trim()) {
+      issues.push(
+        issue(
+          "sitemap.missing_page_canonical",
+          "error",
+          `Landing page "${page.slug}" has no canonical URL for sitemap cross-check.`,
+          page.slug,
+        ),
+      );
+    }
+
     if (!sitemapUrlSet.has(canonical)) {
       issues.push(
         issue(
@@ -90,6 +112,17 @@ export function validateSitemapIntegrity(): ValidationResult {
           "sitemap.invalid_landing_url",
           "error",
           `Landing page "${page.slug}" has invalid canonical URL "${page.canonicalUrl}".`,
+          page.slug,
+        ),
+      );
+    }
+    const sitemapEntry = entryByUrl.get(canonical);
+    if (sitemapEntry && normalizeUrl(sitemapEntry.url) !== canonical) {
+      issues.push(
+        issue(
+          "sitemap.canonical_mismatch",
+          "error",
+          `Sitemap URL for "${page.slug}" does not match page canonical.`,
           page.slug,
         ),
       );
@@ -137,12 +170,39 @@ export function validateSitemapIntegrity(): ValidationResult {
     }
   }
 
+  for (const entry of entries) {
+    if (
+      entry.changeFrequency &&
+      !VALID_CHANGE_FREQUENCIES.has(entry.changeFrequency)
+    ) {
+      issues.push(
+        issue(
+          "sitemap.invalid_changefreq",
+          "error",
+          `Sitemap entry "${entry.url}" has invalid changeFrequency "${entry.changeFrequency}".`,
+          entry.url,
+        ),
+      );
+    }
+
+    if (entry.priority != null && (entry.priority < 0 || entry.priority > 1)) {
+      issues.push(
+        issue(
+          "sitemap.invalid_priority",
+          "error",
+          `Sitemap entry "${entry.url}" has invalid priority ${entry.priority}.`,
+          entry.url,
+        ),
+      );
+    }
+  }
+
   const expectedCount = 1 + LANDING_PAGES.length + getAllHubs().length;
   if (entries.length !== expectedCount) {
     issues.push(
       issue(
         "sitemap.unexpected_entry_count",
-        "warning",
+        "error",
         `Sitemap has ${entries.length} entries; expected ${expectedCount} (home + landing + hubs).`,
       ),
     );

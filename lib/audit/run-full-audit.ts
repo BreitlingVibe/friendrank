@@ -3,9 +3,13 @@ import {
   runEntityAudit,
   type EntityAuditReport,
 } from "@/lib/entities/validation/run-entity-audit";
+import {
+  formatIndexAuditReport,
+  runIndexAudit,
+  type IndexAuditReport,
+} from "@/lib/audit/run-index-audit";
 import { validateRecommendationIntegrity } from "@/lib/seo/validation/recommendation-validation";
 import { validateRouteIntegrity } from "@/lib/seo/validation/route-validation";
-import { validateSitemapIntegrity } from "@/lib/seo/validation/sitemap-validation";
 import {
   countIssuesBySeverity,
   mergeValidationResults,
@@ -30,8 +34,8 @@ function dedupeIssues(issues: ValidationIssue[]): ValidationIssue[] {
 export type FullAuditReport = {
   valid: boolean;
   entityAudit: EntityAuditReport;
+  indexAudit: IndexAuditReport;
   routes: ValidationResult;
-  sitemap: ValidationResult;
   recommendations: ValidationResult;
   totals: {
     errors: number;
@@ -39,28 +43,25 @@ export type FullAuditReport = {
   };
 };
 
-/** Runs entity, route, sitemap, and recommendation audits. */
+/** Runs entity, index, route, and recommendation audits. */
 export function runFullAudit(): FullAuditReport {
   const entityAudit = runEntityAudit();
+  const indexAudit = runIndexAudit();
   const routes = validateRouteIntegrity();
-  const sitemap = validateSitemapIntegrity();
   const recommendations = validateRecommendationIntegrity();
 
-  const supplemental = mergeValidationResults(
-    routes,
-    sitemap,
-    recommendations,
-  );
+  const supplemental = mergeValidationResults(routes, recommendations);
   const allIssues = dedupeIssues([
     ...Object.values(entityAudit.results).flatMap((result) => result.issues),
+    ...Object.values(indexAudit.results).flatMap((result) => result.issues),
     ...supplemental.issues,
   ]);
 
   return {
-    valid: entityAudit.valid && supplemental.valid,
+    valid: entityAudit.valid && indexAudit.valid && supplemental.valid,
     entityAudit,
+    indexAudit,
     routes,
-    sitemap,
     recommendations,
     totals: countIssuesBySeverity(allIssues),
   };
@@ -69,7 +70,6 @@ export function runFullAudit(): FullAuditReport {
 export function formatFullAuditReport(report: FullAuditReport): string {
   const sections: Array<[string, ValidationResult]> = [
     ["Route integrity", report.routes],
-    ["Sitemap integrity", report.sitemap],
     ["Recommendations and links", report.recommendations],
   ];
 
@@ -80,6 +80,8 @@ export function formatFullAuditReport(report: FullAuditReport): string {
     `Warnings: ${report.totals.warnings}`,
     "",
     formatEntityAuditReport(report.entityAudit),
+    "",
+    formatIndexAuditReport(report.indexAudit),
     "",
     "Additional checks",
     "",

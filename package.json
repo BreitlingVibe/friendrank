@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "audit:entities": "npx tsx scripts/audit-entities.ts",
+    "audit:index": "npx tsx scripts/audit-index.ts",
     "audit:all": "npx tsx scripts/audit-all.ts"
   },
   "dependencies": {
