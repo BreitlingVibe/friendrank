@@ -1,0 +1,103 @@
+import {
+  formatEntityAuditReport,
+  runEntityAudit,
+  type EntityAuditReport,
+} from "@/lib/entities/validation/run-entity-audit";
+import { validateRecommendationIntegrity } from "@/lib/seo/validation/recommendation-validation";
+import { validateRouteIntegrity } from "@/lib/seo/validation/route-validation";
+import { validateSitemapIntegrity } from "@/lib/seo/validation/sitemap-validation";
+import {
+  countIssuesBySeverity,
+  mergeValidationResults,
+  type ValidationIssue,
+  type ValidationResult,
+} from "@/lib/entities/validation/types";
+
+function dedupeIssues(issues: ValidationIssue[]): ValidationIssue[] {
+  const seen = new Set<string>();
+
+  return issues.filter((entry) => {
+    const key = `${entry.code}|${entry.context ?? ""}|${entry.message}`;
+    if (seen.has(key)) {
+      return false;
+    }
+
+    seen.add(key);
+    return true;
+  });
+}
+
+export type FullAuditReport = {
+  valid: boolean;
+  entityAudit: EntityAuditReport;
+  routes: ValidationResult;
+  sitemap: ValidationResult;
+  recommendations: ValidationResult;
+  totals: {
+    errors: number;
+    warnings: number;
+  };
+};
+
+/** Runs entity, route, sitemap, and recommendation audits. */
+export function runFullAudit(): FullAuditReport {
+  const entityAudit = runEntityAudit();
+  const routes = validateRouteIntegrity();
+  const sitemap = validateSitemapIntegrity();
+  const recommendations = validateRecommendationIntegrity();
+
+  const supplemental = mergeValidationResults(
+    routes,
+    sitemap,
+    recommendations,
+  );
+  const allIssues = dedupeIssues([
+    ...Object.values(entityAudit.results).flatMap((result) => result.issues),
+    ...supplemental.issues,
+  ]);
+
+  return {
+    valid: entityAudit.valid && supplemental.valid,
+    entityAudit,
+    routes,
+    sitemap,
+    recommendations,
+    totals: countIssuesBySeverity(allIssues),
+  };
+}
+
+export function formatFullAuditReport(report: FullAuditReport): string {
+  const sections: Array<[string, ValidationResult]> = [
+    ["Route integrity", report.routes],
+    ["Sitemap integrity", report.sitemap],
+    ["Recommendations and links", report.recommendations],
+  ];
+
+  const lines: string[] = [
+    "FriendRank full SEO audit",
+    `Status: ${report.valid ? "PASS" : "FAIL"}`,
+    `Errors: ${report.totals.errors}`,
+    `Warnings: ${report.totals.warnings}`,
+    "",
+    formatEntityAuditReport(report.entityAudit),
+    "",
+    "Additional checks",
+    "",
+  ];
+
+  for (const [label, result] of sections) {
+    const counts = countIssuesBySeverity(result.issues);
+    lines.push(`${label}: ${counts.errors} errors, ${counts.warnings} warnings`);
+
+    for (const entry of result.issues) {
+      const context = entry.context ? ` [${entry.context}]` : "";
+      lines.push(
+        `  - ${entry.severity.toUpperCase()} ${entry.code}${context}: ${entry.message}`,
+      );
+    }
+
+    lines.push("");
+  }
+
+  return lines.join("\n").trimEnd();
+}

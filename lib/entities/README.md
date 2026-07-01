@@ -98,23 +98,67 @@ No landing page edits are required when the resolver maps are updated correctly.
 
 ## Development audit
 
-Run the full entity, route, link, and schema audit locally:
+Run audits locally before pushing SEO, entity, or routing changes.
+
+### Commands
+
+| Command | Scope |
+| --- | --- |
+| `npm run audit:entities` | Entity registry, landing/hub entities, internal links, JSON-LD |
+| `npm run audit:all` | Full pipeline: entity audit + route integrity + sitemap + recommendations |
+
+Recommended pre-push sequence:
 
 ```bash
-npm run audit:entities
+npm run audit:all
+npm run build
 ```
 
-The audit checks:
+### What `audit:all` checks
 
-- entity registry integrity
-- landing page entity resolution
+**Entity audit** (same as `audit:entities`):
+
+- entity registry integrity (ids, slugs, relationships)
+- landing page entity resolution and explorer output
 - topic hub entity navigation
-- internal link safety
+- internal link safety in recommendation sections
 - JSON-LD graph validity
 
-Validation helpers are development-only. They are not imported by production page rendering code.
+**Route integrity** (`lib/seo/validation/route-validation.ts`):
+
+- every `LANDING_PAGES` slug has `app/[slug]/page.tsx`
+- every topic hub slug has a matching route
+- route wrappers import landing page data and render `IntentLandingPage` or `createTopicHubRoute()`
+- no orphan routes outside landing pages and topic hubs
+- no planned intents exposed as live routes
+- no duplicate route directories
+
+**Sitemap integrity** (`lib/seo/validation/sitemap-validation.ts`):
+
+- home, all live landing pages, and all topic hubs are listed
+- no duplicate sitemap URLs
+- canonical URLs use the production app URL prefix
+- no planned intents in the sitemap
+
+**Recommendations and links** (`lib/seo/validation/recommendation-validation.ts`):
+
+- no recommendation section links to the current page
+- no duplicate recommendation links in the same section
+- no links to planned or missing routes
+- entity chips resolve to valid navigation targets when clickable
+
+Validation runs at development/build time only via `scripts/audit-all.ts`. It is not imported by public page rendering code.
 
 Programmatic usage:
+
+```ts
+import { runFullAudit, formatFullAuditReport } from "@/lib/audit/run-full-audit";
+
+const report = runFullAudit();
+console.log(formatFullAuditReport(report));
+```
+
+Entity-only audit:
 
 ```ts
 import { runEntityAudit, formatEntityAuditReport } from "@/lib/entities/validation/run-entity-audit";
@@ -122,3 +166,35 @@ import { runEntityAudit, formatEntityAuditReport } from "@/lib/entities/validati
 const report = runEntityAudit();
 console.log(formatEntityAuditReport(report));
 ```
+
+## Common audit failures
+
+| Failure | Fix |
+| --- | --- |
+| `registry.invalid_landing_page_ref` | Point `relatedLandingPages` at a live intent slug from the intent registry |
+| `registry.invalid_hub_ref` | Use an existing topic hub id/slug in `relatedTopicHubs` |
+| `routes.missing_landing_route` | Add `app/[slug]/page.tsx` using the standard landing page wrapper |
+| `routes.planned_page_exposed` | Remove the route or promote the intent to live in the intent registry |
+| `routes.orphan_route` | Delete the stray route or register the page in `LANDING_PAGES` / topic hubs |
+| `sitemap.missing_landing_page` | Ensure `app/sitemap.ts` includes all `LANDING_PAGES` canonical URLs |
+| `sitemap.planned_page_listed` | Remove planned slugs from `LANDING_PAGES` assembly |
+| `links.self_recommendation` | Remove the current slug from related / you-may-also-like sections |
+| `links.invalid_active_recommendation` | Link only to live landing pages or topic hubs |
+| `landing.broken_chip_href` | Fix entity `relatedLandingPages` / `relatedTopicHubs` or hub routing in `entity-targets.ts` |
+| `schema.duplicate_id` | Ensure unique `@id` values in landing page or hub JSON-LD graphs |
+
+## Deployment checklist
+
+Before deploying SEO or content graph changes:
+
+1. Run `npm run audit:all` and fix all errors.
+2. Run `npm run build` and confirm route count is unchanged.
+3. Spot-check one landing page and one topic hub in preview (entity chips, recommendations, JSON-LD in page source).
+4. Confirm no new public routes were added unless intentionally shipped.
+5. Deploy.
+
+After deploy:
+
+1. Verify `/sitemap.xml` includes expected landing pages and topic hubs.
+2. Submit updated sitemap in Search Console if URLs changed materially.
+

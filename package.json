@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "audit:entities": "npx tsx scripts/audit-entities.ts"
+    "audit:entities": "npx tsx scripts/audit-entities.ts",
+    "audit:all": "npx tsx scripts/audit-all.ts"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.9",
