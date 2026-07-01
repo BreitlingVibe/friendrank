@@ -376,12 +376,81 @@ npm run growth:priorities
 # Search Console action plan, indexing queue, and weekly checklist
 npm run growth:search-console-plan
 
+# CTR title/meta optimization candidates (suggestions only)
+npm run growth:ctr
+
 # Full SEO and content audit
 npm run audit:all
 
 # Production build (114 static routes)
 npm run build
 ```
+
+---
+
+## CTR optimization workflow
+
+Sprint 3 adds a deterministic CTR optimization layer in `lib/growth/ctr-optimization.ts`. It generates **suggestions only** — it does not change live metadata, routes, or UI.
+
+```bash
+npm run growth:ctr
+```
+
+### Metadata profiles
+
+| Profile | Title pattern | Meta pattern | CTA ending |
+|---------|---------------|--------------|------------|
+| **Homepage** | Brand + group voting value prop | Active benefit + audience + CTA | Create your free game on FriendRank today. |
+| **Topic hub** | Hub title + free online keyword & voting | Category benefit + audience + CTA | Browse live games and start playing in minutes. |
+| **Quiz** | Title + search-intent hook (or question form) | Quiz benefit + audience + CTA | Create your quiz free and share one link. |
+| **Generator** | Title + free audience game online | Generator benefit + audience + CTA | Generate prompts and start voting in minutes. |
+| **Game** | Title + free online game for audience | Game benefit + audience + CTA | Create your game free — no app download. |
+| **Questions** | Title + audience conversation starters | Question benefit + audience + CTA | Turn prompts into a live voting game today. |
+| **Voting** | Title + anonymous audience voting online | Voting benefit + audience + CTA | Start anonymous voting with one shareable link. |
+
+Profiles resolve from page type and slug tokens (`quiz`, `generator`, `questions`, `voting`) plus intent category fallbacks — no manual page lists.
+
+### Validation rules
+
+Every suggested title/meta set is checked for:
+
+- No duplicate titles across candidates
+- No duplicate descriptions across candidates
+- Title length 30–60 characters (warning if outside)
+- Meta length 140–160 characters (required)
+- FriendRank brand at most once in title
+- No repeated keywords (3+ occurrences)
+- No empty values
+
+### When to adopt suggestions
+
+Adopt a suggested title/meta in the content registry when **all** of the following are true:
+
+1. Search Console shows **impressions** for the page
+2. **CTR is below 2%** or the page ranks positions 8–30
+3. `npm run growth:ctr` validation passes for that suggestion
+4. The page is **P0 or P1** (or P2 with rising impressions)
+5. You can verify the snippet reads naturally in a SERP preview
+
+Update the intent block in `lib/landing-pages/content/intent-library.ts` or hub `metaDescription` in `lib/topic-hubs/hub-content.ts`, then redeploy and request indexing once.
+
+### When NOT to rewrite titles
+
+Do **not** change live metadata when:
+
+- The page has **no impressions yet** — wait for baseline data
+- The page already has **strong CTR** (> 4%) on its primary query
+- Overlap triage marks a related page as **fix-later** for the same query
+- `npm run growth:ctr` reports duplicate title/description validation errors
+- You are reacting to a single day of Search Console noise — wait for a weekly trend
+
+### Relationship with Search Console
+
+1. Run `npm run growth:search-console-plan` to find pages flagged **review-title-meta-later** or **monitor-ctr**
+2. Run `npm run growth:ctr` to get deterministic rewrite candidates
+3. Cross-check the query in Search Console Performance before adopting
+4. After adopting, inspect the URL once and monitor CTR for 14 days
+5. Keep a log of old vs new titles to revert if CTR drops
 
 ---
 

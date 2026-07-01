@@ -11,7 +11,8 @@
     "audit:index": "npx tsx scripts/audit-index.ts",
     "audit:all": "npx tsx scripts/audit-all.ts",
     "growth:priorities": "npx tsx scripts/growth-priorities.ts",
-    "growth:search-console-plan": "npx tsx scripts/growth-search-console-plan.ts"
+    "growth:search-console-plan": "npx tsx scripts/growth-search-console-plan.ts",
+    "growth:ctr": "npx tsx scripts/growth-ctr-report.ts"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.9",
