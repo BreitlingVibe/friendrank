@@ -6,9 +6,16 @@ import type { TopicHub } from "@/lib/topic-hubs/hub-types";
 type TopicHubOtherHubsProps = {
   hubs: TopicHub[];
   currentHubId: string;
+  title?: string;
+  intro?: string;
 };
 
-export function TopicHubOtherHubs({ hubs, currentHubId }: TopicHubOtherHubsProps) {
+export function TopicHubOtherHubs({
+  hubs,
+  currentHubId,
+  title = "Explore more game categories",
+  intro = "Related Topic Hubs picked for similar audiences and search intent.",
+}: TopicHubOtherHubsProps) {
   const recommendedHubIds = new Set(
     getRecommendedTopicHubs(currentHubId).map((hub) => hub.id),
   );
@@ -40,10 +47,10 @@ export function TopicHubOtherHubs({ hubs, currentHubId }: TopicHubOtherHubsProps
           id="topic-hub-other-heading"
           className="text-center text-2xl font-bold tracking-tight sm:text-3xl"
         >
-          Explore more game categories
+          {title}
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-slate-500 sm:text-base">
-          Related Topic Hubs picked for similar audiences and search intent.
+          {intro}
         </p>
         <ul className="mt-10 flex flex-wrap justify-center gap-3">
           {otherHubs.map((hub) => (

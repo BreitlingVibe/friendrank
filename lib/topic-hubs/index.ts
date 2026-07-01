@@ -36,3 +36,5 @@ export {
 
 export { getRecommendedTopicHubs } from "@/lib/topic-hubs/hub-recommendations";
 export { resolveHubSectionCopy, resolveHubHeroCopy } from "@/lib/topic-hubs/hub-section-copy";
+export { assembleTopicHubPage } from "@/lib/topic-hubs/hub-page-data";
+export { applyTopicHubExperience } from "@/lib/landing-pages/topic-hub-experience";

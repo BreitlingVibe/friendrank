@@ -6,6 +6,7 @@ import { validateRobotsReadiness } from "@/lib/seo/validation/robots-validation"
 import { validateSitemapIntegrity } from "@/lib/seo/validation/sitemap-validation";
 import { validateContentExperience } from "@/lib/seo/validation/content-experience-validation";
 import { validateContentVariation } from "@/lib/seo/validation/content-variation-validation";
+import { validateTopicHubExperience } from "@/lib/seo/validation/topic-hub-experience-validation";
 import {
   countIssuesBySeverity,
   mergeValidationResults,
@@ -23,6 +24,7 @@ export type IndexAuditReport = {
     content: ValidationResult;
     variation: ValidationResult;
     experience: ValidationResult;
+    topicHubExperience: ValidationResult;
   };
   totals: {
     errors: number;
@@ -40,6 +42,7 @@ export function runIndexAudit(): IndexAuditReport {
   const content = validateContentCompleteness();
   const variation = validateContentVariation();
   const experience = validateContentExperience();
+  const topicHubExperience = validateTopicHubExperience();
 
   const merged = mergeValidationResults(
     canonical,
@@ -50,6 +53,7 @@ export function runIndexAudit(): IndexAuditReport {
     content,
     variation,
     experience,
+    topicHubExperience,
   );
 
   return {
@@ -63,6 +67,7 @@ export function runIndexAudit(): IndexAuditReport {
       content,
       variation,
       experience,
+      topicHubExperience,
     },
     totals: countIssuesBySeverity(merged.issues),
   };
@@ -78,6 +83,7 @@ export function formatIndexAuditReport(report: IndexAuditReport): string {
     ["Content completeness", report.results.content],
     ["Content variation", report.results.variation],
     ["Content experience", report.results.experience],
+    ["Topic hub experience", report.results.topicHubExperience],
   ] as const;
 
   const lines: string[] = [
