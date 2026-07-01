@@ -4,6 +4,7 @@ import { validateMetadataConsistency } from "@/lib/seo/validation/metadata-valid
 import { validateSearchOverlap } from "@/lib/seo/validation/overlap-validation";
 import { validateRobotsReadiness } from "@/lib/seo/validation/robots-validation";
 import { validateSitemapIntegrity } from "@/lib/seo/validation/sitemap-validation";
+import { validateContentExperience } from "@/lib/seo/validation/content-experience-validation";
 import { validateContentVariation } from "@/lib/seo/validation/content-variation-validation";
 import {
   countIssuesBySeverity,
@@ -21,6 +22,7 @@ export type IndexAuditReport = {
     overlap: ValidationResult;
     content: ValidationResult;
     variation: ValidationResult;
+    experience: ValidationResult;
   };
   totals: {
     errors: number;
@@ -37,6 +39,7 @@ export function runIndexAudit(): IndexAuditReport {
   const overlap = validateSearchOverlap();
   const content = validateContentCompleteness();
   const variation = validateContentVariation();
+  const experience = validateContentExperience();
 
   const merged = mergeValidationResults(
     canonical,
@@ -46,6 +49,7 @@ export function runIndexAudit(): IndexAuditReport {
     overlap,
     content,
     variation,
+    experience,
   );
 
   return {
@@ -58,6 +62,7 @@ export function runIndexAudit(): IndexAuditReport {
       overlap,
       content,
       variation,
+      experience,
     },
     totals: countIssuesBySeverity(merged.issues),
   };
@@ -72,6 +77,7 @@ export function formatIndexAuditReport(report: IndexAuditReport): string {
     ["Search overlap", report.results.overlap],
     ["Content completeness", report.results.content],
     ["Content variation", report.results.variation],
+    ["Content experience", report.results.experience],
   ] as const;
 
   const lines: string[] = [

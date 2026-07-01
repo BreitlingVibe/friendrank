@@ -37,19 +37,19 @@ export function validateContentVariation(): ValidationResult {
       );
     }
 
-    if (variation.sectionOrder.length !== 9) {
+    if (page.contentExperience.sectionOrder.length === 0) {
       issues.push(
         issue(
           "variation.invalid_section_order",
           "error",
-          "Section order must include all nine reorderable sections.",
+          "Experience section order is empty.",
           page.slug,
         ),
       );
     }
 
-    const uniqueSections = new Set(variation.sectionOrder);
-    if (uniqueSections.size !== variation.sectionOrder.length) {
+    const uniqueSections = new Set(page.contentExperience.sectionOrder);
+    if (uniqueSections.size !== page.contentExperience.sectionOrder.length) {
       issues.push(
         issue(
           "variation.duplicate_sections",

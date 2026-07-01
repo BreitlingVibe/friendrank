@@ -15,17 +15,13 @@ type LandingPageMainSectionsProps = {
   page: LandingPageData;
 };
 
-function combineIntro(intro: string, explanation?: string): string | undefined {
-  if (intro && explanation) {
-    return `${intro} ${explanation}`;
-  }
-
-  return intro || explanation;
-}
-
 export function LandingPageMainSections({ page }: LandingPageMainSectionsProps) {
-  const { contentQuality, contentVariation } = page;
-  const transitions = contentVariation.transitions;
+  const { contentQuality, contentVariation, contentExperience } = page;
+  const transitions = contentExperience.transitions;
+  const presentation = contentExperience.blockPresentation;
+  const intentSummaryClass = contentExperience.compactIntentSummary
+    ? "py-12 sm:py-16"
+    : "py-16 sm:py-20";
 
   const sections: Record<ReorderableSectionKey, ReactNode> = {
     bestFor: (
@@ -41,6 +37,7 @@ export function LandingPageMainSections({ page }: LandingPageMainSectionsProps) 
         block={contentQuality.goodFor}
         headingId="landing-good-for-heading"
         transition={transitions.beforeGoodFor}
+        presentation={presentation.goodFor}
       />
     ),
     entityExplorer: (
@@ -70,7 +67,7 @@ export function LandingPageMainSections({ page }: LandingPageMainSectionsProps) 
       <section
         key="intentSummary"
         aria-labelledby="landing-intent-heading"
-        className="py-16 sm:py-20"
+        className={intentSummaryClass}
       >
         <div className="mx-auto max-w-3xl px-6">
           <h2
@@ -98,6 +95,7 @@ export function LandingPageMainSections({ page }: LandingPageMainSectionsProps) 
         block={contentQuality.whenToUse}
         headingId="landing-when-to-use-heading"
         transition={transitions.beforeWhenToUse}
+        presentation={presentation.whenToUse}
       />
     ),
     whatMakesDifferent: (
@@ -106,6 +104,7 @@ export function LandingPageMainSections({ page }: LandingPageMainSectionsProps) 
         block={contentQuality.whatMakesDifferent}
         headingId="landing-different-heading"
         transition={transitions.beforeWhatMakesDifferent}
+        presentation={presentation.whatMakesDifferent}
       />
     ),
     quickSetup: (
@@ -124,7 +123,7 @@ export function LandingPageMainSections({ page }: LandingPageMainSectionsProps) 
 
   return (
     <>
-      {contentVariation.sectionOrder.map((sectionKey) => (
+      {contentExperience.sectionOrder.map((sectionKey) => (
         <Fragment key={sectionKey}>{sections[sectionKey]}</Fragment>
       ))}
     </>
@@ -132,25 +131,16 @@ export function LandingPageMainSections({ page }: LandingPageMainSectionsProps) 
 }
 
 export function getLandingPageRecommendationCopy(page: LandingPageData) {
-  const navigation = page.contentVariation.navigation;
+  const recommendations = page.contentExperience.recommendations;
 
   return {
-    playersAlsoEnjoyTitle: navigation.playersAlsoEnjoyTitle,
-    playersAlsoEnjoyExplanation: combineIntro(
-      navigation.playersAlsoEnjoyIntro,
-      page.relatedSectionExplanations.playersAlsoEnjoy,
-    ),
-    youMayAlsoLikeExplanation: combineIntro(
-      navigation.youMayAlsoLikeIntro,
-      page.relatedSectionExplanations.youMayAlsoLike,
-    ),
-    relatedPagesExplanation: combineIntro(
-      navigation.relatedPagesIntro,
-      page.relatedSectionExplanations.relatedPages,
-    ),
-    popularSearchesExplanation: combineIntro(
-      navigation.popularSearchesIntro,
-      page.relatedSectionExplanations.popularSearches,
-    ),
+    playersAlsoEnjoyTitle: recommendations.playersAlsoEnjoyTitle,
+    playersAlsoEnjoyExplanation: recommendations.playersAlsoEnjoyIntro,
+    youMayAlsoLikeExplanation: recommendations.youMayAlsoLikeIntro,
+    relatedPagesExplanation: recommendations.relatedPagesIntro,
+    popularSearchesExplanation: recommendations.popularSearchesIntro,
+    showPlayersAlsoEnjoy: recommendations.showPlayersAlsoEnjoy,
+    showYouMayAlsoLike: recommendations.showYouMayAlsoLike,
+    youMayAlsoLikeCompact: recommendations.youMayAlsoLikeCompact,
   };
 }

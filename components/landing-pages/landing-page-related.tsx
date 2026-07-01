@@ -7,6 +7,7 @@ type LandingPageRelatedProps = {
   pages: LandingPageRelatedPage[];
   headingId?: string;
   explanation?: string;
+  sectionClassName?: string;
 };
 
 export function LandingPageRelated({
@@ -14,16 +15,14 @@ export function LandingPageRelated({
   pages,
   headingId = "landing-related-heading",
   explanation,
+  sectionClassName = "border-t border-white/5 bg-white/[0.02] py-16 sm:py-20",
 }: LandingPageRelatedProps) {
   if (pages.length === 0) {
     return null;
   }
 
   return (
-    <section
-      aria-labelledby={headingId}
-      className="border-t border-white/5 bg-white/[0.02] py-16 sm:py-20"
-    >
+    <section aria-labelledby={headingId} className={sectionClassName}>
       <div className="mx-auto max-w-3xl px-6">
         <h2
           id={headingId}

@@ -175,13 +175,16 @@ export function validateContentCompleteness(): ValidationResult {
       );
     }
 
-    requireNonEmpty(
-      issues,
-      "content.missing_enhanced_intro",
-      "Landing page is missing enhanced intro lead.",
-      page.slug,
-      page.intentLead ?? "",
-    );
+    if (!page.intentLead?.trim()) {
+      issues.push(
+        issue(
+          "content.missing_enhanced_intro",
+          "warning",
+          "Landing page has no short intro lead after experience refinement.",
+          page.slug,
+        ),
+      );
+    }
 
     const sectionTitles = [
       quality.goodFor.title,

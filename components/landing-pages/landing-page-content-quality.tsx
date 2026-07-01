@@ -1,3 +1,4 @@
+import type { ContentBlockPresentation } from "@/lib/landing-pages/content-experience";
 import type {
   ContentQualityBlock,
   LandingPageContentQuality,
@@ -24,35 +25,47 @@ export function ContentQualityBlockSection({
   block,
   headingId,
   transition,
+  presentation = "bullets",
 }: {
   block: ContentQualityBlock;
   headingId: string;
   transition?: string;
+  presentation?: ContentBlockPresentation;
 }) {
   if (block.paragraphs.length === 0 && block.bullets.length === 0) {
     return null;
   }
 
+  const compact = presentation === "compact-checklist";
+  const sectionClass = compact
+    ? "border-t border-white/5 py-8 sm:py-10"
+    : "border-t border-white/5 py-12 sm:py-16";
+
   return (
     <>
       <SectionTransition text={transition} />
-      <section
-        aria-labelledby={headingId}
-        className="border-t border-white/5 py-12 sm:py-16"
-      >
+      <section aria-labelledby={headingId} className={sectionClass}>
         <div className="mx-auto max-w-3xl px-6">
           <h2
             id={headingId}
-            className="text-xl font-bold tracking-tight sm:text-2xl"
+            className={
+              compact
+                ? "text-lg font-semibold tracking-tight text-slate-300 sm:text-xl"
+                : "text-xl font-bold tracking-tight sm:text-2xl"
+            }
           >
             {block.title}
           </h2>
           {block.paragraphs.length > 0 ? (
-            <div className="mt-4 space-y-3">
+            <div className={`${compact ? "mt-3 space-y-2" : "mt-4 space-y-3"}`}>
               {block.paragraphs.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-base leading-relaxed text-slate-400"
+                  className={
+                    compact
+                      ? "text-sm leading-relaxed text-slate-400"
+                      : "text-base leading-relaxed text-slate-400"
+                  }
                 >
                   {paragraph}
                 </p>
@@ -60,14 +73,17 @@ export function ContentQualityBlockSection({
             </div>
           ) : null}
           {block.bullets.length > 0 ? (
-            <ul className="mt-5 space-y-2.5">
+            <ul className={compact ? "mt-4 space-y-2" : "mt-5 space-y-2.5"}>
               {block.bullets.map((bullet) => (
-                <li key={bullet} className="flex gap-3 text-sm leading-relaxed">
+                <li
+                  key={bullet}
+                  className={`flex gap-3 leading-relaxed ${compact ? "text-xs sm:text-sm" : "text-sm"}`}
+                >
                   <span
                     className="mt-0.5 shrink-0 text-slate-500"
                     aria-hidden="true"
                   >
-                    •
+                    {compact ? "✓" : "•"}
                   </span>
                   <span className="text-slate-400">{bullet}</span>
                 </li>

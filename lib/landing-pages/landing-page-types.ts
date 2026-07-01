@@ -1,3 +1,4 @@
+import type { LandingPageContentExperience } from "@/lib/landing-pages/content-experience";
 import type { LandingPageContentQuality } from "@/lib/landing-pages/content-quality";
 import type { LandingPageContentVariation } from "@/lib/landing-pages/content-variation";
 import type { CtaLocation } from "@/lib/analytics";
@@ -122,4 +123,6 @@ export type LandingPageData = {
   contentQuality: LandingPageContentQuality;
   /** Registry-driven presentation variation for personality and layout. */
   contentVariation: LandingPageContentVariation;
+  /** Registry-driven reading experience pacing, density, and navigation copy. */
+  contentExperience: LandingPageContentExperience;
 };
