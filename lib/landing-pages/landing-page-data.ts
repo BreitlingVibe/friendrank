@@ -17,6 +17,7 @@ import {
 } from "@/lib/landing-pages/content-variation";
 import { applyContentExperience } from "@/lib/landing-pages/content-experience";
 import { applyGeoFoundation } from "@/lib/geo/geo-foundation";
+import { applyAiCitationLayer } from "@/lib/geo/ai-citation";
 import {
   getPlayersAlsoEnjoyItems,
   getPopularSearchLinks,
@@ -444,8 +445,9 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     contentVariation.headings,
   );
 
-  return applyGeoFoundation(
-    applyContentExperience({
+  return applyAiCitationLayer(
+    applyGeoFoundation(
+      applyContentExperience({
     slug: intent.slug,
     title: intent.title,
     metaTitle: intent.metaTitle,
@@ -512,6 +514,7 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     contentQuality,
     contentVariation,
     }),
+    ),
   );
 }
 

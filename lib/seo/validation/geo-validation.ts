@@ -1,5 +1,6 @@
 import { LANDING_PAGES } from "@/lib/landing-pages/landing-page-data";
 import { applyTopicHubExperience } from "@/lib/landing-pages/topic-hub-experience";
+import { applyAiCitationLayer } from "@/lib/geo/ai-citation";
 import {
   applyGeoFoundation,
   collectGeoPageRecords,
@@ -29,7 +30,9 @@ function countByValue(values: string[]): Map<string, number> {
 
 function buildTopicHubPagesWithGeo() {
   return getAllHubs().map((hub) =>
-    applyGeoFoundation(applyTopicHubExperience(assembleTopicHubPage(hub))),
+    applyAiCitationLayer(
+      applyGeoFoundation(applyTopicHubExperience(assembleTopicHubPage(hub))),
+    ),
   );
 }
 

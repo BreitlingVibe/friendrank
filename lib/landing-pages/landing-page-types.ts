@@ -1,6 +1,7 @@
 import type { LandingPageContentExperience } from "@/lib/landing-pages/content-experience";
 import type { LandingPageContentQuality } from "@/lib/landing-pages/content-quality";
 import type { LandingPageContentVariation } from "@/lib/landing-pages/content-variation";
+import type { AiCitationLayer } from "@/lib/geo/ai-citation";
 import type { GeoFoundation } from "@/lib/geo/geo-foundation";
 import type { CtaLocation } from "@/lib/analytics";
 import type { HowToPlayContent } from "@/lib/landing-pages/content/how-to-play-library";
@@ -128,4 +129,6 @@ export type LandingPageData = {
   contentExperience: LandingPageContentExperience;
   /** Internal build-time GEO metadata for AI readability (not rendered). */
   geoFoundation: GeoFoundation;
+  /** Internal build-time AI citation metadata for LLM summarization (not rendered). */
+  aiCitation: AiCitationLayer;
 };

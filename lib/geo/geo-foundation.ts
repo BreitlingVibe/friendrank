@@ -292,7 +292,7 @@ function buildLandingSummary(
 }
 
 function buildLandingGeoFoundation(
-  page: Omit<LandingPageData, "geoFoundation">,
+  page: Omit<LandingPageData, "geoFoundation" | "aiCitation">,
 ): GeoFoundation {
   const registryIntent = getIntentBySlug(page.slug);
   const searchIntent = registryIntent?.searchIntent ?? page.intentSummary;
@@ -340,7 +340,7 @@ function buildTopicHubSummary(primaryKeyword: string): string {
 }
 
 function buildTopicHubGeoFoundation(
-  page: Omit<TopicHubPageData, "geoFoundation">,
+  page: Omit<TopicHubPageData, "geoFoundation" | "aiCitation">,
 ): GeoFoundation {
   const primaryEntity = page.hub.title;
   const supportingEntities = uniqueNonEmpty([
@@ -481,14 +481,16 @@ function isTopicHubPage(
 
 /** Enriches assembled landing or topic hub pages with internal GEO metadata. */
 export function applyGeoFoundation(
-  page: Omit<LandingPageData, "geoFoundation">,
-): LandingPageData;
+  page: Omit<LandingPageData, "geoFoundation" | "aiCitation">,
+): Omit<LandingPageData, "aiCitation">;
 export function applyGeoFoundation(
-  page: Omit<TopicHubPageData, "geoFoundation">,
-): TopicHubPageData;
+  page: Omit<TopicHubPageData, "geoFoundation" | "aiCitation">,
+): Omit<TopicHubPageData, "aiCitation">;
 export function applyGeoFoundation(
-  page: Omit<LandingPageData, "geoFoundation"> | Omit<TopicHubPageData, "geoFoundation">,
-): LandingPageData | TopicHubPageData {
+  page:
+    | Omit<LandingPageData, "geoFoundation" | "aiCitation">
+    | Omit<TopicHubPageData, "geoFoundation" | "aiCitation">,
+): Omit<LandingPageData, "aiCitation"> | Omit<TopicHubPageData, "aiCitation"> {
   if (isTopicHubPage(page as LandingPageData | TopicHubPageData)) {
     return {
       ...(page as TopicHubPageData),
