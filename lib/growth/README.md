@@ -367,6 +367,20 @@ No page deletion or renaming in this workflow — triage only.
 
 ---
 
+## AI Growth Assistant
+
+Sprint 2 adds a unified weekly report in `lib/growth/growth-assistant.ts` that orchestrates all existing growth modules — no external APIs, no LLMs, no engine duplication. Run:
+
+```bash
+npm run growth:assistant
+```
+
+The report combines priority URLs, Search Console actions, CTR candidates, authority roadmap, GEO foundation, AI citation coverage, and audit health into one actionable plan with executive summary, weekly actions (max 6), channel recommendations, content picks, authority targets, anti-waste guardrails, and next sprint focus.
+
+See `lib/growth/GROWTH_ASSISTANT.md` for workflow and decision model.
+
+---
+
 ## Traffic & authority growth roadmap
 
 Sprint 1 adds a practical traffic and authority operating plan in `lib/growth/authority-roadmap.ts` and `lib/growth/AUTHORITY_ROADMAP.md`. Run:
@@ -401,6 +415,9 @@ npm run growth:ctr
 
 # Traffic & authority growth roadmap (channels, 30-day plan, KPIs)
 npm run growth:authority-roadmap
+
+# Unified weekly growth assistant (all modules combined)
+npm run growth:assistant
 
 # Full SEO and content audit
 npm run audit:all
@@ -479,6 +496,7 @@ Do **not** change live metadata when:
 
 ## Related docs
 
+- **AI Growth Assistant:** `lib/growth/GROWTH_ASSISTANT.md`
 - **Traffic & authority roadmap:** `lib/growth/AUTHORITY_ROADMAP.md`
 - Landing page planning: `lib/landing-pages/planning/README.md`
 - Entity validation: `npm run audit:entities`
