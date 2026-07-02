@@ -13,6 +13,7 @@
     "growth:priorities": "npx tsx scripts/growth-priorities.ts",
     "growth:search-console-plan": "npx tsx scripts/growth-search-console-plan.ts",
     "growth:ctr": "npx tsx scripts/growth-ctr-report.ts",
+    "growth:authority-roadmap": "npx tsx scripts/growth-authority-roadmap.ts",
     "geo:report": "npx tsx scripts/geo-report.ts",
     "ai:citation": "npx tsx scripts/ai-citation-report.ts"
   },

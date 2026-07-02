@@ -367,6 +367,26 @@ No page deletion or renaming in this workflow — triage only.
 
 ---
 
+## Traffic & authority growth roadmap
+
+Sprint 1 adds a practical traffic and authority operating plan in `lib/growth/authority-roadmap.ts` and `lib/growth/AUTHORITY_ROADMAP.md`. Run:
+
+```bash
+npm run growth:authority-roadmap
+```
+
+The report includes:
+
+- **Growth channel priorities** — Search Console/SEO, GEO/AI, community, Pinterest, short-form video, outreach, partnerships, product-led sharing, direct/referral
+- **Priority matrix** — effort, upside, time to impact, risk, and why each channel fits FriendRank
+- **Weekly operating cadence** — Mon Search Console/GA4, Tue metadata, Wed distribution, Thu GEO/AI audits, Fri outreach, weekend optional
+- **30-day plan** — baseline → CTR review → distribution tests → signal review
+- **Authority targets** — party blogs, classroom resources, team-building, relationship blogs, Reddit, Pinterest, directories
+- **KPI model** — impressions, clicks, CTR, indexed pages, positions 8–30, referral/AI traffic, games created, CTA clicks, completion rate, returning users
+- **Monetization readiness** — documented future options only; no monetization sprint until meaningful traffic and usage
+
+---
+
 ## Commands
 
 ```bash
@@ -378,6 +398,9 @@ npm run growth:search-console-plan
 
 # CTR title/meta optimization candidates (suggestions only)
 npm run growth:ctr
+
+# Traffic & authority growth roadmap (channels, 30-day plan, KPIs)
+npm run growth:authority-roadmap
 
 # Full SEO and content audit
 npm run audit:all
@@ -456,6 +479,7 @@ Do **not** change live metadata when:
 
 ## Related docs
 
+- **Traffic & authority roadmap:** `lib/growth/AUTHORITY_ROADMAP.md`
 - Landing page planning: `lib/landing-pages/planning/README.md`
 - Entity validation: `npm run audit:entities`
 - Analytics events: `lib/analytics.ts`
