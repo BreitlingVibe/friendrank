@@ -1,6 +1,7 @@
 import type { LandingPageContentExperience } from "@/lib/landing-pages/content-experience";
 import type { LandingPageContentQuality } from "@/lib/landing-pages/content-quality";
 import type { LandingPageContentVariation } from "@/lib/landing-pages/content-variation";
+import type { GeoFoundation } from "@/lib/geo/geo-foundation";
 import type { CtaLocation } from "@/lib/analytics";
 import type { HowToPlayContent } from "@/lib/landing-pages/content/how-to-play-library";
 import type { BestForTag } from "@/lib/landing-pages/best-for-tags";
@@ -125,4 +126,6 @@ export type LandingPageData = {
   contentVariation: LandingPageContentVariation;
   /** Registry-driven reading experience pacing, density, and navigation copy. */
   contentExperience: LandingPageContentExperience;
+  /** Internal build-time GEO metadata for AI readability (not rendered). */
+  geoFoundation: GeoFoundation;
 };

@@ -2,6 +2,7 @@ import { introOverlapRatio } from "@/lib/landing-pages/content-experience";
 import { getRecommendedTopicHubs } from "@/lib/topic-hubs/hub-recommendations";
 import type { HubBenefit } from "@/lib/topic-hubs/hub-content-types";
 import type { AssembledTopicHubPage } from "@/lib/topic-hubs/hub-page-data";
+import type { GeoFoundation } from "@/lib/geo/geo-foundation";
 import type {
   ResolvedHubHeroCopy,
   ResolvedHubSectionCopy,
@@ -56,6 +57,7 @@ export type TopicHubContentExperience = {
 
 export type TopicHubPageData = AssembledTopicHubPage & {
   topicHubExperience: TopicHubContentExperience;
+  geoFoundation: GeoFoundation;
 };
 
 type HubHeadingProfile = {
@@ -332,7 +334,7 @@ function resolveSectionOrder(
 /** Transforms assembled topic hub pages for discovery-first reading experience. */
 export function applyTopicHubExperience(
   page: AssembledTopicHubPage,
-): TopicHubPageData {
+): Omit<TopicHubPageData, "geoFoundation"> {
   const profile = resolveHeadingProfile(page.hub.id);
   const heroCopy = refineHubHero(page.heroCopy);
   const sectionCopy = refineSectionCopy(

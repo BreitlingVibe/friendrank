@@ -271,7 +271,7 @@ function applyBlockPresentation(
 }
 
 function resolveSuppressedSections(
-  page: Omit<LandingPageData, "contentExperience">,
+  page: Omit<LandingPageData, "contentExperience" | "geoFoundation">,
 ): ReorderableSectionKey[] {
   const suppressed: ReorderableSectionKey[] = [];
 
@@ -283,7 +283,7 @@ function resolveSuppressedSections(
 }
 
 function resolveTailSuppression(
-  page: Omit<LandingPageData, "contentExperience">,
+  page: Omit<LandingPageData, "contentExperience" | "geoFoundation">,
   overlapRelatedEnjoy: number,
   overlapRelatedYouMay: number,
 ): TailSectionKey[] {
@@ -390,7 +390,7 @@ function resolveTailOrder(profile: PacingProfileId): TailSectionKey[] {
 
 function buildRecommendationExperience(
   intent: IntentDefinition,
-  page: Omit<LandingPageData, "contentExperience">,
+  page: Omit<LandingPageData, "contentExperience" | "geoFoundation">,
   overlapRelatedEnjoy: number,
 ): RecommendationExperience {
   const titleLower = intent.title.toLowerCase();
@@ -519,7 +519,7 @@ function refineTransitions(
 
 /** Builds registry-driven reading experience metadata for a landing page. */
 export function buildLandingPageContentExperience(
-  page: Omit<LandingPageData, "contentExperience">,
+  page: Omit<LandingPageData, "contentExperience" | "geoFoundation">,
 ): LandingPageContentExperience {
   const intent = resolveIntent(page.slug);
   const pacingProfile = resolvePacingProfile(intent);
@@ -567,8 +567,8 @@ export function buildLandingPageContentExperience(
 
 /** Transforms assembled landing page data for reading experience quality. */
 export function applyContentExperience(
-  page: Omit<LandingPageData, "contentExperience">,
-): LandingPageData {
+  page: Omit<LandingPageData, "contentExperience" | "geoFoundation">,
+): Omit<LandingPageData, "geoFoundation"> {
   const intent = resolveIntent(page.slug);
   const intro = refineIntroCopy({
     heroSubtitle: page.heroSubtitle,

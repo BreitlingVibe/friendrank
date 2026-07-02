@@ -16,6 +16,7 @@ import {
   buildLandingPageContentVariation,
 } from "@/lib/landing-pages/content-variation";
 import { applyContentExperience } from "@/lib/landing-pages/content-experience";
+import { applyGeoFoundation } from "@/lib/geo/geo-foundation";
 import {
   getPlayersAlsoEnjoyItems,
   getPopularSearchLinks,
@@ -443,7 +444,8 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     contentVariation.headings,
   );
 
-  return applyContentExperience({
+  return applyGeoFoundation(
+    applyContentExperience({
     slug: intent.slug,
     title: intent.title,
     metaTitle: intent.metaTitle,
@@ -509,7 +511,8 @@ function assembleLandingPage(input: LandingPageAssemblyInput): LandingPageData {
     schemaDescription: intent.schemaDescription,
     contentQuality,
     contentVariation,
-  });
+    }),
+  );
 }
 
 export const mostLikelyToGeneratorPage = assembleLandingPage({

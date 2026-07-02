@@ -1,4 +1,5 @@
 import { applyTopicHubExperience } from "@/lib/landing-pages/topic-hub-experience";
+import { applyGeoFoundation } from "@/lib/geo/geo-foundation";
 import { assembleTopicHubPage } from "@/lib/topic-hubs/hub-page-data";
 import type { TopicHub } from "@/lib/topic-hubs/hub-types";
 import { CREATE_GAME_HREF } from "@/lib/landing-pages/content/cta-library";
@@ -14,7 +15,9 @@ type TopicHubPageProps = {
 };
 
 export function TopicHubPage({ hub }: TopicHubPageProps) {
-  const page = applyTopicHubExperience(assembleTopicHubPage(hub));
+  const page = applyGeoFoundation(
+    applyTopicHubExperience(assembleTopicHubPage(hub)),
+  );
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-950 text-white">
