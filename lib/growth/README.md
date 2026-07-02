@@ -437,6 +437,20 @@ See `lib/growth/PUBLISHING_PACKAGE.md`.
 
 ---
 
+## Manual Distribution Workflow
+
+Sprint 4 adds a build-time manual distribution workflow in `lib/growth/manual-distribution-workflow.ts` — account readiness, first-campaign checklist for `/friend-games`, channel classification, backlink/reach targets, valid backlink rules, ten ordered manual actions, future automation documentation, and 7-day measurement checklist. Run:
+
+```bash
+npm run growth:manual-distribution
+```
+
+No credentials, no account creation, no auto-posting. Pairs with `npm run growth:publishing-package` for copy-ready execution.
+
+See `lib/growth/MANUAL_DISTRIBUTION_WORKFLOW.md`.
+
+---
+
 ## Traffic & authority growth roadmap
 
 Sprint 1 adds a practical traffic and authority operating plan in `lib/growth/authority-roadmap.ts` and `lib/growth/AUTHORITY_ROADMAP.md`. Run:
@@ -486,6 +500,9 @@ npm run growth:campaign
 
 # Complete copy-ready weekly publishing package
 npm run growth:publishing-package
+
+# Manual distribution workflow and account readiness
+npm run growth:manual-distribution
 
 # Full SEO and content audit
 npm run audit:all
@@ -564,6 +581,7 @@ Do **not** change live metadata when:
 
 ## Related docs
 
+- **Manual Distribution Workflow:** `lib/growth/MANUAL_DISTRIBUTION_WORKFLOW.md`
 - **Weekly Publishing Package:** `lib/growth/PUBLISHING_PACKAGE.md`
 - **Weekly Campaign Planner:** `lib/growth/CAMPAIGN_PLANNER.md`
 - **Distribution Opportunity Registry:** `lib/growth/DISTRIBUTION_OPPORTUNITIES.md`

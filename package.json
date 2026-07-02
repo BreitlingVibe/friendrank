@@ -19,6 +19,7 @@
     "growth:distribution": "npx tsx scripts/growth-distribution-opportunities.ts",
     "growth:campaign": "npx tsx scripts/growth-campaign.ts",
     "growth:publishing-package": "npx tsx scripts/growth-publishing-package.ts",
+    "growth:manual-distribution": "npx tsx scripts/growth-manual-distribution.ts",
     "geo:report": "npx tsx scripts/geo-report.ts",
     "ai:citation": "npx tsx scripts/ai-citation-report.ts"
   },
