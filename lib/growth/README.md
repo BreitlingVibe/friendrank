@@ -381,6 +381,20 @@ See `lib/growth/GROWTH_ASSISTANT.md` for workflow and decision model.
 
 ---
 
+## Growth Asset Generator
+
+Sprint 3 adds a build-time promotional asset generator in `lib/growth/growth-assets.ts`. Run:
+
+```bash
+npm run growth:assets
+```
+
+Generates deterministic Reddit, LinkedIn, Pinterest, AI directory, outreach email, product sharing, SEO snippet, and promotion checklist assets for the highest-priority page (default: Friend Games topic hub). Reuses GEO, AI citation, CTR optimization, and growth assistant selection — no runtime, no APIs, no auto-publishing.
+
+See `lib/growth/GROWTH_ASSETS.md`.
+
+---
+
 ## Traffic & authority growth roadmap
 
 Sprint 1 adds a practical traffic and authority operating plan in `lib/growth/authority-roadmap.ts` and `lib/growth/AUTHORITY_ROADMAP.md`. Run:
@@ -418,6 +432,9 @@ npm run growth:authority-roadmap
 
 # Unified weekly growth assistant (all modules combined)
 npm run growth:assistant
+
+# Promotional assets for highest-priority page
+npm run growth:assets
 
 # Full SEO and content audit
 npm run audit:all
@@ -496,6 +513,7 @@ Do **not** change live metadata when:
 
 ## Related docs
 
+- **Growth Asset Generator:** `lib/growth/GROWTH_ASSETS.md`
 - **AI Growth Assistant:** `lib/growth/GROWTH_ASSISTANT.md`
 - **Traffic & authority roadmap:** `lib/growth/AUTHORITY_ROADMAP.md`
 - Landing page planning: `lib/landing-pages/planning/README.md`

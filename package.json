@@ -15,6 +15,7 @@
     "growth:ctr": "npx tsx scripts/growth-ctr-report.ts",
     "growth:authority-roadmap": "npx tsx scripts/growth-authority-roadmap.ts",
     "growth:assistant": "npx tsx scripts/growth-assistant.ts",
+    "growth:assets": "npx tsx scripts/growth-assets.ts",
     "geo:report": "npx tsx scripts/geo-report.ts",
     "ai:citation": "npx tsx scripts/ai-citation-report.ts"
   },
