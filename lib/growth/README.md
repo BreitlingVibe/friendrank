@@ -395,6 +395,20 @@ See `lib/growth/GROWTH_ASSETS.md`.
 
 ---
 
+## Distribution Opportunity Registry
+
+Sprint 1 adds a build-time registry in `lib/growth/distribution-opportunities.ts` of realistic external publishing opportunities (Reddit, Pinterest, directories, teacher/team/party resources, product-led sharing). Run:
+
+```bash
+npm run growth:distribution
+```
+
+Matches pages and asset types to channels with effort, risk, cadence, and spam-avoidance rules. Informs Growth Assistant avoid lists and Growth Assets target selection — no automation, no APIs, no crawling.
+
+See `lib/growth/DISTRIBUTION_OPPORTUNITIES.md`.
+
+---
+
 ## Traffic & authority growth roadmap
 
 Sprint 1 adds a practical traffic and authority operating plan in `lib/growth/authority-roadmap.ts` and `lib/growth/AUTHORITY_ROADMAP.md`. Run:
@@ -435,6 +449,9 @@ npm run growth:assistant
 
 # Promotional assets for highest-priority page
 npm run growth:assets
+
+# Distribution opportunity registry and page matching
+npm run growth:distribution
 
 # Full SEO and content audit
 npm run audit:all
@@ -513,6 +530,7 @@ Do **not** change live metadata when:
 
 ## Related docs
 
+- **Distribution Opportunity Registry:** `lib/growth/DISTRIBUTION_OPPORTUNITIES.md`
 - **Growth Asset Generator:** `lib/growth/GROWTH_ASSETS.md`
 - **AI Growth Assistant:** `lib/growth/GROWTH_ASSISTANT.md`
 - **Traffic & authority roadmap:** `lib/growth/AUTHORITY_ROADMAP.md`
