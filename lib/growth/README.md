@@ -423,6 +423,20 @@ See `lib/growth/CAMPAIGN_PLANNER.md`.
 
 ---
 
+## Weekly Publishing Package
+
+Sprint 3 adds a build-time publishing package in `lib/growth/publishing-package.ts` that merges Campaign Planner, Growth Assets, Distribution Opportunities, Growth Assistant, Authority Roadmap, and Search Console Action Plan into one copy-ready weekly package. Run:
+
+```bash
+npm run growth:publishing-package
+```
+
+Includes campaign overview, seven publication blocks, publishing order, account/handle/email readiness notes (no credentials), automation readiness classification, guardrails, 7-day measurement checklist, and next-step recommendation.
+
+See `lib/growth/PUBLISHING_PACKAGE.md`.
+
+---
+
 ## Traffic & authority growth roadmap
 
 Sprint 1 adds a practical traffic and authority operating plan in `lib/growth/authority-roadmap.ts` and `lib/growth/AUTHORITY_ROADMAP.md`. Run:
@@ -469,6 +483,9 @@ npm run growth:distribution
 
 # Weekly campaign plan (assistant + assets + distribution combined)
 npm run growth:campaign
+
+# Complete copy-ready weekly publishing package
+npm run growth:publishing-package
 
 # Full SEO and content audit
 npm run audit:all
@@ -547,6 +564,7 @@ Do **not** change live metadata when:
 
 ## Related docs
 
+- **Weekly Publishing Package:** `lib/growth/PUBLISHING_PACKAGE.md`
 - **Weekly Campaign Planner:** `lib/growth/CAMPAIGN_PLANNER.md`
 - **Distribution Opportunity Registry:** `lib/growth/DISTRIBUTION_OPPORTUNITIES.md`
 - **Growth Asset Generator:** `lib/growth/GROWTH_ASSETS.md`
