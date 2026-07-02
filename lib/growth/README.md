@@ -409,6 +409,20 @@ See `lib/growth/DISTRIBUTION_OPPORTUNITIES.md`.
 
 ---
 
+## Weekly Campaign Planner
+
+Sprint 2 adds a build-time campaign planner in `lib/growth/campaign-planner.ts` that combines Growth Assistant, Growth Assets, Distribution Opportunities, Growth Priority, Search Console Action Plan, and Authority Roadmap into one weekly campaign. Run:
+
+```bash
+npm run growth:campaign
+```
+
+Outputs campaign summary, channel decisions (publish / prepare / ignore), asset checklist, six manual actions, publishing order, guardrails, 7-day measurement plan, and next campaign suggestion — human approval required for all publishing.
+
+See `lib/growth/CAMPAIGN_PLANNER.md`.
+
+---
+
 ## Traffic & authority growth roadmap
 
 Sprint 1 adds a practical traffic and authority operating plan in `lib/growth/authority-roadmap.ts` and `lib/growth/AUTHORITY_ROADMAP.md`. Run:
@@ -452,6 +466,9 @@ npm run growth:assets
 
 # Distribution opportunity registry and page matching
 npm run growth:distribution
+
+# Weekly campaign plan (assistant + assets + distribution combined)
+npm run growth:campaign
 
 # Full SEO and content audit
 npm run audit:all
@@ -530,6 +547,7 @@ Do **not** change live metadata when:
 
 ## Related docs
 
+- **Weekly Campaign Planner:** `lib/growth/CAMPAIGN_PLANNER.md`
 - **Distribution Opportunity Registry:** `lib/growth/DISTRIBUTION_OPPORTUNITIES.md`
 - **Growth Asset Generator:** `lib/growth/GROWTH_ASSETS.md`
 - **AI Growth Assistant:** `lib/growth/GROWTH_ASSISTANT.md`
