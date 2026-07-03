@@ -146,6 +146,50 @@ function validateLauncherHtml(issues: ValidationIssue[]): void {
     );
   }
 
+  if (!html.includes('target="_blank"')) {
+    issues.push(
+      issue(
+        "distribution.missing_external_target",
+        "error",
+        "Launcher CTA must open the official FriendRank URL in a new tab (target=\"_blank\").",
+        "distribution/itch-launcher/index.html",
+      ),
+    );
+  }
+
+  if (!html.includes('rel="noopener noreferrer"')) {
+    issues.push(
+      issue(
+        "distribution.missing_external_rel",
+        "error",
+        "Launcher external links must include rel=\"noopener noreferrer\".",
+        "distribution/itch-launcher/index.html",
+      ),
+    );
+  }
+
+  if (!html.includes("Open FriendRank")) {
+    issues.push(
+      issue(
+        "distribution.missing_launcher_cta_label",
+        "error",
+        "Launcher primary CTA must use the Open FriendRank label.",
+        "distribution/itch-launcher/index.html",
+      ),
+    );
+  }
+
+  if (!html.includes("If the button does not open, use this direct link:")) {
+    issues.push(
+      issue(
+        "distribution.missing_fallback_link_copy",
+        "error",
+        "Launcher must include visible fallback direct-link copy.",
+        "distribution/itch-launcher/index.html",
+      ),
+    );
+  }
+
   const cssPath = resolvePath("distribution/itch-launcher/styles.css");
   if (html.includes('href="styles.css"') && !existsSync(cssPath)) {
     issues.push(

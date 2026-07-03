@@ -10,7 +10,7 @@ Static launcher package for itch.io distribution.
 
 ## Files
 
-- `index.html` — branded landing screen with CTA to `https://friendrank.app`
+- `index.html` — branded landing screen with CTA opening `https://friendrank.app` in a new tab
 - `styles.css` — launcher styling using approved FriendRank colors
 - `icon-192.png` — approved logo mark copied from `public/icon-192.png`
 - `README.md` — this file
