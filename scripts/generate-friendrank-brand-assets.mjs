@@ -208,6 +208,15 @@ async function main() {
   await writeFile(path.join(publicDir, "favicon.ico"), ico);
   await writeFile(path.join(appDir, "favicon.ico"), ico);
 
+  await writeFile(
+    path.join(appDir, "icon.png"),
+    await readFile(path.join(publicDir, "icon-512.png")),
+  );
+  await writeFile(
+    path.join(appDir, "apple-icon.png"),
+    await readFile(appleTouchPath),
+  );
+
   console.log("FriendRank brand assets generated from approved source.");
 }
 

@@ -1,3 +1,4 @@
+import { validateBrandAssets } from "@/lib/seo/validation/brand-assets-validation";
 import { validateCanonicalUrls } from "@/lib/seo/validation/canonical-validation";
 import { validateContentCompleteness } from "@/lib/seo/validation/content-completeness-validation";
 import { validateMetadataConsistency } from "@/lib/seo/validation/metadata-validation";
@@ -16,6 +17,7 @@ import {
 export type IndexAuditReport = {
   valid: boolean;
   results: {
+    brandAssets: ValidationResult;
     canonical: ValidationResult;
     metadata: ValidationResult;
     sitemap: ValidationResult;
@@ -34,6 +36,7 @@ export type IndexAuditReport = {
 
 /** Runs index quality and Search Console readiness audits. */
 export function runIndexAudit(): IndexAuditReport {
+  const brandAssets = validateBrandAssets();
   const canonical = validateCanonicalUrls();
   const metadata = validateMetadataConsistency();
   const sitemap = validateSitemapIntegrity();
@@ -45,6 +48,7 @@ export function runIndexAudit(): IndexAuditReport {
   const topicHubExperience = validateTopicHubExperience();
 
   const merged = mergeValidationResults(
+    brandAssets,
     canonical,
     metadata,
     sitemap,
@@ -59,6 +63,7 @@ export function runIndexAudit(): IndexAuditReport {
   return {
     valid: merged.valid,
     results: {
+      brandAssets,
       canonical,
       metadata,
       sitemap,
@@ -75,6 +80,7 @@ export function runIndexAudit(): IndexAuditReport {
 
 export function formatIndexAuditReport(report: IndexAuditReport): string {
   const sections = [
+    ["Brand assets", report.results.brandAssets],
     ["Canonical URLs", report.results.canonical],
     ["Metadata consistency", report.results.metadata],
     ["Sitemap quality", report.results.sitemap],
