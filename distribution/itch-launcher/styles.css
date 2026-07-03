@@ -1,0 +1,119 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgba(124, 58, 237, 0.28), transparent 42%),
+    radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.18), transparent 38%),
+    linear-gradient(145deg, #0c0a14 0%, #0f172a 45%, #071018 100%);
+  color: #f8fafc;
+}
+
+.launcher {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.launcher__brand {
+  margin-bottom: 1.5rem;
+}
+
+.launcher__logo {
+  display: block;
+  margin: 0 auto 0.75rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 20px 50px rgba(124, 58, 237, 0.25);
+}
+
+.launcher__eyebrow {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a78bfa;
+}
+
+.launcher__content {
+  width: min(100%, 34rem);
+}
+
+.launcher__title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  background: linear-gradient(90deg, #ddd6fe, #67e8f9, #c4b5fd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.launcher__subtitle {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+
+.launcher__copy {
+  margin: 0 0 1.75rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
+.launcher__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 14rem;
+  padding: 0.95rem 1.75rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #7c3aed, #0891b2);
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 18px 40px rgba(124, 58, 237, 0.28);
+}
+
+.launcher__cta:hover {
+  filter: brightness(1.05);
+}
+
+.launcher__note {
+  margin: 1rem 0 0;
+  font-size: 0.95rem;
+  color: #67e8f9;
+  font-weight: 600;
+}
+
+.launcher__footer {
+  margin-top: 2.5rem;
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+.launcher__footer strong {
+  color: #c4b5fd;
+}
