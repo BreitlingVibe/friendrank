@@ -49,6 +49,11 @@ export type EvergreenHubPageData = {
   faq: EvergreenHubFaqItem[];
   geoFoundation: GeoFoundation;
   aiCitation: AiCitationLayer;
+  /** When to render the comparison table relative to FriendRank fit and use cases. */
+  comparisonPlacement?: "before-friendrank" | "after-use-cases";
+  ctaLabel?: string;
+  ctaAriaLabel?: string;
+  comparisonSectionId?: string;
 };
 
 export type EvergreenHubDefinition = {

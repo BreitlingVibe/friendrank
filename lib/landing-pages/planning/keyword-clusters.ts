@@ -71,6 +71,7 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
     searchIntent:
       "Run a private group vote among friends without accounts or exposed ballots.",
     memberSlugs: [
+      "anonymous-voting-games",
       "anonymous-voting-game",
       "group-voting-game",
       "party-voting-game",

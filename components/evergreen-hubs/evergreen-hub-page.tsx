@@ -13,6 +13,119 @@ type EvergreenHubPageProps = {
   page: EvergreenHubPageData;
 };
 
+function ComparisonSection({ page }: { page: EvergreenHubPageData }) {
+  const sectionId = page.comparisonSectionId ?? "evergreen-comparison";
+
+  return (
+    <section
+      id={sectionId}
+      aria-labelledby={`${sectionId}-heading`}
+      className="border-t border-white/5 bg-white/[0.02] py-16 sm:py-20"
+    >
+      <div className="mx-auto max-w-5xl px-6">
+        <h2
+          id={`${sectionId}-heading`}
+          className="text-2xl font-bold tracking-tight sm:text-3xl"
+        >
+          {page.comparisonTitle}
+        </h2>
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-400 sm:text-lg">
+          {page.comparisonIntro}
+        </p>
+        <div className="mt-8 overflow-x-auto rounded-2xl border border-white/10">
+          <table className="min-w-full divide-y divide-white/10 text-left text-sm">
+            <thead className="bg-slate-900/60">
+              <tr>
+                <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
+                  Type
+                </th>
+                <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
+                  Best for
+                </th>
+                <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
+                  Setup
+                </th>
+                <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
+                  Social payoff
+                </th>
+                <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
+                  Browser-friendly
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5 bg-slate-950/40">
+              {page.comparisonRows.map((row) => (
+                <tr key={row.type}>
+                  <th scope="row" className="px-4 py-4 font-medium text-white">
+                    {row.type}
+                  </th>
+                  <td className="px-4 py-4 text-slate-400">{row.bestFor}</td>
+                  <td className="px-4 py-4 text-slate-400">{row.setup}</td>
+                  <td className="px-4 py-4 text-slate-400">{row.socialPayoff}</td>
+                  <td className="px-4 py-4 text-slate-400">{row.browserFriendly}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FriendRankFitSection({ page }: { page: EvergreenHubPageData }) {
+  return (
+    <section
+      id="where-friendrank-fits"
+      aria-labelledby="where-friendrank-fits-heading"
+      className="border-t border-white/5 py-16 sm:py-20"
+    >
+      <div className="mx-auto max-w-3xl px-6">
+        <h2
+          id="where-friendrank-fits-heading"
+          className="text-2xl font-bold tracking-tight sm:text-3xl"
+        >
+          {page.friendRankFitTitle}
+        </h2>
+        <div className="mt-6 space-y-4 text-base leading-relaxed text-slate-400 sm:text-lg">
+          {page.friendRankFitParagraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function UseCasesSection({ page }: { page: EvergreenHubPageData }) {
+  return (
+    <section
+      id="best-use-cases"
+      aria-labelledby="best-use-cases-heading"
+      className="border-t border-white/5 bg-white/[0.02] py-16 sm:py-20"
+    >
+      <div className="mx-auto max-w-3xl px-6">
+        <h2
+          id="best-use-cases-heading"
+          className="text-2xl font-bold tracking-tight sm:text-3xl"
+        >
+          {page.useCasesTitle}
+        </h2>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          {page.useCases.map((useCase) => (
+            <li
+              key={useCase}
+              className="rounded-2xl border border-white/10 bg-slate-900/40 px-4 py-3 text-sm text-slate-300"
+            >
+              {useCase}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 export function EvergreenHubPage({ page }: EvergreenHubPageProps) {
   const breadcrumbs = [
     buildHomeBreadcrumbItem(),
@@ -22,6 +135,8 @@ export function EvergreenHubPage({ page }: EvergreenHubPageProps) {
       position: 2,
     },
   ];
+
+  const comparisonAfterUseCases = page.comparisonPlacement === "after-use-cases";
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-950 text-white">
@@ -59,11 +174,13 @@ export function EvergreenHubPage({ page }: EvergreenHubPageProps) {
           </p>
           <div className="mt-10 flex justify-center">
             <LandingPageCta
-              label="Create a free browser game"
+              label={page.ctaLabel ?? "Create a free browser game"}
               href={CREATE_GAME_HREF}
               location="bottom_start"
               variant="primary"
-              ariaLabel="Create a free FriendRank browser party game"
+              ariaLabel={
+                page.ctaAriaLabel ?? "Create a free FriendRank browser party game"
+              }
             />
           </div>
         </section>
@@ -101,104 +218,10 @@ export function EvergreenHubPage({ page }: EvergreenHubPageProps) {
           </section>
         ))}
 
-        <section
-          id="browser-party-game-types"
-          aria-labelledby="browser-party-game-types-heading"
-          className="border-t border-white/5 bg-white/[0.02] py-16 sm:py-20"
-        >
-          <div className="mx-auto max-w-5xl px-6">
-            <h2
-              id="browser-party-game-types-heading"
-              className="text-2xl font-bold tracking-tight sm:text-3xl"
-            >
-              {page.comparisonTitle}
-            </h2>
-            <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-400 sm:text-lg">
-              {page.comparisonIntro}
-            </p>
-            <div className="mt-8 overflow-x-auto rounded-2xl border border-white/10">
-              <table className="min-w-full divide-y divide-white/10 text-left text-sm">
-                <thead className="bg-slate-900/60">
-                  <tr>
-                    <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
-                      Type
-                    </th>
-                    <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
-                      Best for
-                    </th>
-                    <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
-                      Setup
-                    </th>
-                    <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
-                      Social payoff
-                    </th>
-                    <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
-                      Browser-friendly
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5 bg-slate-950/40">
-                  {page.comparisonRows.map((row) => (
-                    <tr key={row.type}>
-                      <th scope="row" className="px-4 py-4 font-medium text-white">
-                        {row.type}
-                      </th>
-                      <td className="px-4 py-4 text-slate-400">{row.bestFor}</td>
-                      <td className="px-4 py-4 text-slate-400">{row.setup}</td>
-                      <td className="px-4 py-4 text-slate-400">{row.socialPayoff}</td>
-                      <td className="px-4 py-4 text-slate-400">{row.browserFriendly}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <section
-          id="where-friendrank-fits"
-          aria-labelledby="where-friendrank-fits-heading"
-          className="border-t border-white/5 py-16 sm:py-20"
-        >
-          <div className="mx-auto max-w-3xl px-6">
-            <h2
-              id="where-friendrank-fits-heading"
-              className="text-2xl font-bold tracking-tight sm:text-3xl"
-            >
-              {page.friendRankFitTitle}
-            </h2>
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-slate-400 sm:text-lg">
-              {page.friendRankFitParagraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section
-          id="best-use-cases"
-          aria-labelledby="best-use-cases-heading"
-          className="border-t border-white/5 bg-white/[0.02] py-16 sm:py-20"
-        >
-          <div className="mx-auto max-w-3xl px-6">
-            <h2
-              id="best-use-cases-heading"
-              className="text-2xl font-bold tracking-tight sm:text-3xl"
-            >
-              {page.useCasesTitle}
-            </h2>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-              {page.useCases.map((useCase) => (
-                <li
-                  key={useCase}
-                  className="rounded-2xl border border-white/10 bg-slate-900/40 px-4 py-3 text-sm text-slate-300"
-                >
-                  {useCase}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        {comparisonAfterUseCases ? null : <ComparisonSection page={page} />}
+        <FriendRankFitSection page={page} />
+        <UseCasesSection page={page} />
+        {comparisonAfterUseCases ? <ComparisonSection page={page} /> : null}
 
         <section
           id="related-friendrank-pages"

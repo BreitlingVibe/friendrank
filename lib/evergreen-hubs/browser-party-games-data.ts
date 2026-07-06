@@ -64,6 +64,7 @@ export const browserPartyGamesHub: EvergreenHubPageData = {
     "Guide to browser party games: what they are, why they are popular, how to choose a good one, and where FriendRank fits as a free browser voting party game.",
   heroLead:
     "Browser party games let a group play together instantly online — no app store, no install, just a link and a few minutes of chaos.",
+  comparisonSectionId: "browser-party-game-types",
   sections: [
     {
       id: "what-are-browser-party-games",

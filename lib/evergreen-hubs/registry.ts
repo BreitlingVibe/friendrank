@@ -1,3 +1,4 @@
+import { anonymousVotingGamesHub } from "@/lib/evergreen-hubs/anonymous-voting-games-data";
 import { browserPartyGamesHub } from "@/lib/evergreen-hubs/browser-party-games-data";
 import type { EvergreenHubDefinition, EvergreenHubPageData } from "@/lib/evergreen-hubs/types";
 
@@ -8,10 +9,17 @@ export const EVERGREEN_HUBS: EvergreenHubDefinition[] = [
     description: browserPartyGamesHub.schemaDescription,
     primaryKeyword: "browser party games",
   },
+  {
+    slug: anonymousVotingGamesHub.slug,
+    title: anonymousVotingGamesHub.title,
+    description: anonymousVotingGamesHub.schemaDescription,
+    primaryKeyword: "anonymous voting games",
+  },
 ];
 
 const EVERGREEN_HUB_DATA: Record<string, EvergreenHubPageData> = {
   [browserPartyGamesHub.slug]: browserPartyGamesHub,
+  [anonymousVotingGamesHub.slug]: anonymousVotingGamesHub,
 };
 
 export function getAllEvergreenHubs(): EvergreenHubDefinition[] {
