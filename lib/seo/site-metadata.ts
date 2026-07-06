@@ -137,7 +137,7 @@ export function buildStructuredDataGraph() {
         },
         speakable: {
           "@type": "SpeakableSpecification",
-          cssSelector: ["#friendrank-hero-heading"],
+          cssSelector: ["#friendrank-hero-heading", "#landing-faq-heading"],
         },
       },
     ],

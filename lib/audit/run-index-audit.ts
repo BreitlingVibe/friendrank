@@ -1,3 +1,4 @@
+import { validateHomepageFaqLayer } from "@/lib/seo/validation/homepage-faq-validation";
 import { validateBrandAssets } from "@/lib/seo/validation/brand-assets-validation";
 import { validateDistributionAssets } from "@/lib/seo/validation/distribution-assets-validation";
 import { validateCanonicalUrls } from "@/lib/seo/validation/canonical-validation";
@@ -18,6 +19,7 @@ import {
 export type IndexAuditReport = {
   valid: boolean;
   results: {
+    homepageFaq: ValidationResult;
     brandAssets: ValidationResult;
     distributionAssets: ValidationResult;
     canonical: ValidationResult;
@@ -38,6 +40,7 @@ export type IndexAuditReport = {
 
 /** Runs index quality and Search Console readiness audits. */
 export function runIndexAudit(): IndexAuditReport {
+  const homepageFaq = validateHomepageFaqLayer();
   const brandAssets = validateBrandAssets();
   const distributionAssets = validateDistributionAssets();
   const canonical = validateCanonicalUrls();
@@ -51,6 +54,7 @@ export function runIndexAudit(): IndexAuditReport {
   const topicHubExperience = validateTopicHubExperience();
 
   const merged = mergeValidationResults(
+    homepageFaq,
     brandAssets,
     distributionAssets,
     canonical,
@@ -67,6 +71,7 @@ export function runIndexAudit(): IndexAuditReport {
   return {
     valid: merged.valid,
     results: {
+      homepageFaq,
       brandAssets,
       distributionAssets,
       canonical,
@@ -85,6 +90,7 @@ export function runIndexAudit(): IndexAuditReport {
 
 export function formatIndexAuditReport(report: IndexAuditReport): string {
   const sections = [
+    ["Homepage FAQ layer", report.results.homepageFaq],
     ["Brand assets", report.results.brandAssets],
     ["Distribution assets", report.results.distributionAssets],
     ["Canonical URLs", report.results.canonical],
