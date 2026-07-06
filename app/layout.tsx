@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { FriendRankStructuredData } from "@/components/friend-rank-structured-data";
+import { MicrosoftClarity } from "@/components/microsoft-clarity";
 import { rootSiteMetadata } from "@/lib/seo/page-metadata";
 import "./globals.css";
 
@@ -40,6 +41,7 @@ export default function RootLayout({
         {isProduction && gaMeasurementId ? (
           <GoogleAnalytics gaId={gaMeasurementId} />
         ) : null}
+        <MicrosoftClarity />
       </body>
     </html>
   );
