@@ -326,16 +326,14 @@ export default function Home() {
             id="friendrank-hero-heading"
             className="mx-auto max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           >
-            Create{" "}
+            Vote. Reveal.{" "}
             <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">
-              chaotic friend voting games
-            </span>{" "}
-            in under 60 seconds.
+              Embrace the chaos.
+            </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400 sm:text-xl">
-            Add your group, vote anonymously, and reveal your friends&apos; lore
-            - Main Character, Chaos Agent, Secret Villain, and more.
+            Create hilarious voting games for friends, parties and teams.
           </p>
 
           <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
@@ -362,8 +360,8 @@ export default function Home() {
           </div>
 
           <div className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-slate-500">
-            <span>✓ No app download</span>
             <span>✓ Anonymous voting</span>
+            <span>✓ No app download</span>
             <span>✓ Ready in under 60 seconds</span>
           </div>
         </section>
