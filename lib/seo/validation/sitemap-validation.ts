@@ -1,5 +1,6 @@
 import { PRODUCTION_APP_URL } from "@/lib/app-url";
 import sitemap from "@/app/sitemap";
+import { getAllEvergreenHubPages } from "@/lib/evergreen-hubs/registry";
 import { LANDING_PAGES } from "@/lib/landing-pages/landing-page-data";
 import {
   getLiveIntents,
@@ -144,6 +145,32 @@ export function validateSitemapIntegrity(): ValidationResult {
     }
   }
 
+  for (const page of getAllEvergreenHubPages()) {
+    const canonical = normalizeUrl(page.canonicalUrl);
+
+    if (!sitemapUrlSet.has(canonical)) {
+      issues.push(
+        issue(
+          "sitemap.missing_evergreen_hub",
+          "error",
+          `Sitemap is missing evergreen hub "${page.slug}".`,
+          page.slug,
+        ),
+      );
+    }
+
+    if (!canonical.startsWith(`${PRODUCTION_APP_URL}/`)) {
+      issues.push(
+        issue(
+          "sitemap.invalid_evergreen_hub_url",
+          "error",
+          `Evergreen hub "${page.slug}" has invalid canonical URL "${page.canonicalUrl}".`,
+          page.slug,
+        ),
+      );
+    }
+  }
+
   for (const url of urls) {
     if (!url.startsWith(PRODUCTION_APP_URL)) {
       issues.push(
@@ -197,13 +224,14 @@ export function validateSitemapIntegrity(): ValidationResult {
     }
   }
 
-  const expectedCount = 1 + LANDING_PAGES.length + getAllHubs().length;
+  const expectedCount =
+    1 + getAllEvergreenHubPages().length + LANDING_PAGES.length + getAllHubs().length;
   if (entries.length !== expectedCount) {
     issues.push(
       issue(
         "sitemap.unexpected_entry_count",
         "error",
-        `Sitemap has ${entries.length} entries; expected ${expectedCount} (home + landing + hubs).`,
+        `Sitemap has ${entries.length} entries; expected ${expectedCount} (home + evergreen + landing + hubs).`,
       ),
     );
   }

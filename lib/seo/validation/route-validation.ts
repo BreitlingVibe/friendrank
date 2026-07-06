@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { getAllEvergreenHubs, getEvergreenHubBySlug } from "@/lib/evergreen-hubs/registry";
 import { LANDING_PAGES, getLandingPageBySlug } from "@/lib/landing-pages/landing-page-data";
 import {
   getLiveIntents,
@@ -61,7 +62,8 @@ export function validateRouteIntegrity(): ValidationResult {
   const plannedIntentSlugs = new Set(
     getPlannedIntents().map((intent) => intent.slug),
   );
-  const expectedRoutes = new Set([...landingSlugs, ...hubSlugs]);
+  const evergreenSlugs = new Set(getAllEvergreenHubs().map((hub) => hub.slug));
+  const expectedRoutes = new Set([...landingSlugs, ...hubSlugs, ...evergreenSlugs]);
 
   for (const slug of landingSlugs) {
     if (!filesystemRoutes.has(slug)) {
@@ -149,6 +151,55 @@ export function validateRouteIntegrity(): ValidationResult {
     }
   }
 
+  for (const hub of getAllEvergreenHubs()) {
+    if (!filesystemRoutes.has(hub.slug)) {
+      issues.push(
+        issue(
+          "routes.missing_evergreen_hub_route",
+          "error",
+          `Evergreen hub "${hub.slug}" is missing app/${hub.slug}/page.tsx.`,
+          hub.slug,
+        ),
+      );
+    }
+
+    if (!getEvergreenHubBySlug(hub.slug)) {
+      issues.push(
+        issue(
+          "routes.missing_evergreen_hub_data",
+          "error",
+          `Evergreen hub "${hub.slug}" is missing from evergreen hub registry data.`,
+          hub.slug,
+        ),
+      );
+    }
+
+    const source = readRoutePageSource(hub.slug);
+    if (source) {
+      if (!source.includes("EvergreenHubPage")) {
+        issues.push(
+          issue(
+            "routes.invalid_evergreen_hub_wrapper",
+            "error",
+            `Route app/${hub.slug}/page.tsx must render EvergreenHubPage.`,
+            hub.slug,
+          ),
+        );
+      }
+
+      if (!source.includes("evergreen-hubs")) {
+        issues.push(
+          issue(
+            "routes.missing_evergreen_hub_import",
+            "error",
+            `Route app/${hub.slug}/page.tsx must import from evergreen-hubs.`,
+            hub.slug,
+          ),
+        );
+      }
+    }
+  }
+
   for (const routeSlug of filesystemRoutes) {
     if (plannedIntentSlugs.has(routeSlug)) {
       issues.push(
@@ -166,7 +217,7 @@ export function validateRouteIntegrity(): ValidationResult {
         issue(
           "routes.orphan_route",
           "error",
-          `Route app/${routeSlug}/page.tsx is not a landing page or topic hub.`,
+          `Route app/${routeSlug}/page.tsx is not a landing page, topic hub, or evergreen hub.`,
           routeSlug,
         ),
       );
@@ -178,7 +229,7 @@ export function validateRouteIntegrity(): ValidationResult {
       issue(
         "routes.route_count_mismatch",
         "warning",
-        `Filesystem routes (${filesystemRoutes.size}) differ from expected landing + hub routes (${expectedRoutes.size}).`,
+        `Filesystem routes (${filesystemRoutes.size}) differ from expected landing + hub + evergreen routes (${expectedRoutes.size}).`,
       ),
     );
   }

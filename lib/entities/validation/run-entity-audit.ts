@@ -1,3 +1,5 @@
+import { getAllEvergreenHubPages } from "@/lib/evergreen-hubs/registry";
+import { buildEvergreenHubStructuredData } from "@/lib/evergreen-hubs/evergreen-hub-schema";
 import { LANDING_PAGES } from "@/lib/landing-pages/landing-page-data";
 import { buildLandingPageStructuredData } from "@/lib/landing-pages/landing-page-schema";
 import { validateEntityRegistry } from "@/lib/entities/validation/entity-registry-validation";
@@ -65,6 +67,15 @@ export function runEntityAudit(): EntityAuditReport {
           entityNavigation: getEntityNavigationForHub(hub.id),
         }),
         hub.id,
+      ).issues,
+    );
+  }
+
+  for (const page of getAllEvergreenHubPages()) {
+    schemaIssues.push(
+      ...validateStructuredDataGraph(
+        buildEvergreenHubStructuredData(page),
+        page.slug,
       ).issues,
     );
   }

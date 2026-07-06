@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { PRODUCTION_APP_URL } from "@/lib/app-url";
+import { getAllEvergreenHubPages } from "@/lib/evergreen-hubs/registry";
 import { LANDING_PAGES } from "@/lib/landing-pages/landing-page-data";
 import { getAllHubs } from "@/lib/topic-hubs";
 
@@ -12,6 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    ...getAllEvergreenHubPages().map((page) => ({
+      url: page.canonicalUrl,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    })),
     ...LANDING_PAGES.map((page) => ({
       url: page.canonicalUrl,
       lastModified: new Date(),
