@@ -1,4 +1,6 @@
 import { buildTopicHubStructuredData } from "@/lib/topic-hubs/hub-schema";
+import type { AiCitationLayer } from "@/lib/geo/ai-citation";
+import type { GeoFoundation } from "@/lib/geo/geo-foundation";
 import type { HubFaqItem } from "@/lib/topic-hubs/hub-content-types";
 import type { EntityNavigation } from "@/lib/entities/entity-navigation";
 
@@ -8,6 +10,8 @@ type TopicHubStructuredDataProps = {
   schemaDescription: string;
   faq: HubFaqItem[];
   entityNavigation?: EntityNavigation;
+  geoFoundation?: GeoFoundation;
+  aiCitation?: AiCitationLayer;
 };
 
 export function TopicHubStructuredData({
@@ -16,6 +20,8 @@ export function TopicHubStructuredData({
   schemaDescription,
   faq,
   entityNavigation,
+  geoFoundation,
+  aiCitation,
 }: TopicHubStructuredDataProps) {
   const structuredData = buildTopicHubStructuredData({
     title,
@@ -23,6 +29,8 @@ export function TopicHubStructuredData({
     schemaDescription,
     faq,
     entityNavigation,
+    geoFoundation,
+    aiCitation,
   });
 
   return (

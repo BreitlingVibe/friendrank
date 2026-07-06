@@ -31,6 +31,8 @@ export function TopicHubPage({ hub }: TopicHubPageProps) {
           schemaDescription={page.content.schemaDescription}
           faq={page.faq}
           entityNavigation={page.entityNavigation}
+          geoFoundation={page.geoFoundation}
+          aiCitation={page.aiCitation}
         />
       ) : null}
 

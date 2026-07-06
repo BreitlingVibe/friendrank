@@ -36,51 +36,108 @@ export function getGamePageUrl(shareCode: string): string {
 }
 
 export function buildStructuredDataGraph() {
+  const logoId = `${PRODUCTION_APP_URL}/#logo`;
+  const organizationId = `${PRODUCTION_APP_URL}/#organization`;
+  const websiteId = `${PRODUCTION_APP_URL}/#website`;
+  const webappId = `${PRODUCTION_APP_URL}/#webapp`;
+  const homepageId = `${PRODUCTION_APP_URL}/#webpage`;
+  const ogImageUrl = `${PRODUCTION_APP_URL}${OG_IMAGE.url}`;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": `${PRODUCTION_APP_URL}/#website`,
+        "@id": websiteId,
         url: PRODUCTION_APP_URL,
         name: SITE_NAME,
         description: SITE_DESCRIPTION,
         inLanguage: "en-US",
         publisher: {
-          "@id": `${PRODUCTION_APP_URL}/#organization`,
+          "@id": organizationId,
+        },
+        potentialAction: {
+          "@type": "CreateAction",
+          name: "Create a FriendRank game",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: PRODUCTION_APP_URL,
+            actionPlatform: [
+              "https://schema.org/DesktopWebPlatform",
+              "https://schema.org/MobileWebPlatform",
+            ],
+          },
         },
       },
       {
+        "@type": "ImageObject",
+        "@id": logoId,
+        url: `${PRODUCTION_APP_URL}/icon-512.png`,
+        contentUrl: `${PRODUCTION_APP_URL}/icon-512.png`,
+        width: 512,
+        height: 512,
+        caption: SITE_NAME,
+      },
+      {
         "@type": "Organization",
-        "@id": `${PRODUCTION_APP_URL}/#organization`,
+        "@id": organizationId,
         name: SITE_NAME,
         url: PRODUCTION_APP_URL,
+        description: SITE_DESCRIPTION,
         logo: {
-          "@type": "ImageObject",
-          url: `${PRODUCTION_APP_URL}/icon-512.png`,
-          width: 512,
-          height: 512,
+          "@id": logoId,
+        },
+        image: {
+          "@id": logoId,
         },
       },
       {
         "@type": "WebApplication",
-        "@id": `${PRODUCTION_APP_URL}/#webapp`,
+        "@id": webappId,
         name: SITE_NAME,
         url: PRODUCTION_APP_URL,
         description: SITE_DESCRIPTION,
         applicationCategory: "GameApplication",
+        applicationSubCategory: "Social Party Game",
         operatingSystem: "Web",
         browserRequirements: "Requires JavaScript",
+        isAccessibleForFree: true,
+        image: ogImageUrl,
+        screenshot: ogImageUrl,
         offers: {
           "@type": "Offer",
           price: "0",
           priceCurrency: "USD",
         },
         publisher: {
-          "@id": `${PRODUCTION_APP_URL}/#organization`,
+          "@id": organizationId,
         },
         isPartOf: {
-          "@id": `${PRODUCTION_APP_URL}/#website`,
+          "@id": websiteId,
+        },
+      },
+      {
+        "@type": "WebPage",
+        "@id": homepageId,
+        url: PRODUCTION_APP_URL,
+        name: SITE_TITLE,
+        description: SITE_DESCRIPTION,
+        inLanguage: "en-US",
+        isPartOf: {
+          "@id": websiteId,
+        },
+        about: {
+          "@id": webappId,
+        },
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: ogImageUrl,
+          width: OG_IMAGE.width,
+          height: OG_IMAGE.height,
+        },
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: ["#friendrank-hero-heading"],
         },
       },
     ],

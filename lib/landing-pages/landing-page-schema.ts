@@ -4,6 +4,7 @@ import {
   buildBreadcrumbListStructuredData,
   buildLandingPageBreadcrumbItems,
 } from "@/lib/seo/breadcrumbs";
+import { buildGeoStructuredDataFields } from "@/lib/seo/geo-structured-data";
 import { buildEntitySummary } from "@/lib/entities/entity-graph";
 import {
   flattenEntityNavigation,
@@ -205,6 +206,10 @@ export function buildLandingPageStructuredData(page: LandingPageData) {
           "#landing-good-for-heading",
         ],
       },
+      ...buildGeoStructuredDataFields({
+        geoFoundation: page.geoFoundation,
+        aiCitation: page.aiCitation,
+      }),
     },
     buildBreadcrumbListStructuredData(breadcrumbItems, page.canonicalUrl),
     {

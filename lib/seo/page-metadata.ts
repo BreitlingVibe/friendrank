@@ -7,6 +7,14 @@ import {
   SITE_NAME,
   SITE_TITLE,
 } from "@/lib/seo/site-metadata";
+import {
+  buildOpenGraphImage,
+  GAME_PAGE_ROBOTS,
+  INDEXABLE_PAGE_ROBOTS,
+  SITE_FORMAT_DETECTION,
+} from "@/lib/seo/technical-seo";
+
+const ROOT_OG_IMAGE = buildOpenGraphImage(OG_IMAGE);
 
 export const rootSiteMetadata: Metadata = {
   metadataBase: new URL(PRODUCTION_APP_URL),
@@ -17,8 +25,16 @@ export const rootSiteMetadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   keywords: SITE_KEYWORDS,
+  authors: [{ name: SITE_NAME, url: PRODUCTION_APP_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  formatDetection: SITE_FORMAT_DETECTION,
+  robots: INDEXABLE_PAGE_ROBOTS,
   alternates: {
     canonical: PRODUCTION_APP_URL,
+    types: {
+      "text/plain": "/llms.txt",
+    },
   },
   icons: {
     icon: [
@@ -38,13 +54,13 @@ export const rootSiteMetadata: Metadata = {
     siteName: SITE_NAME,
     type: "website",
     locale: "en_US",
-    images: [OG_IMAGE],
+    images: [ROOT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [OG_IMAGE.url],
+    images: [ROOT_OG_IMAGE],
   },
 };
 
@@ -60,6 +76,7 @@ export function buildLandingPageMetadata(input: {
       absolute: metaTitle,
     },
     description: metaDescription,
+    robots: INDEXABLE_PAGE_ROBOTS,
     alternates: {
       canonical: canonicalUrl,
     },
@@ -69,13 +86,14 @@ export function buildLandingPageMetadata(input: {
       url: canonicalUrl,
       siteName: SITE_NAME,
       type: "website",
-      images: [OG_IMAGE],
+      locale: "en_US",
+      images: [ROOT_OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title: metaTitle,
       description: metaDescription,
-      images: [OG_IMAGE.url],
+      images: [ROOT_OG_IMAGE],
     },
   };
 }
@@ -94,10 +112,7 @@ export function buildTopicHubMetadata(input: {
       metaDescription: input.description,
       canonicalUrl,
     }),
-    robots: {
-      index: true,
-      follow: true,
-    },
+    robots: INDEXABLE_PAGE_ROBOTS,
   };
 }
 
@@ -110,6 +125,7 @@ export function buildGamePageMetadata(shareCode: string): Metadata {
   return {
     title,
     description,
+    robots: GAME_PAGE_ROBOTS,
     alternates: {
       canonical: canonicalUrl,
     },
@@ -119,13 +135,14 @@ export function buildGamePageMetadata(shareCode: string): Metadata {
       url: canonicalUrl,
       siteName: SITE_NAME,
       type: "website",
-      images: [OG_IMAGE],
+      locale: "en_US",
+      images: [ROOT_OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [OG_IMAGE.url],
+      images: [ROOT_OG_IMAGE],
     },
   };
 }

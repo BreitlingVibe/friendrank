@@ -6,7 +6,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/game/"],
     },
     sitemap: `${PRODUCTION_APP_URL}/sitemap.xml`,
+    host: PRODUCTION_APP_URL,
   };
 }

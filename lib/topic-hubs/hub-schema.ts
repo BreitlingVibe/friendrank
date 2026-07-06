@@ -4,6 +4,9 @@ import {
   buildBreadcrumbListStructuredData,
   buildTopicHubBreadcrumbItems,
 } from "@/lib/seo/breadcrumbs";
+import { buildGeoStructuredDataFields } from "@/lib/seo/geo-structured-data";
+import type { AiCitationLayer } from "@/lib/geo/ai-citation";
+import type { GeoFoundation } from "@/lib/geo/geo-foundation";
 import type { HubFaqItem } from "@/lib/topic-hubs/hub-content-types";
 import type { EntityNavigation } from "@/lib/entities/entity-navigation";
 import { flattenEntityNavigation } from "@/lib/entities/entity-navigation";
@@ -14,6 +17,8 @@ export function buildTopicHubStructuredData(input: {
   schemaDescription: string;
   faq: HubFaqItem[];
   entityNavigation?: EntityNavigation;
+  geoFoundation?: GeoFoundation;
+  aiCitation?: AiCitationLayer;
 }) {
   const canonicalUrl = `${PRODUCTION_APP_URL}/${input.slug}`;
   const pageId = `${canonicalUrl}/#webpage`;
@@ -23,6 +28,14 @@ export function buildTopicHubStructuredData(input: {
         (chip) => chip.clickable && chip.href,
       )
     : [];
+
+  const geoFields =
+    input.geoFoundation && input.aiCitation
+      ? buildGeoStructuredDataFields({
+          geoFoundation: input.geoFoundation,
+          aiCitation: input.aiCitation,
+        })
+      : {};
 
   const graph: Record<string, unknown>[] = [
       {
@@ -47,6 +60,7 @@ export function buildTopicHubStructuredData(input: {
           "@type": "SpeakableSpecification",
           cssSelector: ["#topic-hub-hero-heading", "#topic-hub-hero-lead"],
         },
+        ...geoFields,
       },
       buildBreadcrumbListStructuredData(breadcrumbItems, canonicalUrl),
       {
