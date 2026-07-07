@@ -1,3 +1,4 @@
+import { getEvergreenHubBySlug } from "@/lib/evergreen-hubs/registry";
 import { ENTITY_REGISTRY } from "@/lib/entities/entity-registry";
 import { getEntityNavigationChips } from "@/lib/entities/entity-navigation";
 import { isValidNavigationTarget } from "@/lib/entities/entity-targets";
@@ -63,7 +64,7 @@ export function validateEntityRegistry(): ValidationResult {
     }
 
     for (const hubRef of entity.relatedTopicHubs ?? []) {
-      if (!getHubDefinition(hubRef)) {
+      if (!getHubDefinition(hubRef) && !getEvergreenHubBySlug(hubRef)) {
         issues.push(
           issue(
             "entity.invalid_related_hub",

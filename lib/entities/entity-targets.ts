@@ -3,6 +3,7 @@ import {
   type EntityDefinition,
   type EntityType,
 } from "@/lib/entities/entity-registry";
+import { getAllEvergreenHubs } from "@/lib/evergreen-hubs/registry";
 import { getLiveIntents } from "@/lib/landing-pages/planning/intent-registry";
 import { getAllHubDefinitions } from "@/lib/topic-hubs/hub-registry";
 
@@ -26,6 +27,7 @@ const BROAD_TOPIC_TYPES: EntityType[] = [
 
 let liveLandingSlugSet: Set<string> | null = null;
 let hubSlugSet: Set<string> | null = null;
+let evergreenHubSlugSet: Set<string> | null = null;
 
 function getLiveLandingSlugSet(): Set<string> {
   if (!liveLandingSlugSet) {
@@ -35,6 +37,20 @@ function getLiveLandingSlugSet(): Set<string> {
   }
 
   return liveLandingSlugSet;
+}
+
+function getEvergreenHubSlugSet(): Set<string> {
+  if (!evergreenHubSlugSet) {
+    evergreenHubSlugSet = new Set(
+      getAllEvergreenHubs().map((hub) => hub.slug),
+    );
+  }
+
+  return evergreenHubSlugSet;
+}
+
+function isEvergreenHubSlug(slug: string): boolean {
+  return getEvergreenHubSlugSet().has(slug);
 }
 
 function getHubSlugSet(): Set<string> {
@@ -53,7 +69,7 @@ function isHubSlug(slug: string): boolean {
   return getHubSlugSet().has(slug);
 }
 
-/** True when href points to a live landing page or topic hub route. */
+/** True when href points to a live landing page, topic hub, or evergreen hub route. */
 export function isValidNavigationTarget(href: string | null): boolean {
   if (!href || !href.startsWith("/") || href.startsWith("//")) {
     return false;
@@ -64,11 +80,11 @@ export function isValidNavigationTarget(href: string | null): boolean {
     return false;
   }
 
-  return isLiveLandingSlug(slug) || isHubSlug(slug);
+  return isLiveLandingSlug(slug) || isHubSlug(slug) || isEvergreenHubSlug(slug);
 }
 
 function resolveHubHref(hubSlug: string): EntityNavigationTarget | null {
-  if (!isHubSlug(hubSlug)) {
+  if (!isHubSlug(hubSlug) && !isEvergreenHubSlug(hubSlug)) {
     return null;
   }
 

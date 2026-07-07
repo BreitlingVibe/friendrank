@@ -62,21 +62,6 @@ export const TOPIC_HUBS: TopicHubDefinition[] = [
     ],
   },
   {
-    id: "icebreaker-games",
-    slug: "icebreaker-games",
-    title: "Icebreaker Games",
-    description:
-      "Icebreaker games for new groups, offices, classrooms, and events.",
-    hero: "Break the ice fast with a group voting game. Add people, share one link, vote anonymously, and reveal fun roles together.",
-    primaryKeyword: "icebreaker games",
-    clusterIds: ["icebreakers"],
-    featuredLandingPages: [
-      "icebreaker-game",
-      "office-icebreaker",
-      "classroom-icebreaker",
-    ],
-  },
-  {
     id: "question-games",
     slug: "question-games",
     title: "Question Games",

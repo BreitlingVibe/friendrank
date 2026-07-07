@@ -1,7 +1,14 @@
-import { createTopicHubRoute } from "@/lib/topic-hubs/create-topic-hub-route";
+import type { Metadata } from "next";
+import { EvergreenHubPage } from "@/components/evergreen-hubs/evergreen-hub-page";
+import { icebreakerGamesHub } from "@/lib/evergreen-hubs/icebreaker-games-data";
+import { buildLandingPageMetadata } from "@/lib/seo/page-metadata";
 
-const { TopicHubRoutePage, generateTopicHubMetadata } =
-  createTopicHubRoute("icebreaker-games");
+export const metadata: Metadata = buildLandingPageMetadata({
+  metaTitle: icebreakerGamesHub.metaTitle,
+  metaDescription: icebreakerGamesHub.metaDescription,
+  canonicalUrl: icebreakerGamesHub.canonicalUrl,
+});
 
-export const generateMetadata = generateTopicHubMetadata;
-export default TopicHubRoutePage;
+export default function IcebreakerGamesPage() {
+  return <EvergreenHubPage page={icebreakerGamesHub} />;
+}

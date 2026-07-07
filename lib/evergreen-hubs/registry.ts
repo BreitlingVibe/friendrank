@@ -1,5 +1,6 @@
 import { anonymousVotingGamesHub } from "@/lib/evergreen-hubs/anonymous-voting-games-data";
 import { browserPartyGamesHub } from "@/lib/evergreen-hubs/browser-party-games-data";
+import { icebreakerGamesHub } from "@/lib/evergreen-hubs/icebreaker-games-data";
 import type { EvergreenHubDefinition, EvergreenHubPageData } from "@/lib/evergreen-hubs/types";
 
 export const EVERGREEN_HUBS: EvergreenHubDefinition[] = [
@@ -15,11 +16,18 @@ export const EVERGREEN_HUBS: EvergreenHubDefinition[] = [
     description: anonymousVotingGamesHub.schemaDescription,
     primaryKeyword: "anonymous voting games",
   },
+  {
+    slug: icebreakerGamesHub.slug,
+    title: icebreakerGamesHub.title,
+    description: icebreakerGamesHub.schemaDescription,
+    primaryKeyword: "icebreaker games",
+  },
 ];
 
 const EVERGREEN_HUB_DATA: Record<string, EvergreenHubPageData> = {
   [browserPartyGamesHub.slug]: browserPartyGamesHub,
   [anonymousVotingGamesHub.slug]: anonymousVotingGamesHub,
+  [icebreakerGamesHub.slug]: icebreakerGamesHub,
 };
 
 export function getAllEvergreenHubs(): EvergreenHubDefinition[] {

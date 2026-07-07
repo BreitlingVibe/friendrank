@@ -162,6 +162,7 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
     searchIntent:
       "Break the ice with a quick group activity that works on mobile.",
     memberSlugs: [
+      "icebreaker-games",
       "icebreaker-game",
       "office-icebreaker",
       "classroom-icebreaker",
