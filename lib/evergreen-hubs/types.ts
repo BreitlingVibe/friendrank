@@ -26,7 +26,20 @@ export type EvergreenHubSection = {
   bullets?: string[];
 };
 
-export type EvergreenHubPageData = {
+export type EvergreenHubCategoryCard = {
+  emoji: string;
+  title: string;
+  href?: string;
+  comingSoon?: boolean;
+};
+
+export type EvergreenHubFeaturedGuide = {
+  title: string;
+  description: string;
+  href: string;
+};
+
+type EvergreenHubPageBase = {
   slug: string;
   title: string;
   metaTitle: string;
@@ -35,13 +48,8 @@ export type EvergreenHubPageData = {
   schemaDescription: string;
   heroLead: string;
   sections: EvergreenHubSection[];
-  comparisonTitle: string;
-  comparisonIntro: string;
-  comparisonRows: EvergreenHubComparisonRow[];
   friendRankFitTitle: string;
   friendRankFitParagraphs: string[];
-  useCasesTitle: string;
-  useCases: string[];
   internalLinksTitle: string;
   internalLinksIntro: string;
   internalLinks: EvergreenHubInternalLink[];
@@ -54,7 +62,32 @@ export type EvergreenHubPageData = {
   ctaLabel?: string;
   ctaAriaLabel?: string;
   comparisonSectionId?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+  categoryCardsTitle?: string;
+  categoryCards?: EvergreenHubCategoryCard[];
+  featuredGuidesTitle?: string;
+  featuredGuides?: EvergreenHubFeaturedGuide[];
 };
+
+export type EvergreenStandardHubPageData = EvergreenHubPageBase & {
+  pageKind?: "standard";
+  comparisonTitle: string;
+  comparisonIntro: string;
+  comparisonRows: EvergreenHubComparisonRow[];
+  useCasesTitle: string;
+  useCases: string[];
+};
+
+export type EvergreenPillarPageData = EvergreenHubPageBase & {
+  pageKind: "pillar";
+  categoryCards: EvergreenHubCategoryCard[];
+  featuredGuides: EvergreenHubFeaturedGuide[];
+};
+
+export type EvergreenHubPageData =
+  | EvergreenStandardHubPageData
+  | EvergreenPillarPageData;
 
 export type EvergreenHubDefinition = {
   slug: string;

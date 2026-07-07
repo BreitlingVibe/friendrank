@@ -17,21 +17,6 @@ export const TOPIC_HUBS: TopicHubDefinition[] = [
     ],
   },
   {
-    id: "party-games",
-    slug: "party-games",
-    title: "Party Games",
-    description:
-      "Party voting games for birthdays, sleepovers, girls nights, and casual hangouts.",
-    hero: "Make every hangout more fun with quick party games on phones. Anonymous voting, funny roles, and shareable results in under a minute.",
-    primaryKeyword: "party games",
-    clusterIds: ["party"],
-    featuredLandingPages: [
-      "party-voting-game",
-      "birthday-party-game",
-      "girls-night-game",
-    ],
-  },
-  {
     id: "team-building-games",
     slug: "team-building-games",
     title: "Team Building Games",

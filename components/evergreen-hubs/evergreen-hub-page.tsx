@@ -7,13 +7,27 @@ import { SiteAuthorityFooter } from "@/components/shared/site-authority-footer";
 import { EvergreenHubStructuredData } from "@/components/evergreen-hubs/evergreen-hub-structured-data";
 import { CREATE_GAME_HREF } from "@/lib/landing-pages/content/cta-library";
 import { buildHomeBreadcrumbItem } from "@/lib/seo/breadcrumbs";
-import type { EvergreenHubPageData } from "@/lib/evergreen-hubs/types";
+import type {
+  EvergreenHubPageData,
+  EvergreenPillarPageData,
+  EvergreenStandardHubPageData,
+} from "@/lib/evergreen-hubs/types";
 
 type EvergreenHubPageProps = {
   page: EvergreenHubPageData;
 };
 
-function ComparisonSection({ page }: { page: EvergreenHubPageData }) {
+function isPillarPage(page: EvergreenHubPageData): page is EvergreenPillarPageData {
+  return page.pageKind === "pillar";
+}
+
+function isStandardPage(
+  page: EvergreenHubPageData,
+): page is EvergreenStandardHubPageData {
+  return page.pageKind !== "pillar";
+}
+
+function ComparisonSection({ page }: { page: EvergreenStandardHubPageData }) {
   const sectionId = page.comparisonSectionId ?? "evergreen-comparison";
 
   return (
@@ -97,7 +111,7 @@ function FriendRankFitSection({ page }: { page: EvergreenHubPageData }) {
   );
 }
 
-function UseCasesSection({ page }: { page: EvergreenHubPageData }) {
+function UseCasesSection({ page }: { page: EvergreenStandardHubPageData }) {
   return (
     <section
       id="best-use-cases"
@@ -126,6 +140,143 @@ function UseCasesSection({ page }: { page: EvergreenHubPageData }) {
   );
 }
 
+function CategoryCardsSection({ page }: { page: EvergreenPillarPageData }) {
+  return (
+    <section
+      id="browse-party-game-categories"
+      aria-labelledby="browse-party-game-categories-heading"
+      className="border-t border-white/5 bg-white/[0.02] py-16 sm:py-20"
+    >
+      <div className="mx-auto max-w-5xl px-6">
+        <h2
+          id="browse-party-game-categories-heading"
+          className="text-2xl font-bold tracking-tight sm:text-3xl"
+        >
+          {page.categoryCardsTitle}
+        </h2>
+        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {page.categoryCards.map((card) => {
+            const cardContent = (
+              <>
+                <span aria-hidden="true" className="text-2xl">
+                  {card.emoji}
+                </span>
+                <span className="mt-3 block text-base font-semibold text-white">
+                  {card.title}
+                </span>
+                {card.comingSoon ? (
+                  <span className="mt-2 inline-flex rounded-full border border-white/10 bg-slate-900/60 px-2.5 py-0.5 text-xs font-medium text-slate-400">
+                    Coming soon
+                  </span>
+                ) : null}
+              </>
+            );
+
+            if (card.href && !card.comingSoon) {
+              return (
+                <li key={card.title}>
+                  <Link
+                    href={card.href}
+                    className="flex h-full flex-col rounded-2xl border border-white/10 bg-slate-900/40 px-5 py-5 transition hover:border-violet-400/30 hover:bg-slate-900/60"
+                  >
+                    {cardContent}
+                  </Link>
+                </li>
+              );
+            }
+
+            return (
+              <li
+                key={card.title}
+                className="flex h-full flex-col rounded-2xl border border-white/10 bg-slate-900/20 px-5 py-5 opacity-80"
+              >
+                {cardContent}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function FeaturedGuidesSection({ page }: { page: EvergreenPillarPageData }) {
+  return (
+    <section
+      id="featured-guides"
+      aria-labelledby="featured-guides-heading"
+      className="border-t border-white/5 py-16 sm:py-20"
+    >
+      <div className="mx-auto max-w-5xl px-6">
+        <h2
+          id="featured-guides-heading"
+          className="text-2xl font-bold tracking-tight sm:text-3xl"
+        >
+          {page.featuredGuidesTitle}
+        </h2>
+        <ul className="mt-8 grid gap-4 lg:grid-cols-3">
+          {page.featuredGuides.map((guide) => (
+            <li
+              key={guide.href}
+              className="flex h-full flex-col rounded-2xl border border-white/10 bg-slate-900/40 px-5 py-5"
+            >
+              <h3 className="text-lg font-semibold text-white">{guide.title}</h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-400">
+                {guide.description}
+              </p>
+              <Link
+                href={guide.href}
+                className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-violet-300 transition hover:text-violet-200"
+              >
+                Read guide
+                <span aria-hidden="true">→</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function HubSection({
+  section,
+}: {
+  section: EvergreenHubPageData["sections"][number];
+}) {
+  return (
+    <section
+      id={section.id}
+      aria-labelledby={`${section.id}-heading`}
+      className="border-t border-white/5 py-16 sm:py-20"
+    >
+      <div className="mx-auto max-w-3xl px-6">
+        <h2
+          id={`${section.id}-heading`}
+          className="text-2xl font-bold tracking-tight sm:text-3xl"
+        >
+          {section.title}
+        </h2>
+        <div className="mt-6 space-y-4 text-base leading-relaxed text-slate-400 sm:text-lg">
+          {section.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+        {section.bullets && section.bullets.length > 0 ? (
+          <ul className="mt-6 space-y-3 text-base leading-relaxed text-slate-400">
+            {section.bullets.map((bullet) => (
+              <li key={bullet} className="flex gap-3">
+                <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400" />
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
+    </section>
+  );
+}
+
 export function EvergreenHubPage({ page }: EvergreenHubPageProps) {
   const breadcrumbs = [
     buildHomeBreadcrumbItem(),
@@ -136,7 +287,11 @@ export function EvergreenHubPage({ page }: EvergreenHubPageProps) {
     },
   ];
 
-  const comparisonAfterUseCases = page.comparisonPlacement === "after-use-cases";
+  const comparisonAfterUseCases =
+    isStandardPage(page) && page.comparisonPlacement === "after-use-cases";
+  const pillarPage = isPillarPage(page) ? page : null;
+  const standardPage = isStandardPage(page) ? page : null;
+  const [leadSection, ...remainingSections] = page.sections;
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-950 text-white">
@@ -172,7 +327,7 @@ export function EvergreenHubPage({ page }: EvergreenHubPageProps) {
           >
             {page.heroLead}
           </p>
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <LandingPageCta
               label={page.ctaLabel ?? "Create a free browser game"}
               href={CREATE_GAME_HREF}
@@ -182,46 +337,40 @@ export function EvergreenHubPage({ page }: EvergreenHubPageProps) {
                 page.ctaAriaLabel ?? "Create a free FriendRank browser party game"
               }
             />
+            {page.secondaryCtaLabel && page.secondaryCtaHref ? (
+              <LandingPageCta
+                label={page.secondaryCtaLabel}
+                href={page.secondaryCtaHref}
+                location="bottom_start"
+                variant="secondary"
+                ariaLabel={page.secondaryCtaLabel}
+              />
+            ) : null}
           </div>
         </section>
 
-        {page.sections.map((section) => (
-          <section
-            key={section.id}
-            id={section.id}
-            aria-labelledby={`${section.id}-heading`}
-            className="border-t border-white/5 py-16 sm:py-20"
-          >
-            <div className="mx-auto max-w-3xl px-6">
-              <h2
-                id={`${section.id}-heading`}
-                className="text-2xl font-bold tracking-tight sm:text-3xl"
-              >
-                {section.title}
-              </h2>
-              <div className="mt-6 space-y-4 text-base leading-relaxed text-slate-400 sm:text-lg">
-                {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-              {section.bullets && section.bullets.length > 0 ? (
-                <ul className="mt-6 space-y-3 text-base leading-relaxed text-slate-400">
-                  {section.bullets.map((bullet) => (
-                    <li key={bullet} className="flex gap-3">
-                      <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400" />
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-          </section>
-        ))}
+        {pillarPage && leadSection ? <HubSection section={leadSection} /> : null}
 
-        {comparisonAfterUseCases ? null : <ComparisonSection page={page} />}
+        {pillarPage ? <CategoryCardsSection page={pillarPage} /> : null}
+
+        {pillarPage
+          ? remainingSections.map((section) => (
+              <HubSection key={section.id} section={section} />
+            ))
+          : page.sections.map((section) => (
+              <HubSection key={section.id} section={section} />
+            ))}
+
+        {pillarPage ? <FeaturedGuidesSection page={pillarPage} /> : null}
+
+        {comparisonAfterUseCases || !standardPage ? null : (
+          <ComparisonSection page={standardPage} />
+        )}
         <FriendRankFitSection page={page} />
-        <UseCasesSection page={page} />
-        {comparisonAfterUseCases ? <ComparisonSection page={page} /> : null}
+        {standardPage ? <UseCasesSection page={standardPage} /> : null}
+        {comparisonAfterUseCases && standardPage ? (
+          <ComparisonSection page={standardPage} />
+        ) : null}
 
         <section
           id="related-friendrank-pages"

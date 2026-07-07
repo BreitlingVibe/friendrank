@@ -122,6 +122,7 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
     searchIntent:
       "Find a quick party game that works on phones without setup or downloads.",
     memberSlugs: [
+      "party-games",
       "browser-party-games",
       "party-voting-game",
       "birthday-party-game",
