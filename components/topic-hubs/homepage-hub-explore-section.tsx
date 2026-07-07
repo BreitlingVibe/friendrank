@@ -18,7 +18,7 @@ export function HomepageHubExploreSection() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-14 text-center sm:mb-16">
           <p className="text-sm font-medium text-violet-300/90">
-            Pick your vibe
+            Choose your chaos
           </p>
           <h2
             id="explore-games-heading"

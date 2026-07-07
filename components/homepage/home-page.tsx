@@ -752,7 +752,7 @@ export default function Home() {
         <section
           id="how-it-works"
           aria-labelledby="how-it-works-heading"
-          className="border-t border-white/5 bg-white/[0.02] py-20"
+          className="border-t border-white/5 bg-white/[0.02] py-20 sm:py-24"
         >
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-12 text-center">
