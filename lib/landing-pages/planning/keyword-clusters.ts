@@ -311,6 +311,7 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
     searchIntent:
       "Find question prompts to play as a live group voting game with friends online.",
     memberSlugs: [
+      "question-games",
       "would-you-rather-friends",
       "never-have-i-ever-friends",
       "this-or-that-friends",
