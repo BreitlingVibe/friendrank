@@ -196,6 +196,7 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
     searchIntent:
       "Run a light team activity with anonymous voting for coworkers.",
     memberSlugs: [
+      "team-building-games",
       "office-icebreaker",
       "team-building-game",
       "team-bonding-game",

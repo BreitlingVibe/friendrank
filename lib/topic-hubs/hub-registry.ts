@@ -2,21 +2,6 @@ import type { TopicHubDefinition } from "@/lib/topic-hubs/hub-types";
 
 export const TOPIC_HUBS: TopicHubDefinition[] = [
   {
-    id: "team-building-games",
-    slug: "team-building-games",
-    title: "Team Building Games",
-    description:
-      "Workplace team building and coworker games with anonymous group voting.",
-    hero: "Bring your team together with light team building games. Create a game, invite coworkers, vote anonymously, and reveal results together.",
-    primaryKeyword: "team building games",
-    clusterIds: ["teams"],
-    featuredLandingPages: [
-      "team-building-game",
-      "office-icebreaker",
-      "team-bonding-game",
-    ],
-  },
-  {
     id: "relationship-games",
     slug: "relationship-games",
     title: "Relationship Games",
