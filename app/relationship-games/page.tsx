@@ -1,7 +1,14 @@
-import { createTopicHubRoute } from "@/lib/topic-hubs/create-topic-hub-route";
+import type { Metadata } from "next";
+import { EvergreenHubPage } from "@/components/evergreen-hubs/evergreen-hub-page";
+import { relationshipGamesPillar } from "@/lib/evergreen-hubs/relationship-games-data";
+import { buildLandingPageMetadata } from "@/lib/seo/page-metadata";
 
-const { TopicHubRoutePage, generateTopicHubMetadata } =
-  createTopicHubRoute("relationship-games");
+export const metadata: Metadata = buildLandingPageMetadata({
+  metaTitle: relationshipGamesPillar.metaTitle,
+  metaDescription: relationshipGamesPillar.metaDescription,
+  canonicalUrl: relationshipGamesPillar.canonicalUrl,
+});
 
-export const generateMetadata = generateTopicHubMetadata;
-export default TopicHubRoutePage;
+export default function RelationshipGamesPage() {
+  return <EvergreenHubPage page={relationshipGamesPillar} />;
+}

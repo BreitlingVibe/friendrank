@@ -2,21 +2,6 @@ import type { TopicHubDefinition } from "@/lib/topic-hubs/hub-types";
 
 export const TOPIC_HUBS: TopicHubDefinition[] = [
   {
-    id: "relationship-games",
-    slug: "relationship-games",
-    title: "Relationship Games",
-    description:
-      "Relationship quizzes and couple games adapted to group voting for dates and friend groups.",
-    hero: "Turn relationship quizzes into a social game. Vote anonymously on playful roles and reveal compatibility results together.",
-    primaryKeyword: "relationship games",
-    clusterIds: ["relationships"],
-    featuredLandingPages: [
-      "relationship-quiz",
-      "couple-quiz",
-      "boyfriend-girlfriend-quiz",
-    ],
-  },
-  {
     id: "question-games",
     slug: "question-games",
     title: "Question Games",

@@ -3,6 +3,7 @@ import { browserPartyGamesHub } from "@/lib/evergreen-hubs/browser-party-games-d
 import { friendGamesPillar } from "@/lib/evergreen-hubs/friend-games-data";
 import { icebreakerGamesHub } from "@/lib/evergreen-hubs/icebreaker-games-data";
 import { partyGamesPillar } from "@/lib/evergreen-hubs/party-games-data";
+import { relationshipGamesPillar } from "@/lib/evergreen-hubs/relationship-games-data";
 import { teamBuildingGamesPillar } from "@/lib/evergreen-hubs/team-building-games-data";
 import type { EvergreenHubDefinition, EvergreenHubPageData } from "@/lib/evergreen-hubs/types";
 
@@ -24,6 +25,12 @@ export const EVERGREEN_HUBS: EvergreenHubDefinition[] = [
     title: teamBuildingGamesPillar.title,
     description: teamBuildingGamesPillar.schemaDescription,
     primaryKeyword: "team building games",
+  },
+  {
+    slug: relationshipGamesPillar.slug,
+    title: relationshipGamesPillar.title,
+    description: relationshipGamesPillar.schemaDescription,
+    primaryKeyword: "relationship games",
   },
   {
     slug: browserPartyGamesHub.slug,
@@ -49,6 +56,7 @@ const EVERGREEN_HUB_DATA: Record<string, EvergreenHubPageData> = {
   [partyGamesPillar.slug]: partyGamesPillar,
   [friendGamesPillar.slug]: friendGamesPillar,
   [teamBuildingGamesPillar.slug]: teamBuildingGamesPillar,
+  [relationshipGamesPillar.slug]: relationshipGamesPillar,
   [browserPartyGamesHub.slug]: browserPartyGamesHub,
   [anonymousVotingGamesHub.slug]: anonymousVotingGamesHub,
   [icebreakerGamesHub.slug]: icebreakerGamesHub,
