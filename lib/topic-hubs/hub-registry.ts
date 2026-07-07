@@ -2,21 +2,6 @@ import type { TopicHubDefinition } from "@/lib/topic-hubs/hub-types";
 
 export const TOPIC_HUBS: TopicHubDefinition[] = [
   {
-    id: "friend-games",
-    slug: "friend-games",
-    title: "Friend Games",
-    description:
-      "Friend quizzes, voting games, and Most Likely To generators for close groups and group chats.",
-    hero: "Play friend quizzes and group voting games with your crew. Pick a game, share one link, vote on phones, and reveal results together.",
-    primaryKeyword: "friend games",
-    clusterIds: ["friendship", "social-voting", "most-likely"],
-    featuredLandingPages: [
-      "best-friend-quiz",
-      "who-knows-me-best",
-      "most-likely-to-generator",
-    ],
-  },
-  {
     id: "team-building-games",
     slug: "team-building-games",
     title: "Team Building Games",

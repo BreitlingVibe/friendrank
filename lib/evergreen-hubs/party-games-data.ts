@@ -76,6 +76,7 @@ export const partyGamesPillar: EvergreenPillarPageData = {
   secondaryCtaLabel: "Browse Game Guides",
   secondaryCtaHref: "#browse-party-game-categories",
   categoryCardsTitle: "Browse Party Game Categories",
+  categoryCardsSectionId: "browse-party-game-categories",
   categoryCards: [
     {
       emoji: "🎉",

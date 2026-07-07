@@ -65,6 +65,7 @@ type EvergreenHubPageBase = {
   secondaryCtaLabel?: string;
   secondaryCtaHref?: string;
   categoryCardsTitle?: string;
+  categoryCardsSectionId?: string;
   categoryCards?: EvergreenHubCategoryCard[];
   featuredGuidesTitle?: string;
   featuredGuides?: EvergreenHubFeaturedGuide[];

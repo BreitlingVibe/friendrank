@@ -29,6 +29,7 @@ export const KEYWORD_CLUSTERS: KeywordCluster[] = [
     searchIntent:
       "Find a fun quiz or test to play with friends that goes beyond solo compatibility quizzes.",
     memberSlugs: [
+      "friend-games",
       "best-friend-quiz",
       "friendship-test",
       "friend-test",

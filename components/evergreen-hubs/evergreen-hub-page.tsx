@@ -141,15 +141,17 @@ function UseCasesSection({ page }: { page: EvergreenStandardHubPageData }) {
 }
 
 function CategoryCardsSection({ page }: { page: EvergreenPillarPageData }) {
+  const sectionId = page.categoryCardsSectionId ?? "browse-game-categories";
+
   return (
     <section
-      id="browse-party-game-categories"
-      aria-labelledby="browse-party-game-categories-heading"
+      id={sectionId}
+      aria-labelledby={`${sectionId}-heading`}
       className="border-t border-white/5 bg-white/[0.02] py-16 sm:py-20"
     >
       <div className="mx-auto max-w-5xl px-6">
         <h2
-          id="browse-party-game-categories-heading"
+          id={`${sectionId}-heading`}
           className="text-2xl font-bold tracking-tight sm:text-3xl"
         >
           {page.categoryCardsTitle}
