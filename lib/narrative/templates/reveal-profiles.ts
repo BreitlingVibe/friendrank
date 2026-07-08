@@ -1,66 +1,50 @@
 import type { VibeTag } from "@/lib/game-build";
 
 export type RevealMessageProfile = {
-  /** Stage 2 — Suspense */
-  suspense: string;
-  /** Stage 3 — Commitment */
-  commitment: string;
+  messages: readonly [string, string];
 };
 
 export const GENERIC_REVEAL_PROFILE: RevealMessageProfile = {
-  suspense: "Some titles were obvious. Others weren't.",
-  commitment: "One result surprised everyone.",
+  messages: ["The votes are in...", "Almost there..."],
 };
 
 export const VIBE_REVEAL_PROFILES: Partial<Record<VibeTag, RevealMessageProfile>> =
   {
     Gaming: {
-      suspense: "Some roles were locks. One split the squad.",
-      commitment: "Your group's MVP is about to drop.",
+      messages: ["Loading the match replay...", "One title split the room..."],
     },
     Discord: {
-      suspense: "The server agreed on some picks. Not all of them.",
-      commitment: "Someone's getting crowned first.",
+      messages: ["Syncing the server logs...", "This one took longer than expected..."],
     },
     Office: {
-      suspense: "A few titles wrote themselves. One didn't.",
-      commitment: "Time to see who your team really picked.",
+      messages: ["Reviewing meeting notes...", "The real decision maker is emerging..."],
     },
     School: {
-      suspense: "Some answers matched. One started real debate.",
-      commitment: "Your classmates have chosen sides.",
+      messages: ["Comparing everyone's stories...", "One answer started real debate..."],
     },
     College: {
-      suspense: "The group chat agreed on some things. Not everything.",
-      commitment: "Campus lore just got a verdict.",
+      messages: ["Debating campus lore...", "The group chat has a verdict..."],
     },
     Family: {
-      suspense: "Some picks were unanimous. One wasn't.",
-      commitment: "Someone in the family is about to find out.",
+      messages: ["Collecting family evidence...", "Someone's been holding out..."],
     },
     Sports: {
-      suspense: "Some MVPs were obvious. One wasn't.",
-      commitment: "The highlight reel has a winner.",
+      messages: ["Reviewing the highlight reel...", "The MVP wasn't obvious..."],
     },
     Party: {
-      suspense: "Everyone remembered last night differently.",
-      commitment: "The group finally picked a story.",
+      messages: ["Recapping last night...", "Not everyone remembers the same thing..."],
     },
     "Meme-heavy": {
-      suspense: "Some memes won easily. One caused chaos.",
-      commitment: "The group chat has spoken.",
+      messages: ["Loading the group chat archive...", "Translating the memes..."],
     },
     "Soft drama": {
-      suspense: "Some picks were gentle. One cut deep.",
-      commitment: "The full picture is ready.",
+      messages: ["Piecing together the timeline...", "The full picture is forming..."],
     },
     "Brutal honesty": {
-      suspense: "Some truths were easy. One stung.",
-      commitment: "Your friends didn't hold back.",
+      messages: ["Gathering unfiltered opinions...", "One title hurt a little..."],
     },
     Chaotic: {
-      suspense: "Some picks made sense. One absolutely didn't.",
-      commitment: "Brace yourself — here come the results.",
+      messages: ["Measuring the chaos...", "This one wasn't obvious..."],
     },
   };
 
@@ -82,20 +66,16 @@ export const VIBE_REVEAL_PRIORITY: VibeTag[] = [
 
 export const TONE_REVEAL_PROFILES = {
   Chaotic: {
-    suspense: "Some picks made sense. One absolutely didn't.",
-    commitment: "Brace yourself — here come the results.",
+    messages: ["Measuring the chaos...", "This one wasn't obvious..."],
   },
   Wholesome: {
-    suspense: "Some titles felt obvious. One warmed the room.",
-    commitment: "Your friends chose who matters most.",
+    messages: ["Gathering the good vibes...", "The final picture is forming..."],
   },
   "Savage but friendly": {
-    suspense: "Some receipts were expected. One wasn't.",
-    commitment: "Someone's about to get called out lovingly.",
+    messages: ["Collecting the receipts...", "One title created real debate..."],
   },
   Funny: {
-    suspense: "Some picks were comedy gold. One was a plot twist.",
-    commitment: "The punchline is about to land.",
+    messages: ["Reading between the votes...", "Almost ready for the punchline..."],
   },
 } as const satisfies Record<
   "Chaotic" | "Wholesome" | "Savage but friendly" | "Funny",

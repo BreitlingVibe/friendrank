@@ -1,28 +1,40 @@
-const LABEL_FRAMING: Record<string, string> = {
-  "Main Character": "The center of your group's story...",
-  "Chaos Agent": "Every group has someone who keeps things interesting...",
-  "Secret Villain": "Not every opinion was obvious...",
-  "Most Delusional": "Reality took a vote...",
-  "Chronically Online": "The internet had opinions...",
-  "Future Influencer": "Fame was on the ballot...",
-  "Most Likely To Go Viral": "The timeline had a say...",
-  "Group Therapist": "Someone holds this group together...",
-  "Walking Red Flag": "The group noticed something...",
-  "Green Flag Award": "Someone earned the trust...",
-  "Plot Twist Generator": "Nobody saw this coming...",
-  "Most Likely To Get Cancelled": "The jury was out on this one...",
+export type CategoryRevealTone = "confident" | "playful" | "suspense" | "neutral";
+
+export type CategoryRevealFraming = {
+  anticipation: string;
+  tone: CategoryRevealTone;
 };
 
-const RANK_FALLBACKS: Record<number, string> = {
-  2: "The next chapter surprised a few people...",
-  3: "One more role in your group's story...",
-  4: "Another title the group couldn't ignore...",
+const LABEL_FRAMING: Record<string, CategoryRevealFraming> = {
+  "Main Character": {
+    anticipation: "Your group's center of gravity...",
+    tone: "confident",
+  },
+  "Chaos Agent": {
+    anticipation: "Someone had to start the chaos...",
+    tone: "playful",
+  },
+  "Secret Villain": {
+    anticipation: "This one wasn't as obvious...",
+    tone: "suspense",
+  },
+};
+
+const RANK_FALLBACKS: Record<number, CategoryRevealFraming> = {
+  2: {
+    anticipation: "The next title surprised a few people...",
+    tone: "neutral",
+  },
+  3: {
+    anticipation: "One more piece of the story...",
+    tone: "neutral",
+  },
 };
 
 export function getCategoryRevealFraming(
   label: string,
   rank: number,
-): string | null {
+): CategoryRevealFraming | null {
   if (LABEL_FRAMING[label]) {
     return LABEL_FRAMING[label];
   }
@@ -30,4 +42,15 @@ export function getCategoryRevealFraming(
   return RANK_FALLBACKS[rank] ?? null;
 }
 
-export const CATEGORY_FRAMING_CLASS = "text-sm text-violet-200/90";
+export function getCategoryToneClassName(tone: CategoryRevealTone): string {
+  switch (tone) {
+    case "confident":
+      return "text-sm font-semibold text-violet-200";
+    case "playful":
+      return "text-sm font-medium text-fuchsia-300";
+    case "suspense":
+      return "text-sm italic text-slate-400";
+    default:
+      return "text-sm text-violet-200/80";
+  }
+}

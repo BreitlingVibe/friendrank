@@ -20,8 +20,8 @@ import {
   type CategoryResultDetail,
 } from "@/lib/results/presentation";
 import {
-  CATEGORY_FRAMING_CLASS,
   getCategoryRevealFraming,
+  getCategoryToneClassName,
 } from "@/lib/reveal/category-reveal-framing";
 
 export function FriendRankResultsView({
@@ -118,9 +118,9 @@ export function FriendRankResultsView({
       >
         {framing && (
           <p
-            className={`${featured ? "mb-3 text-center" : "mb-2"} ${CATEGORY_FRAMING_CLASS}`}
+            className={`${featured ? "mb-3 text-center" : "mb-2"} ${getCategoryToneClassName(framing.tone)}`}
           >
-            {framing}
+            {framing.anticipation}
           </p>
         )}
 
@@ -205,11 +205,9 @@ export function FriendRankResultsView({
       <div className="bg-gradient-to-r from-violet-600/25 via-fuchsia-600/15 to-cyan-600/25 px-6 py-7 text-center">
         <p className="text-3xl">👑</p>
         <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-          Here&apos;s your group&apos;s story
+          Your FriendRank Results
         </h2>
-        <p className="mt-2 text-base text-violet-200">
-          Starting with who your friends crowned first.
-        </p>
+        <p className="mt-2 text-base text-violet-200">Your group has spoken.</p>
         <p className="mt-3 text-sm text-slate-400">
           Based on your group vibe:{" "}
           <span className="text-violet-300">{groupVibePhrase}</span>
@@ -327,13 +325,16 @@ export function FriendRankResultsView({
         </div>
         </ResultsCascadeSection>
 
-        <ResultsCascadeSection index={cascadeIndex++}>
-        <div className="rounded-3xl border-2 border-violet-400/40 bg-gradient-to-br from-violet-600/35 via-fuchsia-600/20 to-cyan-600/25 px-6 py-10 text-center shadow-xl shadow-violet-500/25">
-          <p className="mb-4 text-sm text-violet-200/90">
-            This is how your group reads together.
+        <ResultsCascadeSection
+          index={cascadeIndex++}
+          className="friendrank-cascade-section--finale mt-2"
+        >
+        <div className="rounded-3xl border-2 border-violet-400/50 bg-gradient-to-br from-violet-600/40 via-fuchsia-600/25 to-cyan-600/30 px-6 py-12 text-center shadow-2xl shadow-violet-500/30">
+          <p className="mb-3 text-sm font-medium text-cyan-200/90">
+            And finally — your group&apos;s story.
           </p>
-          <div className="mb-4">
-            <p className="text-xs font-bold uppercase tracking-widest text-violet-200">
+          <div className="mb-5">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-violet-200">
               {presentation.endingCard.heading}
             </p>
             <FriendRankSectionAnnotation
@@ -346,14 +347,14 @@ export function FriendRankResultsView({
               key={`${line.text}-${index}`}
               className={
                 line.large
-                  ? `${index > 0 ? "mt-3" : ""} text-3xl font-black uppercase leading-tight tracking-tight text-white sm:text-4xl`
-                  : `${index > 0 ? "mt-2" : ""} text-base font-semibold text-violet-100`
+                  ? `${index > 0 ? "mt-4" : ""} text-[2rem] font-black uppercase leading-[1.1] tracking-tight text-white sm:text-[2.5rem]`
+                  : `${index > 0 ? "mt-3" : ""} text-base font-semibold leading-relaxed text-violet-100 sm:text-lg`
               }
             >
               {line.text}
             </p>
           ))}
-          <p className="mt-6 text-xs italic text-violet-200/80">
+          <p className="mt-8 text-xs italic text-violet-200/80">
             Screenshot this before your friends deny everything.
           </p>
         </div>
