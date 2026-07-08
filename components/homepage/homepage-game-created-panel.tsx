@@ -61,8 +61,10 @@ export function HomepageGameCreatedPanel({
 
   const voteProgressSubline =
     !inviteProgress.isUnlocked && inviteProgress.voteCount === 0
-      ? "Votes appear here as your group joins."
+      ? "Progress updates automatically as friends vote."
       : undefined;
+
+  const shareUrl = getGameShareUrl(shareCode, window.location.origin);
 
   return (
     <>
@@ -85,9 +87,14 @@ export function HomepageGameCreatedPanel({
             </div>
           </div>
 
-          <p className="mb-4 break-all rounded-lg border border-white/10 bg-black/20 px-4 py-3 text-sm text-slate-400">
-            {getGameShareUrl(shareCode, window.location.origin)}
-          </p>
+          <div className="mb-4 rounded-lg border border-dashed border-white/10 bg-white/[0.02] px-3 py-2.5">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-slate-600">
+              Your invite link
+            </p>
+            <p className="mt-1 break-all font-mono text-xs leading-relaxed text-slate-400">
+              {shareUrl}
+            </p>
+          </div>
 
           <div className="space-y-2">
             <button
@@ -106,26 +113,23 @@ export function HomepageGameCreatedPanel({
             </button>
             <Link
               href={`/game/${shareCode}`}
-              className="flex w-full items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-slate-300 transition duration-200 hover:border-white/15 hover:bg-white/[0.06] hover:text-white"
+              className="flex w-full items-center justify-center rounded-full px-5 py-2 text-xs font-medium text-slate-500 transition duration-200 hover:text-slate-400"
             >
               Vote now
             </Link>
           </div>
 
-          <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.03] p-4">
-            <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
+          <div className="mt-4 rounded-xl border border-white/5 bg-white/[0.02] px-3 py-3">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-slate-600">
               What happens next?
             </p>
-            <ol className="mt-3 space-y-2">
+            <ol className="mt-2 space-y-1.5">
               {WHAT_HAPPENS_NEXT_STEPS.map((step, index) => (
-                <li
-                  key={step}
-                  className="flex gap-3 text-sm text-slate-400"
-                >
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-violet-500/30 bg-violet-500/10 text-[11px] font-semibold text-violet-300">
+                <li key={step} className="flex gap-2.5 text-xs text-slate-500">
+                  <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-violet-500/20 bg-violet-500/5 text-[10px] font-semibold text-violet-300/90">
                     {index + 1}
                   </span>
-                  <span className="pt-0.5">{step}</span>
+                  <span>{step}</span>
                 </li>
               ))}
             </ol>
@@ -136,7 +140,8 @@ export function HomepageGameCreatedPanel({
             votesRequired={inviteProgress.votesRequired}
             isUnlocked={inviteProgress.isUnlocked}
             subline={voteProgressSubline}
-            className="mt-5"
+            compact
+            className="mt-4"
           />
 
           <div className="mt-5 flex flex-wrap gap-2">
