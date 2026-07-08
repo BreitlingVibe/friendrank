@@ -43,10 +43,6 @@ function getRevealTextClassName(tone: "title" | "status" | "finale"): string {
     return `${REVEAL_MESSAGE_CLASS} text-emerald-300`;
   }
 
-  if (tone === "finale") {
-    return "text-[1.35rem] font-bold leading-snug tracking-tight text-cyan-200 sm:text-[1.55rem]";
-  }
-
   return `${REVEAL_MESSAGE_CLASS} text-violet-100`;
 }
 
@@ -79,7 +75,7 @@ export function FriendRankReveal({
 
       <div className="relative flex min-h-[248px] items-center justify-center px-8 py-11 text-center sm:min-h-[256px] sm:py-12">
         <p
-          className={`${tone === "finale" ? "max-w-[20rem]" : "max-w-[18rem]"} transition-opacity ease-in-out ${getRevealTextClassName(tone)} ${
+          className={`max-w-[18rem] transition-opacity ease-in-out ${getRevealTextClassName(tone)} ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
           style={{ transitionDuration: `${sequence.fadeDurationMs}ms` }}

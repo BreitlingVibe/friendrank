@@ -3,7 +3,8 @@ import type { RevealSequenceConfig, RevealSequenceStep } from "@/lib/reveal/type
 export const REVEAL_FADE_MS = 300;
 export const REVEAL_RESULTS_FADE_MS = 300;
 
-export const REVEAL_OPENING_TITLE = "Let's see what your group decided...";
+/** Stage 1 — Curiosity: wonder what happened, not what the app is doing. */
+export const REVEAL_OPENING_TITLE = "Every vote told part of the story...";
 
 /** ~3.0s reveal steps + ~0.3s results crossfade (~3.2s total). */
 export const DEFAULT_REVEAL_SEQUENCE: RevealSequenceConfig = {
@@ -16,15 +17,13 @@ export const DEFAULT_REVEAL_SEQUENCE: RevealSequenceConfig = {
       tone: "title",
     },
     {
-      text: "The votes are in...",
+      text: "Some titles were obvious. Others weren't.",
       durationMs: 1150,
-      animateDots: true,
       tone: "status",
     },
     {
-      text: "Almost there...",
+      text: "One result surprised everyone.",
       durationMs: 1150,
-      animateDots: false,
       tone: "finale",
     },
   ],

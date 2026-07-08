@@ -39,7 +39,6 @@ export function generateRevealSequence(
   context: NarrativeContext,
 ): RevealSequenceConfig {
   const profile = pickRevealProfile(context);
-  const [firstMessage, secondMessage] = profile.messages;
   const titleStep = DEFAULT_REVEAL_SEQUENCE.steps[0];
   const statusStep = DEFAULT_REVEAL_SEQUENCE.steps[1];
   const finaleStep = DEFAULT_REVEAL_SEQUENCE.steps[2];
@@ -54,15 +53,13 @@ export function generateRevealSequence(
         tone: "title",
       },
       {
-        text: firstMessage,
+        text: profile.suspense,
         durationMs: statusStep?.durationMs ?? 1150,
-        animateDots: true,
         tone: "status",
       },
       {
-        text: secondMessage,
+        text: profile.commitment,
         durationMs: finaleStep?.durationMs ?? 1150,
-        animateDots: false,
         tone: "finale",
       },
     ],

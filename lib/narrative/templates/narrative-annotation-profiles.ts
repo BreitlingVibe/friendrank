@@ -27,11 +27,11 @@ export type NarrativeAnnotationProfile = {
 };
 
 export const GENERIC_ANNOTATION_PROFILE: NarrativeAnnotationProfile = {
-  topRank: ["The lead emerges", "Center stage chosen"],
-  groupVerdict: ["The verdict lands", "Your group has decided"],
-  groupVibe: ["The mood reads clear", "Group dynamics locked in"],
-  dangerousCombo: ["A risky pair surfaced", "This duo needs watching"],
-  groupReputation: ["The consensus holds", "Your reputation, summarized"],
+  topRank: ["Chapter one", "The lead role goes to..."],
+  groupVerdict: ["The group agreed on this", "Your friends landed here"],
+  groupVibe: ["The mood between you", "How your group feels together"],
+  dangerousCombo: ["Watch this pair", "When these two team up..."],
+  groupReputation: ["Your group in one line", "The reputation you earned"],
   ending: ["The final chapter", "This is your group's story"],
 };
 
