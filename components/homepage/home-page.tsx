@@ -378,7 +378,7 @@ export default function Home() {
           <div className="mx-auto max-w-2xl px-6">
             <div className="mb-8 text-center">
               <p className="text-sm font-medium text-violet-300/90">
-                Create a real game for your group
+                Create a game in under a minute
               </p>
               <h2
                 id="create-game-heading"
@@ -386,8 +386,12 @@ export default function Home() {
               >
                 Who&apos;s in your group?
               </h2>
-              <p className="mx-auto mt-2 max-w-md text-sm text-slate-500">
-                Add your friends and vibe — ready to share in under a minute.
+              <p className="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-slate-400">
+                Add your friends, choose up to 3 vibe tags, and FriendRank
+                generates the game for you.
+              </p>
+              <p className="mx-auto mt-3 max-w-md text-xs text-slate-500">
+                No account · No app download · Share one link to play
               </p>
             </div>
 
@@ -398,8 +402,8 @@ export default function Home() {
               <div className="space-y-8">
                 <FormSection
                   step="Step 1"
-                  title="Group members"
-                  description="Comma-separated names — at least 2 friends."
+                  title="Add your friends"
+                  description="Enter everyone who will play — comma-separated, at least 2 names."
                 >
                   <label htmlFor="group-names" className="sr-only">
                     Group member names
@@ -417,7 +421,7 @@ export default function Home() {
                   />
                   {enteredFriends.length === 0 ? (
                     <p className="mt-2.5 text-xs text-slate-600">
-                      Example: Alex, Taylor, Jordan, Casey
+                      Type names separated by commas — e.g. Alex, Taylor, Jordan
                     </p>
                   ) : (
                     <p className="mt-2.5 text-xs text-violet-300/90">
@@ -428,15 +432,16 @@ export default function Home() {
                   )}
                   {!hasEnoughFriends && enteredFriends.length > 0 && (
                     <p className="mt-1 text-xs text-amber-400/90">
-                      Add at least 2 friends to continue.
+                      Add one more name — you need at least 2 friends to play.
                     </p>
                   )}
                 </FormSection>
 
                 <FormSection
                   step="Step 2"
-                  title="Group vibe"
-                  description={`Pick up to ${MAX_VIBE_TAGS} tags — or skip to move fast.`}
+                  title="Choose vibe tags"
+                  description="Pick up to 3 tags to shape your questions. Skip if you want FriendRank defaults."
+                  optional
                 >
                   <fieldset>
                     <legend className="sr-only">Group vibe tags</legend>
@@ -461,13 +466,18 @@ export default function Home() {
                         );
                       })}
                     </div>
+                    {selectedVibeTags.length > 0 && (
+                      <p className="mt-2.5 text-xs text-slate-500">
+                        {selectedVibeTags.length} of {MAX_VIBE_TAGS} selected
+                      </p>
+                    )}
                   </fieldset>
                 </FormSection>
 
                 <FormSection
                   step="Step 3"
-                  title="Inside joke or extra context"
-                  description="Helps tailor questions — skip if you want."
+                  title="Inside jokes & context"
+                  description="Extra details FriendRank can weave into questions — leave blank to skip."
                   optional
                 >
                   <label htmlFor="extra-context" className="sr-only">
@@ -488,8 +498,8 @@ export default function Home() {
 
                 <FormSection
                   step="Step 4"
-                  title="Game setup"
-                  description="Pick a tone and optionally personalize categories."
+                  title="Tone & categories"
+                  description="Choose how bold the questions feel. Custom categories are optional."
                 >
                   <div className="space-y-4">
                     <div>
@@ -498,12 +508,15 @@ export default function Home() {
                           htmlFor="tone"
                           className="text-xs font-medium text-slate-400"
                         >
-                          Game tone
+                          Question tone
                         </label>
                         <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
                           Required
                         </span>
                       </div>
+                      <p className="mb-2 text-xs text-slate-600">
+                        Sets how playful or savage the voting questions feel.
+                      </p>
                       <select
                         id="tone"
                         value={tone}
@@ -531,7 +544,8 @@ export default function Home() {
                         </span>
                       </div>
                       <p className="mt-0.5 text-xs text-slate-500">
-                        Leave blank to use our curated categories.
+                        Replace a default category, or leave all blank for
+                        FriendRank&apos;s curated set.
                       </p>
                       <div className="mt-3 space-y-2.5">
                         {CUSTOM_CATEGORY_PLACEHOLDERS.map(
@@ -553,7 +567,10 @@ export default function Home() {
 
                     <div className="rounded-xl border border-pink-500/15 bg-pink-500/[0.04] p-4">
                       <p className="text-xs font-medium uppercase tracking-wider text-pink-300/90">
-                        In this game
+                        Categories preview
+                      </p>
+                      <p className="mt-1 text-xs text-slate-600">
+                        Updates as you add friends or custom categories.
                       </p>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {previewCategories.map((category) => (
@@ -577,11 +594,12 @@ export default function Home() {
                 <div className="border-t border-white/10 pt-6">
                   {hasEnoughFriends ? (
                     <p className="mb-3 text-center text-xs font-medium text-violet-300/80">
-                      Ready — your group game is one tap away.
+                      FriendRank will generate your game and share link — takes
+                      a few seconds.
                     </p>
                   ) : (
                     <p className="mb-3 text-center text-xs text-slate-500">
-                      Add at least 2 friends to unlock Start the Chaos.
+                      Add at least 2 friend names to create your game.
                     </p>
                   )}
 
@@ -590,7 +608,7 @@ export default function Home() {
                     disabled={isSavingGame || !hasEnoughFriends}
                     className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-xl shadow-violet-600/30 ring-1 ring-violet-400/35 transition duration-200 hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/45 hover:ring-violet-400/55 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:ring-0 motion-reduce:active:scale-100"
                   >
-                    {isSavingGame ? "Saving game..." : "Start the Chaos"}
+                    {isSavingGame ? "Creating your game..." : "Create game"}
                   </button>
 
                   {saveGameError && (
@@ -615,16 +633,17 @@ export default function Home() {
                       </span>
                       <div>
                         <p className="text-xs font-medium uppercase tracking-wider text-violet-300">
-                          FriendRank invite ready
+                          Your game is ready
                         </p>
                         <h3 className="text-xl font-bold sm:text-2xl">
-                          Invite your friends.
+                          Share the link with your group
                         </h3>
                         <p className="mt-1 text-sm text-slate-300">
-                          They&apos;ll decide who earns each title.
+                          Everyone votes on their phone — results unlock when
+                          enough friends respond.
                         </p>
                         <p className="mt-1 text-sm text-slate-500">
-                          It only takes about 30 seconds.
+                          No account or download needed for anyone.
                         </p>
                       </div>
                     </div>
@@ -689,7 +708,7 @@ export default function Home() {
 
                 <div className="mt-6 rounded-2xl border border-white/10 bg-slate-900/50 p-4 backdrop-blur-sm sm:p-5">
                   <p className="mb-4 text-xs font-medium uppercase tracking-wider text-slate-500">
-                    FriendRank sample questions
+                    Sample questions in your game
                   </p>
                   <ol className="space-y-3">
                     {generatedGame.questions.map((question, index) => (
