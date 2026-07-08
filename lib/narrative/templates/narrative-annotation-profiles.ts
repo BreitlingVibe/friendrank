@@ -27,12 +27,12 @@ export type NarrativeAnnotationProfile = {
 };
 
 export const GENERIC_ANNOTATION_PROFILE: NarrativeAnnotationProfile = {
-  topRank: ["Profile confirmed"],
-  groupVerdict: ["Verdict recorded"],
-  groupVibe: ["Group dynamics recorded", "Group pattern recognized"],
-  dangerousCombo: ["Pair interaction identified"],
-  groupReputation: ["Group consensus recorded"],
-  ending: ["Final report archived", "Consensus archived"],
+  topRank: ["The lead emerges", "Center stage chosen"],
+  groupVerdict: ["The verdict lands", "Your group has decided"],
+  groupVibe: ["The mood reads clear", "Group dynamics locked in"],
+  dangerousCombo: ["A risky pair surfaced", "This duo needs watching"],
+  groupReputation: ["The consensus holds", "Your reputation, summarized"],
+  ending: ["The final chapter", "This is your group's story"],
 };
 
 export const GAMING_ANNOTATION_PROFILE: NarrativeAnnotationProfile = {

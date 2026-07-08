@@ -50,20 +50,20 @@ export function generateRevealSequence(
     steps: [
       {
         text: REVEAL_OPENING_TITLE,
-        durationMs: titleStep?.durationMs ?? 800,
+        durationMs: titleStep?.durationMs ?? 700,
         tone: "title",
       },
       {
         text: firstMessage,
-        durationMs: statusStep?.durationMs ?? 1300,
+        durationMs: statusStep?.durationMs ?? 1150,
         animateDots: true,
         tone: "status",
       },
       {
         text: secondMessage,
-        durationMs: finaleStep?.durationMs ?? 900,
-        animateDots: true,
-        tone: "status",
+        durationMs: finaleStep?.durationMs ?? 1150,
+        animateDots: false,
+        tone: "finale",
       },
     ],
   };
