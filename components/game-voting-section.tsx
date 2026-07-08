@@ -18,6 +18,7 @@ import {
 import type { GeneratedGame } from "@/lib/game-build";
 import { getOrCreateVoterToken } from "@/lib/voter-token";
 import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
+import { mergeVoteProgressIfChanged } from "@/lib/votes/progress-equality";
 import type { VoteProgress } from "@/lib/votes/types";
 
 type GameVotingSectionProps = {
@@ -48,12 +49,26 @@ export function GameVotingSection({
   const [resultsError, setResultsError] = useState<string | null>(null);
   const [isLoadingResults, setIsLoadingResults] = useState(false);
   const resultsUnlockedTrackedRef = useRef(false);
+  const lastNotifiedProgressRef = useRef(initialProgress);
 
   useEffect(() => {
-    setVoterToken(getOrCreateVoterToken(shareCode));
+    setVoterToken((current) => {
+      const nextToken = getOrCreateVoterToken(shareCode);
+      return current === nextToken ? current : nextToken;
+    });
   }, [shareCode]);
 
   useEffect(() => {
+    if (
+      lastNotifiedProgressRef.current.voteCount === progress.voteCount &&
+      lastNotifiedProgressRef.current.votesRequired === progress.votesRequired &&
+      lastNotifiedProgressRef.current.isUnlocked === progress.isUnlocked &&
+      lastNotifiedProgressRef.current.hasVoted === progress.hasVoted
+    ) {
+      return;
+    }
+
+    lastNotifiedProgressRef.current = progress;
     onProgressChange?.(progress);
   }, [onProgressChange, progress]);
 
@@ -66,7 +81,9 @@ export function GameVotingSection({
     setIsLoadingResults(false);
 
     if (result.ok) {
-      setAggregatedResults(result.results);
+      setAggregatedResults((current) =>
+        current === result.results ? current : result.results,
+      );
       return;
     }
 
@@ -83,12 +100,16 @@ export function GameVotingSection({
     });
 
     if (result.ok) {
-      setProgress(result.progress);
-      setProgressError(null);
+      setProgress((current) =>
+        mergeVoteProgressIfChanged(current, result.progress),
+      );
+      setProgressError((current) => (current === null ? current : null));
       return;
     }
 
-    setProgressError(result.error);
+    setProgressError((current) =>
+      current === result.error ? current : result.error,
+    );
   }, [shareCode]);
 
   useEffect(() => {
@@ -99,7 +120,7 @@ export function GameVotingSection({
 
   useEffect(() => {
     if (!progress.isUnlocked) {
-      setAggregatedResults(null);
+      setAggregatedResults((current) => (current === null ? current : null));
       return;
     }
 
@@ -151,7 +172,9 @@ export function GameVotingSection({
       return;
     }
 
-    setProgress(result.progress);
+    setProgress((current) =>
+      mergeVoteProgressIfChanged(current, result.progress),
+    );
 
     trackVoteSubmitted({
       question_index: game.questions.length - 1,

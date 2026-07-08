@@ -13,6 +13,7 @@ import {
   ResultsCascadeProvider,
   useResultsCascade,
 } from "@/components/friend-rank-results-cascade";
+import { useClarityReplaySafeMode } from "@/hooks/use-clarity-replay-safe-mode";
 import { generateRevealSequence } from "@/lib/narrative/generators/reveal-sequence";
 import type { NarrativeContext } from "@/lib/narrative/types";
 import { DEFAULT_REVEAL_SEQUENCE } from "@/lib/reveal/sequence";
@@ -110,6 +111,8 @@ export function FriendRankResultsWithReveal({
   );
 
   const prefersReducedMotion = usePrefersReducedMotion();
+  const clarityReplaySafeMode = useClarityReplaySafeMode();
+  const skipRevealAnimations = prefersReducedMotion || clarityReplaySafeMode;
   const [hydrated, setHydrated] = useState(false);
   const [revealFinished, setRevealFinished] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -122,21 +125,21 @@ export function FriendRankResultsWithReveal({
   }, []);
 
   useEffect(() => {
-    if (hydrated && prefersReducedMotion) {
+    if (hydrated && skipRevealAnimations) {
       setRevealFinished(true);
       setShowResults(true);
       setHideOverlay(true);
       setHeroStage("done");
     }
-  }, [hydrated, prefersReducedMotion]);
+  }, [hydrated, skipRevealAnimations]);
 
   useEffect(() => {
-    if (!revealFinished || prefersReducedMotion) {
+    if (!revealFinished || skipRevealAnimations) {
       return;
     }
 
     setShowResults(true);
-  }, [revealFinished, prefersReducedMotion]);
+  }, [revealFinished, skipRevealAnimations]);
 
   function handleResultsTransitionEnd(
     event: React.TransitionEvent<HTMLDivElement>,
@@ -160,7 +163,7 @@ export function FriendRankResultsWithReveal({
     }, HERO_MOMENT_DELAY_MS + HERO_REST_OFFSET_MS);
   }
 
-  if (!hydrated || prefersReducedMotion) {
+  if (!hydrated || skipRevealAnimations) {
     return <>{children}</>;
   }
 

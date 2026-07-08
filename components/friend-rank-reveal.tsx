@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { isClarityReplayEnvironment } from "@/lib/clarity/clarity-replay-safe";
 import { DEFAULT_REVEAL_SEQUENCE } from "@/lib/reveal/sequence";
 import type { RevealSequenceConfig } from "@/lib/reveal/types";
 import { useRevealSequence } from "@/lib/reveal/use-reveal-sequence";
@@ -19,6 +20,10 @@ function AnimatedDots() {
   const [dotCount, setDotCount] = useState(1);
 
   useEffect(() => {
+    if (isClarityReplayEnvironment()) {
+      return;
+    }
+
     const interval = setInterval(() => {
       setDotCount((count) => (count % 3) + 1);
     }, 480);

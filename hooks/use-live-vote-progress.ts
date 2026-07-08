@@ -1,7 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { isClarityReplayEnvironment } from "@/lib/clarity/clarity-replay-safe";
 import { getVoteProgressAction } from "@/app/actions/votes";
+import {
+  mergeVoteProgressIfChanged,
+} from "@/lib/votes/progress-equality";
 import type { VoteProgress } from "@/lib/votes/types";
 
 const POLL_INTERVAL_MS = 5000;
@@ -15,13 +19,15 @@ export function useLiveVoteProgress(
   );
 
   const refresh = useCallback(async () => {
-    if (!shareCode) {
+    if (!shareCode || isClarityReplayEnvironment()) {
       return;
     }
 
     const result = await getVoteProgressAction({ shareCode });
     if (result.ok) {
-      setProgress(result.progress);
+      setProgress((current) =>
+        mergeVoteProgressIfChanged(current, result.progress),
+      );
     }
   }, [shareCode]);
 
@@ -30,23 +36,18 @@ export function useLiveVoteProgress(
       return;
     }
 
-    setProgress((current) => {
-      if (
-        current &&
-        current.voteCount === initialProgress.voteCount &&
-        current.votesRequired === initialProgress.votesRequired &&
-        current.isUnlocked === initialProgress.isUnlocked &&
-        current.hasVoted === initialProgress.hasVoted
-      ) {
-        return current;
-      }
-
-      return initialProgress;
-    });
-  }, [initialProgress]);
+    setProgress((current) =>
+      mergeVoteProgressIfChanged(current, initialProgress),
+    );
+  }, [
+    initialProgress?.hasVoted,
+    initialProgress?.isUnlocked,
+    initialProgress?.voteCount,
+    initialProgress?.votesRequired,
+  ]);
 
   useEffect(() => {
-    if (!shareCode) {
+    if (!shareCode || isClarityReplayEnvironment()) {
       return;
     }
 

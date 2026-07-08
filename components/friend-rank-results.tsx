@@ -36,7 +36,8 @@ export function FriendRankResultsView({
   onPlayAgain?: () => void;
 }) {
   const { enabled: heroMomentEnabled, stage: heroStage } = useHeroMoment();
-  const { enabled: cascadeEnabled, setSectionCount } = useResultsCascade();
+  const { enabled: cascadeEnabled, sectionCount, setSectionCount } =
+    useResultsCascade();
   const heroActive = heroMomentEnabled && heroStage !== "waiting";
   const heroCardActive =
     !heroMomentEnabled ||
@@ -68,10 +69,12 @@ export function FriendRankResultsView({
   }, [extraCategories.length, hasSecondaryGrid]);
 
   useEffect(() => {
-    if (cascadeEnabled) {
-      setSectionCount(cascadeSectionCount);
+    if (!cascadeEnabled || sectionCount === cascadeSectionCount) {
+      return;
     }
-  }, [cascadeEnabled, cascadeSectionCount, setSectionCount]);
+
+    setSectionCount(cascadeSectionCount);
+  }, [cascadeEnabled, cascadeSectionCount, sectionCount, setSectionCount]);
 
   let cascadeIndex = 0;
 
