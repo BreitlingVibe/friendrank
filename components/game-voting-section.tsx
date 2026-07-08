@@ -1,16 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   getGameResultsAction,
   getVoteProgressAction,
   submitVoteAction,
 } from "@/app/actions/votes";
-import { FriendRankResultsView } from "@/components/friend-rank-results";
-import { FriendRankResultsWithReveal } from "@/components/friend-rank-results-with-reveal";
-import { buildNarrativeContext } from "@/lib/narrative/context";
 import { VoteGame } from "@/components/vote-game";
 import { VoteProgressCard } from "@/components/vote-progress-card";
+import { buildNarrativeContext } from "@/lib/narrative/context";
 import {
   trackResultsUnlocked,
   trackVoteSubmitted,
@@ -19,6 +18,10 @@ import type { GeneratedGame } from "@/lib/game-build";
 import { getOrCreateVoterToken } from "@/lib/voter-token";
 import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
 import type { VoteProgress } from "@/lib/votes/types";
+
+const GameResultsPanel = dynamic(() =>
+  import("@/components/game-results-panel").then((mod) => mod.GameResultsPanel),
+);
 
 type GameVotingSectionProps = {
   game: GeneratedGame;
@@ -222,13 +225,11 @@ export function GameVotingSection({
           )}
 
           {aggregatedResults && narrativeContext && (
-            <FriendRankResultsWithReveal narrativeContext={narrativeContext}>
-              <FriendRankResultsView
-                game={game}
-                aggregatedResults={aggregatedResults}
-                showPlayAgain={false}
-              />
-            </FriendRankResultsWithReveal>
+            <GameResultsPanel
+              game={game}
+              aggregatedResults={aggregatedResults}
+              narrativeContext={narrativeContext}
+            />
           )}
         </>
       )}
