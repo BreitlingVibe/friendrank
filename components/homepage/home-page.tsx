@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
 import { HomepageFaqSection } from "@/components/homepage-faq-section";
+import { HomepageRevealPreviewSection } from "@/components/homepage/homepage-reveal-preview-section";
 import { HomepageWhyFriendRankSection } from "@/components/homepage/homepage-why-friendrank-section";
 import { HomepageHubExploreSection } from "@/components/topic-hubs/homepage-hub-explore-section";
 import { FriendRankRevealPreview } from "@/components/friend-rank-reveal-preview";
@@ -748,6 +749,8 @@ export default function Home() {
         <HomepageHubExploreSection />
 
         <HomepageWhyFriendRankSection />
+
+        <HomepageRevealPreviewSection />
 
         <section
           id="how-it-works"
