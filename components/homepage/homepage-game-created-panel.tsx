@@ -10,6 +10,12 @@ import type { GeneratedGame } from "@/lib/game-build";
 import { getGameShareUrl, getInviteLinkText } from "@/lib/game-url";
 import { getVotesRequired } from "@/lib/votes/constants";
 
+const WHAT_HAPPENS_NEXT_STEPS = [
+  "Friends open the link",
+  "Everyone votes anonymously",
+  "Results unlock when voting is done",
+] as const;
+
 type HomepageGameCreatedPanelProps = {
   generatedGame: GeneratedGame;
   shareCode: string;
@@ -53,6 +59,11 @@ export function HomepageGameCreatedPanel({
     return null;
   }
 
+  const voteProgressSubline =
+    !inviteProgress.isUnlocked && inviteProgress.voteCount === 0
+      ? "Votes appear here as your group joins."
+      : undefined;
+
   return (
     <>
       <div className="friendrank-invite-ready relative mt-8 overflow-hidden rounded-2xl border border-violet-500/40 bg-gradient-to-br from-violet-600/20 via-slate-900 to-cyan-600/15 p-6 shadow-xl shadow-violet-500/10 sm:p-8">
@@ -65,30 +76,70 @@ export function HomepageGameCreatedPanel({
               👑
             </span>
             <div>
-              <p className="text-xs font-medium uppercase tracking-wider text-violet-300">
-                Your game is ready
-              </p>
               <h3 className="text-xl font-bold sm:text-2xl">
-                Share the link with your group
+                Your game is ready — share the link
               </h3>
-              <p className="mt-1 text-sm text-slate-300">
-                Everyone votes on their phone — results unlock when enough friends
-                respond.
-              </p>
-              <p className="mt-1 text-sm text-slate-500">
-                No account or download needed for anyone.
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                Send this link to your group. Everyone votes on their own phone.
               </p>
             </div>
+          </div>
+
+          <p className="mb-4 break-all rounded-lg border border-white/10 bg-black/20 px-4 py-3 text-sm text-slate-400">
+            {getGameShareUrl(shareCode, window.location.origin)}
+          </p>
+
+          <div className="space-y-2">
+            <button
+              type="button"
+              onClick={handleCopyInviteLink}
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 ring-1 ring-violet-400/30 transition duration-200 hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/35"
+            >
+              {inviteCopied ? (
+                <>
+                  <span className="text-emerald-200">✓</span>
+                  Copied — send it to your group
+                </>
+              ) : (
+                "Copy invite link"
+              )}
+            </button>
+            <Link
+              href={`/game/${shareCode}`}
+              className="flex w-full items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-slate-300 transition duration-200 hover:border-white/15 hover:bg-white/[0.06] hover:text-white"
+            >
+              Vote now
+            </Link>
+          </div>
+
+          <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
+              What happens next?
+            </p>
+            <ol className="mt-3 space-y-2">
+              {WHAT_HAPPENS_NEXT_STEPS.map((step, index) => (
+                <li
+                  key={step}
+                  className="flex gap-3 text-sm text-slate-400"
+                >
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-violet-500/30 bg-violet-500/10 text-[11px] font-semibold text-violet-300">
+                    {index + 1}
+                  </span>
+                  <span className="pt-0.5">{step}</span>
+                </li>
+              ))}
+            </ol>
           </div>
 
           <FriendRankVoteProgressSnippet
             voteCount={inviteProgress.voteCount}
             votesRequired={inviteProgress.votesRequired}
             isUnlocked={inviteProgress.isUnlocked}
-            className="mb-5"
+            subline={voteProgressSubline}
+            className="mt-5"
           />
 
-          <div className="mb-5 flex flex-wrap gap-2">
+          <div className="mt-5 flex flex-wrap gap-2">
             <span className="rounded-full border border-violet-500/40 bg-violet-500/15 px-3 py-1 text-xs font-semibold text-violet-200">
               FriendRank
             </span>
@@ -103,36 +154,6 @@ export function HomepageGameCreatedPanel({
             <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-400">
               {generatedGame.friends.join(", ")}
             </span>
-          </div>
-
-          <p className="mb-5 break-all rounded-lg border border-white/10 bg-black/20 px-4 py-3 text-sm text-slate-400">
-            {getGameShareUrl(shareCode, window.location.origin)}
-          </p>
-
-          <div className="space-y-2">
-            <p className="text-center text-xs font-medium uppercase tracking-wider text-violet-300/80">
-              Next step
-            </p>
-            <button
-              type="button"
-              onClick={handleCopyInviteLink}
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 ring-1 ring-violet-400/30 transition duration-200 hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/35"
-            >
-              {inviteCopied ? (
-                <>
-                  <span className="text-emerald-200">✓</span>
-                  Invite copied — send it to your group
-                </>
-              ) : (
-                <>📨 Share invite with your group</>
-              )}
-            </button>
-            <Link
-              href={`/game/${shareCode}`}
-              className="flex w-full items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-slate-300 transition duration-200 hover:border-white/15 hover:bg-white/[0.06] hover:text-white"
-            >
-              Vote now
-            </Link>
           </div>
         </div>
       </div>

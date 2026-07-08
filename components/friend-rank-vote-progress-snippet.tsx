@@ -9,6 +9,7 @@ type FriendRankVoteProgressSnippetProps = {
   votesRequired: number;
   isUnlocked?: boolean;
   className?: string;
+  subline?: string;
 };
 
 export function FriendRankVoteProgressSnippet({
@@ -16,11 +17,13 @@ export function FriendRankVoteProgressSnippet({
   votesRequired,
   isUnlocked = false,
   className = "",
+  subline,
 }: FriendRankVoteProgressSnippetProps) {
   const progressPercent = Math.min(100, (voteCount / votesRequired) * 100);
   const headline = getVoteProgressHeadline(voteCount, isUnlocked);
   const countLabel = getVoteProgressCountLabel(voteCount, votesRequired);
-  const subline = getVoteProgressSubline(voteCount, votesRequired, isUnlocked);
+  const sublineText =
+    subline ?? getVoteProgressSubline(voteCount, votesRequired, isUnlocked);
 
   return (
     <div
@@ -30,7 +33,7 @@ export function FriendRankVoteProgressSnippet({
       <p className="mt-1 text-lg font-bold tracking-tight text-violet-200">
         {countLabel}
       </p>
-      <p className="mt-1 text-sm text-slate-400">{subline}</p>
+      <p className="mt-1 text-sm text-slate-400">{sublineText}</p>
       {!isUnlocked && (
         <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
           <div
