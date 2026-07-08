@@ -1,19 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useState } from "react";
+import { GameSampleQuestions } from "@/components/game-sample-questions";
 import { GameSummary } from "@/components/game-summary";
 import { GameVotingSection } from "@/components/game-voting-section";
 import type { GeneratedGame } from "@/lib/game-build";
 import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
 import type { VoteProgress } from "@/lib/votes/types";
-
-const GameSampleQuestions = dynamic(() =>
-  import("@/components/game-sample-questions").then(
-    (mod) => mod.GameSampleQuestions,
-  ),
-);
 
 type GamePageBodyProps = {
   game: GeneratedGame;

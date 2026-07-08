@@ -26,9 +26,23 @@ export function useLiveVoteProgress(
   }, [shareCode]);
 
   useEffect(() => {
-    if (initialProgress) {
-      setProgress(initialProgress);
+    if (!initialProgress) {
+      return;
     }
+
+    setProgress((current) => {
+      if (
+        current &&
+        current.voteCount === initialProgress.voteCount &&
+        current.votesRequired === initialProgress.votesRequired &&
+        current.isUnlocked === initialProgress.isUnlocked &&
+        current.hasVoted === initialProgress.hasVoted
+      ) {
+        return current;
+      }
+
+      return initialProgress;
+    });
   }, [initialProgress]);
 
   useEffect(() => {
