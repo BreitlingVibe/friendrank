@@ -82,17 +82,37 @@ function chipClassName(isSelected: boolean, isDisabled: boolean) {
 }
 
 type FormSectionProps = {
-  step: string;
   title: string;
   description?: string;
+  required?: boolean;
   optional?: boolean;
   children: ReactNode;
 };
 
+function SectionBadge({ required, optional }: { required?: boolean; optional?: boolean }) {
+  if (required) {
+    return (
+      <span className="shrink-0 rounded-full border border-violet-500/35 bg-violet-500/12 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-violet-200">
+        Required
+      </span>
+    );
+  }
+
+  if (optional) {
+    return (
+      <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+        Optional
+      </span>
+    );
+  }
+
+  return null;
+}
+
 function FormSection({
-  step,
   title,
   description,
+  required,
   optional,
   children,
 }: FormSectionProps) {
@@ -100,22 +120,30 @@ function FormSection({
     <section className="border-b border-white/5 pb-8 last:border-b-0 last:pb-0">
       <header className="mb-4 flex flex-wrap items-start justify-between gap-2">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-violet-400/90">
-            {step}
-          </p>
-          <h3 className="mt-1 text-base font-semibold text-white">{title}</h3>
+          <h3 className="text-base font-semibold text-white">{title}</h3>
           {description && (
             <p className="mt-1 text-sm text-slate-500">{description}</p>
           )}
         </div>
-        {optional && (
-          <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-            Optional
-          </span>
-        )}
+        <SectionBadge required={required} optional={optional} />
       </header>
       {children}
     </section>
+  );
+}
+
+function OptionalFormSubsection({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <h4 className="text-sm font-medium text-slate-300">{title}</h4>
+      <div className="mt-3">{children}</div>
+    </div>
   );
 }
 
@@ -387,8 +415,7 @@ export default function Home() {
                 Who&apos;s in your group?
               </h2>
               <p className="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-slate-400">
-                Add your friends, choose up to 3 vibe tags, and FriendRank
-                generates the game for you.
+                Add your friends, pick a tone, and create your game.
               </p>
               <p className="mx-auto mt-3 max-w-md text-xs text-slate-500">
                 No account · No app download · Share one link to play
@@ -401,9 +428,9 @@ export default function Home() {
             >
               <div className="space-y-8">
                 <FormSection
-                  step="Step 1"
                   title="Add your friends"
-                  description="Enter everyone who will play — comma-separated, at least 2 names."
+                  description="Comma-separated names — at least 2."
+                  required
                 >
                   <label htmlFor="group-names" className="sr-only">
                     Group member names
@@ -438,164 +465,153 @@ export default function Home() {
                 </FormSection>
 
                 <FormSection
-                  step="Step 2"
-                  title="Choose vibe tags"
-                  description="Pick up to 3 tags to shape your questions. Skip if you want FriendRank defaults."
-                  optional
+                  title="Choose game tone"
+                  description="How bold the voting questions should feel."
+                  required
                 >
-                  <fieldset>
-                    <legend className="sr-only">Group vibe tags</legend>
-                    <div className="flex flex-wrap gap-2.5">
-                      {VIBE_TAGS.map((tag) => {
-                        const isSelected = selectedVibeTags.includes(tag);
-                        const isDisabled =
-                          !isSelected &&
-                          selectedVibeTags.length >= MAX_VIBE_TAGS;
-
-                        return (
-                          <button
-                            key={tag}
-                            type="button"
-                            aria-pressed={isSelected}
-                            onClick={() => toggleVibeTag(tag)}
-                            disabled={isDisabled}
-                            className={chipClassName(isSelected, isDisabled)}
-                          >
-                            {tag}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    {selectedVibeTags.length > 0 && (
-                      <p className="mt-2.5 text-xs text-slate-500">
-                        {selectedVibeTags.length} of {MAX_VIBE_TAGS} selected
-                      </p>
-                    )}
-                  </fieldset>
-                </FormSection>
-
-                <FormSection
-                  step="Step 3"
-                  title="Inside jokes & context"
-                  description="Extra details FriendRank can weave into questions — leave blank to skip."
-                  optional
-                >
-                  <label htmlFor="extra-context" className="sr-only">
-                    Inside joke or extra context
+                  <label htmlFor="tone" className="sr-only">
+                    Game tone
                   </label>
-                  <textarea
-                    id="extra-context"
-                    rows={2}
-                    value={extraContext}
+                  <select
+                    id="tone"
+                    value={tone}
                     onChange={(e) => {
                       notifyCreationFormStarted();
-                      setExtraContext(e.target.value);
+                      setTone(e.target.value as Tone);
                     }}
-                    placeholder="Alex is always late, Taylor starts drama…"
-                    className={`${inputClassName} min-h-[72px] resize-y text-sm`}
-                  />
+                    className={`${inputClassName} cursor-pointer appearance-none text-sm`}
+                  >
+                    {tones.map((t) => (
+                      <option key={t} value={t} className="bg-slate-900">
+                        {t}
+                      </option>
+                    ))}
+                  </select>
                 </FormSection>
 
-                <FormSection
-                  step="Step 4"
-                  title="Tone & categories"
-                  description="Choose how bold the questions feel. Custom categories are optional."
-                >
-                  <div className="space-y-4">
-                    <div>
-                      <div className="mb-2 flex flex-wrap items-center gap-2">
-                        <label
-                          htmlFor="tone"
-                          className="text-xs font-medium text-slate-400"
-                        >
-                          Question tone
-                        </label>
-                        <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                          Required
-                        </span>
+                <div className="rounded-xl border border-pink-500/15 bg-pink-500/[0.04] p-4">
+                  <p className="text-xs font-medium uppercase tracking-wider text-pink-300/90">
+                    Categories in your game
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {previewCategories.map((category) => (
+                      <span
+                        key={category.label}
+                        className={`rounded-full border px-2.5 py-1 text-xs transition duration-200 ${
+                          category.isCustom
+                            ? "border-amber-500/35 bg-amber-500/12 text-amber-100"
+                            : "border-white/10 bg-white/5 text-slate-300"
+                        }`}
+                      >
+                        {category.emoji} {category.label}
+                        {category.isCustom ? " · custom" : ""}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <details className="group rounded-xl border border-dashed border-white/10 bg-white/[0.02] [&_summary::-webkit-details-marker]:hidden">
+                  <summary className="cursor-pointer list-none p-4 sm:p-5">
+                    <div className="flex flex-wrap items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <p className="flex items-center gap-2 text-sm font-semibold text-slate-200">
+                          <span
+                            aria-hidden="true"
+                            className="inline-block text-slate-500 group-open:rotate-90"
+                          >
+                            ▸
+                          </span>
+                          Optional personalization
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          Want sharper inside jokes? Customize your game.
+                        </p>
                       </div>
-                      <p className="mb-2 text-xs text-slate-600">
-                        Sets how playful or savage the voting questions feel.
-                      </p>
-                      <select
-                        id="tone"
-                        value={tone}
+                      <SectionBadge optional />
+                    </div>
+                  </summary>
+
+                  <div className="space-y-6 border-t border-white/5 px-4 pb-5 pt-4 sm:px-5">
+                    <OptionalFormSubsection title="Vibe tags">
+                      <fieldset>
+                        <legend className="sr-only">Group vibe tags</legend>
+                        <p className="mb-3 text-xs text-slate-600">
+                          Up to {MAX_VIBE_TAGS} tags — skip for FriendRank defaults.
+                        </p>
+                        <div className="flex flex-wrap gap-2.5">
+                          {VIBE_TAGS.map((tag) => {
+                            const isSelected = selectedVibeTags.includes(tag);
+                            const isDisabled =
+                              !isSelected &&
+                              selectedVibeTags.length >= MAX_VIBE_TAGS;
+
+                            return (
+                              <button
+                                key={tag}
+                                type="button"
+                                aria-pressed={isSelected}
+                                onClick={() => toggleVibeTag(tag)}
+                                disabled={isDisabled}
+                                className={chipClassName(isSelected, isDisabled)}
+                              >
+                                {tag}
+                              </button>
+                            );
+                          })}
+                        </div>
+                        {selectedVibeTags.length > 0 && (
+                          <p className="mt-2.5 text-xs text-slate-500">
+                            {selectedVibeTags.length} of {MAX_VIBE_TAGS} selected
+                          </p>
+                        )}
+                      </fieldset>
+                    </OptionalFormSubsection>
+
+                    <OptionalFormSubsection title="Inside jokes">
+                      <label htmlFor="extra-context" className="sr-only">
+                        Inside joke or extra context
+                      </label>
+                      <textarea
+                        id="extra-context"
+                        rows={2}
+                        value={extraContext}
                         onChange={(e) => {
                           notifyCreationFormStarted();
-                          setTone(e.target.value as Tone);
+                          setExtraContext(e.target.value);
                         }}
-                        className={`${inputClassName} cursor-pointer appearance-none text-sm`}
-                      >
-                        {tones.map((t) => (
-                          <option key={t} value={t} className="bg-slate-900">
-                            {t}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                        placeholder="Alex is always late, Taylor starts drama…"
+                        className={`${inputClassName} min-h-[72px] resize-y text-sm`}
+                      />
+                    </OptionalFormSubsection>
 
-                    <div className="rounded-xl border border-dashed border-amber-500/15 bg-amber-500/[0.03] p-4 transition duration-200 hover:border-amber-500/25">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="text-sm font-medium text-slate-300">
-                          Custom categories
-                        </p>
-                        <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                          Optional
-                        </span>
-                      </div>
-                      <p className="mt-0.5 text-xs text-slate-500">
-                        Replace a default category, or leave all blank for
-                        FriendRank&apos;s curated set.
+                    <OptionalFormSubsection title="Custom categories">
+                      <p className="mb-3 text-xs text-slate-600">
+                        Replace a default category, or leave blank.
                       </p>
-                      <div className="mt-3 space-y-2.5">
-                        {CUSTOM_CATEGORY_PLACEHOLDERS.map(
-                          (placeholder, index) => (
-                            <input
-                              key={placeholder}
-                              type="text"
-                              value={customCategories[index]}
-                              onChange={(e) =>
-                                updateCustomCategory(index, e.target.value)
-                              }
-                              placeholder={placeholder}
-                              className={`${inputClassName} text-sm`}
-                            />
-                          ),
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="rounded-xl border border-pink-500/15 bg-pink-500/[0.04] p-4">
-                      <p className="text-xs font-medium uppercase tracking-wider text-pink-300/90">
-                        Categories preview
-                      </p>
-                      <p className="mt-1 text-xs text-slate-600">
-                        Updates as you add friends or custom categories.
-                      </p>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {previewCategories.map((category) => (
-                          <span
-                            key={category.label}
-                            className={`rounded-full border px-2.5 py-1 text-xs transition duration-200 ${
-                              category.isCustom
-                                ? "border-amber-500/35 bg-amber-500/12 text-amber-100"
-                                : "border-white/10 bg-white/5 text-slate-300"
-                            }`}
-                          >
-                            {category.emoji} {category.label}
-                            {category.isCustom ? " · custom" : ""}
-                          </span>
+                      <div className="space-y-2.5">
+                        {CUSTOM_CATEGORY_PLACEHOLDERS.map((placeholder, index) => (
+                          <input
+                            key={placeholder}
+                            type="text"
+                            value={customCategories[index]}
+                            onChange={(e) =>
+                              updateCustomCategory(index, e.target.value)
+                            }
+                            placeholder={placeholder}
+                            className={`${inputClassName} text-sm`}
+                          />
                         ))}
                       </div>
-                    </div>
+                    </OptionalFormSubsection>
                   </div>
-                </FormSection>
+                </details>
 
                 <div className="border-t border-white/10 pt-6">
                   {hasEnoughFriends ? (
-                    <p className="mb-3 text-center text-xs font-medium text-violet-300/80">
-                      FriendRank will generate your game and share link — takes
-                      a few seconds.
+                    <p className="mb-3 text-center text-xs leading-relaxed text-slate-500">
+                      Creates your game in a few seconds.
+                      <br />
+                      Share one link. Everyone votes anonymously.
                     </p>
                   ) : (
                     <p className="mb-3 text-center text-xs text-slate-500">
