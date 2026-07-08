@@ -5,46 +5,46 @@ export type RevealMessageProfile = {
 };
 
 export const GENERIC_REVEAL_PROFILE: RevealMessageProfile = {
-  messages: ["The votes are in...", "Almost there..."],
+  messages: ["Analyzing friendships", "Preparing the verdict"],
 };
 
 export const VIBE_REVEAL_PROFILES: Partial<Record<VibeTag, RevealMessageProfile>> =
   {
     Gaming: {
-      messages: ["Loading the match replay...", "One title split the room..."],
+      messages: ["Loading the match replay", "Calculating MVP"],
     },
     Discord: {
-      messages: ["Syncing the server logs...", "This one took longer than expected..."],
+      messages: ["Syncing the server", "Reading message history"],
     },
     Office: {
-      messages: ["Reviewing meeting notes...", "The real decision maker is emerging..."],
+      messages: ["Reviewing meeting notes", "Finding the real decision maker"],
     },
     School: {
-      messages: ["Comparing everyone's stories...", "One answer started real debate..."],
+      messages: ["Comparing everyone's stories", "Checking who copied whose homework"],
     },
     College: {
-      messages: ["Debating campus lore...", "The group chat has a verdict..."],
+      messages: ["Debating campus lore", "Checking the group project alibi"],
     },
     Family: {
-      messages: ["Collecting family evidence...", "Someone's been holding out..."],
+      messages: ["Collecting family evidence", "Finding out who started it"],
     },
     Sports: {
-      messages: ["Reviewing the highlight reel...", "The MVP wasn't obvious..."],
+      messages: ["Reviewing the highlight reel", "Choosing the MVP"],
     },
     Party: {
-      messages: ["Recapping last night...", "Not everyone remembers the same thing..."],
+      messages: ["Recapping last night", "Finding who remembers anything"],
     },
     "Meme-heavy": {
-      messages: ["Loading the group chat archive...", "Translating the memes..."],
+      messages: ["Loading the group chat archive", "Translating the memes"],
     },
     "Soft drama": {
-      messages: ["Piecing together the timeline...", "The full picture is forming..."],
+      messages: ["Piecing together the timeline", "Preparing the verdict"],
     },
     "Brutal honesty": {
-      messages: ["Gathering unfiltered opinions...", "One title hurt a little..."],
+      messages: ["Gathering unfiltered opinions", "Preparing the honest truth"],
     },
     Chaotic: {
-      messages: ["Measuring the chaos...", "This one wasn't obvious..."],
+      messages: ["Measuring the chaos", "Bracing for impact"],
     },
   };
 
@@ -66,16 +66,16 @@ export const VIBE_REVEAL_PRIORITY: VibeTag[] = [
 
 export const TONE_REVEAL_PROFILES = {
   Chaotic: {
-    messages: ["Measuring the chaos...", "This one wasn't obvious..."],
+    messages: ["Measuring the chaos", "Preparing the verdict"],
   },
   Wholesome: {
-    messages: ["Gathering the good vibes...", "The final picture is forming..."],
+    messages: ["Gathering the good vibes", "Preparing the verdict"],
   },
   "Savage but friendly": {
-    messages: ["Collecting the receipts...", "One title created real debate..."],
+    messages: ["Collecting the receipts", "Preparing the verdict"],
   },
   Funny: {
-    messages: ["Reading between the votes...", "Almost ready for the punchline..."],
+    messages: ["Analyzing friendships", "Preparing the punchline"],
   },
 } as const satisfies Record<
   "Chaotic" | "Wholesome" | "Savage but friendly" | "Funny",

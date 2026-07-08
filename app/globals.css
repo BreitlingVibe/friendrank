@@ -94,15 +94,6 @@ body {
   opacity: 1;
 }
 
-.friendrank-cascade-section--finale.friendrank-cascade-section {
-  transform: translateY(10px);
-  transition-duration: 320ms;
-}
-
-.friendrank-cascade-section--finale.friendrank-cascade-section--active {
-  transform: translateY(0);
-}
-
 @keyframes friendrank-copy-celebrate {
   0%,
   100% {

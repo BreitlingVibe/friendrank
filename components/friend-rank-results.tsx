@@ -19,10 +19,6 @@ import {
   generateMockCategoryVotes,
   type CategoryResultDetail,
 } from "@/lib/results/presentation";
-import {
-  getCategoryRevealFraming,
-  getCategoryToneClassName,
-} from "@/lib/reveal/category-reveal-framing";
 
 export function FriendRankResultsView({
   game,
@@ -100,13 +96,7 @@ export function FriendRankResultsView({
     presentation.endingHighlight,
   );
 
-  function renderCategoryCard(
-    detail: CategoryResultDetail,
-    options: { featured: boolean; rank: number },
-  ) {
-    const { featured, rank } = options;
-    const framing = getCategoryRevealFraming(detail.category.label, rank);
-
+  function renderCategoryCard(detail: CategoryResultDetail, featured: boolean) {
     return (
       <div
         key={detail.category.label}
@@ -116,14 +106,6 @@ export function FriendRankResultsView({
             : "rounded-2xl border border-white/15 bg-white/[0.04] p-5"
         }
       >
-        {framing && (
-          <p
-            className={`${featured ? "mb-3 text-center" : "mb-2"} ${getCategoryToneClassName(framing.tone)}`}
-          >
-            {framing.anticipation}
-          </p>
-        )}
-
         {featured && (
           <div className="mb-3 text-center">
             <p className="text-xs font-bold uppercase tracking-widest text-violet-200">
@@ -245,7 +227,7 @@ export function FriendRankResultsView({
                   : undefined
               }
             >
-              {renderCategoryCard(first, { featured: true, rank: 1 })}
+              {renderCategoryCard(first, true)}
             </div>
           </div>
         )}
@@ -255,17 +237,14 @@ export function FriendRankResultsView({
             index={cascadeIndex++}
             className="grid gap-3 sm:grid-cols-2"
           >
-            {second && renderCategoryCard(second, { featured: false, rank: 2 })}
-            {third && renderCategoryCard(third, { featured: false, rank: 3 })}
+            {second && renderCategoryCard(second, false)}
+            {third && renderCategoryCard(third, false)}
           </ResultsCascadeSection>
         )}
 
-        {extraCategories.map((detail, extraIndex) => (
+        {extraCategories.map((detail) => (
           <ResultsCascadeSection key={detail.category.label} index={cascadeIndex++}>
-            {renderCategoryCard(detail, {
-              featured: false,
-              rank: extraIndex + 4,
-            })}
+            {renderCategoryCard(detail, false)}
           </ResultsCascadeSection>
         ))}
 
@@ -325,16 +304,10 @@ export function FriendRankResultsView({
         </div>
         </ResultsCascadeSection>
 
-        <ResultsCascadeSection
-          index={cascadeIndex++}
-          className="friendrank-cascade-section--finale mt-2"
-        >
-        <div className="rounded-3xl border-2 border-violet-400/50 bg-gradient-to-br from-violet-600/40 via-fuchsia-600/25 to-cyan-600/30 px-6 py-12 text-center shadow-2xl shadow-violet-500/30">
-          <p className="mb-3 text-sm font-medium text-cyan-200/90">
-            And finally — your group&apos;s story.
-          </p>
-          <div className="mb-5">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-violet-200">
+        <ResultsCascadeSection index={cascadeIndex++}>
+        <div className="rounded-3xl border-2 border-violet-400/40 bg-gradient-to-br from-violet-600/35 via-fuchsia-600/20 to-cyan-600/25 px-6 py-10 text-center shadow-xl shadow-violet-500/25">
+          <div className="mb-4">
+            <p className="text-xs font-bold uppercase tracking-widest text-violet-200">
               {presentation.endingCard.heading}
             </p>
             <FriendRankSectionAnnotation
@@ -347,14 +320,14 @@ export function FriendRankResultsView({
               key={`${line.text}-${index}`}
               className={
                 line.large
-                  ? `${index > 0 ? "mt-4" : ""} text-[2rem] font-black uppercase leading-[1.1] tracking-tight text-white sm:text-[2.5rem]`
-                  : `${index > 0 ? "mt-3" : ""} text-base font-semibold leading-relaxed text-violet-100 sm:text-lg`
+                  ? `${index > 0 ? "mt-3" : ""} text-3xl font-black uppercase leading-tight tracking-tight text-white sm:text-4xl`
+                  : `${index > 0 ? "mt-2" : ""} text-base font-semibold text-violet-100`
               }
             >
               {line.text}
             </p>
           ))}
-          <p className="mt-8 text-xs italic text-violet-200/80">
+          <p className="mt-6 text-xs italic text-violet-200/80">
             Screenshot this before your friends deny everything.
           </p>
         </div>
