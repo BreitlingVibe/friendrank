@@ -34,6 +34,7 @@ import {
   type GeneratedGame,
   type Tone,
   type VibeTag,
+  type FriendRankCategory,
 } from "@/lib/game-build";
 import { getGameShareUrl, getInviteLinkText } from "@/lib/game-url";
 import { getVotesRequired } from "@/lib/votes/constants";
@@ -70,6 +71,64 @@ const inputClassName =
 
 const chipBase =
   "rounded-full border px-3.5 py-2 text-sm font-medium transition-all duration-200 ease-out motion-reduce:transition-none active:scale-[0.97]";
+
+function isQuestionStyleDefaultCategory(category: FriendRankCategory): boolean {
+  return /^most\b/i.test(category.label);
+}
+
+function splitPreviewCategories(categories: FriendRankCategory[]) {
+  const custom = categories.filter((category) => category.isCustom);
+  const defaults = categories.filter((category) => !category.isCustom);
+
+  return {
+    roles: defaults.filter((category) => !isQuestionStyleDefaultCategory(category)),
+    questions: defaults.filter((category) =>
+      isQuestionStyleDefaultCategory(category),
+    ),
+    custom,
+  };
+}
+
+function PreviewCategoryChip({ category }: { category: FriendRankCategory }) {
+  return (
+    <span
+      className={`rounded-full border px-2.5 py-1 text-xs transition duration-200 ${
+        category.isCustom
+          ? "border-amber-500/35 bg-amber-500/12 text-amber-100"
+          : "border-white/10 bg-white/5 text-slate-300"
+      }`}
+    >
+      {category.emoji} {category.label}
+    </span>
+  );
+}
+
+function PreviewCategoryGroup({
+  title,
+  categories,
+}: {
+  title: string;
+  categories: FriendRankCategory[];
+}) {
+  if (categories.length === 0) {
+    return null;
+  }
+
+  return (
+    <div>
+      <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
+        {title}
+      </p>
+      <ul className="mt-2.5 flex flex-wrap gap-2">
+        {categories.map((category) => (
+          <li key={category.label}>
+            <PreviewCategoryChip category={category} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 function chipClassName(isSelected: boolean, isDisabled: boolean) {
   if (isSelected) {
@@ -174,6 +233,11 @@ export default function Home() {
   const previewCategories = useMemo(
     () => buildGameCategories(customCategories, parseGroupNames(groupNames)),
     [customCategories, groupNames],
+  );
+
+  const previewCategoryGroups = useMemo(
+    () => splitPreviewCategories(previewCategories),
+    [previewCategories],
   );
 
   const enteredFriends = useMemo(
@@ -489,24 +553,40 @@ export default function Home() {
                   </select>
                 </FormSection>
 
-                <div className="rounded-xl border border-pink-500/15 bg-pink-500/[0.04] p-4">
-                  <p className="text-xs font-medium uppercase tracking-wider text-pink-300/90">
-                    Categories in your game
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {previewCategories.map((category) => (
-                      <span
-                        key={category.label}
-                        className={`rounded-full border px-2.5 py-1 text-xs transition duration-200 ${
-                          category.isCustom
-                            ? "border-amber-500/35 bg-amber-500/12 text-amber-100"
-                            : "border-white/10 bg-white/5 text-slate-300"
-                        }`}
-                      >
-                        {category.emoji} {category.label}
-                        {category.isCustom ? " · custom" : ""}
-                      </span>
-                    ))}
+                <div className="rounded-2xl border border-pink-500/15 bg-gradient-to-br from-pink-500/[0.06] via-slate-900/20 to-violet-500/[0.04] p-5 sm:p-6">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold text-white">
+                        Your game is taking shape
+                      </p>
+                      <p className="mt-1 max-w-sm text-xs leading-relaxed text-slate-500">
+                        FriendRank is building a mix of roles and questions for
+                        your group.
+                      </p>
+                    </div>
+                    <p className="shrink-0 text-[11px] text-slate-600">
+                      <span aria-hidden="true" className="text-emerald-500/70">
+                        ●
+                      </span>{" "}
+                      Updates as you customize
+                    </p>
+                  </div>
+
+                  <div className="mt-5 space-y-4 border-t border-white/5 pt-5">
+                    <PreviewCategoryGroup
+                      title="Roles"
+                      categories={previewCategoryGroups.roles}
+                    />
+                    <PreviewCategoryGroup
+                      title="Questions"
+                      categories={previewCategoryGroups.questions}
+                    />
+                    {previewCategoryGroups.custom.length > 0 && (
+                      <PreviewCategoryGroup
+                        title="Your custom ideas"
+                        categories={previewCategoryGroups.custom}
+                      />
+                    )}
                   </div>
                 </div>
 
