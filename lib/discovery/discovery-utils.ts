@@ -26,6 +26,10 @@ function toEvergreenLink(slug: string): DiscoveryLink | null {
   };
 }
 
+export function toEvergreenLinkFromSlug(slug: string): DiscoveryLink | null {
+  return toEvergreenLink(slug);
+}
+
 function toCategoryLink(category: CategoryDefinition): DiscoveryLink {
   const live = isCategoryHubLive(category.slug);
 
@@ -37,6 +41,12 @@ function toCategoryLink(category: CategoryDefinition): DiscoveryLink {
     available: live,
     kind: "category",
   };
+}
+
+export function toCategoryLinkFromDefinition(
+  category: CategoryDefinition,
+): DiscoveryLink {
+  return toCategoryLink(category);
 }
 
 function toPillarLink(pillarSlug: string): DiscoveryLink | null {
@@ -53,6 +63,10 @@ function toPillarLink(pillarSlug: string): DiscoveryLink | null {
     available: true,
     kind: "pillar",
   };
+}
+
+export function toPillarLinkFromSlug(pillarSlug: string): DiscoveryLink | null {
+  return toPillarLink(pillarSlug);
 }
 
 export function getParentPillar(categorySlug: string): DiscoveryLink | null {
@@ -133,9 +147,14 @@ export function getRelatedPages(categorySlug: string): DiscoveryLink[] {
 }
 
 export function getRecommendedNextPage(categorySlug: string): DiscoveryLink | null {
-  const evergreen = getRelatedPages(categorySlug).find((link) => link.available);
-  if (evergreen) {
-    return evergreen;
+  const sibling = getRelatedPages(categorySlug).find((link) => link.available);
+  if (sibling) {
+    return sibling;
+  }
+
+  const pillar = getParentPillar(categorySlug);
+  if (pillar) {
+    return pillar;
   }
 
   const category = getRelatedCategories(categorySlug).find((link) => link.available);
@@ -143,7 +162,7 @@ export function getRecommendedNextPage(categorySlug: string): DiscoveryLink | nu
     return category;
   }
 
-  return getParentPillar(categorySlug);
+  return getGameEntryPoint();
 }
 
 export function getGameEntryPoint(): DiscoveryLink {

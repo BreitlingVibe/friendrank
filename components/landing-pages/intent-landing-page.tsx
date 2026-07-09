@@ -1,3 +1,4 @@
+import { DiscoveryExploreSection } from "@/components/discovery/discovery-explore-section";
 import type { LandingPageData } from "@/lib/landing-pages/landing-page-types";
 import { buildLandingPageBreadcrumbItems } from "@/lib/seo/breadcrumbs";
 import { LandingPageStructuredData } from "@/components/landing-pages/landing-page-structured-data";
@@ -46,6 +47,14 @@ export function IntentLandingPage({ page }: IntentLandingPageProps) {
         <LandingPageTailSections
           page={page}
           recommendationCopy={recommendationCopy}
+        />
+
+        <DiscoveryExploreSection
+          slug={page.slug}
+          excludeSlugs={[
+            page.slug,
+            ...page.relatedPages.map((relatedPage) => relatedPage.slug),
+          ]}
         />
 
         <LandingPageTrustSection />

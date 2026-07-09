@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { DiscoveryExploreSection } from "@/components/discovery/discovery-explore-section";
+import { PillarExploreMoreSection } from "@/components/discovery/pillar-explore-more-section";
 import { LandingPageCta } from "@/components/landing-pages/landing-page-cta";
 import { LandingPageFaq } from "@/components/landing-pages/landing-page-faq";
 import { FriendRankBrand } from "@/components/friend-rank-brand";
@@ -404,6 +406,13 @@ export function EvergreenHubPage({ page }: EvergreenHubPageProps) {
             </ul>
           </div>
         </section>
+
+        <DiscoveryExploreSection
+          slug={page.slug}
+          variant={pillarPage ? "pillar" : "default"}
+        />
+
+        {pillarPage ? <PillarExploreMoreSection pillarSlug={page.slug} /> : null}
 
         <LandingPageFaq title={page.faqTitle} items={page.faq} />
       </main>

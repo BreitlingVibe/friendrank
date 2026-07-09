@@ -244,9 +244,41 @@ export default function Page() {
 Later sprints may:
 
 - Register category hubs in sitemap when `status: "live"`
-- Wire `getRelatedContent()` into evergreen landing page templates
+- ~~Wire `getRelatedContent()` into evergreen landing page templates~~ **Done (Sprint 2)**
 - Extend route audit to recognize `/categories/*` routes
 - Generate hub copy from registry keywords (with editorial guardrails)
+
+### Connected content graph (Phase 23 Sprint 2)
+
+The discovery engine is now wired into public pages:
+
+| Surface | Component | What it shows |
+|---------|-----------|---------------|
+| **Evergreen landing pages** | `DiscoveryExploreSection` | Parent pillar, related categories, related games, related pages, create-game CTA |
+| **Evergreen hub / pillar pages** | `DiscoveryExploreSection` + `PillarExploreMoreSection` | Games, pages, CTA; live category hubs on pillars |
+| **Category hub pages** | `CategoryHubTemplate` | Registry-driven links (Sprint 1) |
+
+**Recommendation order** (`getOrderedRecommendations`):
+
+```
+Current page (excluded from links)
+  ↓
+Sibling pages (registry + internal-links fallback)
+  ↓
+Parent pillar
+  ↓
+Related categories
+  ↓
+Related games (registry evergreen slugs)
+  ↓
+Game creation (/#create-game)
+```
+
+**Slug resolver:** `getRelatedContentForSlug()` handles landing pages, pillars, category hubs, and supplemental evergreen hubs (via `EVERGREEN_HUB_PARENT_PILLAR` map).
+
+**Deduplication:** `lib/discovery/link-utils.ts` prevents duplicate links within discovery sections. Landing pages pass existing `relatedPages` slugs as exclusions.
+
+**Build-time validation:** `validateCategoryRegistry()` in `npm run audit:all` ensures every **live** category has a parent pillar, at least one related evergreen page, and a game CTA.
 
 ---
 

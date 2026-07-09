@@ -10,6 +10,7 @@ import {
 } from "@/lib/audit/run-index-audit";
 import { validateRecommendationIntegrity } from "@/lib/seo/validation/recommendation-validation";
 import { validateRouteIntegrity } from "@/lib/seo/validation/route-validation";
+import { validateCategoryRegistry } from "@/lib/discovery/validate-category-registry";
 import {
   countIssuesBySeverity,
   mergeValidationResults,
@@ -37,6 +38,7 @@ export type FullAuditReport = {
   indexAudit: IndexAuditReport;
   routes: ValidationResult;
   recommendations: ValidationResult;
+  discovery: ValidationResult;
   totals: {
     errors: number;
     warnings: number;
@@ -49,8 +51,9 @@ export function runFullAudit(): FullAuditReport {
   const indexAudit = runIndexAudit();
   const routes = validateRouteIntegrity();
   const recommendations = validateRecommendationIntegrity();
+  const discovery = validateCategoryRegistry();
 
-  const supplemental = mergeValidationResults(routes, recommendations);
+  const supplemental = mergeValidationResults(routes, recommendations, discovery);
   const allIssues = dedupeIssues([
     ...Object.values(entityAudit.results).flatMap((result) => result.issues),
     ...Object.values(indexAudit.results).flatMap((result) => result.issues),
@@ -63,6 +66,7 @@ export function runFullAudit(): FullAuditReport {
     indexAudit,
     routes,
     recommendations,
+    discovery,
     totals: countIssuesBySeverity(allIssues),
   };
 }
@@ -71,6 +75,7 @@ export function formatFullAuditReport(report: FullAuditReport): string {
   const sections: Array<[string, ValidationResult]> = [
     ["Route integrity", report.routes],
     ["Recommendations and links", report.recommendations],
+    ["Discovery graph", report.discovery],
   ];
 
   const lines: string[] = [

@@ -48,6 +48,16 @@ export type RelatedContent = {
   gameEntryPoint: DiscoveryLink;
 };
 
+/** Ordered groups for connected discovery UI and utilities. */
+export type OrderedDiscoveryRecommendations = {
+  /** Same-cluster or registry sibling evergreen pages (excludes current page). */
+  siblingPages: DiscoveryLink[];
+  parentPillar: DiscoveryLink | null;
+  relatedCategories: DiscoveryLink[];
+  relatedGames: DiscoveryLink[];
+  gameEntryPoint: DiscoveryLink;
+};
+
 export type CategoryHubFaqItem = {
   question: string;
   answer: string;

@@ -34,7 +34,25 @@ export {
 export {
   getRelatedContent,
   getRelatedContentForCategory,
+  getRelatedContentForSlug,
+  EVERGREEN_HUB_PARENT_PILLAR,
 } from "@/lib/discovery/related-content";
+
+export {
+  getOrderedRecommendations,
+  getOrderedRecommendationsForSlug,
+  getLiveCategoriesForPillar,
+  isPillarSlug,
+} from "@/lib/discovery/ordered-recommendations";
+
+export { validateCategoryRegistry } from "@/lib/discovery/validate-category-registry";
+
+export {
+  dedupeDiscoveryLinks,
+  excludeDiscoverySlug,
+  excludeDiscoverySlugs,
+  getDiscoveryLinkKey,
+} from "@/lib/discovery/link-utils";
 
 export type {
   CategoryDefinition,
@@ -45,6 +63,7 @@ export type {
   DiscoveryLink,
   DiscoveryLinkKind,
   DiscoveryPageContext,
+  OrderedDiscoveryRecommendations,
   PillarDefinition,
   RelatedContent,
 } from "@/lib/discovery/types";
