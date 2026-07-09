@@ -1,5 +1,9 @@
 import { PRODUCTION_APP_URL } from "@/lib/app-url";
 import sitemap from "@/app/sitemap";
+import {
+  getCategoryHubPath,
+  getLiveCategories,
+} from "@/lib/discovery/category-registry";
 import { getAllEvergreenHubPages } from "@/lib/evergreen-hubs/registry";
 import { LANDING_PAGES } from "@/lib/landing-pages/landing-page-data";
 import {
@@ -171,6 +175,23 @@ export function validateSitemapIntegrity(): ValidationResult {
     }
   }
 
+  for (const category of getLiveCategories()) {
+    const categoryUrl = normalizeUrl(
+      `${PRODUCTION_APP_URL}${getCategoryHubPath(category.slug)}`,
+    );
+
+    if (!sitemapUrlSet.has(categoryUrl)) {
+      issues.push(
+        issue(
+          "sitemap.missing_category_hub",
+          "error",
+          `Sitemap is missing live category hub "${category.slug}".`,
+          category.slug,
+        ),
+      );
+    }
+  }
+
   for (const url of urls) {
     if (!url.startsWith(PRODUCTION_APP_URL)) {
       issues.push(
@@ -225,13 +246,17 @@ export function validateSitemapIntegrity(): ValidationResult {
   }
 
   const expectedCount =
-    1 + getAllEvergreenHubPages().length + LANDING_PAGES.length + getAllHubs().length;
+    1 +
+    getAllEvergreenHubPages().length +
+    LANDING_PAGES.length +
+    getAllHubs().length +
+    getLiveCategories().length;
   if (entries.length !== expectedCount) {
     issues.push(
       issue(
         "sitemap.unexpected_entry_count",
         "error",
-        `Sitemap has ${entries.length} entries; expected ${expectedCount} (home + evergreen + landing + hubs).`,
+        `Sitemap has ${entries.length} entries; expected ${expectedCount} (home + evergreen + landing + hubs + category hubs).`,
       ),
     );
   }

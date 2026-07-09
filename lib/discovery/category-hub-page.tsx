@@ -37,9 +37,12 @@ export function buildCategoryHubMetadata(slug: string): Metadata {
     return {};
   }
 
+  const content = getCategoryHubContent(slug);
+
   return buildLandingPageMetadata({
-    metaTitle: `${category.title} Games | FriendRank`,
-    metaDescription: category.description,
+    metaTitle:
+      content.metaTitle ?? `${category.title} Games | FriendRank`,
+    metaDescription: content.metaDescription ?? category.description,
     canonicalUrl: `${PRODUCTION_APP_URL}${getCategoryHubPath(slug)}`,
   });
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CategoryHubStructuredData } from "@/components/discovery/category-hub-structured-data";
 import { RelatedLinks, RelatedLinksGroup } from "@/components/discovery/related-links";
 import type { CategoryHubViewModel } from "@/lib/discovery/types";
 
@@ -12,15 +13,22 @@ export function CategoryHubTemplate({ model }: CategoryHubTemplateProps) {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <CategoryHubStructuredData model={model} />
       <header className="border-b border-white/5 bg-gradient-to-b from-violet-950/40 to-slate-950">
         <div className="mx-auto max-w-3xl px-6 py-14 text-center sm:py-16">
           <p className="text-xs font-semibold uppercase tracking-widest text-violet-300">
             Category hub
           </p>
-          <h1 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
+          <h1
+            id="category-hub-heading"
+            className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl"
+          >
             {category.title}
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-violet-100/90">
+          <p
+            id="category-hub-lead"
+            className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-violet-100/90"
+          >
             {category.description}
           </p>
           <div className="mt-8">

@@ -68,6 +68,9 @@ export type CategoryHubContent = {
   faq: readonly CategoryHubFaqItem[];
   ctaLabel?: string;
   ctaAriaLabel?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  schemaDescription?: string;
 };
 
 export type CategoryHubViewModel = {
