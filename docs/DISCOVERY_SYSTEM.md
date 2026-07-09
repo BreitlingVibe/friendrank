@@ -163,6 +163,93 @@ flowchart TD
 
 ---
 
+## Category Hub Infrastructure (Phase 23)
+
+The category hub framework lives in `lib/discovery/` and `components/discovery/`. It is the reusable architecture for the next 100 mid-layer pages.
+
+### Category Registry
+
+**File:** `lib/discovery/category-registry.ts`
+
+Single source of truth for category hub definitions. Each entry includes:
+
+| Field | Purpose |
+|-------|---------|
+| `slug` | URL segment under `/categories/{slug}` |
+| `title` / `description` | Hub identity |
+| `parentPillar` | Links upward to an existing evergreen pillar (e.g. `friend-games`) |
+| `primaryKeywords` | Planning and future SEO |
+| `relatedCategorySlugs` | Sideways links in the graph |
+| `relatedEvergreenSlugs` | Downward links to landing pages |
+| `status` | `seed` \| `planned` \| `live` — only `live` hubs get public routes |
+
+Pillar slugs are defined separately in `PILLAR_REGISTRY` and map to existing routes (`/friend-games`, etc.). **Pillar pages are not modified by this layer.**
+
+### Discovery Graph
+
+The graph connects four node types:
+
+```
+Pillar (existing evergreen hub)
+  ↓ parentPillar
+Category hub (/categories/{slug})
+  ↓ relatedEvergreenSlugs
+Evergreen landing page (/{slug})
+  ↓ CTA
+Game creation (/#create-game)
+```
+
+**Resolver:** `getRelatedContent()` in `lib/discovery/related-content.ts` accepts a context (`pillar`, `category`, or `evergreen`) and returns pillars, categories, evergreen pages, recommended next pages, and the game entry point.
+
+**Utilities:** `getRelatedCategories()`, `getRelatedPages()`, `getSiblingCategories()`, `getParentPillar()`, `getRecommendedNextPage()` in `lib/discovery/discovery-utils.ts`.
+
+### Internal Linking Engine
+
+`RelatedLinks` and `RelatedLinksGroup` (`components/discovery/related-links.tsx`) render discovery arrays without hardcoded page logic. Supports pillars, categories, evergreen pages, game creation, and future profile links (shown as unavailable placeholders).
+
+The landing page Related Games system (`lib/landing-pages/internal-links.ts`) remains unchanged. Category hubs add a **parallel mid-layer** that consumes the Category Registry — future sprints may wire evergreen pages to call `getRelatedContent()` for cross-layer links.
+
+### Category Hub Template
+
+**File:** `components/discovery/category-hub-template.tsx`
+
+Shared layout for every hub: Hero → Introduction → Related games → Related articles → Related categories/pillar → CTA → FAQ.
+
+Page copy for live hubs: `lib/discovery/category-hub-content.ts` (minimal for now; SEO copy in later sprints).
+
+### Adding a new hub (two steps)
+
+1. Add one object to `CATEGORY_REGISTRY` with `status: "live"`.
+2. Create `app/categories/{slug}/page.tsx`:
+
+```tsx
+import type { Metadata } from "next";
+import { buildCategoryHubMetadata, CategoryHubPage } from "@/lib/discovery/category-hub-page";
+
+const SLUG = "your-slug";
+
+export const metadata: Metadata = buildCategoryHubMetadata(SLUG);
+
+export default function Page() {
+  return <CategoryHubPage slug={SLUG} />;
+}
+```
+
+3. Add introduction/FAQ to `CATEGORY_HUB_CONTENT` (optional but recommended).
+
+**Example (live):** `/categories/best-friends` — demonstrates full stack without modifying `/friend-games` pillar.
+
+### Future hub generation
+
+Later sprints may:
+
+- Register category hubs in sitemap when `status: "live"`
+- Wire `getRelatedContent()` into evergreen landing page templates
+- Extend route audit to recognize `/categories/*` routes
+- Generate hub copy from registry keywords (with editorial guardrails)
+
+---
+
 ## 4. Internal Linking System
 
 Internal linking is the **primary on-site compounding mechanism**. It is registry-driven, not hand-maintained per page.
@@ -404,7 +491,7 @@ Possible additions — **not commitments**. Evaluate each against funnel impact 
 
 | Direction | Purpose |
 |-----------|---------|
-| **Category hubs** | Mid-layer navigation between pillars and long-tail |
+| **Category hubs** | Mid-layer navigation — **framework live** (`lib/discovery/`); seed registry + `/categories/best-friends` example |
 | **AI-generated recommendation pages** | “Best game for X occasion” — only with editorial guardrails |
 | **Public profile pages** | Host history, optional social proof |
 | **FriendRank collections** | Curated game templates by occasion |
