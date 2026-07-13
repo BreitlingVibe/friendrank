@@ -113,7 +113,17 @@ Example output order (illustrative — run `npm run opportunities` for current v
 
 ### Future backlog (do not ship from engine recommendation alone)
 
-**Entertainment Games topic:** The keyword-cluster topic maps to `/question-games` as parent pillar. Review this mapping and cluster boundaries before building any production hub from that recommendation — entertainment and question intents overlap and the parent assignment may not reflect the best mid-layer architecture.
+**Entertainment Games is an architectural cluster, not yet an approved production category. Parent mapping and user intent require further validation.**
+
+Phase 29 Sprint 1 attempted `/categories/entertainment-games` under `/question-games` and was **reverted**. Reasons:
+
+- The keyword-cluster label “Entertainment Games” does not map cleanly to a single user-facing search intent.
+- Included pages mix audience (`games-for-teens`), occasion (`thanksgiving-games`), travel (`road-trip-games`), and family (`family-reunion-games`) intents — not a coherent category.
+- `/question-games` is a poor parent: road-trip and holiday family pages are not question-game content.
+- Six pages already belong to the live `/categories/party-games` hub, creating duplicate mid-layer ownership.
+- Adding `question-games` to `PILLAR_REGISTRY` solely to pass category validation was artificial.
+
+**Before any production hub ships:** define a user-understandable category name, a semantically correct parent pillar (existing only — no new broad pillar without approval), non-overlapping page ownership, and breadcrumb path. Candidate future directions (planning only): occasion hubs (Family Gatherings, Holiday Games), audience hubs (Games for Teens), or expansion of `/categories/party-games` — not a catch-all “Entertainment Games” layer.
 
 ---
 

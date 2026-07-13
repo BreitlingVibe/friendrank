@@ -532,6 +532,7 @@ Execution order aligned with Phase numbering. Each sprint assumes prior sprint c
 | **Phase 25** | Sprint 1 | Registry + routes for 3 hubs; hub copy; sitemap entries |
 | **Phase 25** | Sprint 2 | First 10 evergreen gap pages for Phase B hubs |
 | **Phase 28** | Sprint 1 | **Party Games Category Hub** live at `/categories/party-games` ✅ |
+| **Phase 29** | Sprint 1 | Entertainment Games hub **deferred** — parent/intent reassessment (see `CONTENT_OPPORTUNITY_ENGINE.md`) |
 | **Phase 26** | Sprint 2 | Search Console indexing review; CTR pass on hub pages |
 | **Phase 27** | Sprint 1 | Phase C hubs batch 1 (8 hubs) |
 | **Phase 27** | Sprint 2 | Phase C hubs batch 2 + remaining evergreen gaps |
