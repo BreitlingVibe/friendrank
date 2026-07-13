@@ -123,7 +123,7 @@ export function CategoryHubTemplate({ model }: CategoryHubTemplateProps) {
             id="category-hub-heading"
             className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl"
           >
-            {category.title}
+            {content.heroTitle ?? category.title}
           </h1>
           <p
             id="category-hub-lead"

@@ -261,7 +261,7 @@ export default function Page() {
 
 3. Add introduction/FAQ to `CATEGORY_HUB_CONTENT` (optional but recommended).
 
-**Example (live):** `/categories/best-friends` — demonstrates full stack without modifying `/friend-games` pillar.
+**Example (live):** `/categories/best-friends`, `/categories/coworkers`, `/categories/couples` — full stack without modifying pillar pages.
 
 ### Future hub generation
 
@@ -547,7 +547,7 @@ Possible additions — **not commitments**. Evaluate each against funnel impact 
 
 | Direction | Purpose |
 |-----------|---------|
-| **Category hubs** | Mid-layer navigation — **framework live** (`lib/discovery/`); seed registry + `/categories/best-friends` example |
+| **Category hubs** | Mid-layer navigation — **framework live** (`lib/discovery/`); live hubs: `/categories/best-friends`, `/categories/coworkers`, `/categories/couples` |
 | **AI-generated recommendation pages** | “Best game for X occasion” — only with editorial guardrails |
 | **Public profile pages** | Host history, optional social proof |
 | **FriendRank collections** | Curated game templates by occasion |

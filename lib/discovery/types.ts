@@ -88,6 +88,8 @@ export type CategoryHubContent = {
   exploreGamesTitle?: string;
   /** Secondary discovery section heading when distinct pages remain. */
   additionalPagesTitle?: string;
+  /** Optional H1 override; defaults to category.title when omitted. */
+  heroTitle?: string;
 };
 
 export type CategoryHubViewModel = {

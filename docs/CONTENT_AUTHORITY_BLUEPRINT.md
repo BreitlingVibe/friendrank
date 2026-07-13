@@ -137,7 +137,7 @@ Priority key: **H** = High, **M** = Medium, **L** = Low. Status: **Live**, **Pla
 
 | Hub slug | Title | Priority | Status | Notes |
 |----------|-------|----------|--------|-------|
-| `coworkers` | Coworkers | H | Planned | In registry; 3 evergreen links ready |
+| `coworkers` | Coworkers | H | **Live** | `/categories/coworkers`; 14 evergreen links |
 | `remote-teams` | Remote Teams | H | New | Strong market; existing remote pages |
 | `office-icebreakers` | Office Icebreakers | H | New | Overlap icebreaker hub |
 | `meetings` | Meetings | M | New | Standup, all-hands |
@@ -149,7 +149,7 @@ Priority key: **H** = High, **M** = Medium, **L** = Low. Status: **Live**, **Pla
 
 | Hub slug | Title | Priority | Status | Notes |
 |----------|-------|----------|--------|-------|
-| `couples` | Couples | H | Planned | In registry |
+| `couples` | Couples | H | **Live** | `/categories/couples`; 14 evergreen links |
 | `newly-dating` | Newly Dating | H | New | Early relationship |
 | `married-couples` | Married Couples | M | New | Existing married content |
 | `long-distance-couples` | Long Distance Couples | M | New | Existing LDR pages |
@@ -206,7 +206,7 @@ Each category hub should eventually support **5–12 evergreen landing pages**. 
 
 **Hub coverage today:** ~7 live pages. Target: 10.
 
-### Coworkers (planned hub)
+### Coworkers (live hub)
 
 | Evergreen intent | Slug | Status |
 |------------------|------|--------|
@@ -221,23 +221,34 @@ Each category hub should eventually support **5–12 evergreen landing pages**. 
 | Workshop Games | `workshop-games` | Live |
 | New Employee Games | `new-employee-games` | Live |
 
-**Hub coverage today:** ~10 live pages ready to link on launch.
+**Hub coverage today:** 14 live pages linked on `/categories/coworkers`.
 
-### Couples (planned hub)
+### Couples (live hub)
 
 | Evergreen intent | Slug | Status |
 |------------------|------|--------|
+| Date Night Game | `date-night-game` | Live |
 | Couple Quiz | `couple-quiz` | Live |
 | Relationship Quiz | `relationship-quiz` | Live |
 | Boyfriend Girlfriend Quiz | `boyfriend-girlfriend-quiz` | Live |
-| Date Night Game | `date-night-game` | Live |
-| Couple Questions | `couple-questions` | Live |
-| Deep Questions for Couples | `deep-questions-for-couples` | Live |
 | Newlywed Game | `newlywed-game` | Live |
 | Anniversary Game | `anniversary-game` | Live |
+| Long Distance Couple Games | `long-distance-couple-games` | Live |
+| Married Couple Games | `married-couple-games` | Live |
 | Double Date Games | `double-date-games` | Live |
+| Newly Dating Games | `newly-dating-games` | Live |
+| Couple Questions | `couple-questions` | Live |
+| Deep Questions for Couples | `deep-questions-for-couples` | Live |
+| Romantic Questions | `romantic-questions` | Live |
+| Couple Conversation Starters | `couple-conversation-starters` | Live |
 
-**Hub coverage today:** ~9 live pages.
+**Hub coverage today:** 14 live pages linked on `/categories/couples`. No new evergreen routes in Phase 26 Sprint 1.
+
+**Search intent:** Navigational and discovery hub for the couples-games cluster — date-night games, quizzes, and voting prompts.
+
+**Conversion role:** Routes visitors to specific playable pages and `/#create-game`; not therapy, compatibility science, or relationship diagnosis.
+
+**Parent pillar:** `/relationship-games`
 
 ### Birthday Party (new hub)
 
@@ -361,11 +372,16 @@ Pillar
 - Sideways: `/who-knows-me-best`, `/friendship-test`, `/bestie-quiz`
 - Convert: `/#create-game`
 
-**`/categories/coworkers` (future hub):**
+**`/categories/coworkers` (live hub):**
 
 - Up: `/team-building-games`
-- Sideways: `/categories/remote-teams`, `/categories/meetings`
-- Down: `/office-icebreaker`, `/team-building-game`, `/meeting-icebreaker`
+- Down: `/office-icebreaker`, `/team-building-game`, `/meeting-icebreaker`, + 11 more registry links
+- Convert: `/#create-game`
+
+**`/categories/couples` (live hub):**
+
+- Up: `/relationship-games`
+- Down: `/date-night-game`, `/couple-quiz`, `/relationship-quiz`, + 11 more registry links
 - Convert: `/#create-game`
 
 **`/party-games` (pillar):**
@@ -479,19 +495,19 @@ Execution order aligned with Phase numbering. Each sprint assumes prior sprint c
 | **Phase 24** | Sprint 2 | First high-priority hubs: Coworkers, Couples, Most Likely To |
 | **Phase 25** | Sprint 1 | Registry + routes for 3 hubs; hub copy; sitemap entries |
 | **Phase 25** | Sprint 2 | First 10 evergreen gap pages for Phase B hubs |
-| **Phase 26** | Sprint 1 | Cross-link audit; pillar Explore More for all live hubs |
+| **Phase 26** | Sprint 1 | **Couples Category Hub** live at `/categories/couples` ✅ |
 | **Phase 26** | Sprint 2 | Search Console indexing review; CTR pass on hub pages |
 | **Phase 27** | Sprint 1 | Phase C hubs batch 1 (8 hubs) |
 | **Phase 27** | Sprint 2 | Phase C hubs batch 2 + remaining evergreen gaps |
 | **Phase 28** | Sprint 1 | Seasonal hub pipeline (Valentine's, Graduation) |
 | **Phase 28** | Sprint 2 | GEO/AI citation review; `AI_CONTEXT.md` sync |
 
-**Immediate next actions (post Sprint 1):**
+**Immediate next actions (post Phase 26 Sprint 1):**
 
-1. Mark `coworkers`, `couples` as `planned` → prepare copy in `CATEGORY_HUB_CONTENT`
-2. Add blueprint hubs to a tracking sheet (not code) until Sprint 2 prioritization confirmed
+1. Search Console URL inspect `/categories/couples` after deploy
+2. Monitor cannibalization vs `/relationship-games` and `/date-night-game` (document only; no redirects)
 3. Run Search Console report: which live pages lack category hub parent in discovery graph
-4. Identify 5 `planned` intents in registry to ship with first hub batch
+4. Identify 5 `planned` intents in registry to ship with next hub batch
 
 ---
 
