@@ -230,7 +230,7 @@ Additional pages (only when distinct from primary games)
   ↓
 Related categories (live hubs only)
   ↓
-Parent pillar
+Explore more {parent pillar title}
   ↓
 Create Game CTA
   ↓

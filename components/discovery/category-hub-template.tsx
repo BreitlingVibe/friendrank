@@ -4,6 +4,10 @@ import { RelatedLinks } from "@/components/discovery/related-links";
 import { SemanticBreadcrumbs } from "@/components/shared/semantic-breadcrumbs";
 import { buildCategoryHubBreadcrumbItems } from "@/lib/discovery/category-hub-breadcrumbs";
 import { buildCategoryHubDiscoverySections } from "@/lib/discovery/category-hub-discovery";
+import {
+  buildCategoryHubParentSectionTitle,
+  CATEGORY_HUB_UI,
+} from "@/lib/discovery/category-hub-ui";
 import type {
   CategoryHubContent,
   CategoryHubContentItem,
@@ -13,6 +17,11 @@ import type {
 
 type CategoryHubTemplateProps = {
   model: CategoryHubViewModel;
+};
+
+const DISCOVERY_SECTION_LAYOUT = {
+  titleAlign: "start" as const,
+  linksAlign: "start" as const,
 };
 
 type ContentCardsProps = {
@@ -71,15 +80,20 @@ function CategoryHubIntro({
 
   return (
     <section
-      aria-labelledby={hasStructuredSections ? undefined : "category-hub-intro"}
+      aria-labelledby="category-hub-intro"
       className="py-8 sm:py-10"
     >
       <div className="mx-auto max-w-3xl px-6">
-        {hasStructuredSections ? null : (
-          <h2 id="category-hub-intro" className="text-xl font-bold sm:text-2xl">
-            Introduction
-          </h2>
-        )}
+        <h2
+          id="category-hub-intro"
+          className={
+            hasStructuredSections
+              ? "sr-only"
+              : "text-xl font-bold sm:text-2xl"
+          }
+        >
+          {CATEGORY_HUB_UI.introTitle}
+        </h2>
         <div
           className={`space-y-3 text-sm leading-relaxed text-slate-300 sm:text-base ${
             hasStructuredSections ? "" : "mt-4"
@@ -109,134 +123,150 @@ export function CategoryHubTemplate({ model }: CategoryHubTemplateProps) {
   const additionalTitle =
     content.additionalPagesTitle ?? "More to explore";
 
+  const parentSectionTitle = discovery.parentPillar
+    ? buildCategoryHubParentSectionTitle(discovery.parentPillar.title)
+    : null;
+
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       <CategoryHubStructuredData model={model} />
       <SemanticBreadcrumbs items={breadcrumbs} className="max-w-3xl" />
 
-      <header className="border-b border-white/5 bg-gradient-to-b from-violet-950/40 to-slate-950">
-        <div className="mx-auto max-w-3xl px-6 py-10 text-center sm:py-12">
-          <p className="text-xs font-semibold uppercase tracking-widest text-violet-300">
-            Category hub
-          </p>
-          <h1
-            id="category-hub-heading"
-            className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl"
-          >
-            {content.heroTitle ?? category.title}
-          </h1>
-          <p
-            id="category-hub-lead"
-            className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-violet-100/90"
-          >
-            {category.description}
-          </p>
-        </div>
-      </header>
-
-      <CategoryHubIntro
-        content={content}
-        hasStructuredSections={hasStructuredSections}
-      />
-
-      {content.useCases ? (
-        <ContentCards
-          section={content.useCases}
-          headingId="category-hub-use-cases"
-          className="border-t border-white/5 bg-white/[0.02]"
-        />
-      ) : null}
-
-      {content.benefits ? (
-        <ContentCards
-          section={content.benefits}
-          headingId="category-hub-benefits"
-          className="border-t border-white/5"
-        />
-      ) : null}
-
-      {discovery.primaryGames.length > 0 ? (
-        <RelatedLinks
-          title={exploreTitle}
-          links={discovery.primaryGames}
-          explanation="Evergreen guides connected to this category."
-          className="border-t border-white/5 bg-white/[0.02] py-8 sm:py-10"
-        />
-      ) : null}
-
-      {discovery.showAdditionalPages ? (
-        <RelatedLinks
-          title={additionalTitle}
-          links={discovery.additionalPages}
-          explanation="Suggested next pages based on the discovery graph."
-          className="border-t border-white/5 py-8 sm:py-10"
-        />
-      ) : null}
-
-      {discovery.liveCategories.length > 0 ? (
-        <RelatedLinks
-          title="Related categories"
-          links={discovery.liveCategories}
-          className="border-t border-white/5 py-8 sm:py-10"
-        />
-      ) : null}
-
-      {discovery.parentPillar ? (
-        <RelatedLinks
-          title="Parent pillar"
-          links={[discovery.parentPillar]}
-          className="border-t border-white/5 py-8 sm:py-10"
-        />
-      ) : null}
-
-      <section
-        aria-labelledby="category-hub-cta"
-        className="border-t border-white/5 py-8 sm:py-10"
-      >
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 id="category-hub-cta" className="text-xl font-bold sm:text-2xl">
-            Ready to play?
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-slate-400">
-            Create a free FriendRank game and share one link with your group.
-          </p>
-          <div className="mt-6">
-            <Link
-              href={discovery.gameEntryPoint.href}
-              className="inline-flex rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-3.5 text-sm font-semibold shadow-lg shadow-violet-600/25 transition hover:from-violet-500 hover:to-cyan-500"
-              aria-label={content.ctaAriaLabel ?? content.ctaLabel ?? "Create a free game"}
+      <main id="main-content">
+        <header className="border-b border-white/5 bg-gradient-to-b from-violet-950/40 to-slate-950">
+          <div className="mx-auto max-w-3xl px-6 py-10 text-center sm:py-12">
+            <p className="text-xs font-semibold uppercase tracking-widest text-violet-300">
+              Category hub
+            </p>
+            <h1
+              id="category-hub-heading"
+              className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl"
             >
-              {content.ctaLabel ?? discovery.gameEntryPoint.title}
-            </Link>
+              {content.heroTitle ?? category.title}
+            </h1>
+            <p
+              id="category-hub-lead"
+              className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-violet-100/90"
+            >
+              {category.description}
+            </p>
           </div>
-        </div>
-      </section>
+        </header>
 
-      {content.faq.length > 0 ? (
+        <CategoryHubIntro
+          content={content}
+          hasStructuredSections={hasStructuredSections}
+        />
+
+        {content.useCases ? (
+          <ContentCards
+            section={content.useCases}
+            headingId="category-hub-use-cases"
+            className="border-t border-white/5 bg-white/[0.02]"
+          />
+        ) : null}
+
+        {content.benefits ? (
+          <ContentCards
+            section={content.benefits}
+            headingId="category-hub-benefits"
+            className="border-t border-white/5"
+          />
+        ) : null}
+
+        {discovery.primaryGames.length > 0 ? (
+          <RelatedLinks
+            title={exploreTitle}
+            links={discovery.primaryGames}
+            explanation={CATEGORY_HUB_UI.exploreGamesExplanation}
+            headingId="category-hub-explore-games"
+            className="border-t border-white/5 bg-white/[0.02] py-8 sm:py-10"
+            {...DISCOVERY_SECTION_LAYOUT}
+          />
+        ) : null}
+
+        {discovery.showAdditionalPages ? (
+          <RelatedLinks
+            title={additionalTitle}
+            links={discovery.additionalPages}
+            explanation={CATEGORY_HUB_UI.additionalPagesExplanation}
+            headingId="category-hub-additional-pages"
+            className="border-t border-white/5 py-8 sm:py-10"
+            {...DISCOVERY_SECTION_LAYOUT}
+          />
+        ) : null}
+
+        {discovery.liveCategories.length > 0 ? (
+          <RelatedLinks
+            title={CATEGORY_HUB_UI.relatedCategoriesTitle}
+            links={discovery.liveCategories}
+            headingId="category-hub-related-categories"
+            className="border-t border-white/5 py-8 sm:py-10"
+            {...DISCOVERY_SECTION_LAYOUT}
+          />
+        ) : null}
+
+        {discovery.parentPillar && parentSectionTitle ? (
+          <RelatedLinks
+            title={parentSectionTitle}
+            links={[discovery.parentPillar]}
+            headingId="category-hub-parent-pillar"
+            className="border-t border-white/5 py-8 sm:py-10"
+            {...DISCOVERY_SECTION_LAYOUT}
+          />
+        ) : null}
+
         <section
-          aria-labelledby="category-hub-faq"
+          aria-labelledby="category-hub-cta"
           className="border-t border-white/5 py-8 sm:py-10"
         >
-          <div className="mx-auto max-w-3xl px-6">
-            <h2 id="category-hub-faq" className="text-xl font-bold sm:text-2xl">
-              FAQ
+          <div className="mx-auto max-w-3xl px-6 text-center">
+            <h2 id="category-hub-cta" className="text-xl font-bold sm:text-2xl">
+              {CATEGORY_HUB_UI.ctaTitle}
             </h2>
-            <dl className="mt-6 space-y-3">
-              {content.faq.map((item) => (
-                <div
-                  key={item.question}
-                  className="rounded-2xl border border-white/10 bg-slate-900/40 p-5"
-                >
-                  <dt className="font-semibold text-white">{item.question}</dt>
-                  <dd className="mt-2 text-sm leading-relaxed text-slate-400">
-                    {item.answer}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-400">
+              {CATEGORY_HUB_UI.ctaSubtitle}
+            </p>
+            <div className="mt-6">
+              <Link
+                href={discovery.gameEntryPoint.href}
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-3.5 text-sm font-semibold shadow-lg shadow-violet-600/25 transition hover:from-violet-500 hover:to-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400 sm:w-auto"
+                aria-label={
+                  content.ctaAriaLabel ?? content.ctaLabel ?? "Create a free game"
+                }
+              >
+                {content.ctaLabel ?? discovery.gameEntryPoint.title}
+              </Link>
+            </div>
           </div>
         </section>
-      ) : null}
+
+        {content.faq.length > 0 ? (
+          <section
+            aria-labelledby="category-hub-faq"
+            className="border-t border-white/5 py-8 sm:py-10"
+          >
+            <div className="mx-auto max-w-3xl px-6">
+              <h2 id="category-hub-faq" className="text-xl font-bold sm:text-2xl">
+                {CATEGORY_HUB_UI.faqTitle}
+              </h2>
+              <dl className="mt-6 space-y-3">
+                {content.faq.map((item) => (
+                  <div
+                    key={item.question}
+                    className="rounded-2xl border border-white/10 bg-slate-900/40 p-5"
+                  >
+                    <dt className="font-semibold text-white">{item.question}</dt>
+                    <dd className="mt-2 text-sm leading-relaxed text-slate-400">
+                      {item.answer}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        ) : null}
+      </main>
     </div>
   );
 }

@@ -7,6 +7,10 @@ type RelatedLinksProps = {
   headingId?: string;
   explanation?: string;
   className?: string;
+  /** Section heading alignment; category hubs use start for consistency with body sections. */
+  titleAlign?: "center" | "start";
+  /** Link pill row alignment; defaults to match titleAlign. */
+  linksAlign?: "center" | "start";
 };
 
 function getLinkLabel(link: DiscoveryLink): string {
@@ -35,11 +39,14 @@ export function RelatedLinks({
   headingId,
   explanation,
   className = "border-t border-white/5 bg-white/[0.02] py-12 sm:py-16",
+  titleAlign = "center",
+  linksAlign,
 }: RelatedLinksProps) {
   if (links.length === 0) {
     return null;
   }
 
+  const resolvedLinksAlign = linksAlign ?? titleAlign;
   const sectionHeadingId =
     headingId ?? `related-links-${title.toLowerCase().replace(/\s+/g, "-")}`;
 
@@ -48,16 +55,26 @@ export function RelatedLinks({
       <div className="mx-auto max-w-3xl px-6">
         <h2
           id={sectionHeadingId}
-          className="text-center text-xl font-bold tracking-tight sm:text-2xl"
+          className={`text-xl font-bold tracking-tight sm:text-2xl ${
+            titleAlign === "start" ? "text-left" : "text-center"
+          }`.trim()}
         >
           {title}
         </h2>
         {explanation ? (
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-slate-500">
+          <p
+            className={`mt-3 max-w-2xl text-sm leading-relaxed text-slate-500 ${
+              titleAlign === "start" ? "text-left" : "mx-auto text-center"
+            }`.trim()}
+          >
             {explanation}
           </p>
         ) : null}
-        <ul className="mt-8 flex flex-wrap justify-center gap-3">
+        <ul
+          className={`mt-8 flex flex-wrap gap-3 ${
+            resolvedLinksAlign === "start" ? "justify-start" : "justify-center"
+          }`.trim()}
+        >
           {links.map((link) => (
             <li key={`${link.kind}-${link.slug}`}>
               {link.available ? (
