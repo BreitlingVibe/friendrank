@@ -381,6 +381,20 @@ See `lib/growth/GROWTH_ASSISTANT.md` for workflow and decision model.
 
 ---
 
+## Content Opportunity Engine
+
+Phase 27 adds a read-only architecture analyzer in `lib/growth/content-opportunities/`. Run:
+
+```bash
+npm run opportunities
+```
+
+Scores keyword-cluster topics by landing coverage, evergreen hub depth, category hub depth, discovery linking, and authority completeness. Produces a ranked investment roadmap using FriendRank registry data only — no search volumes, no production changes.
+
+See `docs/CONTENT_OPPORTUNITY_ENGINE.md` for scoring philosophy.
+
+---
+
 ## Growth Asset Generator
 
 Sprint 3 adds a build-time promotional asset generator in `lib/growth/growth-assets.ts`. Run:
