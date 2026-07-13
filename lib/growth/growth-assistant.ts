@@ -20,6 +20,9 @@ import {
   getTitleMetaCandidates,
   type SearchConsoleActionPlanItem,
 } from "@/lib/growth/search-console-action-plan";
+import {
+  buildSnippetOptimizationReport,
+} from "@/lib/growth/snippet-optimization";
 import { buildAiCitationAuditReport } from "@/lib/seo/validation/ai-citation-validation";
 import { buildGeoAuditReport } from "@/lib/seo/validation/geo-validation";
 import { getAllHubDefinitions } from "@/lib/topic-hubs/hub-registry";
@@ -92,6 +95,18 @@ export type GrowthAssistantReport = {
   nextSprintRecommendation: {
     focus: string;
     reason: string;
+  };
+  snippetOptimization: {
+    topVerifiedOpportunity?: {
+      slug: string;
+      query: string;
+      evidence: string;
+      status: string;
+    };
+    verifiedCount: number;
+    heuristicCount: number;
+    activeExperimentBlocked: boolean;
+    reportCommand: string;
   };
   sourceSignals: {
     auditValid: boolean;
@@ -386,9 +401,12 @@ function buildChannelRecommendations(
 function buildThingsNotToDo(input: {
   ctrCandidateCount: number;
   indexingActionCount: number;
+  activeExperimentBlocked?: boolean;
 }): string[] {
-  return [
+  const items = [
     "Do not rewrite live metadata without Search Console impression data for the target URL.",
+    "Growth Assistant recommendations are hypotheses — Search Console query-to-page evidence determines which URL is optimized.",
+    "No production metadata change should be made solely because a page appears in an automated CTR-candidate list.",
     "Do not publish new landing pages — optimize and distribute existing indexable URLs first.",
     "Do not spend time on TikTok / Reels this week — defer until search baseline and one community test complete.",
     input.indexingActionCount > 0
@@ -399,13 +417,32 @@ function buildThingsNotToDo(input: {
       : "Do not change titles on pages with no impressions yet — wait for Performance data.",
     "Do not duplicate SEO/GEO engines or add runtime growth logic — use existing npm scripts only.",
   ];
+
+  if (input.activeExperimentBlocked) {
+    items.splice(
+      3,
+      0,
+      "Do not change metadata on pages with active or pending-measurement snippet experiments — wait for the 7–14 day window.",
+    );
+  }
+
+  return items;
 }
 
 function buildNextSprintRecommendation(input: {
   ctrCandidateCount: number;
   position830Count: number;
   citationValid: boolean;
+  activeExperimentBlocked?: boolean;
 }): GrowthAssistantReport["nextSprintRecommendation"] {
+  if (input.activeExperimentBlocked) {
+    return {
+      focus: "Measure active snippet experiment",
+      reason:
+        "A verified snippet experiment is pending measurement — record Search Console results before changing another page.",
+    };
+  }
+
   if (input.ctrCandidateCount >= 15) {
     return {
       focus: "Better CTR",
@@ -519,6 +556,8 @@ export function buildGrowthAssistantReport(): GrowthAssistantReport {
   const bestReddit = pickBestPageForReddit();
   const bestPinterest = pickBestPageForPinterest();
   const bestBacklinks = pickBestPageForBacklinks();
+  const snippetReport = buildSnippetOptimizationReport();
+  const topVerifiedSnippet = snippetReport.executiveSummary.topVerifiedOpportunity;
 
   return {
     executiveSummary: {
@@ -587,12 +626,21 @@ export function buildGrowthAssistantReport(): GrowthAssistantReport {
     thingsNotToDo: buildThingsNotToDo({
       ctrCandidateCount: ctrCandidates.length,
       indexingActionCount: indexingItems.length,
+      activeExperimentBlocked: snippetReport.executiveSummary.activeExperiments > 0,
     }),
     nextSprintRecommendation: buildNextSprintRecommendation({
       ctrCandidateCount: ctrCandidates.length,
       position830Count: position830Pages.length,
       citationValid: citationReport.valid,
+      activeExperimentBlocked: snippetReport.executiveSummary.activeExperiments > 0,
     }),
+    snippetOptimization: {
+      topVerifiedOpportunity: topVerifiedSnippet,
+      verifiedCount: snippetReport.executiveSummary.verifiedCount,
+      heuristicCount: snippetReport.executiveSummary.heuristicCount,
+      activeExperimentBlocked: snippetReport.executiveSummary.activeExperiments > 0,
+      reportCommand: "npm run snippets:report",
+    },
     sourceSignals: {
       auditValid: fullAudit.valid,
       geoValid: geoReport.valid,
@@ -788,7 +836,37 @@ export function formatGrowthAssistantReport(report?: GrowthAssistantReport): str
   lines.push(
     "",
     "====================================",
-    "8. Next Sprint Recommendation",
+    "8. Snippet Optimization Engine",
+    "====================================",
+    `Verified opportunities: ${data.snippetOptimization.verifiedCount}`,
+    `Heuristic-only pages: ${data.snippetOptimization.heuristicCount}`,
+    `Report command: ${data.snippetOptimization.reportCommand}`,
+  );
+
+  if (data.snippetOptimization.topVerifiedOpportunity) {
+    const snippet = data.snippetOptimization.topVerifiedOpportunity;
+    lines.push("");
+    lines.push("Best verified snippet opportunity:");
+    lines.push(`  URL: ${snippet.slug}`);
+    lines.push(`  Query: ${snippet.query}`);
+    lines.push(`  Evidence: ${snippet.evidence}`);
+    lines.push(`  Status: ${snippet.status}`);
+  } else {
+    lines.push("");
+    lines.push("Best verified snippet opportunity: none recorded — add Search Console evidence first.");
+  }
+
+  if (data.snippetOptimization.activeExperimentBlocked) {
+    lines.push("");
+    lines.push(
+      "Active experiment protection: do not recommend another metadata change until the measurement window ends.",
+    );
+  }
+
+  lines.push(
+    "",
+    "====================================",
+    "9. Next Sprint Recommendation",
     "====================================",
     `Focus: ${data.nextSprintRecommendation.focus}`,
     `Reason: ${data.nextSprintRecommendation.reason}`,
@@ -799,6 +877,7 @@ export function formatGrowthAssistantReport(report?: GrowthAssistantReport): str
     `- ai:citation ${data.sourceSignals.aiCitationValid ? "PASS" : "FAIL"}`,
     `- growth priorities ${data.sourceSignals.growthPriorityValid ? "PASS" : "FAIL"}`,
     `- CTR validation ${data.sourceSignals.ctrValidationValid ? "PASS" : "FAIL"}`,
+    `- snippets:report ${data.snippetOptimization.verifiedCount} verified opportunity record(s)`,
     "",
     `Status: ${data.sourceSignals.auditValid && data.sourceSignals.geoValid && data.sourceSignals.aiCitationValid ? "PASS" : "NEEDS ATTENTION"}`,
   );

@@ -15,6 +15,7 @@
     "growth:ctr": "npx tsx scripts/growth-ctr-report.ts",
     "growth:authority-roadmap": "npx tsx scripts/growth-authority-roadmap.ts",
     "growth:assistant": "npx tsx scripts/growth-assistant.ts",
+    "snippets:report": "npx tsx scripts/snippets-report.ts",
     "growth:assets": "npx tsx scripts/growth-assets.ts",
     "growth:distribution": "npx tsx scripts/growth-distribution-opportunities.ts",
     "growth:campaign": "npx tsx scripts/growth-campaign.ts",

@@ -10,7 +10,7 @@ Controlled page-level tests tied to Search Console query-to-page evidence. One t
 
 | Field | Value |
 |-------|-------|
-| **Status** | Pending |
+| **Status** | pending_measurement |
 | **Target query** | `voting game online` |
 | **Target page** | `/group-voting-game` |
 | **Deployment date** | _TBD — fill when deployed to production_ |
