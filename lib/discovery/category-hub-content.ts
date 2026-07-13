@@ -7,19 +7,111 @@ import type { CategoryHubContent } from "@/lib/discovery/types";
 export const CATEGORY_HUB_CONTENT: Record<string, CategoryHubContent> = {
   "best-friends": {
     introduction: [
-      "Best friend games work when the group already has history — inside jokes, rivalries, and opinions about who would actually win each title.",
-      "FriendRank fits this category well: one host creates a game, everyone votes from their phone, and the group unlocks shared results.",
+      "Best friend games are short group activities where close friends vote on prompts, pick funny roles, and reveal results together — built for groups that already share history, inside jokes, and strong opinions about who would win each title.",
+      "FriendRank runs in the browser: one person creates a game, shares a single link, and everyone joins from their phone. Votes stay private until the group reveal, so the focus stays on the shared laugh rather than who picked what.",
+      "Whether your circle is lifelong friends, college roommates, or an online group that hangs out on Discord, best friend games work the same way — no app download, no account required for players, and a new round ready in minutes.",
     ],
+    useCases: {
+      title: "When to use best friend games",
+      items: [
+        {
+          title: "Lifelong friends",
+          description:
+            "Old friend groups use voting rounds to spark debates everyone already enjoys — who is most likely to start the chaos, who knows the group best, and which titles land closest to the truth.",
+        },
+        {
+          title: "College friends",
+          description:
+            "Dorm floors and campus friend circles join from their phones without setup. One link in the group chat and everyone votes before results unlock together in the room or on a call.",
+        },
+        {
+          title: "Roommates",
+          description:
+            "People who live together already have material for funny prompts. A quick best friend game before dinner or after a long week gives roommates something low-effort to do together.",
+        },
+        {
+          title: "Gaming friends",
+          description:
+            "Friend groups that already play online can drop a FriendRank link between matches or during voice chat. Phone-based voting keeps everyone involved even when the main activity is on another screen.",
+        },
+        {
+          title: "Discord and online groups",
+          description:
+            "Remote friend circles share one link in the server or thread. Everyone votes from their own device and sees results unlock together — useful when the group is spread across time zones.",
+        },
+        {
+          title: "Childhood friends",
+          description:
+            "Reunions and catch-up weekends are natural moments for a short voting round. Childhood friends use prompts that reward shared history without needing a long structured quiz night.",
+        },
+      ],
+    },
+    benefits: {
+      title: "Why FriendRank works for best friends",
+      items: [
+        {
+          title: "Runs in the browser",
+          description:
+            "No app store visit and no account required for players. Friends join from any phone with one link.",
+        },
+        {
+          title: "One link for the whole group",
+          description:
+            "The host creates a game once and shares a single URL in the group chat, text thread, or Discord channel.",
+        },
+        {
+          title: "Private votes, funny reveal together",
+          description:
+            "Friends vote anonymously from their phones, then the group sees results at the same time — enough structure for close groups without killing the joke.",
+        },
+        {
+          title: "Free to start",
+          description:
+            "Create a best friend game at no cost, invite your circle, and reveal results together. Run another round anytime.",
+        },
+      ],
+    },
+    exploreGamesTitle: "Explore best friend games",
     faq: [
       {
         question: "What counts as a best friend game?",
         answer:
-          "Any group activity where close friends vote on roles, answer prompts, or compare opinions together — especially when results are funny or debate-starting.",
+          "Any group activity where close friends vote on roles, answer prompts, or compare opinions together — especially when results are funny or debate-starting. Best friend games work for tight circles with shared history.",
       },
       {
         question: "Do best friends need to download an app?",
         answer:
-          "No. FriendRank runs in the browser. The host shares one link and friends join from their phones.",
+          "No. FriendRank runs entirely in the browser. The host shares one link and friends join and vote from any phone — no app store and no signup required for players.",
+      },
+      {
+        question: "Can online friend groups play together?",
+        answer:
+          "Yes. Share the game link in Discord, a group chat, or on a video call. Everyone votes from their own device and sees results unlock at the same time.",
+      },
+      {
+        question: "How many friends can play?",
+        answer:
+          "FriendRank works for small best friend circles and larger groups because everyone votes from their own phone. There is no need to pass one device around.",
+      },
+      {
+        question: "Are votes anonymous?",
+        answer:
+          "Yes. Individual votes stay private on each phone until the group reveal. Only the combined results appear together.",
+      },
+      {
+        question: "How long does a game take?",
+        answer:
+          "Most friend groups finish in five to fifteen minutes: a minute to join, a few minutes to vote, and a short reveal together. You can keep it brief or run another round if the group wants more.",
+      },
+      {
+        question: "Can roommates or college friends use FriendRank?",
+        answer:
+          "Yes. Roommates and college friend circles use the same flow — one host, one link, everyone votes from their phone. The prompts work for any close group that spends time together.",
+      },
+      {
+        question: "Is FriendRank free for friend groups?",
+        answer:
+          "Yes. You can create a best friend game for free, share the link with your group, and play without a subscription or per-player fee.",
       },
     ],
     ctaLabel: "Create a best friend game",
