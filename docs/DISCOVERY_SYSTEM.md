@@ -213,9 +213,33 @@ The landing page Related Games system (`lib/landing-pages/internal-links.ts`) re
 
 **File:** `components/discovery/category-hub-template.tsx`
 
-Shared layout for every hub: Hero → Introduction → Related games → Related articles → Related categories/pillar → CTA → FAQ.
+Shared layout for every hub:
 
-Page copy for live hubs: `lib/discovery/category-hub-content.ts` (minimal for now; SEO copy in later sprints).
+```
+Breadcrumbs (synced with BreadcrumbList schema)
+  ↓
+Hero
+  ↓
+Short introduction
+  ↓
+Use cases / benefits (optional, from content model)
+  ↓
+Primary related games (deduped; merged heading when no distinct secondary pages)
+  ↓
+Additional pages (only when distinct from primary games)
+  ↓
+Related categories (live hubs only)
+  ↓
+Parent pillar
+  ↓
+Create Game CTA
+  ↓
+FAQ
+```
+
+**Content model:** `lib/discovery/category-hub-content.ts` supports a short `introduction`, optional `useCases` and `benefits` sections, and `faq`. Category hubs should preserve topical depth but present it through scannable sections rather than one uninterrupted article block.
+
+**Discovery deduplication:** `buildCategoryHubDiscoverySections()` in `lib/discovery/category-hub-discovery.ts` ensures the same URL never appears in both primary games and additional pages, and hides unavailable planned/seed category links from production UI.
 
 ### Adding a new hub (two steps)
 

@@ -63,14 +63,31 @@ export type CategoryHubFaqItem = {
   answer: string;
 };
 
+export type CategoryHubContentItem = {
+  title: string;
+  description: string;
+};
+
+export type CategoryHubContentSection = {
+  title: string;
+  items: readonly CategoryHubContentItem[];
+};
+
 export type CategoryHubContent = {
+  /** Short opening copy — typically 120–180 words across a few paragraphs. */
   introduction: readonly string[];
+  useCases?: CategoryHubContentSection;
+  benefits?: CategoryHubContentSection;
   faq: readonly CategoryHubFaqItem[];
   ctaLabel?: string;
   ctaAriaLabel?: string;
   metaTitle?: string;
   metaDescription?: string;
   schemaDescription?: string;
+  /** Primary discovery section heading when games and articles are merged. */
+  exploreGamesTitle?: string;
+  /** Secondary discovery section heading when distinct pages remain. */
+  additionalPagesTitle?: string;
 };
 
 export type CategoryHubViewModel = {

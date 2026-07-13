@@ -57,6 +57,8 @@ export {
 export type {
   CategoryDefinition,
   CategoryHubContent,
+  CategoryHubContentItem,
+  CategoryHubContentSection,
   CategoryHubFaqItem,
   CategoryHubStatus,
   CategoryHubViewModel,

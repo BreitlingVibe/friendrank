@@ -32,17 +32,66 @@ export const CATEGORY_HUB_CONTENT: Record<string, CategoryHubContent> = {
     schemaDescription:
       "Free browser coworker games with anonymous voting for meetings, remote teams, hybrid groups, onboarding, workshops, and team bonding.",
     introduction: [
-      "Coworker games are short, low-stakes group activities built for people who share a workplace. They are not party games with college inside jokes — they are prompts and voting rounds that help colleagues learn something about each other without forced small talk or trust-fall energy.",
-      "The format that works best is simple: one person hosts, everyone joins from their phone, votes anonymously on light questions, and the group reveals results together. That rhythm fits a standup, a Monday team sync, or the first ten minutes of an offsite workshop without eating the whole agenda.",
-      "The point is not to turn every meeting into a game show. Coworker games are for moments when the group needs a reset — new people in the room, a team that has been heads-down for weeks, or a Friday afternoon when energy is low and you want one shared laugh before the weekend.",
-      "Remote teams use them differently than in-office groups, but the need is the same. When everyone is on a video call in different cities, you lose the hallway conversations that build trust over time. A browser game with one shared link gives distributed teammates something to react to at the same time, without asking anyone to download another app or create an account.",
-      "Hybrid teams sit in the middle, and that is often the hardest setup. Half the room is in person, half is on a screen, and remote colleagues can feel like spectators in their own meeting. Phone-based voting levels the field: everyone participates the same way, results appear for the whole group, and the activity finishes in a few minutes so you can get back to work.",
-      "Onboarding is one of the strongest use cases. New hires rarely want performative icebreakers, but they do want to learn names and personalities quickly. A short voting round on workplace roles — who is most likely to fix the Wi-Fi, who remembers every deadline — gives new people something concrete to talk about with teammates without putting anyone on the spot.",
-      "Meetings benefit from a two-minute warmup before diving into slides. Not every agenda needs an icebreaker, but recurring syncs can feel repetitive when the same people talk and others stay quiet. A quick game at the start gives quieter coworkers a low-pressure way to contribute and gives managers a neutral way to shift tone before a harder conversation.",
-      "Workshops and offsites have more room to breathe, but they still need structure. Facilitators often open with an activity to get people moving and talking. Coworker games fit that slot because they scale from five people to fifty, need minimal setup, and produce shared results you can reference later in the session.",
-      "Team bonding does not have to mean expensive retreats or elaborate schedules. It can be a Friday social, a team lunch, or a virtual happy hour where coworkers vote on end-of-week titles and argue about the results. The bonding happens in the reactions — the surprise, the agreement, the friendly debate — not in complicated game mechanics.",
-      "FriendRank is built for this kind of moment. Create a game in the browser, add your team, share one link, and let coworkers vote from their phones. Results unlock together, whether you are in a conference room or on Zoom. No signup required, no app store, and no friction between deciding to do something fun and actually doing it.",
+      "Coworker games are short, low-stakes group activities built for people who share a workplace. They are prompts and voting rounds that help colleagues learn something about each other without forced small talk or trust-fall energy.",
+      "The format that works best is simple: one person hosts, everyone joins from their phone, votes anonymously on light questions, and the group reveals results together. That rhythm fits a standup, a Monday sync, or the first ten minutes of an offsite workshop without eating the whole agenda.",
+      "Use them when the group needs a reset — new people in the room, a team that has been heads-down for weeks, or a Friday afternoon when energy is low and you want one shared laugh before the weekend.",
     ],
+    useCases: {
+      title: "When to use coworker games",
+      items: [
+        {
+          title: "Meetings",
+          description:
+            "A two-minute warmup before slides gives quieter coworkers a low-pressure way to contribute and helps managers shift tone before harder topics — without turning the meeting into a long activity block.",
+        },
+        {
+          title: "Onboarding",
+          description:
+            "New hires rarely want performative icebreakers, but they do want to learn names and personalities quickly. Light voting rounds on workplace roles give new people something concrete to talk about without putting anyone on the spot.",
+        },
+        {
+          title: "Remote and hybrid teams",
+          description:
+            "When everyone is on a video call — or half the room is in person and half is on a screen — phone-based voting levels the field. Everyone participates the same way, results appear for the whole group, and the activity finishes in a few minutes.",
+        },
+        {
+          title: "Workshops",
+          description:
+            "Facilitators often open with an activity to get people moving and talking. Coworker games scale from five people to fifty, need minimal setup, and produce shared results you can reference later in the session.",
+        },
+        {
+          title: "Team bonding",
+          description:
+            "Bonding does not have to mean expensive retreats. A Friday social, team lunch, or virtual happy hour where coworkers vote on end-of-week titles works because the reactions — surprise, agreement, friendly debate — do the heavy lifting.",
+        },
+      ],
+    },
+    benefits: {
+      title: "Why FriendRank works for teams",
+      items: [
+        {
+          title: "Runs in the browser",
+          description:
+            "No app store, no IT approval loop, and no account required for participants. Teammates join from any phone with one link.",
+        },
+        {
+          title: "One link for the whole group",
+          description:
+            "The host creates a game, shares the link in Slack, Teams, or meeting chat, and everyone votes before results unlock together on the call or in the room.",
+        },
+        {
+          title: "Anonymous voting, shared reveal",
+          description:
+            "Coworkers vote privately from their phones, then the group sees results at the same time — enough structure for workplace settings without putting anyone on the spot.",
+        },
+        {
+          title: "Free for team use",
+          description:
+            "Create a coworker game at no cost, run anonymous voting with shared results, and skip per-player fees or signup friction for your team.",
+        },
+      ],
+    },
+    exploreGamesTitle: "Explore coworker games",
     faq: [
       {
         question: "What are coworker games?",

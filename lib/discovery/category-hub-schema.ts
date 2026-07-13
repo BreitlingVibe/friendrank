@@ -1,32 +1,8 @@
 import { PRODUCTION_APP_URL } from "@/lib/app-url";
 import { getCategoryHubPath } from "@/lib/discovery/category-registry";
+import { buildCategoryHubBreadcrumbItems } from "@/lib/discovery/category-hub-breadcrumbs";
 import type { CategoryHubViewModel } from "@/lib/discovery/types";
-import {
-  buildBreadcrumbListStructuredData,
-  buildHomeBreadcrumbItem,
-} from "@/lib/seo/breadcrumbs";
-
-function buildCategoryHubBreadcrumbItems(model: CategoryHubViewModel) {
-  const pillar = model.related.relatedPillar;
-
-  const items = [buildHomeBreadcrumbItem()];
-
-  if (pillar) {
-    items.push({
-      name: pillar.title,
-      path: pillar.href,
-      position: 2,
-    });
-  }
-
-  items.push({
-    name: model.category.title,
-    path: getCategoryHubPath(model.category.slug),
-    position: items.length + 1,
-  });
-
-  return items;
-}
+import { buildBreadcrumbListStructuredData } from "@/lib/seo/breadcrumbs";
 
 export function buildCategoryHubStructuredData(model: CategoryHubViewModel) {
   const canonicalUrl = `${PRODUCTION_APP_URL}${getCategoryHubPath(model.category.slug)}`;
