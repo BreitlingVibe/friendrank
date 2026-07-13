@@ -236,6 +236,10 @@ function buildPersonalityHeroSubtitle(
   slug: string,
   fallback: string,
 ): string {
+  if (slug === "group-voting-game") {
+    return "Run a free online voting game with your group. Everyone joins through one link, votes privately on their phone, and reveals results together — no app download.";
+  }
+
   const game = titleLower(intent);
   const audience = audienceSnippet(intent);
   const hub = primaryHubTitle(slug);
@@ -367,6 +371,17 @@ function buildTransitions(intent: IntentDefinition): ContentVariationTransitions
 
 function buildCtaCopy(intent: IntentDefinition): ContentVariationCta {
   const game = titleLower(intent);
+
+  if (intent.slug === "group-voting-game") {
+    return {
+      primaryLabel: "Start an online voting game",
+      midPageLabel: "Start an online voting game",
+      finalTitle: "Ready to start your online voting game?",
+      finalSubtitle:
+        "Create a group voting game, share one link, and let everyone vote from their phones.",
+      finalButtonLabel: "Start an online voting game",
+    };
+  }
 
   switch (intent.intentCategory) {
     case INTENT_CATEGORIES.PARTY:

@@ -154,6 +154,7 @@ function buildExpansionLead(intent: IntentDefinition): string {
 }
 
 export function refineIntroCopy(input: {
+  slug?: string;
   heroSubtitle: string;
   intentLead?: string;
   intentSummary: string;
@@ -165,6 +166,13 @@ export function refineIntroCopy(input: {
   intentLead?: string;
   intentSummary: string;
 } {
+  if (input.slug === "group-voting-game") {
+    return {
+      intentLead: undefined,
+      intentSummary: input.intentSummary,
+    };
+  }
+
   const { heroSubtitle, intentSummary, searchIntent, intentCategory, audience, title } =
     input;
   const intentForLead: IntentDefinition = {
@@ -571,6 +579,7 @@ export function applyContentExperience(
 ): Omit<LandingPageData, "geoFoundation" | "aiCitation"> {
   const intent = resolveIntent(page.slug);
   const intro = refineIntroCopy({
+    slug: page.slug,
     heroSubtitle: page.heroSubtitle,
     intentLead: page.intentLead,
     intentSummary: page.intentSummary,

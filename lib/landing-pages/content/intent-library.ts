@@ -144,18 +144,18 @@ export const ANONYMOUS_VOTING_INTENT = {
 export const GROUP_VOTING_INTENT = {
   slug: "group-voting-game",
   title: "Group Voting Game",
-  metaTitle: "Group Voting Game | Create a Friend Vote Online | FriendRank",
+  metaTitle: "Online Voting Game for Groups | FriendRank",
   metaDescription:
-    "Create a group voting game for friends. Invite your group, vote on funny roles, unlock results together, and share the story.",
-  h1: "Group Voting Game for Friends",
-  intentSummaryTitle: "What is a group voting game?",
+    "Start a free online voting game for groups and friends. Share one link, vote privately from any phone, reveal results together — no app download.",
+  h1: "Online Voting Game for Groups",
+  intentSummaryTitle: "What is an online group voting game?",
   intentSummary:
-    "A group voting game turns your friend list into a live poll with personality. FriendRank follows a simple flow: create a game with names, invite the group with one link, let everyone vote on their phone, then reveal ranked roles and a group story when enough votes are in. It works for friend groups, roommates, Discord servers, and casual hangouts.",
+    "An online voting game lets your group vote on funny roles from their phones without a complicated setup. FriendRank is built for friend groups, roommates, and Discord communities: create a game, share one link, let everyone vote privately, then reveal ranked results together. No accounts and no app download.",
   whyFriendRankTitle: "Why FriendRank for group voting",
   exampleQuestionsTitle: "Popular group voting questions",
   faqTitle: "Group voting game FAQ",
   schemaDescription:
-    "Create a group voting game for friends with FriendRank. Invite the group, vote on funny roles, unlock results together, and share the story. No signup required.",
+    "Start a free online voting game for groups with FriendRank. Share one link, vote privately, reveal funny roles together. No signup required.",
   ctaLocation: "landing_group_voting_game" as const,
   gamePreset: {
     suggestedCustomCategories: [

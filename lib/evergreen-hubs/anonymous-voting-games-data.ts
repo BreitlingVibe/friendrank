@@ -168,7 +168,7 @@ export const anonymousVotingGamesHub: EvergreenHubPageData = {
   ],
   internalLinksTitle: "Related FriendRank pages",
   internalLinksIntro:
-    "These pages connect anonymous voting games to the rest of FriendRank's browser-first group game formats.",
+    "These pages connect anonymous voting games to the rest of FriendRank's browser-first group game formats. Looking for the playable version? Try the anonymous voting game below.",
   internalLinks: [
     { href: "/", label: "FriendRank homepage" },
     { href: "/browser-party-games", label: "Browser party games hub" },

@@ -108,6 +108,8 @@ Deterministic recommendations from growth priority scores and category groups:
 
 Prevents common waste: metadata changes without Search Console data, new landing pages, TikTok before baseline, indexing spam, engine duplication.
 
+**Search Console rule:** Growth Assistant recommendations are hypotheses. Search Console query-to-page evidence determines which URL is optimized. Do not apply metadata experiments to multiple sibling pages from assistant output alone.
+
 ---
 
 ## Report sections

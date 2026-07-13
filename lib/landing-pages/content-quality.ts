@@ -323,7 +323,7 @@ export function buildLandingPageContentQuality(
     whenToUseBullets.push("When friends want a quick game without extra setup");
   }
 
-  return {
+  const base: LandingPageContentQuality = {
     goodFor: {
       title: GOOD_FOR_TITLE,
       paragraphs: goodForParagraphs,
@@ -349,4 +349,14 @@ export function buildLandingPageContentQuality(
       `Looking for ${fallbackIntent.title.toLowerCase()}? FriendRank helps ${audienceSnippet(fallbackIntent)} vote anonymously from their phones and reveal funny group results in minutes.`,
     ),
   };
+
+  if (slug === "group-voting-game") {
+    return {
+      ...base,
+      enhancedIntentLead:
+        "This is a browser-based online voting game for groups and friends: one shared link, private phone votes, and a group reveal when everyone is ready.",
+    };
+  }
+
+  return base;
 }
