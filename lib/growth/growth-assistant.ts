@@ -23,6 +23,10 @@ import {
 import {
   buildSnippetOptimizationReport,
 } from "@/lib/growth/snippet-optimization";
+import {
+  loadLandingQualitySummary,
+  shouldRecommendLandingQualityAudit,
+} from "@/lib/growth/landing-quality";
 import { buildAiCitationAuditReport } from "@/lib/seo/validation/ai-citation-validation";
 import { buildGeoAuditReport } from "@/lib/seo/validation/geo-validation";
 import { getAllHubDefinitions } from "@/lib/topic-hubs/hub-registry";
@@ -106,6 +110,20 @@ export type GrowthAssistantReport = {
     verifiedCount: number;
     heuristicCount: number;
     activeExperimentBlocked: boolean;
+    reportCommand: string;
+  };
+  landingQuality: {
+    lastAuditDate: string | null;
+    pagesAnalyzed: number;
+    verifiedIssueCount: number;
+    importantHumanReviewCount: number;
+    topReviewCandidates: Array<{
+      path: string;
+      score: number;
+      recommendation: string;
+    }>;
+    auditRecommended: boolean;
+    auditRecommendedReason: string;
     reportCommand: string;
   };
   sourceSignals: {
@@ -558,6 +576,8 @@ export function buildGrowthAssistantReport(): GrowthAssistantReport {
   const bestBacklinks = pickBestPageForBacklinks();
   const snippetReport = buildSnippetOptimizationReport();
   const topVerifiedSnippet = snippetReport.executiveSummary.topVerifiedOpportunity;
+  const landingQualitySummary = loadLandingQualitySummary();
+  const landingQualityCadence = shouldRecommendLandingQualityAudit(landingQualitySummary);
 
   return {
     executiveSummary: {
@@ -640,6 +660,23 @@ export function buildGrowthAssistantReport(): GrowthAssistantReport {
       heuristicCount: snippetReport.executiveSummary.heuristicCount,
       activeExperimentBlocked: snippetReport.executiveSummary.activeExperiments > 0,
       reportCommand: "npm run snippets:report",
+    },
+    landingQuality: {
+      lastAuditDate: landingQualitySummary?.generatedAt ?? null,
+      pagesAnalyzed: landingQualitySummary?.pagesAnalyzed ?? 0,
+      verifiedIssueCount: landingQualitySummary?.verifiedIssueCount ?? 0,
+      importantHumanReviewCount:
+        landingQualitySummary?.importantHumanReviewCount ?? 0,
+      topReviewCandidates: (landingQualitySummary?.topReviewCandidates ?? []).map(
+        (entry) => ({
+          path: entry.path,
+          score: entry.score,
+          recommendation: entry.recommendation,
+        }),
+      ),
+      auditRecommended: landingQualityCadence.recommended,
+      auditRecommendedReason: landingQualityCadence.reason,
+      reportCommand: "npm run quality:landing",
     },
     sourceSignals: {
       auditValid: fullAudit.valid,
@@ -866,7 +903,38 @@ export function formatGrowthAssistantReport(report?: GrowthAssistantReport): str
   lines.push(
     "",
     "====================================",
-    "9. Next Sprint Recommendation",
+    "9. Landing Page Quality Audit",
+    "====================================",
+    `Last audit: ${data.landingQuality.lastAuditDate ?? "not run yet"}`,
+    `Pages analyzed: ${data.landingQuality.pagesAnalyzed}`,
+    `Verified issues: ${data.landingQuality.verifiedIssueCount}`,
+    `High-priority human-review candidates: ${data.landingQuality.importantHumanReviewCount}`,
+    `Report command: ${data.landingQuality.reportCommand}`,
+    `New audit recommended: ${data.landingQuality.auditRecommended ? "yes" : "no"}`,
+    `Cadence note: ${data.landingQuality.auditRecommendedReason}`,
+  );
+
+  if (data.landingQuality.topReviewCandidates.length > 0) {
+    lines.push("", "Top pages for review:");
+    for (const [index, candidate] of data.landingQuality.topReviewCandidates.entries()) {
+      lines.push(
+        `${index + 1}. ${candidate.path} — score ${candidate.score}/100 (${candidate.recommendation})`,
+      );
+    }
+  } else {
+    lines.push("", "Top pages for review: run npm run quality:landing to populate.");
+  }
+
+  lines.push(
+    "",
+    "Reminder: run npm run quality:landing approximately monthly or before landing-page refresh work.",
+    "Results are internal code/content-quality signals requiring human review.",
+  );
+
+  lines.push(
+    "",
+    "====================================",
+    "10. Next Sprint Recommendation",
     "====================================",
     `Focus: ${data.nextSprintRecommendation.focus}`,
     `Reason: ${data.nextSprintRecommendation.reason}`,
@@ -878,6 +946,7 @@ export function formatGrowthAssistantReport(report?: GrowthAssistantReport): str
     `- growth priorities ${data.sourceSignals.growthPriorityValid ? "PASS" : "FAIL"}`,
     `- CTR validation ${data.sourceSignals.ctrValidationValid ? "PASS" : "FAIL"}`,
     `- snippets:report ${data.snippetOptimization.verifiedCount} verified opportunity record(s)`,
+    `- quality:landing ${data.landingQuality.lastAuditDate ? "last run recorded" : "not run yet"}`,
     "",
     `Status: ${data.sourceSignals.auditValid && data.sourceSignals.geoValid && data.sourceSignals.aiCitationValid ? "PASS" : "NEEDS ATTENTION"}`,
   );

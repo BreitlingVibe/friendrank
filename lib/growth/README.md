@@ -395,6 +395,26 @@ See `docs/CONTENT_OPPORTUNITY_ENGINE.md` for scoring philosophy.
 
 ---
 
+## Landing Page Quality Audit
+
+Phase 31 adds a read-only landing page quality audit in `lib/growth/landing-quality/`. Run:
+
+```bash
+npm run quality:landing
+```
+
+Reviews live landing pages from `LANDING_PAGES` only (excludes homepage, game routes, category hubs, and topic hubs). Scores internal implementation quality across intent clarity, content usefulness, conversion clarity, internal linking, metadata consistency, structured data, accessibility structure, and uniqueness risk. **Does not modify production pages.**
+
+Recommended cadence:
+
+- Approximately monthly
+- Before a landing-page refresh sprint
+- After a meaningful batch of landing-page changes
+
+The weekly command remains `npm run growth:assistant`, which surfaces the latest stored audit summary when available.
+
+---
+
 ## Growth Asset Generator
 
 Sprint 3 adds a build-time promotional asset generator in `lib/growth/growth-assets.ts`. Run:
@@ -521,9 +541,35 @@ npm run growth:manual-distribution
 # Full SEO and content audit
 npm run audit:all
 
+# Landing page quality audit (read-only prioritization)
+npm run quality:landing
+
+# Content opportunity roadmap (read-only architecture gaps)
+npm run opportunities
+
+# Snippet optimization report (Search Console evidence workflow)
+npm run snippets:report
+
+# GEO foundation audit
+npm run geo:report
+
+# AI citation audit
+npm run ai:citation
+
 # Production build (114 static routes)
 npm run build
 ```
+
+### Operating cadence
+
+| When | Command |
+|------|---------|
+| Weekly | `npm run growth:assistant` |
+| When Search Console provides query-to-page evidence | `npm run snippets:report` |
+| When choosing what content to build | `npm run opportunities` |
+| Monthly or before landing-page refresh work | `npm run quality:landing` |
+| Occasionally after major discovery/content changes | `npm run geo:report` |
+| Only when AI citation-related code changes | `npm run ai:citation` |
 
 ---
 

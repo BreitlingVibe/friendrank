@@ -36,8 +36,22 @@ FriendRank has separate growth tools for priorities, Search Console planning, CT
 | `geo-validation.ts` | GEO coverage and validation |
 | `ai-citation-validation.ts` | Citation coverage and confidence |
 | `run-full-audit.ts` | Build-time audit health |
+| `landing-quality/` | Stored landing page quality audit summary |
 
 No new engines. No runtime logic. No metadata changes.
+
+---
+
+## Operating cadence
+
+| When | Command |
+|------|---------|
+| Weekly | `npm run growth:assistant` |
+| When Search Console provides query-to-page evidence | `npm run snippets:report` |
+| When choosing what content to build | `npm run opportunities` |
+| Monthly or before landing-page refresh work | `npm run quality:landing` |
+| Occasionally after major discovery/content changes | `npm run geo:report` |
+| Only when AI citation-related code changes | `npm run ai:citation` |
 
 ---
 
@@ -60,6 +74,9 @@ npm run growth:ctr                   # Full CTR candidate report
 npm run growth:authority-roadmap     # Channel matrix + 30-day plan
 npm run geo:report                   # GEO foundation audit
 npm run ai:citation                  # AI citation audit
+npm run quality:landing              # Landing page quality audit (monthly / pre-refresh)
+npm run opportunities                # Content opportunity roadmap
+npm run snippets:report              # Snippet optimization report
 npm run audit:all                    # Full build-time SEO audit
 ```
 

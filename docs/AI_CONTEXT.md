@@ -220,7 +220,7 @@ When suggesting work on FriendRank:
 - End-to-end core loop works (create → invite → vote → reveal → share)
 - Homepage conversion path with post-create share panel
 - ~118 static routes; 100+ live landing pages; 6 primary pillars
-- Build-time SEO/entity/GEO audits and growth tooling
+- Build-time SEO/entity/GEO audits and growth tooling (`npm run audit:all`, `npm run growth:assistant`, `npm run quality:landing`, `npm run opportunities`, `npm run snippets:report`)
 - Full GA4 funnel instrumentation
 - Supabase-backed persistence
 - itch.io launcher and distribution asset pipeline

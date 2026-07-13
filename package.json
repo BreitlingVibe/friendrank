@@ -26,7 +26,8 @@
     "distribution:verify": "npx tsx scripts/distribution-assets-report.ts",
     "geo:report": "npx tsx scripts/geo-report.ts",
     "ai:citation": "npx tsx scripts/ai-citation-report.ts",
-    "opportunities": "npx tsx scripts/content-opportunities.ts"
+    "opportunities": "npx tsx scripts/content-opportunities.ts",
+    "quality:landing": "npx tsx scripts/landing-quality.ts"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.9",
