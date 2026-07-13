@@ -54,7 +54,7 @@ Create Game
 |-------|---------------|------|---------------|
 | **Homepage** | `/` | Brand, conversion, game creation | Live — freeze unless data shows issues |
 | **Pillars** | `/friend-games`, `/party-games`, etc. | Topical authority; category overview | 5 primary pillars + 3 supplemental hubs live |
-| **Category hubs** | `/categories/best-friends` | Mid-layer intent; groups related evergreen pages | Framework live; 1 hub live, ~40 planned |
+| **Category hubs** | `/categories/best-friends` | Mid-layer intent; groups related evergreen pages | Framework live; 4 hubs live, ~40 planned |
 | **Evergreen pages** | `/best-friend-quiz`, etc. | Long-tail capture; specific search intent | ~100 live, ~10 planned in registry |
 | **Create game** | `/#create-game` | Product conversion | Live |
 
@@ -123,6 +123,7 @@ Priority key: **H** = High, **M** = Medium, **L** = Low. Status: **Live**, **Pla
 
 | Hub slug | Title | Priority | Status | Notes |
 |----------|-------|----------|--------|-------|
+| `party-games` | Party Games | H | **Live** | `/categories/party-games`; 18 evergreen links; breadcrumb: Party Activities |
 | `birthday-party` | Birthday Party | H | New | Strong existing landing page cluster |
 | `drinking-games` | Drinking Games | H | New | Adult party; careful tone |
 | `sleepover` | Sleepover | H | New | Teen/young adult overnight |
@@ -250,6 +251,41 @@ Each category hub should eventually support **5–12 evergreen landing pages**. 
 
 **Parent pillar:** `/relationship-games`
 
+### Party Games (live hub)
+
+| Evergreen intent | Slug | Status |
+|------------------|------|--------|
+| Party Voting Game | `party-voting-game` | Live |
+| Birthday Party Game | `birthday-party-game` | Live |
+| Birthday Party Games | `birthday-party-games` | Live |
+| Sleepover Game | `sleepover-game` | Live |
+| Sleepover Games | `sleepover-games` | Live |
+| Girls Night Game | `girls-night-game` | Live |
+| Adult Party Game | `adult-party-game` | Live |
+| College Party Game | `college-party-game` | Live |
+| House Party Games | `house-party-games` | Live |
+| Games for Large Groups | `games-for-large-groups` | Live |
+| Games for Small Groups | `games-for-small-groups` | Live |
+| Games for Groups | `games-for-groups` | Live |
+| Games for College Students | `games-for-college-students` | Live |
+| Pregame Games | `pregame-games` | Live |
+| Graduation Party Games | `graduation-party-games` | Live |
+| Party Questions | `party-questions` | Live |
+| Games for Families | `games-for-families` | Live |
+| Baby Shower Games | `baby-shower-games` | Live |
+
+**Hub coverage today:** 18 live pages linked on `/categories/party-games`. No new landing routes in Phase 28 Sprint 1.
+
+**Search intent:** Navigational and discovery hub for the party-games cluster — birthdays, sleepovers, game nights, and group hangouts.
+
+**Conversion role:** Routes visitors to specific playable pages and `/#create-game`; not a drinking-only or adult-content destination.
+
+**Parent pillar:** `/party-games`
+
+**Breadcrumb decision:** Home → Party Games (pillar) → Party Activities (category hub) — avoids duplicate visible labels while keeping pillar/category architecture distinct.
+
+**Parent section heading:** “Browse the complete Party Games guide” when category and pillar titles match (reusable template logic).
+
 ### Birthday Party (new hub)
 
 | Evergreen intent | Slug | Status |
@@ -278,7 +314,7 @@ Each category hub should eventually support **5–12 evergreen landing pages**. 
 |-------|---------|-----------------|
 | Homepage | 1 | 1 |
 | Pillars + supplemental hubs | 8 | 8–10 |
-| Category hubs | 1 | 35–45 |
+| Category hubs | 4 | 35–45 |
 | Evergreen landing pages | ~100 | 120–140 |
 | Game pages (dynamic) | — | excluded from index |
 
@@ -495,7 +531,7 @@ Execution order aligned with Phase numbering. Each sprint assumes prior sprint c
 | **Phase 24** | Sprint 2 | First high-priority hubs: Coworkers, Couples, Most Likely To |
 | **Phase 25** | Sprint 1 | Registry + routes for 3 hubs; hub copy; sitemap entries |
 | **Phase 25** | Sprint 2 | First 10 evergreen gap pages for Phase B hubs |
-| **Phase 26** | Sprint 1 | **Couples Category Hub** live at `/categories/couples` ✅ |
+| **Phase 28** | Sprint 1 | **Party Games Category Hub** live at `/categories/party-games` ✅ |
 | **Phase 26** | Sprint 2 | Search Console indexing review; CTR pass on hub pages |
 | **Phase 27** | Sprint 1 | Phase C hubs batch 1 (8 hubs) |
 | **Phase 27** | Sprint 2 | Phase C hubs batch 2 + remaining evergreen gaps |

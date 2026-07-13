@@ -255,6 +255,125 @@ export const CATEGORY_HUB_CONTENT: Record<string, CategoryHubContent> = {
     ctaLabel: "Create a couples game",
     ctaAriaLabel: "Create a free couples game on FriendRank",
   },
+  "party-games": {
+    heroTitle: "Party Games",
+    breadcrumbTitle: "Party Activities",
+    metaTitle: "Party Games for Birthdays, Sleepovers and Groups | FriendRank",
+    metaDescription:
+      "Explore free browser party games, anonymous voting rounds, icebreakers, and group challenges for birthdays, sleepovers, game nights, and friends.",
+    schemaDescription:
+      "Free browser party games with anonymous voting for birthdays, sleepovers, college gatherings, game nights, and casual group hangouts — no app download required.",
+    introduction: [
+      "Party games are quick group activities where friends vote on prompts, pick roles, and reveal results together — at birthdays, sleepovers, game nights, or any casual hangout where you want something fun without a long setup.",
+      "FriendRank runs in the browser: one person creates a game, shares a single link, and everyone joins from their phone. Votes stay private until the group reveal, so the focus stays on the shared laugh rather than who picked what.",
+      "Whether the group is in the same room, on a video call, or split between couch and kitchen, party games work the same way — no app download, no account required for players, and a new round ready in minutes when the group wants to keep going.",
+    ],
+    useCases: {
+      title: "When to use party games",
+      items: [
+        {
+          title: "Birthday parties",
+          description:
+            "Open gifts, eat cake, then run a short voting round before energy fades. Light prompts give guests something to react to together without turning the party into a structured game night.",
+        },
+        {
+          title: "Sleepovers",
+          description:
+            "When the group is already together and conversation loops, a phone-based voting game gives everyone a shared activity — including quieter friends who might not jump into open debate.",
+        },
+        {
+          title: "College gatherings",
+          description:
+            "Dorm rooms and house parties need something fast that works on phones. One link in the group chat and everyone votes before results unlock together in the room.",
+        },
+        {
+          title: "House parties",
+          description:
+            "Not everyone knows each other at a house party. Anonymous voting rounds help mixed groups find common ground through humor before the night gets too fragmented.",
+        },
+        {
+          title: "Family game nights",
+          description:
+            "Families use party games when they want something lighter than a board game marathon. Browser play means grandparents and teens join the same way — from their own phones.",
+        },
+        {
+          title: "Large groups",
+          description:
+            "FriendRank scales from a handful of people to bigger circles because everyone votes from their own device. Large groups get the same reveal moment without passing a single phone around.",
+        },
+      ],
+    },
+    benefits: {
+      title: "Why FriendRank works for parties",
+      items: [
+        {
+          title: "No app download",
+          description:
+            "Guests join from any phone browser. No app store trip and no account required for players — share one link and start voting.",
+        },
+        {
+          title: "One shared invite link",
+          description:
+            "The host creates a game once and drops the link in a group chat, text thread, or party QR code. Everyone joins the same room.",
+        },
+        {
+          title: "Anonymous voting, shared reveal",
+          description:
+            "Votes stay private on each phone until the group is ready. Results appear together — enough structure for parties without putting anyone on the spot.",
+        },
+        {
+          title: "Free to start",
+          description:
+            "Create a party game at no cost, invite your group, and reveal results together. Run another round anytime the mood is right.",
+        },
+      ],
+    },
+    exploreGamesTitle: "Explore party games",
+    faq: [
+      {
+        question: "What are party games?",
+        answer:
+          "Party games are short group activities where friends vote on prompts or roles from their phones and reveal results together. They work for birthdays, sleepovers, game nights, and casual hangouts when you want something playful without a long setup.",
+      },
+      {
+        question: "Can I play FriendRank at a birthday party?",
+        answer:
+          "Yes. Create a game, share the link with guests, and let everyone vote from their phone before you reveal results together. Most groups finish a round in five to fifteen minutes.",
+      },
+      {
+        question: "Does everyone need to download an app?",
+        answer:
+          "No. FriendRank runs entirely in the browser. The host shares one link and guests join and vote from any phone — no app store and no signup required for players.",
+      },
+      {
+        question: "How many people can play?",
+        answer:
+          "FriendRank works for small groups and larger parties because everyone votes from their own device. There is no need to pass one phone around the room.",
+      },
+      {
+        question: "Are votes anonymous?",
+        answer:
+          "Yes. Individual votes stay private on each phone until the group reveal. Only the combined results appear together.",
+      },
+      {
+        question: "Can remote groups play together?",
+        answer:
+          "Yes. Share the game link in your video-call chat or group thread. Everyone votes from their own device and sees results unlock at the same time — useful for hybrid parties or friends who could not make it in person.",
+      },
+      {
+        question: "How long does setup take?",
+        answer:
+          "Most hosts finish setup in under a minute: create a game, share the link, and wait for guests to join. Voting and the reveal usually take five to fifteen minutes depending on how many rounds you run.",
+      },
+      {
+        question: "Is FriendRank free to start?",
+        answer:
+          "Yes. You can create a party game for free, share the link with your group, and play without a subscription or per-player fee.",
+      },
+    ],
+    ctaLabel: "Create a party game",
+    ctaAriaLabel: "Create a free party game on FriendRank",
+  },
 };
 
 export function getCategoryHubContent(slug: string): CategoryHubContent {

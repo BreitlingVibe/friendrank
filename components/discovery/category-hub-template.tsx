@@ -124,7 +124,10 @@ export function CategoryHubTemplate({ model }: CategoryHubTemplateProps) {
     content.additionalPagesTitle ?? "More to explore";
 
   const parentSectionTitle = discovery.parentPillar
-    ? buildCategoryHubParentSectionTitle(discovery.parentPillar.title)
+    ? buildCategoryHubParentSectionTitle(
+        discovery.parentPillar.title,
+        category.title,
+      )
     : null;
 
   return (

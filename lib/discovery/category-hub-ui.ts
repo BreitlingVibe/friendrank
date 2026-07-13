@@ -1,6 +1,16 @@
 /** Reusable presentation copy and helpers for category hub templates. */
 
-export function buildCategoryHubParentSectionTitle(pillarTitle: string): string {
+export function buildCategoryHubParentSectionTitle(
+  pillarTitle: string,
+  categoryTitle?: string,
+): string {
+  if (
+    categoryTitle &&
+    categoryTitle.trim().toLowerCase() === pillarTitle.trim().toLowerCase()
+  ) {
+    return `Browse the complete ${pillarTitle} guide`;
+  }
+
   return `Explore more ${pillarTitle}`;
 }
 

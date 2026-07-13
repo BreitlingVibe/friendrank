@@ -106,10 +106,14 @@ Topics sort by **opportunity score descending**, then content completeness ascen
 
 Example output order (illustrative — run `npm run opportunities` for current values):
 
-1. Party Games — many live pages, few category hubs, pillar cards coming soon  
+1. Party Games — category hub now live at `/categories/party-games` (run `npm run opportunities` for current scores)  
 2. Audience Games — broad cluster, no pillar, many occasion pages  
 3. Icebreaker Games — supplemental hub exists, category layer thin  
 4. …
+
+### Future backlog (do not ship from engine recommendation alone)
+
+**Entertainment Games topic:** The keyword-cluster topic maps to `/question-games` as parent pillar. Review this mapping and cluster boundaries before building any production hub from that recommendation — entertainment and question intents overlap and the parent assignment may not reflect the best mid-layer architecture.
 
 ---
 

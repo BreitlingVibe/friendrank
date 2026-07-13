@@ -18,7 +18,7 @@ export function buildCategoryHubBreadcrumbItems(
   }
 
   items.push({
-    name: model.category.title,
+    name: model.content.breadcrumbTitle ?? model.category.title,
     path: getCategoryHubPath(model.category.slug),
     position: items.length + 1,
   });

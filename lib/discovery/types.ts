@@ -90,6 +90,8 @@ export type CategoryHubContent = {
   additionalPagesTitle?: string;
   /** Optional H1 override; defaults to category.title when omitted. */
   heroTitle?: string;
+  /** Optional breadcrumb label when category.title duplicates the parent pillar. */
+  breadcrumbTitle?: string;
 };
 
 export type CategoryHubViewModel = {
