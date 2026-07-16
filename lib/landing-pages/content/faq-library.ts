@@ -266,43 +266,44 @@ export const GROUP_VOTING_FAQ: LandingPageFaqItem[] = [
 /** @see FAQ_VERSION */
 export const PARTY_VOTING_FAQ: LandingPageFaqItem[] = [
   {
-    question: "Does this work for birthday parties?",
+    question: "Is this a good party game?",
     answer:
-      "Yes. Create a game with the friend group, share the link at the party, and reveal results together.",
+      "Yes. It is built for birthdays, celebrations, and casual hangouts — quick setup, funny prompts, and a shared reveal everyone can react to.",
   },
   {
-    question: "Is it good for college parties?",
+    question: "Can we play during birthdays?",
     answer:
-      "Yes. Friends vote on their phones from the room or the group chat. No app install needed.",
+      "Yes. Create the party voting game, share one link with the guest list, and reveal results together at the party.",
   },
   {
-    question: "Can we use it for game night?",
+    question: "Can we play at game night?",
     answer:
-      "Yes. It is a quick side activity between rounds or a fun opener when everyone arrives.",
+      "Yes. Use it as a quick opener when people arrive or as a side round between other games.",
   },
   {
-    question: "Do we need drinking for this to be fun?",
-    answer: "No. FriendRank is funny on its own. Drinks optional.",
+    question: "Does everyone need a phone?",
+    answer:
+      "Each person votes from their own phone or browser. Guests can also share a device if needed.",
   },
   {
-    question: "Is it family friendly?",
+    question: "Can we play without downloading anything?",
     answer:
-      "You control the tone and custom questions. Pick Wholesome or Funny for lighter party vibes.",
+      "Yes. It is browser-based. Share one link and play — no app install.",
   },
   {
-    question: "Is voting anonymous?",
+    question: "Is it good for large groups?",
     answer:
-      "Yes. The group sees winners and story results, not individual ballots.",
+      "Add two to eight names per game. For bigger parties, run a round with a smaller circle or start a fresh game for the next group.",
   },
   {
-    question: "How fast can we start?",
+    question: "How long does one round take?",
     answer:
-      "Under a minute to create. Share the link and friends vote in a few taps each.",
+      "Most groups create a game in under a minute and finish voting in a few minutes once everyone has the link.",
   },
   {
-    question: "Can we share results after the party?",
+    question: "Can we replay multiple rounds?",
     answer:
-      "Yes. Results stay on the same link and include a shareable card for the group chat.",
+      "Yes. Create a new party voting game anytime with fresh names or prompts. The previous link stays available for viewing results.",
   },
 ];
 

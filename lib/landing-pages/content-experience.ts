@@ -180,6 +180,13 @@ export function refineIntroCopy(input: {
     };
   }
 
+  if (input.slug === "party-voting-game") {
+    return {
+      intentLead: undefined,
+      intentSummary: input.intentSummary,
+    };
+  }
+
   const { heroSubtitle, intentSummary, searchIntent, intentCategory, audience, title } =
     input;
   const intentForLead: IntentDefinition = {

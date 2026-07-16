@@ -244,6 +244,10 @@ function buildPersonalityHeroSubtitle(
     return "This is a free anonymous online voting game for friends and groups. Everyone joins with one link, votes privately in the browser on phones or desktop, and results are revealed together — no download.";
   }
 
+  if (slug === "party-voting-game") {
+    return "This is a browser-based party voting game where friends vote on funny prompts during birthdays, game nights, and parties. Share one link, play on phones, and reveal results together — no download.";
+  }
+
   const game = titleLower(intent);
   const audience = audienceSnippet(intent);
   const hub = primaryHubTitle(slug);
@@ -395,6 +399,17 @@ function buildCtaCopy(intent: IntentDefinition): ContentVariationCta {
       finalSubtitle:
         "Share one link, vote privately, and reveal results together — browser-based for phones and desktop.",
       finalButtonLabel: "Start an anonymous voting game",
+    };
+  }
+
+  if (intent.slug === "party-voting-game") {
+    return {
+      primaryLabel: "Start a party voting game",
+      midPageLabel: "Start a party voting game",
+      finalTitle: "Ready to start your party voting game?",
+      finalSubtitle:
+        "Share one link at the birthday, game night, or celebration and let everyone vote from their phones.",
+      finalButtonLabel: "Start a party voting game",
     };
   }
 

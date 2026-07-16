@@ -366,5 +366,13 @@ export function buildLandingPageContentQuality(
     };
   }
 
+  if (slug === "party-voting-game") {
+    return {
+      ...base,
+      enhancedIntentLead:
+        "A browser-based party voting game for birthdays, game nights, and celebrations: one shared link, phone voting, and a group reveal when the room is ready.",
+    };
+  }
+
   return base;
 }

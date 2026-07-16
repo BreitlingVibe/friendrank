@@ -276,14 +276,14 @@ export const GROUP_VOTING_AUDIENCE = {
 /** @see AUDIENCE_VERSION */
 export const PARTY_VOTING_AUDIENCE = {
   heroSubtitle:
-    "Make every party more fun with anonymous voting. Add your friends, share one link, vote on funny roles, and reveal the results together.",
+    "This is a browser-based party voting game where friends vote on funny prompts during birthdays, game nights, and parties. Share one link, play on phones, and reveal results together — no download.",
   playImmediatelyBody:
-    "Create a game before the party or on the spot. Share the link at the table or in the group chat and let votes roll in while everyone hangs out.",
+    "Create the party voting game before guests arrive or on the spot. Share one link at the table or in the group chat, let everyone vote from their phones, and reveal the results together when the room is ready.",
   exampleQuestionsIntro:
-    "Need inspiration? Here are party voting questions that get laughs fast.",
+    "Need inspiration? Here are party voting prompts that land at birthdays, game nights, and casual hangouts.",
   finalCtaTitle: "Start your party voting game",
   finalCtaSubtitle:
-    "Free, mobile-friendly, and ready before the party gets going.",
+    "One shared link, phone-friendly play, and a group reveal — ready before the celebration gets going.",
 } as const;
 
 /** @see AUDIENCE_VERSION */

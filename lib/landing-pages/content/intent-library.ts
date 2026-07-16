@@ -175,11 +175,11 @@ export const PARTY_VOTING_INTENT = {
   metaTitle: "Party Voting Game | Fun Group Vote for Parties | FriendRank",
   metaDescription:
     "Create a party voting game for your group. Anonymous votes, funny roles, and shareable results for birthdays, game nights, and college parties.",
-  h1: "Party Voting Game for Groups",
+  h1: "Party Voting Game for Birthdays and Game Nights",
   intentSummaryTitle: "What is a party voting game?",
   intentSummary:
-    "A party voting game gives your group something quick and funny to do together. FriendRank lets everyone vote on their phone while the party is going. Pick categories like who starts dancing first or who has the loudest laugh, collect anonymous votes, and unlock shareable results for the room or the group chat. Works with or without drinks, and fine for mixed-age friend groups.",
-  whyFriendRankTitle: "Why FriendRank works at parties",
+    "A party voting game is a browser party game for birthdays, game nights, celebrations, sleepovers, and casual friend gatherings. One person creates the game, shares one link, and everyone votes on funny prompts from their phones while the party is happening. Results unlock on the same link so the room can react together — no app download, no accounts, and nothing that feels like a survey or election. It is built for parties and hangouts, not workplace polls.",
+  whyFriendRankTitle: "Why this party voting game works at celebrations",
   exampleQuestionsTitle: "Popular party voting questions",
   faqTitle: "Party voting game FAQ",
   schemaDescription:
