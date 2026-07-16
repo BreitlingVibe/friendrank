@@ -178,44 +178,44 @@ export const FRIENDSHIP_TEST_FAQ: LandingPageFaqItem[] = [
 /** @see FAQ_VERSION */
 export const ANONYMOUS_VOTING_FAQ: LandingPageFaqItem[] = [
   {
-    question: "Is voting anonymous?",
+    question: "Is this a free anonymous voting game online?",
     answer:
-      "Yes. Friends vote without signing in. The group sees aggregated winners and story-style results, not individual ballots.",
+      "Yes. FriendRank is free in the browser. Create an anonymous voting game, share one link, and play with friends or groups — no signup required.",
   },
   {
-    question: "Can players see who voted for them?",
+    question: "How does anonymous group voting work with one link?",
     answer:
-      "No. FriendRank shows category winners and group narrative results. It does not reveal who picked whom.",
+      "Add names, share the game link, and everyone votes privately on their own device. When enough votes are in, the same link unlocks results for the whole group.",
+  },
+  {
+    question: "Can we play an anonymous voting game on phones and desktop?",
+    answer:
+      "Yes. It runs in the browser on phones, tablets, and desktop. Friends can join from whatever device they already have open.",
+  },
+  {
+    question: "Do we need to download an app?",
+    answer:
+      "No. FriendRank is browser-based. Share one link and vote without installing anything.",
+  },
+  {
+    question: "Is this for friends, or is it election or survey software?",
+    answer:
+      "It is a private voting game for friends and groups — funny roles and shared reveals, not elections, business surveys, or employee engagement tools.",
   },
   {
     question: "When are results revealed?",
     answer:
-      "Results unlock after enough friends vote. Then anyone with the link can open it and view together.",
+      "Results unlock after enough friends vote. Then anyone with the link can open it and view the reveal together.",
   },
   {
-    question: "Do players need accounts?",
+    question: "How many people can join?",
     answer:
-      "No. The host creates a game and shares the link. Voters open it and tap through five questions.",
+      "Add two to eight names when you create the game. Each person can vote once from their device.",
   },
   {
-    question: "How many people can vote?",
+    question: "Can we play in WhatsApp, Discord, or iMessage?",
     answer:
-      "Add two to eight names when you create the game. Each friend can vote once from their device.",
-  },
-  {
-    question: "Can I use this in a group chat?",
-    answer:
-      "Yes. Paste the game link in WhatsApp, iMessage, Discord, or any chat app.",
-  },
-  {
-    question: "Does it work on mobile?",
-    answer:
-      "Yes. FriendRank is built for the mobile browser. No install required.",
-  },
-  {
-    question: "Is the game link private?",
-    answer:
-      "The link is unlisted. Anyone with the URL can vote, so share it only with your group.",
+      "Yes. Paste the link in any group chat. Everyone opens it, votes privately, and comes back for the shared reveal.",
   },
 ];
 

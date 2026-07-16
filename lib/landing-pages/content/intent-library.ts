@@ -122,10 +122,10 @@ export const ANONYMOUS_VOTING_INTENT = {
   h1: "Anonymous Voting Game for Friends",
   intentSummaryTitle: "What is an anonymous voting game?",
   intentSummary:
-    "An anonymous voting game lets a group pick winners for fun categories without exposing individual ballots. FriendRank handles the whole flow: add friend names, share one link, everyone votes on their phone, and results unlock when enough votes are in. No accounts, no app download, and no public record of who voted for whom.",
-  whyFriendRankTitle: "Why FriendRank for anonymous group voting",
+    "An anonymous online voting game is a private voting game for friends and groups — not elections or surveys. You add names, share one link, and everyone votes anonymously in the browser on a phone or desktop. Ballots stay private, results unlock on the same link, and the group reveals funny roles together with no account and no download. It works for anonymous group voting, anonymous friend voting, and any hangout where people want honest picks without calling each other out.",
+  whyFriendRankTitle: "Why this anonymous voting game works for friends",
   exampleQuestionsTitle: "Popular anonymous voting questions",
-  faqTitle: "Anonymous voting FAQ",
+  faqTitle: "Anonymous voting game FAQ",
   schemaDescription:
     "Create an anonymous voting game for friends with FriendRank. Share one link, vote privately, unlock group results and funny roles. No signup required.",
   ctaLocation: "landing_anonymous_voting_game" as const,

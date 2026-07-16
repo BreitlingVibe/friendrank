@@ -358,5 +358,13 @@ export function buildLandingPageContentQuality(
     };
   }
 
+  if (slug === "anonymous-voting-game") {
+    return {
+      ...base,
+      enhancedIntentLead:
+        "A free anonymous online voting game for friends and groups: one shared link, private votes, and a group reveal when everyone is ready.",
+    };
+  }
+
   return base;
 }

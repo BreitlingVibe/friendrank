@@ -173,6 +173,13 @@ export function refineIntroCopy(input: {
     };
   }
 
+  if (input.slug === "anonymous-voting-game") {
+    return {
+      intentLead: undefined,
+      intentSummary: input.intentSummary,
+    };
+  }
+
   const { heroSubtitle, intentSummary, searchIntent, intentCategory, audience, title } =
     input;
   const intentForLead: IntentDefinition = {

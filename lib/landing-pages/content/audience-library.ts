@@ -250,14 +250,14 @@ export const FRIENDSHIP_TEST_AUDIENCE = {
 /** @see AUDIENCE_VERSION */
 export const ANONYMOUS_VOTING_AUDIENCE = {
   heroSubtitle:
-    "Run a private vote with your friend group. No signup, one shared link, and results unlock after everyone votes.",
+    "This is a free anonymous online voting game for friends and groups. Everyone joins with one link, votes privately in the browser on phones or desktop, and results are revealed together — no download.",
   playImmediatelyBody:
-    "Create a game on FriendRank, add your group, and share the link. Friends vote in private and you reveal the results together when the vote count is met.",
+    "Create the game, share one link with your friends or group, and let everyone vote privately from a phone or desktop browser. When enough votes are in, open the same link and reveal the results together — no app download.",
   exampleQuestionsIntro:
-    "Need inspiration? Here are fun questions your group can vote on anonymously.",
-  finalCtaTitle: "Start your anonymous voting game",
+    "Need inspiration? Here are fun prompts for anonymous group voting and private friend voting.",
+  finalCtaTitle: "Start a free anonymous voting game",
   finalCtaSubtitle:
-    "Free, private voting for friend groups. Ready to share in under a minute.",
+    "One link, private votes, shared reveal. Ready for friends and groups in under a minute.",
 } as const;
 
 /** @see AUDIENCE_VERSION */

@@ -240,6 +240,10 @@ function buildPersonalityHeroSubtitle(
     return "Run a free online voting game with your group. Everyone joins through one link, votes privately on their phone, and reveals results together — no app download.";
   }
 
+  if (slug === "anonymous-voting-game") {
+    return "This is a free anonymous online voting game for friends and groups. Everyone joins with one link, votes privately in the browser on phones or desktop, and results are revealed together — no download.";
+  }
+
   const game = titleLower(intent);
   const audience = audienceSnippet(intent);
   const hub = primaryHubTitle(slug);
@@ -380,6 +384,17 @@ function buildCtaCopy(intent: IntentDefinition): ContentVariationCta {
       finalSubtitle:
         "Create a group voting game, share one link, and let everyone vote from their phones.",
       finalButtonLabel: "Start an online voting game",
+    };
+  }
+
+  if (intent.slug === "anonymous-voting-game") {
+    return {
+      primaryLabel: "Start an anonymous voting game",
+      midPageLabel: "Start an anonymous voting game",
+      finalTitle: "Ready to start a free anonymous voting game?",
+      finalSubtitle:
+        "Share one link, vote privately, and reveal results together — browser-based for phones and desktop.",
+      finalButtonLabel: "Start an anonymous voting game",
     };
   }
 
