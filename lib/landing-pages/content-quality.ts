@@ -374,5 +374,13 @@ export function buildLandingPageContentQuality(
     };
   }
 
+  if (slug === "most-likely-to-generator") {
+    return {
+      ...base,
+      enhancedIntentLead:
+        "A Most Likely To generator creates a playable group game: add friends, share one link, vote on classic prompts, and reveal results together.",
+    };
+  }
+
   return base;
 }

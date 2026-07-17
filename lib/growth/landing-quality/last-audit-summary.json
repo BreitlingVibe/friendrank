@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T14:16:04.556Z",
+  "generatedAt": "2026-07-17T07:59:45.447Z",
   "pagesAnalyzed": 101,
   "verifiedIssueCount": 0,
   "importantHumanReviewCount": 8,
@@ -13,15 +13,15 @@
       "recommendation": "Active experiment — do not modify relevant metadata or experimental copy."
     },
     {
-      "slug": "team-introduction-game",
-      "path": "/team-introduction-game",
+      "slug": "icebreaker-game",
+      "path": "/icebreaker-game",
       "score": 93,
       "recommendation": "Review overlap with another page"
     },
     {
-      "slug": "new-friends-game",
-      "path": "/new-friends-game",
-      "score": 95,
+      "slug": "classroom-icebreaker",
+      "path": "/classroom-icebreaker",
+      "score": 93,
       "recommendation": "Review overlap with another page"
     }
   ],

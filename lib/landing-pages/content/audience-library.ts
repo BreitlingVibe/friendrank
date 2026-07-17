@@ -198,14 +198,14 @@ export const MEETING_ICEBREAKER_AUDIENCE = {
 /** @see AUDIENCE_VERSION */
 export const MOST_LIKELY_TO_AUDIENCE = {
   heroSubtitle:
-    'Create a hilarious "Most Likely To" game in under a minute. Add your friends, share one link, let everyone vote anonymously, then reveal the funniest results together.',
+    "Create a Most Likely To game for your friends, share one link, vote from any phone, and reveal who the group chose — no app download.",
   playImmediatelyBody:
-    "Head to the FriendRank homepage, add your group, and paste in any Most Likely To prompts you like. You will get a share link in under a minute.",
+    "Create the game on FriendRank, add your friends, optionally paste up to three custom Most Likely To prompts, and share one link. Everyone votes in the browser, then results unlock together.",
   exampleQuestionsIntro:
-    'Need inspiration? Here are some of the funniest "Most Likely To" questions to play with your friends.',
-  finalCtaTitle: "Make your Most Likely To game",
+    "Need inspiration? Here are classic Most Likely To prompts your group can vote on in a live game.",
+  finalCtaTitle: "Create your Most Likely To game",
   finalCtaSubtitle:
-    "Free, works on any phone, and ready to share in under a minute.",
+    "Free, browser-based, and ready to share in under a minute.",
 } as const;
 
 /** @see AUDIENCE_VERSION */

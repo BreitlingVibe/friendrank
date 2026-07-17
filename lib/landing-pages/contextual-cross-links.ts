@@ -16,6 +16,11 @@ export const CONTEXTUAL_CROSS_LINKS: Record<string, ContextualCrossLink> = {
     href: "/group-voting-game",
     label: "Try the group voting game",
   },
+  "most-likely-to-generator": {
+    prefix: "Looking for prompt ideas?",
+    href: "/most-likely-to-questions",
+    label: "Browse Most Likely To questions",
+  },
 };
 
 export function getContextualCrossLink(

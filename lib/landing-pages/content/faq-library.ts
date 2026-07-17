@@ -4,44 +4,44 @@ import { FAQ_VERSION } from "@/lib/landing-pages/content/version";
 /** @see FAQ_VERSION */
 export const MOST_LIKELY_TO_FAQ: LandingPageFaqItem[] = [
   {
-    question: "Is this a free Most Likely To generator?",
+    question: "What is a Most Likely To generator?",
     answer:
-      "Yes. FriendRank is free at friendrank.app. Create a game, share the link, and play with your group.",
+      "It creates a free, playable Most Likely To game for your friend group — not a static question list. You add names, share one link, vote, and reveal results together.",
   },
   {
-    question: "Can we play without creating an account?",
+    question: "Does FriendRank generate a playable game or only questions?",
     answer:
-      "Yes. No sign-up, email, or password. The host creates a game and shares the link.",
+      "A playable game. FriendRank sets up voting, collects private votes, and unlocks shared results. For prompt ideas alone, see the Most Likely To questions page.",
   },
   {
-    question: "Can I create my own Most Likely To questions?",
+    question: "How do friends join the game?",
     answer:
-      "Yes. Enter up to three custom prompts when you create a game. FriendRank fills the rest with defaults.",
+      "Share the one game link in your group chat. Friends open it on their phone or browser and vote — no account needed.",
   },
   {
-    question: "Is voting anonymous?",
+    question: "Can I customize the Most Likely To prompts?",
     answer:
-      "Votes are private to each person. The group only sees aggregated winners and story-style results.",
+      "Yes. Enter up to three custom prompts when you create the game. FriendRank fills the rest with defaults.",
   },
   {
-    question: "How many friends can join a Most Likely To game?",
+    question: "Do we need to download an app?",
     answer:
-      "Add two to eight names when you create the game. Results unlock after enough friends vote.",
+      "No. It is browser-based. Share the link and play without installing anything.",
   },
   {
-    question: "Does it work on mobile?",
+    question: "Are votes private?",
     answer:
-      "Yes. Share the link in any chat app and friends vote on their phones. No install needed.",
+      "Yes. Each person votes privately. The group sees winners and story-style results, not who picked whom.",
   },
   {
-    question: "When do results show up?",
+    question: "When are results revealed?",
     answer:
-      "After enough friends vote, results unlock on the same link for everyone to view together.",
+      "After enough friends vote, results unlock on the same link so everyone can view them together.",
   },
   {
-    question: "Who is this for?",
+    question: "How many people can play?",
     answer:
-      "Friend groups, parties, college groups, Discord servers, couples, icebreakers, and casual hangouts.",
+      "Add two to eight names when you create the game. Each person can vote once from their device.",
   },
 ];
 

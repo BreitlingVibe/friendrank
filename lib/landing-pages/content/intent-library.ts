@@ -14,8 +14,8 @@ export const MOST_LIKELY_TO_INTENT = {
   h1: "Most Likely To Generator for Friends",
   intentSummaryTitle: "What is a Most Likely To generator?",
   intentSummary:
-    'A Most Likely To generator turns classic "most likely to" prompts into a live voting game for your friend group. With FriendRank, you add names, share one link, and everyone votes on their phone. When enough friends have voted, results unlock with ranked winners and a group story you can share back to the chat. No app download. No account needed.',
-  whyFriendRankTitle: "Why FriendRank works for Most Likely To",
+    'A Most Likely To generator creates a playable online Most Likely To game for friends — not a static question list. You add names, optionally customize a few prompts, share one link, and everyone votes from their phone or browser. When enough friends have voted, results unlock with ranked winners and a group story you can share back to the chat. No app download. No account needed.',
+  whyFriendRankTitle: "Why this Most Likely To generator works for friends",
   exampleQuestionsTitle: "Popular Most Likely To Questions",
   faqTitle: "Most Likely To game FAQ",
   schemaDescription:

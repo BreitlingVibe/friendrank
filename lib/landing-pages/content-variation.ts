@@ -248,6 +248,10 @@ function buildPersonalityHeroSubtitle(
     return "This is a browser-based party voting game where friends vote on funny prompts during birthdays, game nights, and parties. Share one link, play on phones, and reveal results together — no download.";
   }
 
+  if (slug === "most-likely-to-generator") {
+    return 'Create a Most Likely To game for your friends, share one link, vote from any phone, and reveal who the group chose — no app download.';
+  }
+
   const game = titleLower(intent);
   const audience = audienceSnippet(intent);
   const hub = primaryHubTitle(slug);
@@ -410,6 +414,17 @@ function buildCtaCopy(intent: IntentDefinition): ContentVariationCta {
       finalSubtitle:
         "Share one link at the birthday, game night, or celebration and let everyone vote from their phones.",
       finalButtonLabel: "Start a party voting game",
+    };
+  }
+
+  if (intent.slug === "most-likely-to-generator") {
+    return {
+      primaryLabel: "Create a Most Likely To game",
+      midPageLabel: "Create a Most Likely To game",
+      finalTitle: "Ready to create your Most Likely To game?",
+      finalSubtitle:
+        "Add friends, share one link, vote on classic prompts, and reveal who the group chose.",
+      finalButtonLabel: "Create a Most Likely To game",
     };
   }
 
