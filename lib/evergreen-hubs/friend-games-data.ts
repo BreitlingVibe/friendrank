@@ -216,6 +216,7 @@ export const friendGamesPillar: EvergreenPillarPageData = {
     { href: "/icebreaker-games", label: "Icebreaker games guide" },
     { href: "/team-building-games", label: "Team building games hub" },
     { href: "/most-likely-to-generator", label: "Most Likely To generator" },
+    { href: "/group-voting-game", label: "Online voting game for groups" },
   ],
   faqTitle: "Friend games FAQ",
   faq: [

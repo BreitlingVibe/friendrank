@@ -175,6 +175,7 @@ export const anonymousVotingGamesHub: EvergreenHubPageData = {
     { href: "/friend-games", label: "Friend games hub" },
     { href: "/party-games", label: "Party games hub" },
     { href: "/anonymous-voting-game", label: "Anonymous voting game" },
+    { href: "/group-voting-game", label: "Online voting game for groups" },
     { href: "/icebreaker-game", label: "Icebreaker game" },
     { href: "/team-building-game", label: "Team building game" },
     { href: "/most-likely-to-generator", label: "Most Likely To generator" },

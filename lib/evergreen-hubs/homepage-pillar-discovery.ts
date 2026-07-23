@@ -26,7 +26,7 @@ export const HOMEPAGE_PILLAR_CARDS: HomepagePillarCard[] = [
     childLinks: [
       { label: "Browser party games", href: "/browser-party-games" },
       { label: "Anonymous voting games", href: "/anonymous-voting-games" },
-      { label: "Icebreaker games", href: "/icebreaker-games" },
+      { label: "Party voting game", href: "/party-voting-game" },
     ],
   },
   {
@@ -87,5 +87,6 @@ export const HOMEPAGE_POPULAR_WAYS_TO_PLAY: HomepagePopularPlayChip[] = [
   { label: "Icebreakers", href: "/icebreaker-games" },
   { label: "Anonymous voting", href: "/anonymous-voting-games" },
   { label: "Most Likely To", href: "/most-likely-to-generator" },
+  { label: "Online voting game", href: "/group-voting-game" },
   { label: "No-download games", href: "/browser-party-games" },
 ];

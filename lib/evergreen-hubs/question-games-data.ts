@@ -217,6 +217,7 @@ export const questionGamesPillar: EvergreenPillarPageData = {
     { href: "/icebreaker-games", label: "Icebreaker games guide" },
     { href: "/browser-party-games", label: "Browser party games guide" },
     { href: "/would-you-rather-friends", label: "Would You Rather for friends" },
+    { href: "/group-voting-game", label: "Online voting game for groups" },
   ],
   faqTitle: "Question games FAQ",
   faq: [
