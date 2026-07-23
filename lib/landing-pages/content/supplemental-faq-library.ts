@@ -6,8 +6,34 @@ import {
 import { getClustersBySlug } from "@/lib/landing-pages/planning/keyword-clusters";
 import { getIntentBySlug } from "@/lib/landing-pages/planning/intent-registry";
 
-const TARGET_MAX_FAQ = 12;
-const TARGET_MIN_FAQ = 10;
+/** Soft floor: only then inject universal fallbacks. */
+const TARGET_MIN_FAQ = 6;
+/** Hard cap for enriched FAQ sections. */
+const TARGET_MAX_FAQ = 10;
+
+/**
+ * Lightweight topic keys for near-duplicate detection.
+ * Not NLP — keyword buckets that catch common FAQ overlaps.
+ */
+type FaqTopic =
+  | "setup_time"
+  | "mobile_compat"
+  | "no_app"
+  | "privacy_votes"
+  | "accounts"
+  | "customize"
+  | "player_count"
+  | "results_timing"
+  | "group_chat"
+  | "work_suitable"
+  | "remote_play"
+  | "replay"
+  | "live_from_prompts"
+  | "party_fit"
+  | "icebreaker_fit"
+  | "relationship_fit"
+  | "friendship_fit"
+  | "poll_vs_game";
 
 const UNIVERSAL_SUPPLEMENTAL_FAQ: LandingPageFaqItem[] = [
   {
@@ -134,42 +160,193 @@ const QUESTIONS_CLUSTER_FAQ: LandingPageFaqItem[] = [
   },
 ];
 
-/** Merges page FAQs with shared supplemental items up to 10–12 total. */
-export function enrichLandingPageFaq(
-  slug: string,
-  baseFaq: LandingPageFaqItem[],
-): LandingPageFaqItem[] {
-  const intent = getIntentBySlug(slug);
-  const extras: LandingPageFaqItem[] = [...UNIVERSAL_SUPPLEMENTAL_FAQ];
+/** Maps a FAQ question to coarse topic buckets for near-duplicate skipping. */
+export function getFaqTopics(question: string): Set<FaqTopic> {
+  const q = question.toLowerCase();
+  const topics = new Set<FaqTopic>();
 
-  if (intent?.intentCategory) {
-    extras.push(...(CATEGORY_SUPPLEMENTAL_FAQ[intent.intentCategory] ?? []));
+  if (
+    /how long|set\s*up|setup|under a minute|how fast|take to (set|create|start)/.test(
+      q,
+    )
+  ) {
+    topics.add("setup_time");
+  }
+  if (
+    /download|install|\bapp\b/.test(q) &&
+    /need|require|without|no |do we|does/.test(q)
+  ) {
+    topics.add("no_app");
+  }
+  if (
+    /iphone|android|mobile|tablet|works on (any )?phone|play on (phones|mobile)/.test(
+      q,
+    )
+  ) {
+    topics.add("mobile_compat");
+  }
+  if (
+    /anonymous|private (ballot|vote)|host see|who voted|individual votes|see who voted|ballots?/.test(
+      q,
+    )
+  ) {
+    topics.add("privacy_votes");
+  }
+  if (/account|sign[\s-]?up|sign in|log ?in|password/.test(q)) {
+    topics.add("accounts");
+  }
+  if (/custom(ize|ise)?|own (questions|prompts)|add (my |custom )?/.test(q)) {
+    topics.add("customize");
+  }
+  if (/how many (people|friends|players)|player limit|join/.test(q)) {
+    topics.add("player_count");
+  }
+  if (/when (do|are) results|results (unlock|show|reveal)|revealed/.test(q)) {
+    topics.add("results_timing");
+  }
+  if (/group chat|whatsapp|imessage|discord|slack|teams/.test(q)) {
+    topics.add("group_chat");
+  }
+  if (/work meeting|workplace|appropriate for work|office/.test(q)) {
+    topics.add("work_suitable");
+  }
+  if (/remote (coworker|team|play)|video call/.test(q)) {
+    topics.add("remote_play");
+  }
+  if (/reuse|replay|multiple rounds|again later|new game anytime/.test(q)) {
+    topics.add("replay");
+  }
+  if (/live voting game|turn these prompts|prompts into/.test(q)) {
+    topics.add("live_from_prompts");
+  }
+  if (/good for part(y|ies)|start of a party|mixed friend groups/.test(q)) {
+    topics.add("party_fit");
+  }
+  if (/icebreaker|do not know each other|new group finish/.test(q)) {
+    topics.add("icebreaker_fit");
+  }
+  if (/couples play|double dates|awkward/.test(q) && /date|couple/.test(q)) {
+    topics.add("relationship_fit");
+  }
+  if (/solo friendship quiz|better than a solo/.test(q)) {
+    topics.add("friendship_fit");
+  }
+  if (/group poll|different from a (group )?poll/.test(q)) {
+    topics.add("poll_vs_game");
   }
 
-  if (getClustersBySlug(slug).some((cluster) => cluster.id === "questions")) {
-    extras.push(...QUESTIONS_CLUSTER_FAQ);
+  return topics;
+}
+
+function questionKey(question: string): string {
+  return question.toLowerCase().trim();
+}
+
+function topicsCovered(items: LandingPageFaqItem[]): Set<FaqTopic> {
+  const covered = new Set<FaqTopic>();
+  for (const item of items) {
+    for (const topic of getFaqTopics(item.question)) {
+      covered.add(topic);
+    }
   }
+  return covered;
+}
 
-  const seen = new Set(baseFaq.map((item) => item.question.toLowerCase()));
-  const merged = [...baseFaq];
+function overlapsCoveredTopics(
+  candidate: LandingPageFaqItem,
+  covered: Set<FaqTopic>,
+): boolean {
+  const topics = getFaqTopics(candidate.question);
+  if (topics.size === 0) {
+    return false;
+  }
+  for (const topic of topics) {
+    if (covered.has(topic)) {
+      return true;
+    }
+  }
+  return false;
+}
 
-  for (const item of extras) {
-    if (merged.length >= TARGET_MAX_FAQ) {
+function appendUniqueFaqs(
+  merged: LandingPageFaqItem[],
+  seen: Set<string>,
+  covered: Set<FaqTopic>,
+  candidates: LandingPageFaqItem[],
+  max: number,
+): void {
+  for (const item of candidates) {
+    if (merged.length >= max) {
       break;
     }
 
-    const key = item.question.toLowerCase();
+    const key = questionKey(item.question);
     if (seen.has(key)) {
+      continue;
+    }
+    if (overlapsCoveredTopics(item, covered)) {
       continue;
     }
 
     merged.push(item);
     seen.add(key);
+    for (const topic of getFaqTopics(item.question)) {
+      covered.add(topic);
+    }
+  }
+}
+
+/**
+ * Merges page FAQs with category/cluster supplements, then universal fallbacks.
+ *
+ * Priority: page-specific → category/cluster (intent gaps) → universal (only if under min).
+ * Caps at {@link TARGET_MAX_FAQ}. Skips exact and lightweight semantic near-duplicates.
+ */
+export function enrichLandingPageFaq(
+  slug: string,
+  baseFaq: LandingPageFaqItem[],
+): LandingPageFaqItem[] {
+  const intent = getIntentBySlug(slug);
+  const seen = new Set<string>();
+  const merged: LandingPageFaqItem[] = [];
+
+  for (const item of baseFaq) {
+    const key = questionKey(item.question);
+    if (seen.has(key)) {
+      continue;
+    }
+    merged.push(item);
+    seen.add(key);
+  }
+
+  const covered = topicsCovered(merged);
+
+  const categoryExtras =
+    (intent?.intentCategory
+      ? CATEGORY_SUPPLEMENTAL_FAQ[intent.intentCategory]
+      : undefined) ?? [];
+
+  appendUniqueFaqs(merged, seen, covered, categoryExtras, TARGET_MAX_FAQ);
+
+  if (getClustersBySlug(slug).some((cluster) => cluster.id === "questions")) {
+    appendUniqueFaqs(merged, seen, covered, QUESTIONS_CLUSTER_FAQ, TARGET_MAX_FAQ);
   }
 
   if (merged.length < TARGET_MIN_FAQ) {
-    return merged;
+    appendUniqueFaqs(
+      merged,
+      seen,
+      covered,
+      UNIVERSAL_SUPPLEMENTAL_FAQ,
+      TARGET_MAX_FAQ,
+    );
   }
 
   return merged.slice(0, TARGET_MAX_FAQ);
 }
+
+/** Exported for audits and tests. */
+export const FAQ_ENRICHMENT_LIMITS = {
+  min: TARGET_MIN_FAQ,
+  max: TARGET_MAX_FAQ,
+} as const;
