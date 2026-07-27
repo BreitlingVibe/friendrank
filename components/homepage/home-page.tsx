@@ -367,7 +367,7 @@ export default function Home() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400 sm:text-xl">
-            Create hilarious voting games for friends, parties and teams.
+            Create anonymous voting games for friends, parties and teams.
           </p>
 
           <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
@@ -379,7 +379,7 @@ export default function Home() {
               }}
               className="relative w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-xl shadow-violet-600/30 ring-1 ring-violet-400/35 transition duration-200 hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/45 hover:ring-violet-400/55 active:scale-[0.99] motion-reduce:active:scale-100 sm:w-auto sm:min-w-[220px]"
             >
-              Start the Chaos
+              Create your game
             </button>
             <button
               type="button"
@@ -389,7 +389,7 @@ export default function Home() {
               }}
               className="w-full rounded-full border border-white/5 bg-transparent px-8 py-3.5 text-sm font-medium text-slate-500 transition duration-200 hover:border-white/10 hover:bg-white/[0.03] hover:text-slate-300 sm:w-auto"
             >
-              See FriendRank categories ↓
+              Explore game types ↓
             </button>
           </div>
 
