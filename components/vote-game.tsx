@@ -10,6 +10,7 @@ type VoteGameProps = {
   isSubmitting?: boolean;
   submitError?: string | null;
   onVoteComplete?: (votes: string[]) => void;
+  onVotingStarted?: () => void;
   onInviteMoreFriends?: () => void;
   onViewDemoResults?: () => void;
 };
@@ -21,6 +22,7 @@ export function VoteGame({
   isSubmitting = false,
   submitError = null,
   onVoteComplete,
+  onVotingStarted,
   onInviteMoreFriends,
   onViewDemoResults,
 }: VoteGameProps) {
@@ -46,6 +48,8 @@ export function VoteGame({
 
   function handleSelect(friend: string) {
     if (selectedFriend || isComplete || disabled || isSubmitting) return;
+
+    onVotingStarted?.();
 
     const isLastQuestion = votes.length >= totalQuestions - 1;
 

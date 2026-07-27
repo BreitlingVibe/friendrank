@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GameSampleQuestions } from "@/components/game-sample-questions";
 import { GameSummary } from "@/components/game-summary";
 import { GameVotingSection } from "@/components/game-voting-section";
+import { trackCreateOwnGameClicked, trackGamePageOpened } from "@/lib/analytics";
 import type { GeneratedGame } from "@/lib/game-build";
 import type { AggregatedCategoryResult } from "@/lib/votes/aggregate";
 import type { VoteProgress } from "@/lib/votes/types";
@@ -30,6 +31,10 @@ export function GamePageBody({
 }: GamePageBodyProps) {
   const [progress, setProgress] = useState(initialProgress);
 
+  useEffect(() => {
+    trackGamePageOpened(shareCode);
+  }, [shareCode]);
+
   return (
     <>
       <GameSummary
@@ -53,6 +58,9 @@ export function GamePageBody({
       <div className="mt-8 text-center">
         <Link
           href="/"
+          onClick={() => {
+            trackCreateOwnGameClicked({ location: "post_game" });
+          }}
           className="inline-flex rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-semibold transition hover:bg-white/15"
         >
           Create your own FriendRank

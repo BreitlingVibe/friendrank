@@ -14,6 +14,10 @@ import {
   useResultsCascade,
 } from "@/components/friend-rank-results-cascade";
 import { useClarityReplaySafeMode } from "@/hooks/use-clarity-replay-safe-mode";
+import {
+  trackRevealCompleted,
+  trackRevealStarted,
+} from "@/lib/analytics";
 import { generateRevealSequence } from "@/lib/narrative/generators/reveal-sequence";
 import type { NarrativeContext } from "@/lib/narrative/types";
 import { DEFAULT_REVEAL_SEQUENCE } from "@/lib/reveal/sequence";
@@ -23,6 +27,8 @@ import { usePrefersReducedMotion } from "@/lib/reveal/use-prefers-reduced-motion
 type FriendRankResultsWithRevealProps = {
   children: ReactNode;
   narrativeContext: NarrativeContext;
+  /** Used only for sessionStorage analytics dedupe — never sent to GA4. */
+  gameSessionKey: string;
   sequence?: RevealSequenceConfig;
 };
 
@@ -103,6 +109,7 @@ function RevealShell({
 export function FriendRankResultsWithReveal({
   children,
   narrativeContext,
+  gameSessionKey,
   sequence,
 }: FriendRankResultsWithRevealProps) {
   const revealSequence = useMemo(
@@ -125,6 +132,14 @@ export function FriendRankResultsWithReveal({
   }, []);
 
   useEffect(() => {
+    if (!hydrated || skipRevealAnimations) {
+      return;
+    }
+
+    trackRevealStarted(gameSessionKey);
+  }, [hydrated, skipRevealAnimations, gameSessionKey]);
+
+  useEffect(() => {
     if (hydrated && skipRevealAnimations) {
       setRevealFinished(true);
       setShowResults(true);
@@ -140,6 +155,11 @@ export function FriendRankResultsWithReveal({
 
     setShowResults(true);
   }, [revealFinished, skipRevealAnimations]);
+
+  function handleRevealComplete() {
+    trackRevealCompleted(gameSessionKey);
+    setRevealFinished(true);
+  }
 
   function handleResultsTransitionEnd(
     event: React.TransitionEvent<HTMLDivElement>,
@@ -180,7 +200,7 @@ export function FriendRankResultsWithReveal({
           revealFinished={revealFinished}
           hideOverlay={hideOverlay}
           onResultsTransitionEnd={handleResultsTransitionEnd}
-          onRevealComplete={() => setRevealFinished(true)}
+          onRevealComplete={handleRevealComplete}
           onOverlayTransitionEnd={() => {
             if (revealFinished) {
               setHideOverlay(true);

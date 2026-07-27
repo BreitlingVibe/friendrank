@@ -14,6 +14,7 @@ import { buildNarrativeContext } from "@/lib/narrative/context";
 import {
   trackResultsUnlocked,
   trackVoteSubmitted,
+  trackVotingStarted,
 } from "@/lib/analytics";
 import type { GeneratedGame } from "@/lib/game-build";
 import { getOrCreateVoterToken } from "@/lib/voter-token";
@@ -217,6 +218,12 @@ export function GameVotingSection({
               isSubmitting={isSubmitting}
               submitError={submitError}
               onVoteComplete={handleVoteComplete}
+              onVotingStarted={() => {
+                trackVotingStarted(shareCode, {
+                  question_count: game.questions.length,
+                  friend_count: game.friends.length,
+                });
+              }}
             />
           </div>
         </div>
@@ -245,7 +252,10 @@ export function GameVotingSection({
           )}
 
           {aggregatedResults && narrativeContext && (
-            <FriendRankResultsWithReveal narrativeContext={narrativeContext}>
+            <FriendRankResultsWithReveal
+              narrativeContext={narrativeContext}
+              gameSessionKey={shareCode}
+            >
               <FriendRankResultsView
                 game={game}
                 aggregatedResults={aggregatedResults}

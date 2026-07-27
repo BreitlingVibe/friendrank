@@ -35,6 +35,25 @@ function setSessionFlag(key: string) {
   sessionStorage.setItem(key, "1");
 }
 
+/** sessionStorage key only — never send gameSessionKey to GA4. */
+function gameScopedSessionKey(eventName: string, gameSessionKey: string): string {
+  return `friendrank_ga_${eventName}:${gameSessionKey}`;
+}
+
+function trackOncePerGameSession(
+  eventName: string,
+  gameSessionKey: string,
+  params?: GaEventParams,
+) {
+  const flagKey = gameScopedSessionKey(eventName, gameSessionKey);
+  if (hasSessionFlag(flagKey)) {
+    return;
+  }
+
+  setSessionFlag(flagKey);
+  trackEvent(eventName, params);
+}
+
 export type GameCreationStartedParams = {
   friend_count: number;
   selected_tone: string;
@@ -103,6 +122,54 @@ export type ResultsUnlockedParams = {
 
 export function trackResultsUnlocked(params: ResultsUnlockedParams) {
   trackEvent("results_unlocked", params);
+}
+
+/**
+ * Game page successfully loaded. gameSessionKey is for sessionStorage dedupe only —
+ * never sent to GA4.
+ */
+export function trackGamePageOpened(gameSessionKey: string) {
+  trackOncePerGameSession("game_page_opened", gameSessionKey);
+}
+
+export type VotingStartedParams = {
+  question_count: number;
+  friend_count: number;
+};
+
+/**
+ * First live voting selection. gameSessionKey is for sessionStorage dedupe only —
+ * never sent to GA4.
+ */
+export function trackVotingStarted(
+  gameSessionKey: string,
+  params: VotingStartedParams,
+) {
+  trackOncePerGameSession("voting_started", gameSessionKey, params);
+}
+
+/**
+ * Cinematic reveal began. gameSessionKey is for sessionStorage dedupe only —
+ * never sent to GA4.
+ */
+export function trackRevealStarted(gameSessionKey: string) {
+  trackOncePerGameSession("reveal_started", gameSessionKey);
+}
+
+/**
+ * Cinematic reveal finished. gameSessionKey is for sessionStorage dedupe only —
+ * never sent to GA4.
+ */
+export function trackRevealCompleted(gameSessionKey: string) {
+  trackOncePerGameSession("reveal_completed", gameSessionKey);
+}
+
+export type CreateOwnGameClickedParams = {
+  location: "post_game";
+};
+
+export function trackCreateOwnGameClicked(params: CreateOwnGameClickedParams) {
+  trackEvent("create_own_game_clicked", params);
 }
 
 export function trackSharePreview() {
