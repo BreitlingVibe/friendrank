@@ -74,10 +74,18 @@ export const MIN_GROUP_FRIENDS = 2;
 
 export function parseEnteredGroupNames(input: string): string[] {
   return input
-    .split(",")
+    .split(/[,\r\n]+/)
     .map((name) => name.trim())
     .filter(Boolean)
     .slice(0, 8);
+}
+
+/** Hint when space-separated names look like multiple people but parsed as one. */
+export function shouldHintFriendNameSeparators(input: string): boolean {
+  const names = parseEnteredGroupNames(input);
+  if (names.length !== 1) return false;
+  if (/[,\r\n]/.test(input)) return false;
+  return /\S\s+\S/.test(input.trim());
 }
 
 export function parseGroupNames(input: string): string[] {

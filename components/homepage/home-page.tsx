@@ -19,6 +19,7 @@ import {
   MAX_VIBE_TAGS,
   parseGroupNames,
   parseEnteredGroupNames,
+  shouldHintFriendNameSeparators,
   MIN_GROUP_FRIENDS,
   tones,
   VIBE_TAGS,
@@ -45,6 +46,13 @@ const inputClassName =
 
 const chipBase =
   "rounded-full border px-3.5 py-2 text-sm font-medium transition-all duration-200 ease-out motion-reduce:transition-none active:scale-[0.97]";
+
+const TONE_HELPERS: Record<Tone, string> = {
+  Funny: "Light teasing for most groups.",
+  "Savage but friendly": "Spicier digs that still stay friendly.",
+  Wholesome: "Warm, kind prompts for safer groups.",
+  Chaotic: "Unhinged energy for bold friend groups.",
+};
 
 function isQuestionStyleDefaultCategory(category: FriendRankCategory): boolean {
   return /^most\b/i.test(category.label);
@@ -460,6 +468,11 @@ export default function Home() {
                       {enteredFriends.join(", ")}
                     </p>
                   )}
+                  {shouldHintFriendNameSeparators(groupNames) && (
+                    <p className="mt-1 text-xs text-amber-400/90">
+                      Separate names with commas or new lines.
+                    </p>
+                  )}
                   {!hasEnoughFriends && enteredFriends.length > 0 && (
                     <p className="mt-1 text-xs text-amber-400/90">
                       Add one more name — you need at least 2 friends to play.
@@ -470,7 +483,6 @@ export default function Home() {
                 <FormSection
                   title="Choose game tone"
                   description="How bold the voting questions should feel."
-                  required
                 >
                   <label htmlFor="tone" className="sr-only">
                     Game tone
@@ -490,6 +502,9 @@ export default function Home() {
                       </option>
                     ))}
                   </select>
+                  <p className="mt-2.5 text-xs text-slate-500">
+                    {TONE_HELPERS[tone]}
+                  </p>
                 </FormSection>
 
                 <div className="rounded-2xl border border-pink-500/15 bg-gradient-to-br from-pink-500/[0.06] via-slate-900/20 to-violet-500/[0.04] p-5 sm:p-6">
@@ -504,10 +519,7 @@ export default function Home() {
                       </p>
                     </div>
                     <p className="shrink-0 text-[11px] text-slate-600">
-                      <span aria-hidden="true" className="text-emerald-500/70">
-                        ●
-                      </span>{" "}
-                      Updates as you customize
+                      Preview of your game
                     </p>
                   </div>
 
@@ -643,7 +655,13 @@ export default function Home() {
                     disabled={isSavingGame || !hasEnoughFriends}
                     className="w-full rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 px-8 py-4 text-base font-semibold shadow-xl shadow-violet-600/30 ring-1 ring-violet-400/35 transition duration-200 hover:from-violet-500 hover:to-cyan-500 hover:shadow-violet-500/45 hover:ring-violet-400/55 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:ring-0 motion-reduce:active:scale-100"
                   >
-                    {isSavingGame ? "Creating your game..." : "Create game"}
+                    {isSavingGame
+                      ? "Creating your game..."
+                      : !hasEnoughFriends
+                        ? enteredFriends.length === 1
+                          ? "Add one more friend"
+                          : "Add 2 friends to continue"
+                        : "Create game"}
                   </button>
 
                   {saveGameError && (
