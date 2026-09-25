@@ -47,7 +47,7 @@ export function HomepageGameCreatedPanel({
       await navigator.clipboard.writeText(
         getInviteLinkText(shareCode, window.location.origin),
       );
-      trackInviteCopied({ game_id: shareCode });
+      trackInviteCopied();
       setInviteCopied(true);
       setTimeout(() => setInviteCopied(false), 2000);
     } catch {

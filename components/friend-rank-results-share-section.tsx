@@ -10,6 +10,7 @@ import {
 import {
   trackShareDownloaded,
   trackSharePreview,
+  trackShareResults,
   trackShareShared,
 } from "@/lib/analytics";
 import type { ResultsPresentation } from "@/lib/results/presentation";
@@ -174,11 +175,13 @@ export function FriendRankResultsShareSection({
 
     if (result.status === "shared") {
       trackShareShared();
+      trackShareResults({ share_method: "native" });
       scheduleShareReset("shared");
       return;
     }
 
     if (result.status === "fallback") {
+      trackShareResults({ share_method: "fallback" });
       showFallbackMessage(result.message);
       scheduleShareReset("fallback");
       return;

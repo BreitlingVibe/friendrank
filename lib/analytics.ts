@@ -9,7 +9,22 @@ const SESSION_KEYS = {
   creationAbandoned: "friendrank_ga_creation_abandoned",
 } as const;
 
-type GaEventParams = Record<string, string | number | boolean>;
+type GaEventValue = string | number | boolean;
+type GaEventParams = Record<string, GaEventValue>;
+
+function compactEventParams(
+  params: Record<string, GaEventValue | undefined>,
+): GaEventParams {
+  const next: GaEventParams = {};
+
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined) {
+      next[key] = value;
+    }
+  }
+
+  return next;
+}
 
 function trackEvent(eventName: string, params?: GaEventParams) {
   if (!isProduction) {
@@ -71,13 +86,16 @@ export function trackGameCreationStarted(params: GameCreationStartedParams) {
 
 export type GameCreatedParams = {
   friend_count: number;
+  participant_count: number;
   tone: string;
   custom_categories_used: boolean;
   category_count: number;
+  /** Closed-enum vibe tag or tone — never free-text or names. */
+  category?: string;
 };
 
 export function trackGameCreated(params: GameCreatedParams) {
-  trackEvent("game_created", params);
+  trackEvent("game_created", compactEventParams(params));
 }
 
 export type GameCreationAbandonedParams = {
@@ -98,30 +116,40 @@ export function trackGameCreationAbandoned(params: GameCreationAbandonedParams) 
   trackEvent("game_creation_abandoned", params);
 }
 
-export type InviteCopiedParams = {
-  game_id: string;
-};
-
-export function trackInviteCopied(params: InviteCopiedParams) {
-  trackEvent("invite_link_copied", params);
+export function trackInviteCopied() {
+  trackEvent("invite_link_copied");
 }
 
 export type VoteSubmittedParams = {
   question_index: number;
   question_count: number;
+  /** Closed-enum vibe tag or tone — never free-text, names, or question copy. */
+  category?: string;
 };
 
 export function trackVoteSubmitted(params: VoteSubmittedParams) {
-  trackEvent("vote_submitted", params);
+  trackEvent("vote_submitted", compactEventParams(params));
 }
 
 export type ResultsUnlockedParams = {
   friend_count: number;
+  participant_count: number;
   vote_count: number;
 };
 
-export function trackResultsUnlocked(params: ResultsUnlockedParams) {
-  trackEvent("results_unlocked", params);
+/**
+ * Results became unlocked and visible. gameSessionKey is for sessionStorage
+ * dedupe only — never sent to GA4.
+ */
+export function trackResultsUnlocked(
+  gameSessionKey: string,
+  params: ResultsUnlockedParams,
+) {
+  trackOncePerGameSession(
+    "results_unlocked",
+    gameSessionKey,
+    compactEventParams(params),
+  );
 }
 
 /**
@@ -182,6 +210,14 @@ export function trackShareDownloaded() {
 
 export function trackShareShared() {
   trackEvent("share_card_shared");
+}
+
+export type ShareResultsParams = {
+  share_method: "native" | "fallback";
+};
+
+export function trackShareResults(params: ShareResultsParams) {
+  trackEvent("share_results", params);
 }
 
 export function trackCopyShareText() {

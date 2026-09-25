@@ -140,8 +140,9 @@ export function GameVotingSection({
     }
 
     resultsUnlockedTrackedRef.current = true;
-    trackResultsUnlocked({
+    trackResultsUnlocked(shareCode, {
       friend_count: game.friends.length,
+      participant_count: game.friends.length,
       vote_count: progress.voteCount,
     });
   }, [
@@ -149,6 +150,7 @@ export function GameVotingSection({
     game.friends.length,
     progress.isUnlocked,
     progress.voteCount,
+    shareCode,
   ]);
 
   async function handleVoteComplete(choices: string[]) {
@@ -180,6 +182,7 @@ export function GameVotingSection({
     trackVoteSubmitted({
       question_index: game.questions.length - 1,
       question_count: game.questions.length,
+      category: game.vibeTags[0] ?? game.tone,
     });
 
     if (result.progress.isUnlocked) {

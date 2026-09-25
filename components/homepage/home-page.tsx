@@ -337,11 +337,13 @@ export default function Home() {
     markGameCreationCompleted();
     trackGameCreated({
       friend_count: friends.length,
+      participant_count: friends.length,
       tone,
       custom_categories_used: customCategories.some(
         (category) => category.trim().length > 0,
       ),
       category_count: game.categories.length,
+      category: selectedVibeTags[0] ?? tone,
     });
   }
 
